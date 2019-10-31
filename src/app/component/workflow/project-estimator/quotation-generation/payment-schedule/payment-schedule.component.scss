@@ -1,0 +1,28 @@
+
+.paymentScheduleWrap{
+    max-width: 700px;
+}
+.paymentScheduleWrap .taxes{
+    width: 80px;
+}
+.paymentScheduleWrap .calculateSection{
+    margin: 40px auto 60px;
+}
+.error-msg{
+    display: block;
+}
+.calculateSection .error-msg{
+    margin-left: 44px;
+}
+.closeIcon{
+    position: absolute;
+    left: 0px;
+    cursor: pointer;
+}
+.dateIcon{
+    cursor: pointer;
+}
+
+.treaRadioBtn{
+	margin: 0 0 15px 0;
+}

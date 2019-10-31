@@ -1,0 +1,44 @@
+<div class="dispatchSection">
+    <h1 class="pageTitle">Dispatch</h1>
+    <div class="row">
+        <div class="col-sm-12">
+            <nav class="tabbed-nav MT20">
+                <ul class="tabs-list">
+                    <li class="tabs">
+                        <button [ngClass]="dispatchTab == 'all' ? 'act-option' :''" (click)="changeDispatchTab('all')"
+                            mat-raised-button class="trea-btn">All</button>
+                    </li>
+                    <li class="tabs">
+                        <button [ngClass]="{ 'disable' : isWoDisableTab == '1', 'act-option' : dispatchTab == 'work-orders' }" (click)="changeDispatchTab('work-orders')"
+                            mat-raised-button class="trea-btn">Work Orders</button>
+                    </li>
+                    <li class="tabs">
+                        <button [ngClass]="{ 'disable' : isStaffDisableTab == '1', 'act-option' : dispatchTab == 'staff' }" (click)="changeDispatchTab('staff')"
+                            mat-raised-button class="trea-btn">Staff</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+
+<div [ngSwitch]="dispatchTab">
+    <div *ngSwitchCase="'all'">
+        <app-dispatch-all></app-dispatch-all>
+    </div>
+
+    <div *ngSwitchCase="'work-orders'">
+        <app-dispatch-wo></app-dispatch-wo>
+    </div>
+
+    <div *ngSwitchCase="'staff'">
+        <app-dispatch-staff></app-dispatch-staff>
+    </div>
+</div>
+
+
+
+
+

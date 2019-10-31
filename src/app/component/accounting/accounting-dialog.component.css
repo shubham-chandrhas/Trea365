@@ -1,0 +1,165 @@
+.dialog{ width: 350px; position: relative; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: 0px;
+  top: 0px;
+  cursor: pointer;
+}
+.dialog .loc-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+}
+.dialog-hdr{ text-align: center;font-weight:700; font-size: 16px; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+
+/* .trea-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  min-width: 80px;
+  padding: 0 8px;
+}
+.trea-btn:focus{
+  outline: none;
+}
+.trea-btn:hover{
+  color: #505050!important;
+  background-color: #FFCB36!important;
+} */
+
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ 
+  font-weight: 600; 
+  font-size: 14px; 
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+
+.dailogContainer {
+  width: 100%;
+}
+/* .modbtnWrap {
+  text-align: center;
+}
+.modbtnWrap .reviewBtn, 
+.modbtnWrap .cancelBtn{
+  margin-left: 30px;
+} */
+
+.searchWrap {
+  width: 100%;
+}
+#imaginary_container {
+  margin-bottom: 25px;
+}
+.searchBtn {
+  float: left;
+  width: 25%;
+  font-size: 14px;
+  padding: 8px;
+  background: #3aa69b;
+  border-radius: 0px;
+  border: none;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.stylish-input-group .input-group-addon{
+  background: white !important; 
+}
+.stylish-input-group .form-control{
+  box-shadow: none;
+  border-color:#ccc;
+  border-left: 0;
+}
+.stylish-input-group button{
+  border:0;
+  background:transparent;
+}
+.searchModHead {text-align: left;}
+
+.searchItems .checkBox .iconChk {
+  width: 25px;
+  height: 25px;
+}
+.searchItems .checkBox span {
+  margin-right: 15px;
+}
+.searchItems {
+  border: 1px solid #ccc;
+  height: 300px;
+  overflow-y: auto;
+}
+.searchTotal {
+  font-weight: 700; 
+}
+.searchModalFoot {
+  margin-top: 15px;
+}
+.splitQuaBtn {
+  width: 200px;
+  text-align: center;
+}
+.splitTxtIn {float: left; width: 75%;}
+.splitSearchWrap {margin-top: 25px;}
+.splitOutOf {float: left; margin: 5px;}
+
+.productFormWrap .formBody .treaRadioBtn{
+  display: inline-block;
+  margin-right: 20px;
+}
+.productFormWrap .formBody .treaRadioBtn label{
+  font-weight: normal;
+}
+.productFormWrap .formBody .treaRadioBtn [type="radio"]:checked + label:after, 
+.productFormWrap .formBody .treaRadioBtn [type="radio"]:not(:checked) + label:after{
+  top: 5px;
+}
+.productFormWrap .formBody .treaRadioBtn [type="radio"]:checked + label:before, 
+.productFormWrap .formBody .treaRadioBtn [type="radio"]:not(:checked) + label:before{
+  top: 2px;
+}
+.productFormWrap .form-group label{
+  font-weight: normal;
+  padding-top: 0px;
+}
+.dialog .dialog-hdr,
+.productFormWrap .formBody{
+    margin-bottom: 20px;
+}

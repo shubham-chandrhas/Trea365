@@ -1,0 +1,377 @@
+<div class="locationsWrap">
+   <div class="location-section">
+      <h1 class="pageTitle">Locations</h1>
+      <p class="page-summary">All fixed and mobile locations where company inventory can be stored.</p>
+
+      <div class="trea-welcome" *ngIf="locationList.length == 0  && onBoarding">
+            <h4>There are no Locations yet.</h4>
+            <p class="textJustified">
+                Locations include all of the places within your company where work is done or inventory is stored. This can include fixed locations such as offices, warehouses, greenhouses, and lots, or mobile locations, such as service vans and trailers. Each location can have subdivisions, upto 4 levels deep. Also, scannable barcodes and locations tags will be generated for each location for easy recognition.
+            </p>
+            <p class="textJustified">
+                Locations will be listed here when an authorized user has created one.
+            </p>
+            <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createLocations">
+              <p class="remarks">Start defining your fixed locations (you must add Assets before defining mobile locations):
+                </p>  
+              <button 
+                mat-raised-button
+                class="trea-btn"
+                type="button"
+                (click)="newLocation()"
+              >
+               Create a Location
+              </button>
+            </div>
+            <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createLocations">
+                <p class="note">Please contact an administrator who can add Location</p> 
+            </div>          
+        </div>
+
+      <div class="head-row clearfix" *ngIf="locationList.length != 0">
+         <div class="search-section">
+            <div class="input-group">
+               <span class="search-icn" id="basic-addon1">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+               </span>
+               <input autocomplete="nope" [(ngModel)]="searchList" type="text" (ngModelChange)="getSearchTxt(searchList)" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+               <button mat-raised-button class="client-btn" (click)="searchTxt = searchList">Search</button>
+            </div>
+         </div>
+         <div class="add-client newPurhaseBtnWrap">
+            <div class="dropdown addNewEmp clientBtn">
+                <button *ngIf="util.getRole() == 1 || util.getRole() == 2 || permissionsSet.exportLocation" mat-raised-button class="client-btn dropdown-toggle" type="button" data-toggle="dropdown">Export
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)" class="client-btn" (click)="exportLocAsPdf()">Export as PDF</a></li>
+                    <li><a href="javascript:void(0)" class="client-btn" (click)="exportLocAsCSV()">Export as CSV</a></li>
+                </ul>
+            </div>
+            <button *ngIf="util.getRole() == 2 || permissionsSet.createLocations" mat-raised-button class="client-btn" type="button" (click)="newLocation()">New Location
+            </button>
+         </div>
+      </div>
+      <div class="clearfix"></div>
+      <div>
+         <div class="trea-data-table" *ngIf="locationList.length != 0">
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th>
+                        <div class="table-hdr">
+                           <div>
+                              <span>Main Location</span>
+                              <span (click)="sortColumn = 'location_name';sortColumnType = 'A';sortOrder = sortColumn === 'location_name' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                 <i [ngClass]=" sortColumn == 'location_name' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                           </div>
+                           <div>
+                              <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="nameSearch">
+                           </div>
+                        </div>
+                     </th>
+                     <th>
+                        <div class="bdr-left table-hdr">
+                           <div>
+                              <span>Tag Form</span>
+                              <span (click)="sortColumn = 'short_form';sortColumnType = 'A';sortOrder = sortColumn === 'short_form' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                 <i [ngClass]=" sortColumn == 'short_form' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                           </div>
+                           <div>
+                              <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="shortFormSearch">
+                           </div>
+                        </div>
+                     </th>
+                     <th>
+                        <div class="bdr-left table-hdr">
+                           <div>
+                              <span>Location Type</span>
+                              <span (click)="sortColumn = 'location_type';sortColumnType = 'A';sortOrder = sortColumn === 'location_type' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                 <i [ngClass]=" sortColumn == 'location_type' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                           </div>
+                           <div>
+                              <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="typeSearch">
+                           </div>
+                        </div>
+                     </th>
+                     <th>
+                        <div class="bdr-left table-hdr">
+                           <div>
+                              <span>Address</span>
+                              <span (click)="sortColumn = 'address';sortColumnType = 'A';sortOrder = sortColumn === 'address' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                 <i [ngClass]=" sortColumn == 'address' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                           </div>
+                           <div>
+                              <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="addressSearch">
+                           </div>
+                        </div>
+                     </th>
+                     <th>
+                        <div class="bdr-left table-hdr">
+                           <div>
+                              <span>Asset</span>
+                              <span (click)="sortColumn = 'asset';sortColumnType = 'A';sortOrder = sortColumn === 'asset' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                 <i [ngClass]=" sortColumn == 'asset' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                           </div>
+                           <div>
+                              <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="assetSearch">
+                           </div>
+                        </div>
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr *ngFor="let indx=index ;let location of locationList | sortBy:sortColumn:sortOrder:sortColumnType | searchfilter:typeSearch:'location_type' | searchfilter:nameSearch:'location_name' | searchfilter:shortFormSearch:'short_form' | searchfilter:addressSearch:'address' | searchfilter:assetSearch:'asset' | searchfilter:searchTxt:'location_type,location_name,short_form,address,asset' | listLengthfilter | paginate: paginationKey"  (click)="getSelectedLoc(location, indx)" [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''">
+                     <td>
+                        <span class="dn">{{ indx == 0 ? updateCount(location.count) : ''}}</span>
+                        {{location.location_name}}
+                     </td>
+                     <td>
+                        {{location.short_form}}
+                     </td>
+                     <td>
+                        {{location.location_type}}
+                     </td>
+                     <td>
+                        <span *ngIf="location.location_type == 'Fixed'">{{location.address}}</span>
+                        <span *ngIf="location.location_type == 'Mobile'">-</span>
+                     </td>
+                     <td>
+                        <span *ngIf="location.location_type == 'Fixed'">-</span>
+                        <span *ngIf="location.location_type == 'Mobile'">{{location.asset}}</span>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+
+         <div class="treaPagination" *ngIf="locationList.length != 0 && constant.ITEM_COUNT != 0">
+            <div class="pull-right">
+               <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+            </div>
+            <div class="pull-right">
+               <select [(ngModel)]="paginationKey.itemsPerPage" (change)="util.changeItemPerPage()">
+                  <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+               </select>
+               <span> items per page</span>
+            </div>
+            <div class="pull-right">
+               <pagination-controls
+                  (pageChange)="util.changePage($event, paginationKey)"
+                  directionLinks="true"
+                  autoHide="false"
+                  previousLabel="Pre"
+                  nextLabel="Next"
+                  screenReaderPaginationLabel="Pagination"
+                  screenReaderPageLabel="page"
+                  screenReaderCurrentLabel="You're on page">
+               </pagination-controls>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+         <div class="clearfix"></div>
+
+
+
+         <!-- Selected Location -->
+         <div class="warehouseannexfixedWrap" *ngIf="selectedLoc">
+            <h2 id="locationMark" class="pageTitle">{{selectedLoc.location_name}}</h2>
+
+            <div class="selPart overflowTxt">
+               <span class="buttonsWrap">
+                  <span class="dropdown newDrop clientBtn">
+                     <button *ngIf="util.getRole() == 2 || permissionsSet.printLabels" mat-raised-button class="cBtn  dropdown-toggle" type="button" data-toggle="dropdown">Print Labels
+                     </button>
+                     <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)" (click)="printAll()" class="cBtn">Print All</a></li>
+                        <li><a href="javascript:void(0)" (click)="showPrintDialog()" class="cBtn">Print...</a></li>
+                     </ul>
+                  </span>
+                  <button *ngIf="util.getRole() == 2 || permissionsSet.deleteLocations" mat-raised-button (click)="showDeleteDialog()" class="cBtn clientBtn ML15I" type="button" data-toggle="dropdown">Delete</button>
+               </span>
+            </div>
+
+            <div class="addUserFormBody">
+               <div class="warehouseannexfixedDetails">
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <div class="row">
+                           <div class="col-sm-3">
+                              <div class="label-col">Location Type</div>
+                           </div>
+                           <div class="col-sm-9">
+                              <div class="info-col">{{selectedLoc.location_type}}</div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-3">
+                              <div class="label-col">
+                                 <span *ngIf="selectedLoc.location_type == 'Fixed'">Address</span>
+                                 <span *ngIf="selectedLoc.location_type == 'Mobile'">Asset</span>
+                              </div>
+                           </div>
+                           <div class="col-sm-9">
+                              <div class="info-col">
+                                 <span *ngIf="selectedLoc.location_type == 'Fixed'">{{util.concatenateStrings(selectedLoc.address_line2,selectedLoc.address)}}</span>
+                                 <span *ngIf="selectedLoc.location_type == 'Mobile'">{{selectedLoc.asset}}</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-3">
+                              <div class="label-col">Tag Form</div>
+                           </div>
+                           <div class="col-sm-9">
+                              <div class="info-col">{{selectedLoc.short_form}}</div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="financialslblWrap" *ngIf="selectedLoc.divisions.length > 0">
+                     <h3 class="detailsHeading MT30">Subdivisions</h3>
+
+                     <!-- <div class="row" *ngFor="let indxOut = index; let divRow of selectedLoc.divListReview">
+                        <div class="col-sm-12" *ngFor="let indxIn = index; let div of divRow.row"> -->
+                     <div class="row" *ngFor="let i = index; let div of selectedLoc.divisions">
+                        <div class="col-sm-12">
+                           <h4 class="detailsHeading MT20">Level {{div.id}}</h4>
+                           <div class="row">
+                              <div class="col-sm-3">
+                                 <div class="label-col">Division Name</div>
+                              </div>
+                              <div class="col-sm-9">
+                                 <div class="info-col">{{div.division_name}}</div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-3">
+                                 <div class="label-col">Division Type</div>
+                              </div>
+                              <div class="col-sm-9">
+                                 <div class="info-col">{{div.division_type}}</div>
+                              </div>
+                           </div>
+                           <div class="row" *ngIf="div.division_type == 'Named'">
+                              <div class="col-sm-3">
+                                 <div class="label-col">Values</div>
+                              </div>
+                              <div class="col-sm-9">
+                                 <div class="info-col">
+                                    <ul class="divValuesList">
+                                       <li *ngFor="let val of div.valArr">{{val}}</li>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row" *ngIf="div.division_type == 'Numbered'">
+                              <div class="col-sm-3">
+                                 <div class="label-col">Min</div>
+                              </div>
+                              <div class="col-sm-9">
+                                 <div class="info-col">{{div.min}}</div>
+                              </div>
+                           </div>
+                           <div class="row" *ngIf="div.division_type == 'Numbered'">
+                              <div class="col-sm-3">
+                                 <div class="label-col">Max</div>
+                              </div>
+                              <div class="col-sm-9">
+                                 <div class="info-col">{{div.max}}</div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="row marT30">
+                     <div class="col-sm-12">
+                        <div class="row">
+                           <div class="col-sm-3">
+                              <div class="label-col">Tag Format</div>
+                           </div>
+                           <div class="col-sm-9">
+                              <div class="info-col">{{selectedLoc.tagSample}}</div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-3">
+                              <div class="label-col">Scan Codes</div>
+                           </div>
+                           <div class="col-sm-9">
+                              <div class="info-col"><button *ngIf="util.getRole() == 2 || permissionsSet.editLocations" id="showTagsBtn" mat-raised-button (click)="showTagsDialog()" class="client-btn" type="button" data-toggle="dropdown">View</button></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <!-- <div class="locWrap">
+                     <div class="label-col">Location Tag Sample</div>
+
+                     <div class="info-col">{{selectedLoc.tagSample}}</div>
+                  </div -->
+               </div>
+               <div class="clearfix"></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<div class="print-area dn" id="print-all-section" *ngIf="selectedLoc && selectedLoc.tagsList">
+   <div *ngFor="let outIndx = index; let printLoc of selectedLoc.tagsList">
+      <div style="border:1px dashed;padding: 10px 20px;">
+         <div style="text-align: left;">
+            <ngx-barcode [bc-value]="printLoc.scan_code" [bc-element-type]="'img'" [bc-format]="CODE39" [bc-display-value]="true"></ngx-barcode>
+         </div>
+      </div>
+   </div>
+
+   <!-- <table style="border:1px dashed;border-collapse:collapse;">
+      <tbody>
+         <tr *ngFor="let outIndx = index; let printLoc of printAllList">
+            <td style="border:1px dashed;padding: 10px 20px;" *ngFor="let inIndx = index; let loc of printLoc.locRow">
+               <div style="text-align: center;">
+                  <ngx-barcode [bc-value]="loc.scan_code" [bc-format]="'CODE39'" [bc-display-value]="true"></ngx-barcode>
+               </div>
+            </td>
+         </tr>
+      </tbody>
+   </table> -->
+</div>
+
+
+<table id="locTbl" class="dn">
+  <tr>
+    <th>Location Type</th>
+    <th>Main Location</th>
+    <th>Short Form</th>
+    <th>Address</th>
+    <th>Asset</th>
+  </tr>
+  <tr *ngFor="let indx=index ;let location of locationList | sortBy:sortColumn:sortOrder:sortColumnType | searchfilter:typeSearch:'location_type' | searchfilter:nameSearch:'location_name' | searchfilter:shortFormSearch:'short_form' | searchfilter:addressSearch:'address' | searchfilter:assetSearch:'asset' | searchfilter:searchTxt:'location_type,location_name,short_form,address,asset'">
+    <td>
+       {{location.location_type}}
+    </td>
+    <td>
+
+       {{location.location_name}}
+    </td>
+    <td>
+      {{location.short_form}}
+    </td>
+    <td>
+       <span *ngIf="location.location_type == 'Fixed'">{{location.address}}</span>
+       <span *ngIf="location.location_type == 'Mobile'">-</span>
+    </td>
+    <td>
+       <span *ngIf="location.location_type == 'Fixed'">-</span>
+       <span *ngIf="location.location_type == 'Mobile'">{{location.asset}}</span>
+    </td>
+ </tr>
+</table>

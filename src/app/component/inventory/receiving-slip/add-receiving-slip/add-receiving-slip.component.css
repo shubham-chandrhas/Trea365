@@ -1,0 +1,144 @@
+.serPart {
+    font-weight:700;
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 25px;
+    margin-top: 50px;
+}
+
+.selPart .loc-btn {
+    width: 160px;
+}
+
+.txt-width{ max-width: 125px; }
+.ordereditemsDetails .table{
+    border-bottom: 1px solid #7E7E7E;
+}
+
+.ordereditemsDetails .table > thead > tr > th, .unlisteditemsDetails .table > thead > tr > th, .ProblemitemsDetails .table > thead > tr > th, .ProblemitemsDetails .table>tbody>tr>td{
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    padding: 8px 40px 8px 0px;
+    vertical-align:top;
+}
+.ProblemitemsDetails .table > thead > tr > th, .ProblemitemsDetails .table>tbody>tr>td{
+    padding: 8px 40px 20px 0px;
+}
+
+.ordereditemsDetails .table>tbody>tr>td img{
+    cursor: pointer;
+}
+.unlisteditemsDetails .table thead  tr th:nth-child(1){
+    width: 1%;
+    border-color: transparent;
+}
+.unlisteditemsDetails .table > tbody > tr > td{
+    border-color: transparent;
+}
+.unlisteditemsDetails .table>tbody>tr>td {
+     padding: 8px 40px 8px 0px;
+}
+.unlisteditemsDetails .table>tbody>tr>td:nth-child(1) {
+     padding:0;
+}
+.unlisteditemsDetails .table thead  tr th:nth-child(2){
+    width: 10%;
+}
+.unlisteditemsDetails .table thead tr th:nth-child(3) , .unlisteditemsDetails .table thead tr th:nth-child(4)
+{
+     width:20%;
+}
+.unlisteditemsDetails .table thead tr th:nth-child(5),.unlisteditemsDetails .table thead tr th:nth-child(6)
+{
+     width:10%;
+}
+.matPart {
+    font-weight:700;
+    font-size: 16px;
+    line-height: 30px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.newreceivingslipWrap .PaymentDetails {
+    margin: 27px 0;
+}
+
+.ordereditemsDetails .table thead  tr th:nth-child(5), .ordereditemsDetails .table>tbody>tr>td:nth-child(5), .ordereditemsDetails .table thead  tr th:nth-child(4),.ordereditemsDetails .table>tbody>tr>td:nth-child(4) {
+    width: 10%;
+    text-align: center;
+}
+
+.editSupplierbtnWrap
+{
+    margin: 50px 0px 100px;
+}
+.editSupplierbtnWrap .lgBtn {
+    margin: 0 20px 20px 20px;
+}
+
+.newreceivingslipWrap .purchaseorderDetails .margin20 {
+    margin: 20px auto;
+}
+
+.ordereditemsDetails .table tr td{
+    color: #7E7E7E;
+}
+
+.ordereditemsDetails .table>tbody>tr>td,
+.ordereditemsDetails.table>thead>tr>td{
+    padding: 8px 40px 8px 0px;
+    border-color: #7E7E7E;
+}
+
+.ordereditemsDetails .table>tfoot>tr>td {
+    font-weight:700;
+}
+
+.ordereditemsDetails .table > tbody > tr > td {
+    padding-bottom: 50px;
+}
+.problemItems .table thead  tr th:nth-child(1), .problemItems .table thead  tr th:nth-child(2){ width: 25%; }
+.problemItems .table thead  tr th:nth-child(3),.problemItems .table tbody  tr td:nth-child(3){ width: 10%;text-align: center; }
+.problemItems .table thead  tr th:nth-child(4),.problemItems .table tbody  tr td:nth-child(4){ width: 40%; text-align: left; }
+
+.editSupplierbtnWrap .lgBtn1 {
+    width: 122px;
+    font-size: 14px;
+    padding: 8px;
+    background: #3aa69b;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.newreceivingslipWrap .purchaseorderWrap{
+    width: 95%;
+    margin: 0 auto;
+}
+.newreceivingslipWrap .unlisteditemsDetails .img-responsive{
+    margin: 15px 15px;
+}
+.purchaseorderWrap .unlistedBtn .btn, .unlisteditemsDetails .table .btn{
+    background-image: url("/assets/icon/icon-16.png");
+    display: inline-block;
+    padding: 9px;
+    margin: 8px 18px 12px 0;
+}
+.newreceivingslipWrap .unlisteditemsDetails{
+    margin-right: 40px;
+}
+.actionWrap img{
+    display: inline-block;
+}
+.actionWrap{
+    /* text-align: center; */
+}
+.error-msg {
+  position: initial !important;
+}
+@media screen and (max-width: 767px) {
+    .ordereditemsDetails .table-responsive{
+        border: none;
+    }
+}

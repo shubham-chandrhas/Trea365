@@ -1,0 +1,152 @@
+<div class="inventory-section purchaseWrap">
+	<h1 class="pageTitle">Purchase Orders</h1>
+  <p class="page-summary">Inventory orders made to suppliers.</p>
+
+  <div class="trea-welcome" *ngIf="purchaseOrders.length == 0 && onBoarding">
+        <h4>There are no Purchase Orders yet.</h4>
+        <p class="textJustified">
+            Purchase Orders are records of inventory orders made to Suppliers.
+        </p>
+        <p class="textJustified">
+            Purchase Orders will be listed here when an authorized user has created one.
+        </p>
+        <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createPurchaseOrder">
+           
+          <button 
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            (click)="addNew()"
+          >
+          Create a Purchase Order
+          </button>
+          
+        </div>
+        <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createPurchaseOrder">
+            <p class="note">Please contact an administrator who can add Purchase Order</p> 
+        </div>          
+    </div>
+	<div class="head-row clearfix" *ngIf="purchaseOrders.length != 0">
+		<div class="search-section">
+			<div class="input-group">
+				<span class="search-icn" id="basic-addon1">
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</span>
+				 <input autocomplete="nope" type="text" class="form-control"  [(ngModel)]="searchList" (ngModelChange)="getSearchTxt(searchList)">
+                <button mat-raised-button class="client-btn" (click)="searchTxt = searchList">Search</button>
+			</div>
+		</div>
+		<div class="add-client newPurhaseBtnWrap">
+			<button *ngIf="util.getRole() == 2 || permissionsSet.createPurchaseOrder" mat-raised-button class="client-btn" type="button" (click)="addNew()">New Purchase Order
+			</button>
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	<div class="trea-data-table table-responsive" *ngIf="purchaseOrders.length != 0">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th width="300">
+						<div class="table-hdr">
+							<div>
+								<span>P/O No.</span>
+								<!-- (click)="sortList('title')" -->
+								<span (click)="sortList('purchase_order_no', 'N')">
+									<i [ngClass]=" sortColumn == 'purchase_order_no' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+								</span>
+							</div>
+							<div>
+								<input autocomplete="nope" [(ngModel)]="ordNumberSearch" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+							</div>
+						</div>
+					</th>
+					<th width="300">
+						<div class="bdr-left table-hdr">
+							<div>
+								<span>Date</span>
+								<!-- (click)="sortList('user_name')" -->
+								<span (click)="sortList('formatedDate', 'N')">
+									<i [ngClass]=" sortColumn == 'formatedDate' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+								</span>
+							</div>
+							<div>
+								<input autocomplete="nope" [(ngModel)]="dateSearch" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+							</div>
+						</div>
+					</th>
+					<th width="300">
+						<div class="bdr-left table-hdr">
+							<div>
+								<span>Status</span>
+								<!-- (click)="sortList('employee_id')" -->
+								<span (click)="sortList('status', 'A')">
+									<i [ngClass]=" sortColumn == 'status' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+								</span>
+							</div>
+							<div>
+								<!-- [(ngModel)]="empIdSearch" (ngModelChange)='searchEmployee(empIdSearch, "Employee ID")' -->
+								<input autocomplete="nope" [(ngModel)]="statusSearch" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+							</div>
+						</div>
+					</th>
+					<th width="300">
+						<div class="bdr-left table-hdr">
+							<div>
+								<span>Supplier</span>
+								<!-- (click)="sortList('role_name')" -->
+								<span (click)="sortList('supplier_name', 'A')">
+									<i [ngClass]=" sortColumn == 'supplier_name' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+								</span>
+							</div>
+							<div>
+								<input autocomplete="nope" [(ngModel)]="supplierSearch" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+							</div>
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let indx=index ;let order of purchaseOrders | sortBy:sortColumn:sortOrder:sortVal | searchfilter:statusSearch:'status'| searchfilter:ordNumberSearch:'purchase_order_no' | searchfilter:dateSearch:'formatedDate' | searchfilter:supplierSearch:'supplier_name' | searchfilter:searchTxt:'status,purchase_order_no,formatedDate,supplier_name' | listLengthfilter | paginate: paginationKey " (click)="selectedIndex=indx; selectPerOrdList(order, indx)" [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''" >
+					<td>{{order.purchase_order_no}}</td>
+					<td>{{order.formatedDate}}</td>
+					<td>{{order.status}}<span class="dn">{{ indx == 0 ? updateCount(order.count) : ''}}</span></td>
+					<td>{{order.supplier_name}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<div class="treaPagination" *ngIf="purchaseOrders.length != 0 && constant.ITEM_COUNT != 0">
+		<div class="pull-right">
+			<span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+		</div>
+		<div class="pull-right">
+			<select [(ngModel)]="paginationKey.itemsPerPage" (change)="changeItemPerPage()">
+				<option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+			</select>
+			<span> items per page</span>
+		</div>
+		<div class="pull-right">
+			<pagination-controls
+				(pageChange)="changePage($event)"
+				directionLinks="true"
+				autoHide="false"
+				previousLabel="Pre"
+				nextLabel="Next"
+				screenReaderPaginationLabel="Pagination"
+				screenReaderPageLabel="page"
+				screenReaderCurrentLabel="You're on page">
+			</pagination-controls>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="selSection" *ngIf="isView">
+		<app-purchase-order-review></app-purchase-order-review>
+	</div>
+</div>
+
+
+
+

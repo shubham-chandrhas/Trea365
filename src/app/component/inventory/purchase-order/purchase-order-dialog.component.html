@@ -1,0 +1,1142 @@
+
+<div class="dialog width450" *ngIf="action == 'createSuccess'">
+    <span class="close-icon" (click)="closeDialog()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
+    <div class="dialog-hdr">
+        <div>&nbsp;</div>
+    </div>
+    <div>
+        <div class="dialog-hdr dialog-txt">{{successMsg}}.</div>
+        <div class="button-row">
+            <button id="" mat-raised-button class="trea-btn" (click)="addSuccess()">Done</button>
+        </div>    
+    </div>
+</div>
+
+<div class="dialog" *ngIf="action == 'removeConfirmation'">
+    <span class="close-icon" (click)="closeDialog()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
+    <div class="dialog-hdr">
+        <div>Remove Asset</div>
+    </div>
+    <div *ngIf="!isSuccess">
+        <div class="dialog-txt">
+            <div>Are you sure you want to remove this purchase order?</div>
+        </div>
+
+        <div class="errMsgCon" *ngIf="isError"> 
+            <small>{{errMsg}}</small>
+        </div>
+
+        <div class="action-btn">
+          <button id="removeButton" mat-raised-button class="trea-btn" (click)="removeData()">Yes</button>
+          <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+        </div>
+    </div>
+    <div *ngIf="isSuccess">
+        <div class="dialog-txt">{{successMsg}}.</div>
+        <div class="button-row">
+            <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">Done</button>
+        </div>    
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- HTML for New Supplier -->
+<div class="dialog" *ngIf="action == 'newSupplier'">
+    <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+        <div>New Supplier</div>
+    </div>
+    <div class="">
+        <div class="newSupplierWrap">
+        <!-- [formGroup]="clientSelFm" -->
+            <form autocomplete="off" class="form-horizontal newSupplierForm"  role="form">
+                <div class="newSupplierFormBody">
+                   <div class="form-group">
+                     <label class="col-sm-5 control-label" for="supplierType">Supplier Type</label>
+                        <div class=" col-sm-4">
+                            <div class="marginTop10">
+                                <div class="treaRadioBtn">
+                                  <input autocomplete="nope" name="radio-group" type="radio" id="Material">
+                                  <label for="Material">Material</label>
+                                </div>
+                                <div class="treaRadioBtn">
+                                  <input autocomplete="nope" name="radio-group" type="radio" id="Asset">
+                                  <label for="Asset">Asset</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label" for="fullName">Full Name</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="fullName" name="fullName" placeholder="" class="form-control">
+                            <!-- <input autocomplete="nope" type="text" id="fullName" name="fullName" placeholder="" formControlName="fullName" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.fullName)">
+                            <span class="error-msg" *ngIf="fullName.invalid && (fullName.dirty || fullName.touched || submitted)">
+                                <small *ngIf="fullName.errors.required">Client Name is required.</small>
+                                <small *ngIf="fullName.errors.minlength">Client name must be at least 2 characters long.</small>
+                                <small *ngIf="fullName.errors.maxlength">Client name must be less than 30 characters.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label" for="addressLine1">Address Line 1</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="addressLine1" name="addressLine1" placeholder="" class="form-control">
+                            <!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+                                <small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+                                <small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label txtColor" for="addressLine2">Address Line 2</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="addressLine2" name="addressLine2" placeholder="(Optional)" class="form-control">
+                            <!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+                                <small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+                                <small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                            <label class="col-sm-5 control-label" for="role">Country</label>
+                            <div class="col-sm-7">
+                            <!-- formControlName="roleId" -->
+                            <select  class="form-control">
+                                <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                <option>India</option>
+                                <option>Canada</option>
+                            </select>
+                            <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                            </span> --> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                            <label class="col-sm-5 control-label" for="role">Province</label>
+                            <div class="col-sm-7">
+                            <!-- formControlName="roleId" -->
+                            <select class="form-control">
+                                <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                <option>Option1</option>
+                                <option>Option2</option>
+                            </select>
+                            <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                            </span> --> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label" for="city">City</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="city" name="city" placeholder="" class="form-control">
+                            <!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+                                <small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+                                <small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label" for="postalCode">Postal Code</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="postalCode" name="postalCode" placeholder="" class="form-control">
+                            <!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+                                <small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+                                <small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- formControlName="userEmail"  -->
+                        <label class="col-sm-5 control-label" for="email">Email</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="email" name="email" placeholder="" class="form-control" >
+                            <!-- <span class="error-msg" *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched || submitted)">
+                                <small *ngIf="userEmail.errors.required">Email is required.</small>
+                                <small *ngIf="userEmail.errors.pattern">Enter valid email.</small>
+                            </span> --> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!--  (keypress)="util.keyPress($event)" formControlName="userMobile"  -->
+                        <label class="col-sm-5 control-label" for="userMobile">Phone Number</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" class="form-control" placeholder="">
+                            <!-- <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" id="userMobile" name="userMobile" placeholder="(optional)" class="form-control" >
+                             <span class="error-msg" *ngIf="userMobile.invalid && (userMobile.dirty || userMobile.touched || submitted)">
+                                <small *ngIf="userMobile.errors.required">Phone Number is required.</small>
+                                <small *ngIf="userMobile.errors.pattern">Enter valid Mobile No.</small>
+                            </span> --> 
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- <div class="errMsgCon" *ngIf="isError"> 
+                    <small>{{errMsg}}</small>
+                </div> -->
+
+                <div class="button-row" >
+                    <button mat-raised-button id="add-emp" class="trea-btn">Submit</button>
+                    <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End -->
+
+
+<!-- HTML for New Manufacturer -->
+<div class="dialog " *ngIf="action == 'newManufacturer'">
+    <div class="">
+        <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+        <div>New Manufacturer</div>
+    </div>
+    <div class="">
+        <div class="newManufacturerFormWrap">
+        <form autocomplete="off" class="form-horizontal addEmpForm" role="form">
+            <div class="addUserFormBody">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="fullName">Full Name</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" id="fullName" name="fullName" placeholder="" class="form-control">
+                        <!-- <span class="error-msg" *ngIf="fullName.invalid && (fullName.dirty || fullName.touched || submitted)">
+                            <small *ngIf="fullName.errors.required">First Name is required.</small>
+                            <small *ngIf="fullName.errors.minlength">First name must be at least 2 characters long.</small>
+                            <small *ngIf="fullName.errors.maxlength">First name must be less than 30 characters.</small>
+                        </span> --> 
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="shortName">Short Name</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" id="shortName" name="shortName" placeholder="" class="form-control">
+                        <!-- <span class="error-msg" *ngIf="shortName.invalid && (shortName.dirty || shortName.touched || submitted)">
+                            <small *ngIf="shortName.errors.required">Last Name is required.</small>
+                            <small *ngIf="shortName.errors.minlength">Last name must be at least 2 characters long.</small>
+                            <small *ngIf="shortName.errors.maxlength">Last name must be less than 30 characters.</small>
+                        </span> --> 
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-md-4 control-label txtColor" for="comment">Comments</label>
+                    <div class="col-md-8">
+                        <textarea class="form-control " placeholder="(Optional)" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- <div class="errMsgCon" *ngIf="isError"> 
+                <small>{{errMsg}}</small>
+            </div> -->
+
+            <div class="button-row clearfix">
+                <button mat-raised-button id="add-emp" class="trea-btn">Submit</button>
+                <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+            </div>
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+<!-- End -->
+
+
+
+<!-- HTML for New Manufacturer Part -->
+<div class="dialog" *ngIf="action == 'newManufacturerPart'">
+    <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+        <div>New Item Definition</div>
+    </div>
+    <div class="">
+      <div class="">
+        <div class="newmanufacturerPartWrap">
+        <!-- [formGroup]="clientSelFm" -->
+            <form autocomplete="off" class="form-horizontal newSupplierForm"  role="form">
+                <div class="newmanufacturerPartFormBody">
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label" for="inventoryType">Inventory Type</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="inventoryType" name="inventoryType" placeholder="" class="form-control">
+                            <!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+                                <small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+                                <small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label" for="Manufacturer">Manufacturer</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="Manufacturer" name="Manufacturer" placeholder="" class="form-control">
+                            <!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+                                <small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+                                <small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label" for="manufacturerPartNo">Item Definition No.</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="manufacturerPartNo" name="manufacturerPartNo" placeholder="" class="form-control">
+                            <!-- <input autocomplete="nope" type="text" id="manufacturerPartNo" name="manufacturerPartNo" placeholder="" formControlName="manufacturerPartNo" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.manufacturerPartNo)">
+                            <span class="error-msg" *ngIf="manufacturerPartNo.invalid && (manufacturerPartNo.dirty || manufacturerPartNo.touched || submitted)">
+                                <small *ngIf="manufacturerPartNo.errors.required">Client Name is required.</small>
+                                <small *ngIf="manufacturerPartNo.errors.minlength">Client name must be at least 2 characters long.</small>
+                                <small *ngIf="manufacturerPartNo.errors.maxlength">Client name must be less than 30 characters.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label" for="Upc">UPC</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="Upc" name="Upc" placeholder="" class="form-control">
+                            <!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+                                <small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+                                <small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label " for="fullName">Full Name</label>
+                        <div class="col-sm-7">
+                            <textarea class="form-control " placeholder="" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label" for="shortName">Short Name</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="shortName" name="shortName" placeholder="" class="form-control">
+                            <!-- <input autocomplete="nope" type="text" id="shortName" name="shortName" placeholder="" formControlName="shortName" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.shortName)">
+                            <span class="error-msg" *ngIf="shortName.invalid && (shortName.dirty || shortName.touched || submitted)">
+                                <small *ngIf="shortName.errors.required">Client Name is required.</small>
+                                <small *ngIf="shortName.errors.minlength">Client name must be at least 2 characters long.</small>
+                                <small *ngIf="shortName.errors.maxlength">Client name must be less than 30 characters.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                            <label class="col-sm-5 control-label" for="role">Class</label>
+                            <div class="col-sm-7">
+                            <!-- formControlName="roleId" -->
+                            <select  class="form-control">
+                                <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                <option></option>
+                                <option></option>
+                            </select>
+                            <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                            </span> --> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                            <label class="col-sm-5 control-label txtColor" for="role">Replaces</label>
+                            <div class="col-sm-7">
+                            <!-- formControlName="roleId" -->
+                            <select class="form-control">
+                                <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                <option></option>
+                                <option></option>
+                            </select>
+                            <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                            </span> --> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label txtColor" for="equivalent">Equivalent</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="equivalent" name="equivalent" placeholder="" class="form-control">
+                            <!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+                                <small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+                                <small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- formControlName="extraContact"  -->
+                        <label class="col-sm-5 control-label" for="minimumStock">Minimum Stock</label>
+                        <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" id="minimumStock" name="minimumStock" placeholder="" class="form-control">
+                            <!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+                                <small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+                                <small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+                            </span>  -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                            <label class="col-sm-5 control-label " for="uom">UOM</label>
+                            <div class="col-sm-7">
+                            <!-- formControlName="roleId" -->
+                            <select class="form-control">
+                                <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                <option></option>
+                                <option></option>
+                            </select>
+                            <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                            </span> --> 
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="errMsgCon" *ngIf="isError"> 
+                    <small>{{errMsg}}</small>
+                </div>
+
+                <div class="button-row clearfix" >
+                    <button mat-raised-button id="add-emp" class="trea-btn">Submit</button>
+                    <button mat-raised-button class="trea-btnn" (click)="closeDialog()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>  
+    </div>
+</div>
+<!-- End -->
+
+
+<!-- HTML for New Product Item Information Review -->
+<div class="dialog " *ngIf="action == 'AddnewproductReview'">
+    <div class="">
+        <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+        <div>Product Item Information Review</div>
+    </div>
+    <div class="">
+        <div class="informationreviewFormWrap">
+        <form autocomplete="off" class="form-horizontal" role="form">
+            <div class="addUserFormBody">
+                <div class="productiteminformationDetails">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Supplier</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="label-col">Manufacturer</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="label-col">Item Definition</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                 <div class="col-sm-6">
+                                    <div class="label-col">Short Name</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="label-col">Class</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="label-col">UPC</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="label-col">Qty for Internal Use</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="label-col">Location (internal)</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                 <div class="col-sm-6">
+                                    <div class="label-col">Qty for resale</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="label-col">Location (resale)</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="label-col txtColor">Comment</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col txtColor">(optional)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- <div class="errMsgCon" *ngIf="isError"> 
+                <small>{{errMsg}}</small>
+            </div> -->
+
+            <div class="button-row clearfix">
+                <button mat-raised-button id="add-emp" class="trea-btn">Edit</button>
+                <button mat-raised-button class="trea-btn" >Submit</button>
+                <button mat-raised-button class="trea-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+<!-- End -->
+
+
+<!-- HTML for Add New Asset Review -->
+<div class="dialog " *ngIf="action == 'NewassetinformationReview'">
+    <div class="">
+        <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+        <div>New Asset Information Review</div>
+    </div>
+    <div class="">
+        <div class="assetinformationreviewFormWrap">
+        <form autocomplete="off" class="form-horizontal" role="form">
+            <div class="addUserFormBody">
+                <div class="assetiteminformationDetails">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="label-col">Manufacturer</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="info-col">Thomas & Bettes</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="label-col">Item Definition</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="info-col">TB-xxxxxx</div>
+                                </div>
+                                 <div class="col-sm-3">
+                                    <div class="label-col">Short Name</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="label-col">Class</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="label-col">UPC</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="label-col">Serial No</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="label-col">Scan Code</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="label-col">Short Tag</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="label-col">Location</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="info-col">Wl-Service</div>
+                                </div>
+                                 <div class="col-sm-3">
+                                    <div class="label-col">Comment</div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="info-col">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="financialslblWrap">
+                        <div class="label-col">Financials</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">     
+                                <div class="col-sm-6">
+                                    <div class="label-col">Ownership Type</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">Owned</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Purchase Price</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">$ 860</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                 <div class="col-sm-6">
+                                    <div class="label-col">Purchase Date</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">12/03/2016</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Supplier</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">Canadian Tire</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Estimated Useful Life</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">24 months</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Residual value</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">$ 500</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                        <div class="label-col">Account Ref no.</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">Wl-Service</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Age of Equipment</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">15 months</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                 <div class="col-sm-6">
+                                    <div class="label-col">Monthly Depreciation</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">xxxxxx</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Present Value</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">CAD 600</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Warrantly End Date</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">12/03/2017</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- <div class="errMsgCon" *ngIf="isError"> 
+                <small>{{errMsg}}</small>
+            </div> -->
+
+            <div class="button-row clearfix">
+                <button mat-raised-button id="add-emp" class="trea-btn">Edit</button>
+                <button mat-raised-button class="trea-btn" >Submit</button>
+                <button mat-raised-button class="trea-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+<!-- End -->
+
+<!-- HTML for Add New Asset -->
+<div class="dialog" *ngIf="action == 'addnewAsset'">
+    <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+        <div>New Asset (1/20 Items)</div>
+    </div>
+    <div class="">
+        <div class="addnewAssetWrap">
+        <!-- [formGroup]="clientSelFm" -->
+            <form autocomplete="off" class="form-horizontal"  role="form">
+                <div class="addnewAssetFormBody">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">Manufacurer</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="info-col">Toro</div>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">Item Definition</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="info-col">21" (53cm) Heavy Duty Zone Start Toro OHV Push (22289)</div>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">Short Name</div>
+                        </div>
+                        <div class="col-sm-8">
+                            
+                                <div class="info-col">xxxxxxxx</div>
+                           
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">Class</div>
+                        </div>
+                        <div class="col-sm-8">
+                            
+                                <div class="info-col">xxxxxxxx</div>
+                            
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">UPC</div>
+                        </div>
+                        <div class="col-sm-8">
+                            
+                                <div class="info-col">xxxxxxxx</div>
+                           
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">Serial No.</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <input autocomplete="nope" type="text" id="serialNo" name="serialNo" placeholder="" class="form-control">
+                                <!-- <input autocomplete="nope" type="text" id="serialNo" name="serialNo" placeholder="" formControlName="serialNo" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.serialNo)">
+                                <span class="error-msg" *ngIf="serialNo.invalid && (serialNo.dirty || serialNo.touched || submitted)">
+                                    <small *ngIf="serialNo.errors.required">Client Name is required.</small>
+                                    <small *ngIf="serialNo.errors.minlength">Client name must be at least 2 characters long.</small>
+                                    <small *ngIf="serialNo.errors.maxlength">Client name must be less than 30 characters.</small>
+                                </span>  -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">Scan Code</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="marginTop10">
+                                    <div class="treaRadioBtn">
+                                      <input autocomplete="nope" name="radio-group" type="radio" id="systemGenerated">
+                                      <label for="systemGenerated">System Generated</label>
+                                    </div>
+                                    <div class="treaRadioBtn">
+                                      <input autocomplete="nope" name="radio-group" type="radio" id="Barcode">
+                                      <label for="Barcode">Enter metal barcode</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">Short Tag</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <input autocomplete="nope" type="text" id="shortTag" name="shortTag" placeholder="Sample:PPM-TOl" class="form-control">
+                                <!-- <input autocomplete="nope" type="text" id="shortTag" name="shortTag" placeholder="" formControlName="shortTag" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.shortTag)">
+                                <span class="error-msg" *ngIf="shortTag.invalid && (shortTag.dirty || shortTag.touched || submitted)">
+                                    <small *ngIf="shortTag.errors.required">Client Name is required.</small>
+                                    <small *ngIf="shortTag.errors.minlength">Client name must be at least 2 characters long.</small>
+                                    <small *ngIf="shortTag.errors.maxlength">Client name must be less than 30 characters.</small>
+                                </span>  -->
+                                <i popover="Popover message here..." popoverPlacement="left" [popoverOnHover]="true" [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true" required></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">Location</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                        <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                            <!-- formControlName="roleId" -->
+                                <select  class="form-control">
+                                    <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                    <option>India</option>
+                                    <option>Canada</option>
+                                </select>
+                            <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                            </span> --> 
+                            </div>
+                        </div>   
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col txtColor">Comment</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <textarea class="form-control txtColor " placeholder="(Optional)" rows="8"></textarea> 
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- <div class="errMsgCon" *ngIf="isError"> 
+                    <small>{{errMsg}}</small>
+                </div> -->
+
+                <div class="button-row">
+                    <button mat-raised-button id="add-emp" class="trea-btn">Next</button>
+                    <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End -->
+<!-- HTML for Add New Asset -->
+<div class="dialog" *ngIf="action == 'addnewProduct'">
+    <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+        <div>New Product to Inventory (15 Items)</div>
+    </div>
+    <div class="">
+        <div class="addnewProductWrap">
+        <!-- [formGroup]="clientSelFm" -->
+            <form autocomplete="off" class="form-horizontal"  role="form">
+                <div class="addnewProductFormBody">
+                    <div class="addnewAssetUpper">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="label-col">Supplier</div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="info-col">Canadian Tire </div>
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="label-col">Manufacurer</div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="info-col">Thomas & Betts</div>
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="label-col">Item Definition</div>
+                            </div>
+                            <div class="col-sm-8">
+                                    <div class="info-col">Stell Stud Box</div>
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="label-col">Short Name</div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="info-col">xxxxxxxx</div>
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="label-col">Class</div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="info-col">xxxxxxxx</div>
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="label-col">UPC</div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="info-col">xxxxxxxx</div>
+                            </div>   
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="addnewAssetMiddle">
+                        <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col"></th>
+                                  <th scope="col">Use Type</th>
+                                  <th scope="col">Location</th>
+                                  <th scope="col">Qty (Units)</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th></th>
+                                  <td>
+                                    <div class="form-group">
+                                            <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                                            <!-- formControlName="roleId" -->
+                                            <select  class="form-control">
+                                                <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                                <option>Use Type 1</option>
+                                                <option>Use Type 2</option>
+                                            </select>
+                                            <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                            <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                                        </span> --> 
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="form-group">
+                                        <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                                        <!-- formControlName="roleId" -->
+                                            <select  class="form-control">
+                                                <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                                <option>India</option>
+                                                <option>Canada</option>
+                                            </select>
+                                        <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                        <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                                        </span> --> 
+                                    </div>
+                                  </td>
+                                  <td>     
+                                    <div class="form-group">
+                                        <input autocomplete="nope" type="text" id="Qty" name="Qty" placeholder="" class="form-control">
+                                        <!-- <input autocomplete="nope" type="text" id="Qty" name="Qty" placeholder="" formControlName="Qty" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.Qty)">
+                                        <span class="error-msg" *ngIf="Qty.invalid && (Qty.dirty || Qty.touched || submitted)">
+                                            <small *ngIf="Qty.errors.required">Client Name is required.</small>
+                                            <small *ngIf="Qty.errors.minlength">Client name must be at least 2 characters long.</small>
+                                            <small *ngIf="Qty.errors.maxlength">Client name must be less than 30 characters.</small>
+                                        </span>  -->
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th><img class="" src="assets/icon/close_icon.png"></th>
+                                  <td>
+                                    <div class="form-group">
+                                            <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                                            <!-- formControlName="roleId" -->
+                                            <select  class="form-control">
+                                                <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                                <option>Use Type 1</option>
+                                                <option>Use Type 2</option>
+                                            </select>
+                                            <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                            <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                                        </span> --> 
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="form-group">
+                                        <!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+                                        <!-- formControlName="roleId" -->
+                                            <select  class="form-control">
+                                                <!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+                                                <option>India</option>
+                                                <option>Canada</option>
+                                            </select>
+                                        <!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                        <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                                        </span> --> 
+                                    </div>
+                                  </td>
+                                  <td>     
+                                    <div class="form-group">
+                                        <input autocomplete="nope" type="text" id="Qty" name="Qty" placeholder="" class="form-control">
+                                        <!-- <input autocomplete="nope" type="text" id="Qty" name="Qty" placeholder="" formControlName="Qty" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.Qty)">
+                                        <span class="error-msg" *ngIf="Qty.invalid && (Qty.dirty || Qty.touched || submitted)">
+                                            <small *ngIf="Qty.errors.required">Client Name is required.</small>
+                                            <small *ngIf="Qty.errors.minlength">Client name must be at least 2 characters long.</small>
+                                            <small *ngIf="Qty.errors.maxlength">Client name must be less than 30 characters.</small>
+                                        </span>  -->
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td>
+                                        <img class="" src="assets/icon/icon-16.png">
+                                    </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            
+                        </div>
+                    </div>
+                    <div class="addnewAssetLower">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="label-col txtColor">Comment</div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <textarea class="form-control txtColor " placeholder="(Optional)" rows="8"></textarea> 
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="button-row">
+                            <button mat-raised-button id="add-emp" class="trea-btn">Next</button>
+                            <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+                        </div>
+                    </div>
+                    <!-- <div class="errMsgCon" *ngIf="isError"> 
+                        <small>{{errMsg}}</small>
+                    </div> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End -->
+
+
+<!-- Approve Confirmation -->
+<div class="dialog minW360" *ngIf="action == 'approveConfirmation'">
+    <span class="close-icon" (click)="closeDialog()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
+    <div class="dialog-hdr">
+        <div>Purchase Order Approval</div>
+    </div>
+    <!-- *ngIf="!isSuccess" -->
+    <div>
+        <div class="dialog-txt">
+            <div class="optional">
+                <form autocomplete="off" role="form" [formGroup]="addApproveConfirmationNoteForm">
+                    <div class="noteLbl">Note:</div>
+                    <div class="form-group">
+                        <!-- formControlName="approve_note" -->
+                        <textarea placeholder="(Optional)" class="inputDetail" rows="4" formControlName="approve_note"></textarea>
+                    </div>
+                </form>    
+            </div>
+        </div>
+
+        <div class="errMsgCon" *ngIf="isError"> 
+            <small>{{errMsg}}</small>
+        </div>
+
+        <div class="button-row">
+          <button id="confirm-btn" mat-raised-button class="trea-btn" (click)="confirmPO()">Confirm</button>
+          <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+        </div>
+    </div>
+    <!-- <div *ngIf="isSuccess">
+        <div class="dialog-txt">{{successMsg}}.</div>
+        <div class="button-row">
+            <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">Done</button>
+        </div>    
+    </div> -->
+</div>
+<!-- End -->

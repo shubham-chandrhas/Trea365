@@ -1,0 +1,32 @@
+<div class="dispatchSection">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="mapWrap" *ngIf="showMap">
+                <agm-map  [minZoom]= 2 [maxZoom]= 18 [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [mapTypeId]="mapTypeId">
+                    <agm-marker *ngFor="let marker of woList"
+                        [latitude]="marker.latitude"
+                        [longitude]="marker.longitude"
+                        [iconUrl]="'https://devtrea.s3.us-east-2.amazonaws.com/marker1550658220.jpg'" (markerClick)="changeDispatchTab('work-orders',marker)">
+                    </agm-marker>
+                    <agm-marker *ngFor="let marker of staffList"
+                        [latitude]="marker.latitude"
+                        [longitude]="marker.longitude"
+                        [iconUrl]="'https://devtrea.s3.us-east-2.amazonaws.com/marker1550658715.jpg'" (markerClick)="changeDispatchTab('staff',marker)">
+                    </agm-marker>
+                    <agm-marker *ngIf="woList.length == 0 && staffList.length == 0"
+                        [latitude]="latitude"
+                        [longitude]="longitude">
+                    </agm-marker>
+                </agm-map>
+                <div class="quotNav button-row">
+                        <button [ngClass]="mapTypeId == 'terrain' ? 'act-option' :''" (click)="setMapType('terrain')" mat-raised-button class="trea-btn">Terrain</button>
+                        <button [ngClass]="mapTypeId == 'satellite' ? 'act-option' :''" (click)="setMapType('satellite')" mat-raised-button class="trea-btn">Satellite</button>
+                        <button [ngClass]="mapTypeId == 'roadmap' ? 'act-option' :''" (click)="setMapType('roadmap')" mat-raised-button class="trea-btn">Road Map</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>

@@ -1,0 +1,309 @@
+
+.inventory-section .search-section{ float: left; }
+.inventory-section .add-client{ float: right; }
+.inventory-section .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+.inventory-section .head-row{
+    margin-bottom: 10px;
+}
+
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 150px; height: 30px; padding-left: 0px; }
+.search-section .form-control:hover, .search-section .form-control:focus, .inventory-section .client-btn:hover, .inventory-section .client-btn:focus{ outline: 0px; }
+.inventory-section .fa-signal{ cursor: pointer; }
+
+
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{
+  font-weight:600;
+  font-size: 14px;
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+
+
+.qutationreviewWrap .selSection{
+    max-width: 1024px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+ }
+.qutationreviewWrap .quotationreviewDetails .timeWrap{
+	margin-bottom: 30px;
+}
+.quotationreviewDetails .margin20 {
+    margin: 20px auto;
+}
+/* .servicesDetails .table tr th{
+	 width: 157px;
+} */
+/* .qutationreviewWrap .servicesDetails .table  tr td:nth-child(1) {
+    max-width: 120px;
+} */
+
+/* .qutationreviewWrap .servicesDetails .table  tr td:nth-child(5) {
+    max-width: 342px;
+} */
+
+.qutationreviewWrap .servicesDetails .table > thead > tr > th,
+.qutationreviewWrap .servicesDetails .table > thead > tr > th,td{
+  padding:8px 5px !important;
+}
+.qutationreviewWrap .materialsDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+}
+.qutationreviewWrap .servicesDetails .table>tfoot,
+.qutationreviewWrap .materialsDetails .table>tfoot {
+    font-weight: 600;
+    /* border-bottom: 1px solid #7E7E7E;
+    border-top: 1px solid #7E7E7E; */
+}
+/* .qutationreviewWrap .servicesDetails .tfooter, .materialsDetails .tfooter{
+    border-bottom: 1px solid #7E7E7E;
+    text-align: center;
+    border-top: 1px solid #7E7E7E;
+    padding: 20px;
+    font-weight: 700;
+    font-size: 16px;
+
+} */
+.qutationreviewWrap .servicesDetails .table  tr td,
+.qutationreviewWrap .materialsDetails .table  tr td,
+.qutationreviewWrap .scheduleDetails .table  tr td,
+.qutationreviewWrap .paymentsDetails .table  tr td{
+    overflow-wrap: break-word;
+}
+/* .qutationreviewWrap .materialsDetails .table tr th{
+	width: 157px;
+} */
+.qutationreviewWrap .servicesDetails .table  tr td:nth-child(1),
+.qutationreviewWrap .materialsDetails .table  tr td:nth-child(1) {
+	width: 50%;
+}
+/* .qutationreviewWrap .materialsDetails .table  tr td:nth-child(5) {
+	max-width: 342px;
+} */
+/* .qutationreviewWrap .scheduleDetailsnext .table  tr th:nth-child(2) {
+	width: 60%;
+} */
+.qutationreviewWrap .paymentsDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+}
+
+/* .qutationreviewWrap  .totalCost{
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+} */
+.servicesDetails .table th,
+.servicesDetails .table td {
+    border-top: 1px solid #7E7E7E;
+}
+/* .table> tbody> tr> td{
+    border-top: 1px solid #7E7E7E;
+} */
+/* .qutationreviewWrap .matPart{
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 30px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+} */
+
+.qutationreviewWrap .scheduleDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+}
+.qutationreviewWrap  .scheduleDetailsnext .table{
+    width: 50%;
+}
+.qutationreviewWrap  .paymentsDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+}
+.qutationreviewWrap  .inspectionDetails label{
+    color:#ff0000;
+}
+.qutationreviewWrap  .editquoteBtnWrap{
+    margin: 50px;
+    text-align: center;
+}
+
+.qutationreviewWrap  .quotationDetails .Timewrap{
+    margin-bottom: 30px;
+}
+.qutationreviewWrap  .quotationDetails .margin20{
+	margin: 20px auto;
+}
+
+.qutationreviewWrap .paymentsDetails tr th:nth-child(1) {
+	width: 50%;
+}
+.qutationreviewWrap .table>tbody>tr>td,
+.qutationreviewWrap .table>tfoot>tr>td,
+.qutationreviewWrap .table>thead>tr>td,
+.qutationreviewWrap .table>thead>tr>th {
+    padding: 8px 0px;
+}
+.reqDescWrap .description{
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.reqDescWrap .previewImg {
+    position: relative;
+    border: 1px solid #D1D1D1;
+    min-height: 130px;
+    height: 130px;
+    margin-bottom: 20px;
+}
+.reqDescWrap .previewImg img{
+    height: 100%;
+    margin: 0 auto;
+}
+
+/* .paymentsDetails .costCalculate .table-responsive{
+    margin-top: 40px;
+    margin-bottom: 20px;
+} */
+.inspectionDetails .infoWrap{
+    max-width: 550px;
+}
+.servicesDetails,
+.materialsDetails,
+.scheduleDetails,
+.paymentsDetails{
+    margin-bottom: 40px;
+}
+
+/* .trea-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 8px;
+}
+.trea-btn:focus{
+    outline: none;
+}
+.trea-btn:hover{
+    color: #505050!important;
+    background-color: #FFCB36!important;
+} */
+.act-option{ color: #505050;background-color: #FFCB36; }
+.quotNav{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 650px;
+}
+.quotNav .tabs{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */
+    flex: 1;
+    margin-left: 1px;
+}
+.quotNav .tabs{
+    margin-left: 15px;
+}
+
+.quotActionBtnWrap{
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+.successMsgCon {
+    text-align: center;
+    color: #00A499;
+}
+
+.errMsgCon {
+    text-align: center;
+    color: #ff0000;
+}
+#resendEmail {
+  width: 35px;
+  color: white;
+}
+.download-pdf{
+  text-decoration: none;
+  color:#fff;
+}
+.download-pdf:hover{
+  color:#505050 !important;
+}
+.trea-btn:hover a{
+  color:#505050 !important;
+
+}
+.cutom-margin-top{
+  margin-top:20px;
+}
+.addIcon span {
+  cursor: pointer;
+}
+.addIcon img, .addIcon span {
+  cursor: pointer;
+  max-width: 100%;
+  vertical-align: text-top;
+  margin-right: 10px;
+}
+.font-normal{
+  font-weight: normal;
+  font-size: 16px;
+}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.inventory-section .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

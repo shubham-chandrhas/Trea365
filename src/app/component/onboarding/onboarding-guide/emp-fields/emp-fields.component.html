@@ -1,0 +1,33 @@
+<div class="empFieldsCover">
+    <div class="pageTitle">Employee Information Fields </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="info-col">First Name</div>
+            <div class="info-col">Last Name</div>
+            <div class="info-col optional">Employee ID (Optional)</div>
+            <div class="info-col optional">Title (Optional)</div>
+            <div class="info-col">Email</div>
+            <div class="info-col">Work Phone</div>
+            <div class="info-col optional">Personal Phone (Optional)</div>
+            <div class="info-col">Permission</div>
+            <div class="info-col">Wage Frequency</div>
+            <div class="info-col">Wage Amount</div>
+            <div class="info-col optional">Emergency Contact (Optional)</div>
+            <div class="info-col optional">Emergency Number (Optional)</div>
+            <div class="info-col optional">Relationship (Optional)</div>
+            <div class="info-col optional">Images/Documents (Optional)</div>
+            <div class="info-col" [ngClass]="field.optionalStatus == 'True' ? 'optional' :''" *ngFor="let field of fields">{{field.label}} <span *ngIf="field.optionalStatus == 'True'"> (Optional)</span></div>
+            <div class="addFields">
+                <span (click)="addFields()" class="cursorPtr">
+                    <img src="assets/icon/icon-add.png">
+                    <span class="">New Fields</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="button-row clearfix">
+        <button mat-raised-button class="trea-btn" (click)="next()">Next</button>
+        <button mat-raised-button class="trea-btn" routerLink="/hr/csa-onboarding/employee-list/0">Cancel</button>
+    </div>
+</div>

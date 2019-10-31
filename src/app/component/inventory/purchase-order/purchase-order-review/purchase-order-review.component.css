@@ -1,0 +1,139 @@
+.inventory-section .editquoteBtnWrap .client-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.selSection {
+    margin-bottom: 20px;
+}
+
+.serPart {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 25px;
+    margin-top: 50px;
+}
+
+.selPart .loc-btn {
+    width: 160px;
+}
+
+.selSection .label-col {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 25px;
+}
+
+.selSection .info-col {
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.purchaseitemDetails .table {
+    border-bottom: 1px solid #7E7E7E;
+}
+
+.purchaseitemDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    padding: 8px 40px 8px 0px;
+}
+
+.paymentsDetails tr th:nth-child(1) {
+    width: 50%;
+}
+
+.matPart {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 30px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.purchaseorderreviewWrap .paymentsDetails .table {
+    /* width: 51%; */
+}
+
+.purchaseorderreviewWrap .PaymentDetails {
+    margin: 27px 0;
+}
+
+.paymentsDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+}
+.editSupplierbtnWrap
+{
+    margin: 50px 0px 100px;
+}
+.editSupplierbtnWrap .lgBtn {
+    margin: 0 20px 20px 20px;
+}
+
+.purchaseorderDetails .margin20 {
+    margin: 20px auto;
+}
+
+.purchaseitemDetails .table tr td,
+.paymentsDetails .table tr td {
+    color: #7E7E7E;
+}
+
+.purchaseitemDetails .table>tbody>tr>td,
+.table>tfoot>tr>td,
+.table>thead>tr>td,
+.table>thead>tr>th,
+.paymentsDetails .table>tbody>tr>td,
+.table>tfoot>tr>td,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    padding: 8px 40px 8px 0px;
+    border-color: #7E7E7E;
+}
+
+.purchaseitemDetails .table>tfoot>tr>td {
+    font-weight: 700;
+}
+
+.purchaseitemDetails .table > tbody > tr > td {
+    padding-bottom: 50px;
+}
+
+.editSupplierbtnWrap .lgBtn1 {
+    width: 122px;
+    font-size: 14px;
+    padding: 8px;
+    background: #3aa69b;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#resendEmail {
+  width: 120px;
+  color: white;
+  line-height: 30px;
+}
+
+@media screen and (max-width: 767px) {
+    .purchaseitemDetails .table-responsive,
+    .paymentsDetails .table-responsive {
+        border: none;
+    }
+}
+
+@media only screen and (max-width: 768px)  {
+    .commentDetails .col-sm-2{
+        width: 27%;
+    }
+    .commentDetails .col-sm-10{
+        width: 73%;
+    }
+}

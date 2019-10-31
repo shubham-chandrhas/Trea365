@@ -1,0 +1,527 @@
+<!-- {{addressDetails | json}} -->
+<div *ngIf="addressDetails">
+  <h2 class="selectedTitle">{{addressDetails.address_line_1}} <span *ngIf="addressDetails.city_details && addressDetails.city_details.city_name">({{addressDetails.city_details.city_name}})</span></h2>
+
+  <nav class="tabbed-nav">
+    <ul class="tabs-list">
+      <li class="tabs">
+        <button [ngClass]="clientDetails == 'details' ? 'act-option' : ''" (click)="showDetails('details')" mat-raised-button class="trea-btn">Details</button>
+      </li>
+      <!-- <li class="tabs">
+        <button [ngClass]="clientDetails == 'workOrder' ? 'act-option' : ''" (click)="showDetails('workOrder')" mat-raised-button class="trea-btn">W/O</button>
+      </li>
+      <li class="tabs">
+        <button [ngClass] ="clientDetails == 'documents' ? 'act-option' : ''" (click)="showDetails('documents')" mat-raised-button class="trea-btn">Documents</button>
+      </li> -->
+    </ul>
+  </nav>
+
+  <div class="pull-right select-btn">
+    <div class="dropdown">
+    <button *ngIf="util.getRole() == 2 || permissionsSet.createClients" mat-raised-button class="loc-btn dropdown-toggle edit-loc-btn" data-toggle="dropdown">Edit
+    </button>
+    <ul class="dropdown-menu" style="right: 0px !important;left: auto;">
+      <li><a href="javascript:void(0)" class="loc-btn" (click)="editClientAddress()">Edit Information</a></li>
+      <li><a href="javascript:void(0)" class="loc-btn" (click)="showDeleteDialog()">Delete</a></li>
+    </ul>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="label-col">Client Type</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{addressDetails.client_detail.client_type}}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="label-col">Name</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{addressDetails.client_name}}</div>
+        </div>
+      </div>
+      <div class="row" *ngIf="addressDetails.client_detail.client_type =='Company'">
+        <div class="col-sm-4">
+          <div class="label-col">Legal Name</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{addressDetails.client_detail.legal_name}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf = "clientDetails == 'details' && !crm.isEditFromList">
+    <div class="col-md-6">
+      <div class="addContBox clearfix">
+        <div *ngIf="!isEdit">
+          <h4>Address</h4>
+          <div class="sectionDetails clearfix">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">Address Type</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col"><div *ngFor="let addrType of addressDetails.address_type">{{addrType}} </div></div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Address </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{util.concatenateStrings(addressDetails.address_line_2,addressDetails.address_line_1)}}</div>
+                </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">Address Line 1</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col">{{addressDetails.address_line_1}}</div>
+              </div>
+            </div>
+            <div class="row optional">
+              <div class="col-sm-4">
+                <div class="label-col">Address Line 2</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col">{{addressDetails.address_line_2 ? addressDetails.address_line_2 : ''}}</div>
+              </div>
+            </div> -->
+            <!-- <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">Country</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col">{{addressDetails.country_details.country_name}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">Province</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col">{{addressDetails.province_details.province_name}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">City</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col">{{addressDetails.city_details.city_name}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">Postal Code</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col">{{addressDetails.postal_code}}</div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div *ngIf="isEdit">
+          <form autocomplete="off" [formGroup]="editAddressForm">
+            <div>
+                <h4>Address</h4>
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label">Address Type</label>
+                    <div class="col-sm-8">
+                        <!-- [(ngModel)]="optionsModel" [settings]="mulSelSettings" -->
+                        <div class="trea-multi-select">
+                            <ss-multiselect-dropdown [options]="addressTypeList" [settings]="mulSelSettings"  [texts]="selectText" formControlName="address_type"></ss-multiselect-dropdown>
+                        </div>
+                        <span class="error-msg" *ngIf="address_type.invalid && (address_type.dirty || address_type.touched || submitted)">
+                            <small *ngIf="address_type.errors.required">Please select address type from the list.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label">Address Line 1</label>
+                    <div class="col-sm-8">
+                        <!-- <input autocomplete="nope" type="text" id="addressLine1" name="addressLine1" placeholder="" class="form-control" placeholder="" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="address_line_1"> -->
+
+                        <input autocomplete="nope" type="text" id="address_line_1" name="address_line_1" placeholder="" class="form-control" placeholder="" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="address_line_1" (mouseover)="util.disableAutocomplete()">
+
+                        <!-- <input autocomplete="nope" class="form-control" id="addressLine1" formControlName="address_line_1" type="text"> -->
+                        <span class="error-msg" *ngIf="address_line_1.invalid && (address_line_1.dirty || address_line_1.touched || submitted)">
+                            <small *ngIf="address_line_1.errors.required">Address Line 1 is required.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label optional">Address Line 2</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" class="form-control" placeholder="(Optional)" id="addressLine2" formControlName="address_line_2" type="text">
+                    </div>
+                </div>
+                <!-- <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label">Country</label>
+                    <div class="col-sm-8">
+                        <select formControlName="country_id" class="form-control" (change)="countryChange($event.target.value)">
+                            <option value="" selected></option>
+                            
+                            <option [value]="country.country_id" *ngFor="let country of countries"> {{country.country_name}}</option>
+                        </select>
+                        <span class="error-msg" *ngIf="country_id.invalid && (country_id.dirty || country_id.touched || submitted)">
+                            <small *ngIf="country_id.errors.required">Please select country from the list.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label">Province</label>
+                    <div class="col-sm-8">
+                      <input autocomplete="nope" type="text" name="province_id" placeholder="" formControlName="province_id" class="form-control">
+                        
+                        <span class="error-msg" *ngIf="province_id.invalid && (province_id.dirty || province_id.touched || submitted)">
+                            <small *ngIf="province_id.errors.required">Province is required.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label">City</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" name="city_id" placeholder="" formControlName="city_id" class="form-control">
+                        
+                        <span class="error-msg" *ngIf="city_id.invalid && (city_id.dirty || city_id.touched || submitted)">
+                            <small *ngIf="city_id.errors.required">City is required.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label">Postal Code</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" placeholder=""  name="postal_code" formControlName="postal_code" class="form-control" (change)="updateContactAddress(indx, addrItem)">
+                        <span class="error-msg" *ngIf="postal_code.invalid && (postal_code.dirty || postal_code.touched || submitted)">
+                            <small *ngIf="postal_code.errors.required">Postal Code is required.</small>
+                            <small *ngIf="postal_code.errors.minlength">Postal Code must be at least 3 characters long.</small>
+                            <small *ngIf="postal_code.errors.maxlength">Postal Code must be less than 10 characters.</small>
+                            <small *ngIf="postal_code.errors.pattern && !postal_code.errors.minlength && !postal_code.errors.maxlength">Enter Valid Postal Code.</small>
+                        </span>
+                    </div>
+                </div> -->
+            </div>
+            <div class="errMsgCon" *ngIf="isError">
+                <small>{{errMsg}}</small>
+            </div>
+            <div class="button-row">
+              <button id="updateAddr" mat-raised-button class="trea-btn" (click)="updateAddress(editAddressForm)">Update</button>
+              <button mat-raised-button class="trea-btn" (click)="cancelUpdate()">Cancel</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="addContBox clearfix">
+        <div *ngFor="let indx=index; let item of addressDetails.client_contact_address">
+          <h4>Contact {{indx+1}}</h4>
+          <div class="sectionDetails clearfix" *ngIf="item.address_contact">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">Address</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col"><div *ngFor="let addr of item.address_contact.address">{{addr}} </div></div>
+              </div>
+            </div>
+            <div class="row optional">
+              <div class="col-sm-4">
+                <div class="label-col">Contact Type</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col">{{item.address_contact.contact_type ? item.address_contact.contact_type : ''}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">Name</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col">{{item.address_contact.name}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">Phone Number</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col">{{item.address_contact.phone_no}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="label-col">Email</div>
+              </div>
+              <div class="col-sm-8">
+                <div class="info-col email-color"><u>{{item.address_contact.email_id}}</u></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf = "clientDetails == 'workOrder' && !crm.isEditFromList">
+    <div class="trea-data-table table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              <div class="table-hdr">
+                <div>
+                  <span>W/O Number</span>
+                  <span (click)="sortList('work_order_no', 'N')">
+                    <i [ngClass]=" sortColumn == 'work_order_no' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div>
+                  <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="woNumberSearch">
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Quote No</span>
+                  <span (click)="sortList('project_estimate_id', 'A')">
+                    <i [ngClass]=" sortColumn == 'project_estimate_id' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div>
+                  <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="quoteNoSearch">
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Date</span>
+                  <span (click)="sortList('work_order_date', 'A')">
+                    <i [ngClass]=" sortColumn == 'work_order_date' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div>
+                  <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="dateSearch">
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Status</span>
+                  <span (click)="sortList('status', 'N')">
+                    <i [ngClass]=" sortColumn == 'status' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div>
+                  <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="statusSearch">
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="addressDetails.client_detail && addressDetails.client_detail.work_orders && !addressDetails.client_detail.work_orders.length>0">
+          <tr><td colspan="4" class="text-center">Data Not Found...</td></tr>
+        </tbody>
+        <tbody *ngIf="addressDetails.client_detail && addressDetails.client_detail.work_orders &&addressDetails.client_detail.work_orders.length>0">
+          <tr *ngFor="let indx=index; let item of addressDetails.client_detail.work_orders | sortBy:sortColumn:sortOrder:sortColumnType | searchfilter:woNumberSearch:'work_order_no' | searchfilter:quoteNoSearch:'project_estimate_id' | searchfilter:dateSearch:'work_order_date' | searchfilter:statusSearch:'status' | listLengthfilter | paginate: paginationKey">
+            <td>{{item.work_order_no}} <span class="dn">{{ indx == 0 ? updateCount(item.count) : ''}}</span></td>
+            <td>{{item.quote_number.project_estimate_no}}</td>
+            <td>{{item.work_order_date}}</td>
+            <td>{{item.status == 1 ? 'Saved' : 'N/A'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- contactList.length != 0 && constant.ITEM_COUNT != 0 -->
+    </div>
+    <div class="treaPagination" *ngIf="(addressDetails.client_detail.work_orders &&addressDetails.client_detail.work_orders.length > 0) || (constant.ITEM_COUNT != 0)">
+      <div class="pull-right">
+        <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+      </div>
+      <div class="pull-right">
+        <select [(ngModel)]="paginationKey.itemsPerPage" (change)="changeItemPerPage()">
+          <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+        </select>
+        <span> items per page</span>
+      </div>
+      <div class="pull-right">
+        <pagination-controls
+          (pageChange)="changePage($event)"
+          directionLinks="true"
+          autoHide="false"
+          previousLabel="Pre"
+          nextLabel="Next"
+          screenReaderPaginationLabel="Pagination"
+          screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <!-- <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>
+            <span>W/O Number</span>
+          </th>
+
+          <th>
+
+            <span>Quote No</span>
+
+          </th>
+          <th>
+
+            <span>Date</span>
+
+          </th>
+          <th>
+
+          <span>Status</span>
+          </th>
+
+        </tr>
+      </thead>
+      <tbody *ngIf="selectedClient.work_orders">
+        <tr *ngFor="let indx=index; let wo of selectedClient.work_orders">
+          <td>{{wo.work_order_no}}</td>
+          <td>{{wo.project_estimate_no}}</td>
+          <td>{{wo.work_order_date}}</td>
+          <td>{{wo.status == 1 ? 'Saved' : 'N/A'}}</td>
+        </tr>
+
+      </tbody>
+    </table> -->
+  </div>
+
+  <div class="manufacturDetails MT30" *ngIf = "clientDetails == 'documents' && !crm.isEditFromList">
+    <div class="search-section">
+      <div class="input-group">
+        <span class="search-icn" id="basic-addon1">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+        <input autocomplete="nope" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+        <button mat-raised-button class="client-btn" >Search</button>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="trea-data-table table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              <div class="table-hdr">
+                <div>
+                  <span>Doc No.</span>
+                  <!-- (click)="sortList('employee_id')" -->
+                  <span >
+                    <i [ngClass]=" sortColumn == 'employee_id' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div>
+                <!-- [(ngModel)]="empIdSearch" (ngModelChange)='searchEmployee(empIdSearch, "Employee ID")' -->
+                  <input autocomplete="nope" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+              </div>
+            </th>
+
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Doc Type</span>
+                  <!-- (click)="sortList('title')" -->
+                  <span >
+                    <i [ngClass]=" sortColumn == 'title' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div>
+                <!-- [(ngModel)]="titleSearch" (ngModelChange)='searchEmployee(titleSearch, "Title")' -->
+                  <input autocomplete="nope" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Date</span>
+                  <!-- (click)="sortList('role_name')" -->
+                  <span >
+                    <i [ngClass]=" sortColumn == 'role_name' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div>
+                <!-- [(ngModel)]="roleSearch" (ngModelChange)='searchEmployee(roleSearch, "Role")' -->
+                  <input autocomplete="nope" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Person</span>
+                  <!-- (click)="sortList('role_name')" -->
+                  <span >
+                    <i [ngClass]=" sortColumn == 'role_name' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div>
+                <!-- [(ngModel)]="roleSearch" (ngModelChange)='searchEmployee(roleSearch, "Role")' -->
+                  <input autocomplete="nope" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let indx=index ;let emp of empList | sortBy:sortColumn:sortOrder:'A' | empIdfilter:empIdSearch | userNamefilter:nameSearch | userRolefilter:roleSearch | titlefilter:titleSearch | activefilter:activeSearch | lockfilter:lockedSearch | empfilter:searchTxt | listLengthfilter | paginate: paginationKey " (click)="getSelectedEmp(emp, indx)" [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''" >
+            <td>{{emp.employee_id}}<span style="display:none;">{{ indx == 0 ? updateCount(emp.count) : ''}}</span></td>
+            <td>{{emp.first_name}} {{emp.last_name}}</td>
+            <td>{{emp.title}}</td>
+            <td>{{emp.role_name}}</td>
+            <td>{{emp.isActive}}</td>
+          </tr> -->
+          <tr>
+          <td>34677218191</td>
+          <td>Invoice</td>
+          <td>14/03/3018</td>
+          <td>Bob Smith</td>
+          </tr>
+          <tr>
+          <td>34677218191</td>
+          <td>Invoice</td>
+          <td>14/03/3018</td>
+          <td>Bob Smith</td>
+          </tr>
+          <tr>
+          <td>34677218191</td>
+          <td>Invoice</td>
+          <td>14/03/3018</td>
+          <td>Bob Smith</td>
+          </tr>
+          <tr>
+          <td>34677218191</td>
+          <td>Invoice</td>
+          <td>14/03/3018</td>
+          <td>Bob Smith</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+

@@ -1,0 +1,253 @@
+<div class="schedule-section" >
+	<h3 class="pageTitle">Schedule ({{scheduleFor}}) Information Review</h3>
+	<div class="container-fluid">
+		<div class="selSection">
+			<div class="clearfix"></div>
+			<!-- Person Details -->
+			<div class="quotationDetails MB20" *ngIf="scheduleFor == 'Person'">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Date Generated</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{util.getFormatedDate(scheduleData.personDetails.created_at)}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Name</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.reqData.staff_name}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Employee ID</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.personDetails.employee_id ? scheduleData.personDetails.employee_id : '-'}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Title</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.personDetails.title ? scheduleData.personDetails.title : '-'}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Email</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col"><a href="javascript:void(0)" class="email">{{scheduleData.personDetails.email_id}}</a></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Work Phone</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.personDetails.work_phone ? util.maskPhoneNumber(scheduleData.personDetails.work_phone) : '-'}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Personal Phone</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.personDetails.mobile_no ? util.maskPhoneNumber(scheduleData.personDetails.mobile_no) : '-'}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Emergency Contact</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.personDetails.emergency_contact ? util.maskPhoneNumber(scheduleData.personDetails.emergency_contact) : '-'}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Person Details -->
+			
+			<!-- Asset Details -->
+			<div class="quotationDetails MB20" *ngIf="scheduleFor == 'Asset'">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Manufacturer</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.assetDetails.manf_name}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Item Definition No.</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.assetDetails.manf_part_no }}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Item Definition</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.assetDetails.short_name}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Class</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.assetDetails.item_class_name ? scheduleData.assetDetails.item_class_name : '-'}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">UPC</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.assetDetails.upc ? scheduleData.assetDetails.upc : '-'}}</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="col-sm-6">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Name</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.assetDetails.short_tag ? scheduleData.assetDetails.short_tag : '-'}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Scan Code</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.assetDetails.scan_code ? scheduleData.assetDetails.scan_code : '-'}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Serial No</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.assetDetails.serial_no ? scheduleData.assetDetails.serial_no : '-'}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Location</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.assetDetails.location_name ? scheduleData.assetDetails.location_name : '-'}}</div>
+							</div>
+						</div>
+						<!-- <div class="row">
+							<div class="col-sm-6">
+								<div class="label-col">Assign To</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="info-col">{{scheduleData.reqData.assign_name}}</div>
+							</div>
+						</div> -->
+
+
+					</div>
+				</div>
+			</div>
+			<!-- End Asset Details -->
+			
+			<div class="clearfix"></div>
+			<div class="scheduleDetails" *ngIf="scheduleData.reqData.schedule_type != 3">
+				<div class="serPart">
+					<span>Schedule</span>
+				</div>
+				<div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Start Date</th>
+								<th>Start Time</th>
+								<th>End Date</th>
+								<th>End Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{scheduleData ? util.getFormatedDate(scheduleData.reqData.start_date) : util.getFormatedDate(scheduleData.reqData.start_date)}}</td>
+								<td>{{scheduleData ? scheduleData.reqData.start_time :scheduleData.reqData.start_time }} {{scheduleData ? scheduleData.reqData.start_time_format :scheduleData.reqData.start_time_format }}</td>
+								<td>{{scheduleData ? util.getFormatedDate(scheduleData.reqData.end_date) : util.getFormatedDate(scheduleData.reqData.end_date)}}</td>
+								<td>{{scheduleData ? scheduleData.reqData.end_time :scheduleData.reqData.end_time }} {{scheduleData ? scheduleData.reqData.end_time_format :scheduleData.reqData.end_time_format }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- <div class="scheduleDetailsnext dn">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Repeat</th>
+								<th>Repeat Every</th>
+								<th>Repeat On</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{scheduleData ? scheduleData.schedule_type != 1 ? 'Yes' : 'NO' :selectedAssetSchedule.schedule_type != 1 ? 'Yse' : 'No' }}</td>
+								<td>{{scheduleData ? scheduleData.wo_schedule_repeat  ? scheduleData.wo_schedule_repeat.status : '-' : selectedAssetSchedule.wo_schedule_repeat ? selectedAssetSchedule.wo_schedule_repeat.status : '-' }}</td>
+								<td>{{scheduleData ? scheduleData.schedule_days  ? scheduleData.schedule_days : '-' :selectedAssetSchedule.schedule_days ? selectedAssetSchedule.schedule_days : '-' }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div> -->
+			</div>
+			<div class="clearfix"></div>
+			<div class="paymentsDetails">
+				<div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Status</th>
+								<th>Details</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Unavailable</td>
+								<td>{{scheduleData.reqData.details}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<hr>
+			</div>
+
+			<div class="errMsgCon MT20" *ngIf="isError"> 
+                <small>{{errMsg}}</small>
+            </div>
+			
+			<div class="clearfix"></div>
+			
+			<div class="button-row">
+				<button mat-raised-button class="trea-btn" (click)="editInfo(scheduleFor)">Edit</button>
+				<button id="saveSchedule" mat-raised-button class="trea-btn" (click)="save()" >Submit</button>
+				<button mat-raised-button class="trea-btn"  routerLink="/workflow/schedule/csa/schedule-list/0">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>

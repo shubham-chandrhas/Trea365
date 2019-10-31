@@ -1,0 +1,269 @@
+
+.inventory-section .search-section{ float: left; }
+.inventory-section .add-client{ float: right; }
+.inventory-section .client-btn, .dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+.qty-cost{
+    text-align: right;
+}
+.no-padding{
+   padding:2px !important;
+}
+.inventory-section .additional-field{ font-weight:  600; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 186px; height: 30px; }
+.inventory-section .filter-search{ float: left; }
+.inventory-section .filter-label{ line-height: 30px; padding: 0px 10px 0px 20px; font-size: 14px; }
+.inventory-section  .added-filter{ line-height: 30px; padding: 0px 10px;margin: 0px 5px; background-color: #F1BC4E;font-size: 14px; }
+.inventory-section  .added-filter .fa-times{ color: #CD5023;cursor: pointer; }
+.search-section .form-control:hover, .search-section .form-control:focus, .inventory-section .client-btn:hover, .inventory-section .client-btn:focus{ outline: 0px; }
+.inventory-section .fa-signal{ cursor: pointer; }
+
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{
+  font-weight:  600;
+  font-size: 14px;
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+
+/* .trea-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    min-width: 80px;
+    padding: 0 8px;
+    width: 100%;
+  }
+.trea-btn:hover,
+.client-btn:hover {
+    color: #505050!important;
+    background-color: #FFCB36!important;
+} */
+.product-summary button{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 35px;
+    padding-right: 35px;
+    margin: 10px -1px;
+}
+.loc-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    /* min-width: 120px; */
+    width: 100%;
+  }
+.loc-btn:hover, .product-summary .itemdetailsBtn:hover, .product-summary .locationBtn:hover , .product-summary .documentsBtn:hover {
+    color: #505050;
+    background: #FFCB36;
+}
+.marL10{
+    margin-left: 10px;
+}
+
+.act-option{ color: #505050!important;background-color: #FFCB36!important; }
+
+.selSection{
+    max-width: 1070px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.selPart .loc-btn{
+    width: 160px;
+}
+.selSection .label-col{font-size: 14px; font-weight:  600; line-height: 25px; }
+.selSection .info-col{ font-size: 14px; line-height: 25px; }
+
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    right: 100%;
+    border-radius: 0px;
+    padding: 10px;
+    min-width: 210px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background-color: #FFFFFF;
+}
+.dropdown-submenu>.dropdown-menu>li{
+    padding: 5px 0px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu>.dropdown-menu .checkBox label {
+    cursor: pointer;
+    font-size: 14px;
+    color: #848284;
+    font-weight: 400;
+    padding: 5px 0px;
+}
+.dropdown-submenu>.dropdown-menu .checkBox .iconChk {
+    height: 18px;
+    width: 18px;
+}
+.dropdown-submenu>.dropdown-menu .fa-times{
+    color: #CD5023;
+}
+
+.prodInvDesc {margin-bottom: 15px;}
+.qtyTxtIn {width: 80px;}
+.proQtyTbl {margin-top: 15px;}
+.errMsgCon{ text-align: center;    margin-bottom: 15px; }
+.errMsgCon small{
+    color: #F44336;
+    font-size: smaller;
+}
+.w160p{ width: 160px; }
+textarea{ width: 100%; }
+
+/* @media only screen and (max-width: 991px) and (min-width: 768px)  {
+    .inventory-section .search-section{
+        clear: both !important;
+        float: none;
+    }
+    .marL10{
+        margin-left:0px;
+    }
+} */
+
+.documents .doc-section{
+    max-width: 80%;
+    margin: 0 auto;
+}
+.documentWrap {
+    margin-bottom: 20px;
+}
+.documentWrap .docTitle{
+    margin-bottom: 15px;
+    text-align: center;
+}
+.documentWrap .docText{
+    text-align: center;
+}
+.documentWrap .docImg{
+    margin-bottom: 15px;
+    text-align: center;
+}
+.documentWrap .docImg img{
+    max-width: 80%;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.documentWrap .docTitle a,
+.documentWrap .docImg a{
+   text-decoration: none;
+   color: inherit;
+}
+
+@media screen and (max-width:991px){
+    .documents .doc-section{
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+}
+
+.proQtyTbl .table > tbody > tr > td .form-group{
+    position: relative;
+}
+.proQtyTbl .table > tbody > tr > td{
+    max-width: 275px;
+    word-wrap: break-word;
+}
+/* .proQtyTbl .table > tbody > tr > td .form-group input{
+    width: 70px;
+} */
+.itemDetails ul li a{
+    padding: 3px 12px;
+    text-align: center;
+}
+
+.doc-sectionWrap .col-sm-4:nth-child(3n+1){
+    clear: both;
+}
+@media only screen and (max-width: 896px)  {
+    .itemDetails .col-sm-3{
+        width: 31%;
+    }
+    .itemDetails .col-sm-9{
+        width: 69%;
+    }
+}
+.docPdf{
+    margin-bottom: 15px;
+    font-size:96px;
+    text-align: center;
+    padding : 30px;
+    color: #3aa69b !important;
+  }
+  a { color: inherit; }
+  .addIcon{
+    cursor:pointer;
+
+  }
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.inventory-section .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}
+

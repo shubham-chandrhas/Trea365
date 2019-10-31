@@ -1,0 +1,94 @@
+<form autocomplete="off" role="form" [formGroup]="servicesForm" class="servicesForm" >
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><!-- Leave empty for alignment --></th>
+                    <th>Service</th>
+                    <th>Cost</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                    <!-- <th>Details</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let service of services.controls; let indx=index" [formGroup]="service">
+                    <td><span class="closeIcon"><img (click)="removeService(indx, service)" src="assets/icon/close_icon.png" /></span> </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="autoCompleteList">
+                                <div class="searchList">
+                                    <mat-form-field class="product">
+                                    <input autocomplete="nope" id=service_{{indx}} name="quoteServiceName{{autoNumber}}" matInput placeholder="" [formControl]="service.get('service_definition')" [matAutocomplete]="servicesAutoComp" (keyup)="validateService($event, service, indx)">
+                                    <i *ngIf="service.get('service_definition').value!=''" (click)="util.clearAutoComplete('service_', [service.get('service_definition'), service.get('service_definition_id'), service.get('cost'), service.get('quantity'), service.get('total_amount'), service.get('details')],indx); clearService(service, service.get('total_amount').value);" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <!-- <img *ngIf="service.get('service_definition').value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" /> -->
+                                    <mat-autocomplete #servicesAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let optionIndx=index; let item of service.get('filteredService').value | async | sortBy:'serviceDefinition':'ASC':'A'" [value]="item.serviceDefinition" (onSelectionChange)="getSelectedService(item, $event, indx)">
+                                    <span>{{ item.serviceDefinition }}</span>
+                                    </mat-option>
+                                    <mat-option (click)="showAddServiceDefinationPopup(indx)">
+                                        <img aria-hidden src="assets/icon/icon-add.png" />
+                                        <span>New Service Definition</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <span class="error-msg" *ngIf="(service.get('service_definition').invalid) && (service.get('service_definition').dirty || service.get('service_definition').touched || submitted)">
+                                <small *ngIf="service.get('service_definition').errors.required">Please select Service from the list.</small>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="inputDetail form-control"  placeholder="Details(Optional)" rows="4" formControlName="details"></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group currencyWrap">
+                                <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                                <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                            <input autocomplete="nope" [attr.id]="'ser'+indx+'price'+optionIndx" type="text" class="inputCost currInput" formControlName="cost" (keyup)="calculateTotal($event, service, indx)">
+                            <span class="error-msg" *ngIf="(service.get('cost').invalid) && (service.get('cost').dirty || service.get('cost').touched || submitted)">
+                                <small *ngIf="service.get('cost').errors.required">Price is Required.</small>
+                                <small *ngIf="service.get('cost').errors.pattern">Invalid Price.</small>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input autocomplete="nope" type="number" class="inputQty PadR0" formControlName="quantity" (change)="calculateTotal($event, service, indx)">
+                            <span class="error-msg" *ngIf="(service.get('quantity').invalid) && (service.get('quantity').dirty || service.get('quantity').touched || submitted)">
+                                <small *ngIf="service.get('quantity').errors.required">Quantity is Required.</small>
+                                <small *ngIf="service.get('quantity').errors.pattern">Invalid Quantity.</small>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <span>{{service.get('total_amount').value | currency: util.getCurrency() :'symbol-narrow'}}</span>
+                    </td>
+                    <!-- <td>
+                        <div class="form-group">
+                            <textarea class="inputDetail" rows="4" formControlName="details"></textarea>
+                        </div>
+                    </td> -->
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td><!-- Leave empty for alignment --></td>
+                  <td>
+                    <span class="addIcon MB20 cursorPtr" (click)="addServices('0')">
+                      <img src="assets/icon/icon-add.png"  >
+                      <span>Add Service</span>
+                    </span>
+                  </td>
+                  <td colspan=2>
+                      <div class="label-col">Services Total</div>
+                  </td>
+                  <td>
+                      <strong>{{servicesForm.get('services_amount').value | currency: util.getCurrency() :'symbol-narrow'}}</strong>
+                  </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</form>

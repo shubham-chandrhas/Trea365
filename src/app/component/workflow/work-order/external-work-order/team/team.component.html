@@ -1,0 +1,293 @@
+<form autocomplete="off" role="form" [formGroup]="teamForm">
+  <div
+    class="teamTabWrap"
+    *ngFor="let team of teamMembers.controls; let indx = index"
+    [formGroup]="team"
+  >
+    <div class="scheduleWrap">
+      <div class="title bold">
+        <!-- *ngIf="indx != 0" (click)="removeService(indx, service)" -->
+        <span
+          *ngIf="indx != 0"
+          class="closeIcon"
+          (click)="removeTeam(indx, team)"
+        >
+          <img src="assets/icon/close_icon.png" />
+        </span>
+        <span *ngIf="indx != 0">Team Member</span>
+        <span *ngIf="indx == 0">Team Leader</span>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="label-col">Start Date</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="dateWrapper">
+              <input
+                autocomplete="nope"
+                type="text"
+                placeholder=""
+                formControlName="start_date"
+                class="date ptrN"
+                [matDatepicker]="picker"
+              />
+              <!--  Edited by Shubham [min]="minDate"  [max]="maxDate" -->
+              <mat-datepicker
+                #picker
+                (selectedChanged)="teamMembersStartDateChange($event, indx)"
+              ></mat-datepicker>
+              <span class="dateIcon" (click)="picker.open()"
+                ><img src="assets/icon/date_picker.png"
+              /></span>
+              <div class="clearfix"></div>
+              <span
+                class="error-msg"
+                *ngIf="
+                  team.get('start_date').invalid &&
+                  (team.get('start_date').dirty ||
+                    team.get('start_date').touched ||
+                    submitted)
+                "
+              >
+                <small *ngIf="team.get('start_date').errors.required"
+                  >Start Date is required.</small
+                >
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="label-col">End Date</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="dateWrapper">
+              <input
+                autocomplete="nope"
+                type="text"
+                placeholder=""
+                formControlName="end_date"
+                class="date ptrN"
+                [matDatepicker]="pickerEnd"
+              />
+              <!--  Edited by Shubham  [max]="maxDate" [min]="team.get('start_date').value" -->
+              <mat-datepicker
+                #pickerEnd
+                (selectedChanged)="teamMembersEndDateChange($event, indx)"
+              ></mat-datepicker>
+              <span class="dateIcon" (click)="pickerEnd.open()"
+                ><img src="assets/icon/date_picker.png"
+              /></span>
+              <div class="clearfix"></div>
+              <span
+                class="error-msg"
+                *ngIf="
+                  team.get('end_date').invalid &&
+                  (team.get('end_date').dirty ||
+                    team.get('end_date').touched ||
+                    submitted)
+                "
+              >
+                <small *ngIf="team.get('end_date').errors.required"
+                  >End Date is required.</small
+                >
+              </span>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="form-group timeWrap">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="label-col">Start Time</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="time">
+              <input
+                autocomplete="nope"
+                [textMask]="{ mask: constant.TIME_MASK }"
+                formControlName="start_time"
+                class="hours"
+                placeholder="__:__"
+                type="text"
+                (keyup)="getTeamMemberList($event, indx)"
+              />
+              <select
+                class=""
+                formControlName="start_time_format"
+                (change)="getTeamMemberList($event, indx)"
+              >
+                <option
+                  [ngValue]="item"
+                  *ngFor="let item of woService.timeFormats"
+                  >{{ item }}</option
+                >
+              </select>
+              <div class="clearfix"></div>
+              <span
+                class="error-msg"
+                *ngIf="
+                  team.get('start_time').invalid &&
+                  (team.get('start_time').dirty ||
+                    team.get('start_time').touched ||
+                    submitted)
+                "
+              >
+                <small *ngIf="team.get('start_time').errors.required"
+                  >Start Time is required.</small
+                >
+                <small *ngIf="team.get('start_time').errors.pattern"
+                  >Enter valid Start Time.</small
+                >
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="label-col">End Time</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="time">
+              <input
+                autocomplete="nope"
+                [textMask]="{ mask: constant.TIME_MASK }"
+                formControlName="end_time"
+                (keyup)="getTeamMemberList($event, indx)"
+                class="hours"
+                placeholder="__:__"
+                type="text"
+              />
+              <select
+                class=""
+                formControlName="end_time_format"
+                (change)="getTeamMemberList($event, indx)"
+              >
+                <option
+                  [ngValue]="item"
+                  *ngFor="let item of woService.timeFormats"
+                  >{{ item }}</option
+                >
+              </select>
+              <div class="clearfix"></div>
+              <span
+                class="error-msg"
+                *ngIf="
+                  team.get('end_time').invalid &&
+                  (team.get('end_time').dirty ||
+                    team.get('end_time').touched ||
+                    submitted)
+                "
+              >
+                <small *ngIf="team.get('end_time').errors.required"
+                  >End Time is required.</small
+                >
+                <small *ngIf="team.get('end_time').errors.pattern"
+                  >Enter valid End Time.</small
+                >
+              </span>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="label-col">Name</div>
+          </div>
+          <div class="col-sm-4 col-md-3">
+            <div class="autoCompleteList">
+              <div class="searchList">
+                <mat-form-field class="product">
+                  <input
+                    autocomplete="nope"
+                    name="wo_member_name_{{ indx }}_{{ autoNumber }}"
+                    id="team_{{ indx }}"
+                    matInput
+                    placeholder=""
+                    [formControl]="team.get('name')"
+                    [matAutocomplete]="TeamAutoComp"
+                    (keyup)="validateTeam($event, team, indx)"
+                  />
+                  <i
+                    *ngIf="team.get('name').value != ''"
+                    (click)="
+                      clearAutoComplete(
+                        'team_',
+                        [team.get('name'), team.get('id')],
+                        indx
+                      )
+                    "
+                    class="clearAutoComplete fa fa-times-circle"
+                  ></i>
+                  <mat-autocomplete #TeamAutoComp="matAutocomplete">
+                    <mat-option
+                      *ngFor="
+                        let optionIndx = index;
+                        let item;
+                        of: team.get('filteredTeam').value | async
+                      "
+                      [value]="item.name"
+                      (onSelectionChange)="getSelectedTeam(item, $event, indx)"
+                    >
+                      <span>{{ item.name }}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+            </div>
+            <span
+              class="error-msg"
+              *ngIf="
+                team.get('id').invalid &&
+                (team.get('id').dirty || team.get('id').touched || submitted)
+              "
+            >
+              <small *ngIf="team.get('id').errors.required"
+                >Please select Name from the list.</small
+              >
+            </span>
+          </div>
+
+          <div class="col-sm-6 col-sm-offset-1">
+            <div
+              class="treaAccordian"
+              *ngIf="team.get('associatedAssetList').value.length > 0"
+            >
+              <ul>
+                <li>
+                  <input autocomplete="nope" type="checkbox" />
+                  <i></i>
+                  <div class="info-col head">Associated Assets</div>
+                  <ul class="subItem">
+                    <li
+                      *ngFor="let item of team.get('associatedAssetList').value"
+                    >
+                      <span>{{ item.short_tag }}</span>
+                      (<span
+                        class="green-text"
+                        *ngIf="item.status == 'Available'"
+                        >{{ item.status }}</span
+                      >
+                      <span
+                        class="red-text"
+                        *ngIf="item.status == 'Needs Maintenance'"
+                        >{{ item.status }}</span
+                      >
+                      <span class="red-text" *ngIf="item.status == 'Missing'">{{
+                        item.status
+                      }}</span
+                      >)
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="addIcon MB20 cursorPtr" (click)="addTeams('0')">
+    <img src="assets/icon/icon-add.png" /><span>Add Team Member</span>
+  </span>
+</form>

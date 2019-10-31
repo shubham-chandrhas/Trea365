@@ -1,0 +1,51 @@
+
+/***************Add Manufacturing Form Start*************/
+.red-font{ border-color: #d0021B; }
+.addMFGPartFrmWrap form{
+    max-width: 600px;
+    margin: 30px auto;
+  }
+  .addMFGPartFrmWrap form h3{
+    text-align: center;
+    font-weight: 700;
+  }
+  .ofClass .addMFGPartFrmWrap form{ margin: 0px auto; }
+  .ofClass .addMFGPartFrmWrap .addFormBody{ padding: 20px 10px 15px 10px; }
+  .ofClass .addMFGPartFrmWrap .addFormBtnWrap{ margin-bottom: 0px; }
+  
+  .addMFGPartFrmWrap .form-horizontal .control-label {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .addMFGPartFrmWrap .addFormBody{
+    padding: 50px 10px 25px 10px;
+  }
+  .addMFGPartFrmWrap .addFormBtnWrap{
+    margin-bottom: 50px;
+    margin-top: 25px;
+  }
+  .addMFGPartFrmWrap form .form-group{
+    margin-bottom: 25px;
+  }
+  .addMFGPartFrmWrap form .form-group input,
+  .addMFGPartFrmWrap form .form-group select{
+    border-radius: 0px;
+    height: 25px;
+    padding: 1px 10px;
+  }
+  .addMFGPartFrmWrap .errMsgCon{ text-align: center; }
+  .addMFGPartFrmWrap .errMsgCon small{ 
+    color: #F44336;
+    font-size: smaller;
+  }
+  .des-heigth{ height: 100px !important; }
+  .currencySign{
+    position: absolute;
+    top: 5px;
+    left: 20px;
+}
+.currencyInput{
+    padding-left: 20px !important;
+}
+  /***************Add Manufacturing Form End*************/

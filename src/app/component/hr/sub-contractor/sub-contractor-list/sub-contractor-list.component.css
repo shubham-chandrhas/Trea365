@@ -1,0 +1,339 @@
+.qty-cost{
+    text-align: right;
+}
+.inventory-section .add-client{ float: right; }
+.inventory-section .client-btn, .dialog .client-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+}
+.inventory-section .head-row{
+    margin-bottom: 10px;
+}
+.inventory-section .additional-field{ font-weight:  600; }
+
+/* SEARCH */
+.inventory-section .search-section{ float: left; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 150px; height: 30px; padding-left: 0px; }
+.inventory-section .filter-search{ float: left; }
+.inventory-section .filter-label{ line-height: 30px; padding: 0px 10px 0px 20px; font-size: 14px; }
+.inventory-section  .added-filter{ line-height: 30px; padding: 0px 10px;margin: 0px 5px; background-color: #F1BC4E;font-size: 14px; }
+.inventory-section  .added-filter .fa-times{ color: #CD5023;cursor: pointer; }
+.search-section .form-control:hover, .search-section .form-control:focus, .inventory-section .client-btn:hover, .inventory-section .client-btn:focus{ outline: 0px; }
+
+
+.inventory-section .fa-signal{ cursor: pointer; }
+
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ 
+  font-weight: 600; 
+  font-size: 14px; 
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+
+.act-option{ color: #505050!important;background-color: #FFCB36!important; }
+.expand-summary button{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+/* .trea-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    min-width: 80px;
+    padding: 0 8px;
+    width: 100%;
+  }
+.trea-btn:hover {
+    color: #505050;
+    background: #FFCB36;
+} */
+.assetNav,
+.assetDetailsNav{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+}
+
+.assetDetailsNav{
+    margin-bottom: 25px;
+}
+.assetNav .tabs,
+.assetDetailsNav .tabs{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin-left: 1px;
+}
+.assetNav .tabs{
+    margin-left: 15px;
+}
+.tabs .dropdown-menu {
+    /* min-width: 120px; */
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+}
+.tabs .open>.trea-btn{
+    background-color: #FFCB36;
+}
+.tabs .dropdown-menu>li>a{
+    padding: 3px 10px;
+    line-height: 24px;
+}
+
+.selSection{ 
+    max-width: 1024px;
+    margin: 0 auto;
+    margin-bottom: 20px; 
+}
+.selPart .trea-btn{
+    width: 160px;
+}
+.selSection .label-col{font-size: 14px; font-weight:  600; line-height: 25px; }
+.selSection .info-col{ font-size: 14px; line-height: 25px; }
+
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    right: 100%;
+    border-radius: 0px;
+    padding: 10px;
+    min-width: 210px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background-color: #FFFFFF;
+}
+.dropdown-submenu>.dropdown-menu>li{
+    padding: 5px 0px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu>.dropdown-menu .checkBox label {
+    cursor: pointer;
+    font-size: 14px;
+    color: #848284;
+    font-weight: 400;
+    padding: 5px 0px;
+}
+.dropdown-submenu>.dropdown-menu .checkBox .iconChk {
+    height: 18px;
+    width: 18px;
+}   
+.dropdown-submenu>.dropdown-menu .fa-times{
+    color: #CD5023;
+}
+
+.serviceHistTbl table>tbody>tr>td>span{
+    color: #00A499;
+    text-decoration: underline;
+}
+.documents{
+    max-width: 80%;
+    margin: 0 auto;
+}
+.documentWrap {
+    margin-bottom: 20px;
+}
+.documentWrap .docTitle{
+    margin-bottom: 15px;
+}
+.documentWrap .docImg{
+    margin-bottom: 15px;
+}
+.documentWrap .docTitle a,
+.documentWrap .docImg a{
+    text-decoration: none;
+    color: inherit;
+}
+
+@media screen and (max-width:991px){
+    .documents{
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+}
+@media screen and (max-width:550px){
+    .inventory-section .search-section{ margin-bottom: 10px; }
+    .inventory-section .add-client{ margin-bottom: 10px; }
+}
+
+/********Add New Document Section Start***********/
+.addDocumentWrap{
+    border: 1px solid #D1D1D1;
+    padding: 10px;
+}
+.close-icon{ 
+    position: absolute;
+    right: -50px;
+    top: 0px;
+    cursor: pointer;
+}
+.imgInfoSection{ margin-bottom: 20px; }
+.imageSection h3{ margin-bottom: 50px; }
+.imageSection .dropFileHere{
+  text-align: center;
+  font-size: 16px;
+  border: 2px dashed #D1D1D1;
+  margin: 50px 0px 30px 0px;
+  padding: 30px 0px;
+}
+.imageSection .drag-over{ border: 5px dashed #a4a4a4; box-shadow: 0 0 30px #cccccc; }
+.imageSection .dropFileHere .content{ height: 150px; }
+.dropFileHere .text,
+.dropFileHere .selFileLink{ padding: 10px; }
+.dropFileHere .selFileLink>a{ color: #3aa69b;text-decoration: underline; }
+.attributesWrap .errMsgCon{ text-align: center; }
+.attributesWrap .errMsgCon small{ color: #F44336;font-size: smaller; }
+.previewImg{ border: 1px solid #D1D1D1;min-height: 135px; height: 130px; }
+.previewImg img{ height: 100%; margin: 0 auto;}
+.previewTxt .txtHead{ font-weight: 700;margin-bottom: 15px; }
+.previewTxt .txtDesc>textarea{
+  border: 1px solid #D1D1D1;
+  padding: 5px;
+  min-height: 100px;
+  resize: none;
+  width: 100%;
+  text-align: left;
+}
+.file-name-txt{ width: 190px;float: left; }
+.previewTxt .txtHead .close-icon{ color: #CD5023;margin-left: 10px;cursor: pointer; }
+.select-file{ 
+  position: relative;
+  width: 120px;
+  margin: 0px auto;
+  overflow: hidden;
+  cursor: pointer; 
+}
+.select-file .file-in{ 
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  background-color: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+.doc-preview{
+  border: 1px solid #D1D1D1;
+  min-height: 135px;
+  height: 130px;
+  line-height: 160px;
+  text-align: center;
+  color: #3aa69b;
+}
+
+.docPdf{
+    margin-bottom: 15px;
+    font-size:96px;
+    text-align: center;
+    padding : 30px;
+    color: #3aa69b !important;    
+  }
+.doc-pre{
+  min-height: 135px;
+  height: 130px;
+  line-height: 160px;
+  text-align: center;
+  color: #3aa69b;
+}
+.doc-preview i, .img-pre-div i{ font-size: 50px; }
+
+.doc-section-wrap{ 
+    width: 80%;
+    margin: 30px auto;
+    position: relative;
+}
+.doc-img-view .inner-wrap{ padding: 10px 40px; }
+
+/********Add New Document Section End***********/
+
+.margin5{
+ margin:0 10px;
+}
+.marginR10{
+  margin-right: 10px;
+}
+.subcontractDetails .selPart .trea-btn {
+    width: 130px;
+}
+.addNewSubCon { display: inline-block; }
+
+@media only screen and (max-width: 889px) and (min-width: 768px)  {
+  .addEmpBtnWrap{
+    margin-top:15px;
+  }
+}
+@media only screen and (max-width: 925px) and (min-width: 768px)  {
+  .subcontractDetails .selPart .trea-btn {
+    width: 84px;
+}
+}
+a { color: inherit; } 
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.inventory-section .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

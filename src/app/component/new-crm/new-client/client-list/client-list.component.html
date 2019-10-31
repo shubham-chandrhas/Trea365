@@ -1,0 +1,975 @@
+<div class="client-section">
+  <h1 class="pageTitle">Clients</h1>
+  <p class="page-summary">
+    All business and individual clients of the company.
+  </p>
+  <div class="trea-welcome" *ngIf="pageData.clientList && pageData.clientList.length == 0 && onBoarding">
+        <h4>There are no Clients yet.</h4>
+        <p class="textJustified">
+            Manage all Clients, whether they are businesses or individuals. Each Client may have multiple addresses, as well as primary contacts for one or more of these locations. All Client transactions can be traced from within the CRM.
+        </p>
+        <p class="textJustified">
+            Clients will be listed here when an authorized user has created one.
+        </p>
+        <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createClients">
+          
+          <button 
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            (click)="addNew()"
+          >
+           Create a Client
+          </button>
+          <button
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            (click)="addFromCSV()"
+          >
+            Upload Bulk Data
+          </button>
+        </div>
+        <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createClients">
+            <p class="note">Please contact an administrator who can add Client</p> 
+        </div>          
+    </div>
+  <div class="head-row clearfix" *ngIf="pageData.clientList && pageData.clientList.length != 0">
+    <div class="search-section">
+      <div class="input-group">
+        <span class="search-icn" id="basic-addon1">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+        <!-- <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="searchList" (ngModelChange)="getSearchTxt(searchList)" placeholder="" aria-label="" aria-describedby="basic-addon1" >
+        <button mat-raised-button class="client-btn" (click)="searchTxt = searchList">Search</button> -->
+        <input
+          autocomplete="nope"
+          type="text"
+          class="form-control"
+          [(ngModel)]="searchList"
+          (ngModelChange)="getSearchTxt(searchList)"
+          placeholder=""
+          aria-label=""
+          aria-describedby="basic-addon1"
+        />
+        <button
+          mat-raised-button
+          (click)="searchTxt = searchList"
+          class="client-btn"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="add-client addEmpBtnWrap"
+      *ngIf="util.getRole() == 2 || permissionsSet.createClients"
+    >
+      <div class="dropdown">
+        <button
+          mat-raised-button
+          class="client-btn dropdown-toggle"
+          data-toggle="dropdown"
+        >
+          New Client
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a
+              href="javascript:void(0)"
+              mat-raised-button
+              class="client-btn"
+              (click)="addNew()"
+              >Manual Input</a
+            >
+          </li>
+          <li>
+            <a
+              href="javascript:void(0)"
+              mat-raised-button
+              class="client-btn"
+              (click)="addFromCSV()"
+              >Bulk Upload</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="pull-right marRgt"
+      *ngIf="util.getRole() == 2 || permissionsSet.createDeleteFields"
+    >
+      <button mat-raised-button class="client-btn" (click)="addFields()">
+        Fields
+      </button>
+    </div>
+  </div>
+
+  <!-- <nav class="tabbed-nav">
+    <ul class="tabs-list">
+      <li class="tabs">
+        <button
+          [ngClass]="clientListTab == 'client' ? 'act-option' : ''"
+          (click)="changeClientList('client')"
+          mat-raised-button
+          class="trea-btn"
+        >
+          Clients
+        </button>
+      </li>
+      <li class="tabs">
+        <button
+          [ngClass]="clientListTab == 'address' ? 'act-option' : ''"
+          (click)="changeClientList('address')"
+          mat-raised-button
+          class="trea-btn"
+        >
+          Addresses
+        </button>
+      </li>
+      <li class="tabs">
+        <button
+          [ngClass]="clientListTab == 'contact' ? 'act-option' : ''"
+          (click)="changeClientList('contact')"
+          mat-raised-button
+          class="trea-btn"
+        >
+          Contacts
+        </button>
+      </li>
+    </ul>
+  </nav> -->
+  <div class="clientList" *ngIf="pageData.clientList && pageData.clientList.length != 0">
+    <!-- <div class="clientList" *ngIf="clientListTab == 'client'"> -->
+    <div class="trea-data-table table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              <div class="table-hdr">
+                <div>
+                  <span>Client</span>
+                  <span (click)="sortList('client_name', 'A')">
+                    <i
+                      [ngClass]="
+                        sortColumn == 'client_name' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <!-- [(ngModel)]="empIdSearch" (ngModelChange)='searchEmployee(empIdSearch, "Employee ID")' -->
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    [(ngModel)]="typeSearch"
+                  />
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Main Address</span>
+                  <span (click)="sortList('address', 'A')">
+                    <i
+                      [ngClass]="
+                        sortColumn == 'address' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    [(ngModel)]="addressSerach"
+                  />
+                </div>
+              </div>
+            </th>
+
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Email</span>
+                  <span (click)="sortList('email_id', 'A')">
+                    <i
+                      [ngClass]="
+                        sortColumn == 'email_id' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    [(ngModel)]="emailIdSearch"
+                  />
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Phone</span>
+                  <span (click)="sortList('phone_no', 'N')">
+                    <i
+                      [ngClass]="
+                        sortColumn == 'phone_no' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    [(ngModel)]="phoneSearch"
+                  />
+                </div>
+              </div>
+            </th>
+            <th *ngFor="let fieldIndx = index; let field of fields">
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span> {{ field.label }}</span>
+                  <!-- <span (click)="sortList('legal_name', 'A')">
+                    <i
+                      [ngClass]="
+                        sortColumn == 'field.label' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span> -->
+                  <span (click)="pageData.sortColumnType = field.dataType == 'Number' || field.dataType == 'Decimal' ? 'N' : 'A';pageData.sortColumn = 'label'+(fieldIndx+1); pageData.sortOrder = pageData.sortColumn === 'label'+(fieldIndx+1) ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                      <i [ngClass]=" pageData.sortColumn == 'label'+(fieldIndx+1) && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                  </span>
+              </div>
+              <div>
+                  <input autocomplete="nope" type="text" class="form-control" (keyup)="pageData.additionalFieldSearchTxt = pageData[fieldIndx]; pageData.additionalFieldSearchKey = 'label'+(fieldIndx+1);" [(ngModel)]="pageData[fieldIndx]" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <!-- <tbody *ngIf="!clientList.length>0">
+					<tr><td colspan="5" class="text-center">Data Not Found...</td></tr>
+				</tbody> -->
+        <tbody *ngIf="pageData.clientList.length > 0">
+          <!-- <tr *ngFor="let items of pageData.empList">
+            // extra field search
+            | searchfilter: extraSearch:'pageData.additionalFieldSearchKey '
+          -->
+          <tr
+            *ngFor="let indx = index; let items; of: pageData.clientList | sortBy: sortColumn:sortOrder:sortColumnType
+
+            | searchfilter: typeSearch:'client_name'
+            | searchfilter: addressSerach:'address'
+            | searchfilter: emailIdSearch:'email_id'
+            | searchfilter: phoneSearch:'phone_no'
+            | searchfilter: searchTxt:'client_name,address,email_id,phone_no'
+            | listLengthfilter
+            | paginate: paginationKey"
+            (click)="getSelectedClient(items, indx)"
+            [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''"
+          >
+            <td>
+              {{ items.client_name }}
+              <span class="dn">{{
+                  indx == 0 ? updateCount(items.count) : ""
+                }}</span>
+            </td>
+            <td>
+              {{ items.address }}
+            </td>
+            <td>
+              {{ items.email_id }}
+            </td>
+            <td>
+              {{ items.phone_no }}
+            </td>
+            <td *ngFor="let field of items.extra_fields">
+              <span *ngIf="field.dataType == 'Date'">{{ util.getFormatedDate(field.data) }}</span>
+              <span *ngIf="field.dataType != 'Date'">{{ field.data }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="treaPagination" *ngIf="pageData.clientList && pageData.clientList.length != 0">
+      <div class="pull-right">
+        <span>
+          {{ 1 + (paginationKey.currentPage - 1) * paginationKey.itemsPerPage }}
+          -
+          {{
+            paginationKey.itemsPerPage <= listCount &&
+            paginationKey.itemsPerPage +
+              (paginationKey.currentPage - 1) * paginationKey.itemsPerPage <=
+              listCount
+              ? paginationKey.itemsPerPage +
+                (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+              : listCount
+          }}</span
+        ><span> of {{ listCount }} items</span>
+      </div>
+      <div class="pull-right">
+        <select
+          [(ngModel)]="paginationKey.itemsPerPage"
+          (change)="changeItemPerPage()"
+        >
+          <option
+            *ngFor="let pageNo of constant.PAGINATION_ITEMS"
+            [ngValue]="pageNo"
+          >
+            {{ pageNo }}
+          </option>
+        </select>
+        <span> items per page</span>
+      </div>
+      <div class="pull-right">
+        <pagination-controls
+          (pageChange)="changePage($event)"
+          directionLinks="true"
+          autoHide="false"
+          previousLabel="Pre"
+          nextLabel="Next"
+          screenReaderPaginationLabel="Pagination"
+          screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page"
+        >
+        </pagination-controls>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <div id="clientMark" class="selSection" >
+
+    <h2 class="selectedTitle" *ngIf="selectedClient">
+      {{selectedClient.client_name ? selectedClient.client_name : ''}}
+    </h2>
+    <div *ngIf="!crm.isEditFromList && selectedClient">
+      <nav class="tabbed-nav">
+        <ul class="tabs-list">
+          <li class="tabs">
+            <button
+              [ngClass]="clientDetails == 'details' ? 'act-option' : ''"
+              (click)="showDetails('details')"
+              mat-raised-button
+              class="trea-btn"
+            >
+              Details
+            </button>
+          </li>
+          <li class="tabs">
+            <button
+              [ngClass]="clientDetails == 'quotations' ? 'act-option' : ''"
+              (click)="showDetails('quotations')"
+              mat-raised-button
+              class="trea-btn"
+            >
+              Quotes
+            </button>
+          </li>
+          <li class="tabs">
+            <button
+              [ngClass]="clientDetails == 'work-orders' ? 'act-option' : ''"
+              (click)="showDetails('work-orders')"
+              mat-raised-button
+              class="trea-btn"
+            >
+              WOs
+            </button>
+          </li>
+          <li class="tabs">
+            <button
+              [ngClass]="clientDetails == 'invoices' ? 'act-option' : ''"
+              (click)="showDetails('invoices')"
+              mat-raised-button
+              class="trea-btn"
+            >
+              Invoices
+            </button>
+          </li>
+          <li class="tabs">
+              <button
+                [ngClass]="clientDetails == 'payments' ? 'act-option' : ''"
+                (click)="showDetails('payments')"
+                mat-raised-button
+                class="trea-btn"
+              >
+                Payments
+              </button>
+            </li>
+        </ul>
+      </nav>
+
+      <div class="selClient clearfix">
+        <div class="pull-left heading">
+          <!-- jkhnkdf -->
+          <!-- <div class="subTitle" *ngIf="selectedClient.legal_name">
+              {{ selectedClient.legal_name }}
+            </div> -->
+        </div>
+
+        <div class="pull-right select-btn" *ngIf="clientDetails == 'details'">
+          <div class="dropdown">
+            <button
+              *ngIf="util.getRole() == 2 || permissionsSet.createClients"
+              mat-raised-button
+              class="loc-btn dropdown-toggle edit-loc-btn"
+              data-toggle="dropdown"
+            >
+              Edit
+            </button>
+            <ul class="dropdown-menu" style="right: 0px !important;left: auto;">
+              <li>
+                <a
+                  href="javascript:void(0)"
+                  class="loc-btn"
+                  (click)="editClient()"
+                  >Edit Information</a
+                >
+              </li>
+              <li>
+                <a
+                  href="javascript:void(0)"
+                  class="loc-btn"
+                  (click)="deleteDailog()"
+                  >Delete</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div *ngIf="clientDetails == 'details' && selectedClient">
+        <div class="row">
+          <div class="col-sm-6 Pad0">
+            <div class="row">
+              <div class="col-sm-5 Pad0">
+                <div class="label-col">Name</div>
+              </div>
+              <div class="col-sm-7">
+                <div class="info-col">{{selectedClient.client_name ? selectedClient.client_name : ''}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5 Pad0">
+                <div class="label-col">Client Type</div>
+              </div>
+              <div class="col-sm-7">
+                <div class="info-col">{{selectedClient.client_type ? selectedClient.client_type : ''}}</div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="selectedClient.client_type == 'Company'">
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Legal Name</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{selectedClient.legal_name ? selectedClient.legal_name : ''}}</div>
+                </div>
+              </div>
+            <div class="row">
+              <div class="col-sm-5 Pad0">
+                <div class="label-col">Payment Term</div>
+              </div>
+              <div class="col-sm-7">
+                <div class="info-col">{{selectedClient.payment_term ? selectedClient.payment_term : ''}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5 Pad0">
+                <div class="label-col">Referral Type</div>
+              </div>
+              <div class="col-sm-7">
+                <div class="info-col">{{selectedClient.referral_type ? selectedClient.referral_type : ''}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5 Pad0">
+                <div class="label-col">Comments</div>
+              </div>
+              <div class="col-sm-7">
+                <div class="info-col">{{selectedClient.comments ? selectedClient.comments : ''}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 Pad0">
+            <!-- Extra Fields -->
+            <div class="row">
+              <!-- Extra Fields -->
+              <div
+                class="col-sm-12 Pad0"
+              >
+              <!-- <div
+                class="col-sm-4 Pad0"
+                [ngClass]="item.optionalStatus == 'True' ? 'optional' : ''"
+              > -->
+                <!-- <div
+                class="col-sm-4 Pad0"
+                *ngFor="let item of selectedClient.additional_fields"
+                [ngClass]="item.optionalStatus == 'True' ? 'optional' : ''"
+              > -->
+                <div class="auditorDetails clearfix">
+                  <div class="row" *ngFor="let extra of selectedClient.extra_fields">
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col">{{extra.label ? extra.label : ''}}</div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class="info-col" *ngIf="extra.dataType == 'Date'">{{extra.data ? util.getFormatedDate(util.getTimeZoneDate(extra.data)) : ''}}</div>
+                      <div class="info-col" *ngIf="extra.dataType != 'Date'">{{extra.data ? extra.data : ''}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h3 class="detailsHeading">Addresses</h3>
+        <div class="row form-group" *ngIf="selectedClient">
+          <h4 class="detailsSubHeading">Main Address</h4>
+
+          <div *ngFor="let main of selectedClient.main_address">
+              <div class="col-sm-6 Pad0 ">
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Address</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col">{{main ? util.concatenateStrings(main.address_line_2,main.address_line_1) : ''}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 Pad0 Pad1">
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Contact</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col">{{main.name ? main.name : ''}}</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Contact Type</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col">{{main.contact_type ? main.contact_type : ''}}</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Phone</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col">{{main.phone_no ? main.phone_no : ''}}</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Email</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col"><a href="mailto:{{main.email_id ? main.email_id : ''}}" target="_top">{{main.email_id ? main.email_id : ''}}</a></div>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+
+          <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row form-group" *ngIf="selectedClient">
+            <h4 class="detailsSubHeading">Billing Address</h4>
+
+            <div *ngFor="let billing of selectedClient.billing_address">
+                <div class="col-sm-6 Pad0 ">
+                  <div class="row">
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col">Address</div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class="info-col">{{billing ? util.concatenateStrings(billing.address_line_2,billing.address_line_1) : ''}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 Pad0 Pad1">
+                  <div class="row">
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col">Contact</div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class="info-col">{{billing.name ? billing.name : ''}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col">Contact Type</div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class="info-col">{{billing.contact_type ? billing.contact_type : ''}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col">Phone</div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class="info-col">{{billing.phone_no ? billing.phone_no : ''}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col">Email</div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class="info-col"><a href="mailto:{{billing.email_id ? billing.email_id : ''}}" target="_top">{{billing.email_id ? billing.email_id : ''}}</a></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+          </div>
+        <div class="clearfix"></div>
+        <div class="row form-group" *ngIf="selectedClient">
+            <h4 class="detailsSubHeading">Work Address</h4>
+            <div *ngFor="let wo of selectedClient.work_address">
+              <div class="col-sm-6 Pad0 ">
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Address</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col">{{wo ? util.concatenateStrings(wo.address_line_2,wo.address_line_1) : ''}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 Pad0 Pad1">
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Contact</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col">{{wo.name ? wo.name : ''}}</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Contact Type</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col">{{wo.contact_type ? wo.contact_type : ''}}</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Phone</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col">{{wo.phone_no ? wo.phone_no : ''}}</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Email</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="info-col"><a href="mailto:{{wo.email_id ? wo.email_id : ''}}" target="_top">{{wo.email_id ? wo.email_id : ''}}</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+      </div>
+      <div class="clearfix"></div>
+
+      <div *ngIf="clientDetails == 'quotations'  && selectedClient">
+          <div class="row">
+            <div class="col-sm-6 Pad0">
+              <div class="row" *ngIf="!crm.isEditFromList">
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Total Quotations</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{selectedClient.total_quotations ? selectedClient.total_quotations : '0'}}</div>
+                </div>
+              </div>
+              <div class="row" *ngIf="!crm.isEditFromList">
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Total Value Quoted to Date</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{ selectedClient.total_quotation_cost | currency: util.getCurrency():"symbol-narrow" }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quotesDetailsTbl" *ngIf="selectedClient.active_quotations">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>PE No.</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th class="text-right">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let pe of selectedClient.active_quotations">
+
+                      <td><a
+                        href="javascript:void(0)"
+                        class="email"
+                        [routerLink]="[
+                          '/workflow/quote/csa/quotation-list/',
+                          pe.project_estimate_id
+                        ]"
+                        >{{pe.project_estimate_no}}</a></td>
+                      <td>{{util.getFormatedDate(pe.created_at)}}</td>
+                      <td>{{pe.status}}</td>
+                      <td class="text-right">{{pe.cost | currency: util.getCurrency():"symbol-narrow" }}</td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+      </div>
+
+      <div *ngIf="clientDetails == 'work-orders'  && selectedClient">
+        <div class="row">
+          <div class="col-sm-6 Pad0">
+            <div class="row" *ngIf="!crm.isEditFromList">
+              <div class="col-sm-5 Pad0">
+                <div class="label-col">Total WOs</div>
+              </div>
+              <div class="col-sm-7">
+                <div class="info-col">{{selectedClient.total ? selectedClient.total : '0' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="add-client">
+          <button
+            *ngIf="util.getRole() == 2"
+            mat-raised-button
+            class="client-btn"
+            type="button"
+            (click)="showQuotationListPopup(selectedClient)"
+          >
+            Create WO
+          </button>
+        </div>
+        <div class="quotesDetailsTbl" *ngIf="selectedClient.client_work_orders">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>WO No.</th>
+                    <th>PE No.</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let wo of selectedClient.client_work_orders">
+
+                    <td><a
+                      href="javascript:void(0)"
+                      class="email"
+                      [routerLink]="[
+                        '/workflow/wo/csa/work-order-list/',
+                        wo.work_order_id
+                      ]"
+                      >{{wo.work_order_no}}</a></td>
+                    <td><a
+                        href="javascript:void(0)"
+                        class="email"
+                        [routerLink]="[
+                          '/workflow/quote/csa/quotation-list/',
+                          wo.project_estimate_id
+                        ]"
+                        >{{wo.project_estimate_number}}</a></td>
+                    <td>{{util.getFormatedDate(wo.start_date)}}</td>
+                    <td>{{util.getFormatedDate(wo.end_date)}}</td>
+                    <td>{{wo.status}}</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+      </div>
+
+      <div *ngIf="clientDetails == 'invoices'  && selectedClient">
+          <div class="row">
+            <div class="col-sm-6 Pad0">
+              <div class="row" *ngIf="!crm.isEditFromList">
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Total Invoices</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{selectedClient.total_invoices ? selectedClient.total_invoices : '0'}}</div>
+                </div>
+              </div>
+              <div class="row" *ngIf="!crm.isEditFromList">
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Total Invoiced to Date</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{ selectedClient.total_invoices_amount | currency: util.getCurrency():"symbol-narrow" }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="add-client">
+              <button
+                *ngIf="util.getRole() == 2"
+                mat-raised-button
+                class="client-btn"
+                type="button"
+                (click)="showQuotationListForInvoice(selectedClient)"
+              >
+                Create Invoice
+              </button>
+            </div>
+          <div class="quotesDetailsTbl" *ngIf="selectedClient.client_invoices">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Invoice No.</th>
+                      <th>Date of Invoice</th>
+                      <th class="text-right">Amount Invoiced</th>
+                      <th>Date Due</th>
+                      <th class="text-right">Amount Paid</th>
+                      <th class="text-right">Amount Outstanding</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let inv of selectedClient.client_invoices">
+
+                      <td><a
+                        href="javascript:void(0)"
+                        class="email"
+                        [routerLink]="[
+                          '/account/csa/invoice-list/',
+                          inv.invoice_id
+                        ]"
+                        >{{inv.invoice_no}}</a></td>
+                      <td>{{util.getFormatedDate(inv.invoice_date)}}</td>
+                      <td class="text-right">{{inv.total_payment_amount | currency: util.getCurrency():"symbol-narrow"}}</td>
+                      <td>{{util.getFormatedDate(inv.due_date)}}</td>
+                      <td class="text-right">{{inv.paid_amount | currency: util.getCurrency():"symbol-narrow" }}</td>
+                      <td class="text-right">{{inv.remaining_amount | currency: util.getCurrency():"symbol-narrow" }}</td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+      </div>
+      <div *ngIf="clientDetails == 'payments'  && selectedClient">
+          <div class="row">
+            <div class="col-sm-6 Pad0">
+              <div class="row" *ngIf="!crm.isEditFromList">
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Total Paid to Date</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{selectedClient.total_paid_amount | currency: util.getCurrency():"symbol-narrow" }}</div>
+                </div>
+              </div>
+              <div class="row" *ngIf="!crm.isEditFromList">
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Total Outstanding</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{ selectedClient.total_remaining_amount | currency: util.getCurrency():"symbol-narrow" }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="add-client">
+              <button
+                *ngIf="util.getRole() == 2"
+                mat-raised-button
+                class="client-btn"
+                type="button"
+                (click)="showInvoiceForPayment(selectedClient)"
+              >
+                Record Payment
+              </button>
+            </div>
+          <div class="quotesDetailsTbl" *ngIf="selectedClient.payments">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th class="text-right">Amount Paid</th>
+                      <th>Invoice No.</th>
+                      <th>Payment Method</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let pay of selectedClient.payments">
+
+                      <td>{{util.getFormatedDate(pay.payment_date)}}</td>
+                      <td class="text-right">{{pay.payment_amount  | currency: util.getCurrency():"symbol-narrow"}}</td>
+                      <td>{{pay.invoice_no}}</td>
+                      <td>{{pay.payment_method}}</td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+      </div>
+    </div>
+
+    <div *ngIf="crm.isEditFromList">
+      <app-add-new-client></app-add-new-client>
+    </div>
+  </div>
+</div>

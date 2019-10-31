@@ -1,0 +1,82 @@
+.location-section{ padding: 0px 20px; }
+.location-section .search-section{ float: left; }
+.location-section .add-client{ float: right; }
+.location-section .client-btn, .dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+
+.location-section .dd-btn{ min-width: 156px; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 186px; height: 30px; }
+.search-section .form-control:hover, .search-section .form-control:focus, .location-section .client-btn:hover, .location-section .client-btn:focus{ outline: 0px; }
+.tabs .dropdown-menu { min-width: 120px; width: 100%;padding: 0px;text-align: center; }
+.tabs .open>.loc-btn{ background-color: #FFCB36; }
+.tabs .dropdown-menu>li>a{ padding: 3px 10px;line-height: 24px; }
+.addEmpBtnWrap .dropdown-menu{ top: 31px;right: 2px; }
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ 
+  font-weight: 600; 
+  font-size: 14px; 
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+.locationsWrap .head-row{
+  margin-bottom: 20px;
+}
+.locationsWrap .addUserFormBody{
+  max-width: 90%;
+  margin: 0 auto;
+}
+.divisionDetails .Division1{
+  margin-bottom: 20px;
+}
+.addUserFormBody .addLocationFormBtnWrap{
+  margin: 54px 50px 80px 50px;
+}
+.locationsWrap .addUserFormBody .treaActionBtn{
+  width: 160px;
+}
+.locationsWrap .mar20{
+  margin:20px auto;
+}
+.locationsWrap  .mar60{
+  margin-top: 60px;
+}
+.locationsWrap  .locWrap{
+      margin: 45px auto;
+}
+.marT30{ margin-top: 30px; }
+
+.warehouseannexfixedWrap .client-btn{
+  /*margin-left: 20px;*/
+}
+.ML15I{ margin-left: 15px !important; }
+.trea-data-table .table-hdr .fa-signal { cursor: pointer; }
+@media only screen and (max-width: 880px) and (min-width: 768px)  {
+  .warehouseannexfixedWrap .addEmpBtnWrap{
+    margin-top: 20px;
+  }
+}

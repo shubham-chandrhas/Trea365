@@ -1,0 +1,25 @@
+
+.addNewSupFormCov {
+    max-width: 600px;
+    margin: 0px auto;
+  }
+.addNewSupFormCov .control-label {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    padding-top: 3px;
+}
+.treaActionBtn{ background-color: #00A499;color: #FFFFFF;border-radius: 0px;height: 30px;line-height: 30px;text-decoration: none; }
+.treaActionBtn{ background-color: #00A499;color: #FFFFFF;border-radius: 0px;height: 30px;line-height: 30px;text-decoration: none; }
+.addNewSupFormCov {margin-top: 25px;}
+.addNewSupFormCov .form-group {margin-bottom: 25px;}
+.newSupBtn {text-align: center; margin-top: 35px;}
+
+.errMsgCon{ text-align: center; }
+.errMsgCon small{ 
+  color: #F44336;
+    font-size: smaller;
+}
+.addNewSupFormCov .info-col{
+  font-weight: 500;
+}

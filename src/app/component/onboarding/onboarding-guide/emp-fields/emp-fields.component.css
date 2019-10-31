@@ -1,0 +1,21 @@
+
+.info-col{
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+.addFields>img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+.addFields>span{
+    /* cursor: pointer; */
+    padding-left: 5px;
+}
+.btnWrap{
+    text-align: center;
+    margin: 20px auto;
+}
+.btnWrap .mdBtn{
+    margin: 10px;
+}

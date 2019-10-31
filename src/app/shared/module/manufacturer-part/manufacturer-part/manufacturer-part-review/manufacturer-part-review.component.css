@@ -1,0 +1,68 @@
+.mfgReviewCover{
+    max-width: 600px;
+    margin: 0 auto;
+}
+.mfgReviewCover .reviewBtnWrap{
+    margin: 50px 0px;
+}
+.mfgReviewCover .reviewBtnWrap .mdBtn{
+   margin-left: 15px;
+}
+.attributeSection{
+    margin: 50px 0px;
+}
+.previewImg{ 
+    border: 1px solid #D1D1D1;
+    height: 130px; 
+    margin-bottom: 30px;
+    padding: 10px;
+}
+.previewImg img{ height: 100%; }
+.previewTxt .txtHead{ margin-bottom: 15px; }
+.ofClass .reviewBtnWrap{ margin: 15px 0px 0px 0px !important; }
+@media screen and (min-width:767px) and (max-width:991px){
+    .mfgReviewCover{
+        max-width: 100%;
+    }
+    
+}
+@media screen and (max-width:767px){
+    /* .mfgReviewCover{
+        max-width: 100%;
+    } */
+    .mfgReviewCover .reviewBtnWrap .mdBtn{
+        margin-left: 8px;
+        width: 120px;
+        padding: 5px;
+    }
+}
+@media screen and (max-width:480px){
+    .mfgReviewCover .pageTitle{
+        font-size: 16px;
+        }
+}
+@media screen and (max-width:420px){
+    .mfgReviewCover .reviewBtnWrap .mdBtn{
+        margin-left: 5px;
+        width: 85px;
+    }
+}
+
+.doc-preview{
+    border: 1px solid #D1D1D1;
+    min-height: 135px;
+    height: 130px;
+    line-height: 160px;
+    text-align: center;
+    color: #00a99d;
+    margin-top:29px;
+    }
+
+.docPdf{
+    border: 1px solid #D1D1D1;
+    margin-bottom: 15px;
+    font-size:96px;
+    text-align: center;
+    padding : 22px;
+    color: #3aa69b !important;    
+    }    

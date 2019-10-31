@@ -1,0 +1,86 @@
+
+<div class="onboardingquideWrap">
+    <!-- <div class="topLogo">
+        <img class="img-responsive" src="assets/logo/trea-logo.png">
+    </div> -->
+
+    <section class="onboarding-intro">
+      <h1>Onboarding Guide</h1>
+      <p>To get the most out of the TREA365 platform, you will need to enter as much information about your company and its operations as possible. This guide will help you get started loading some of that information into the system.</p>
+      <p>Because some types of information are dependent on others, you will find that you are unable to access certain sections (the buttons are disabled) until the appropriate pre-requisites exist.</p>
+    </section>
+
+
+
+    <div class="onboardingquideFrmWrap" *ngIf="moduleList && moduleList.required.length > 0">
+
+        <section class="onboardingquideBody">
+            <h2 class="detailsHeading">Required</h2>
+            <p>The following sections are required. You will need to add at least one record for each information type before you can launch the platform.</p>
+
+            <div class="form-group" *ngFor="let indx = index; let module of moduleList.required;" >
+                <div class="row" *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).view || checkAccess(module.menu, 1).add">
+                    <!-- 
+                        API response Data
+                        required[0] = {menu: "Nature of Business", type: "required", is_set: 1, company_id: 4}
+                        required[1] = {menu: "Location", type: "required", is_set: 1, company_id: 4}
+                        required[2] = {menu: "Item Categories", type: "required", is_set: 1, company_id: 4}
+                        required[3] = {menu: "Manufacturer", type: "required", is_set: 1, company_id: 4}
+                        required[4] = {menu: "Item Definition", type: "required", is_set: 1, company_id: 4}
+                        required[5] = {menu: "Permission", type: "required", is_set: 1, company_id: 4}
+                     -->
+                    <div class="col-sm-6">
+                        <div class="label-col">{{module.menu}}</div>
+                    </div>
+                    <div class="col-sm-6" *ngIf="module.is_set == 0">
+                        <button *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).add" [ngClass]="module.menu == 'Item Definition' && moduleList.required[3].is_set == 0 && moduleList.required[4].is_set == 0 ? 'inactiveBtn' : '' " class="pull-left treaBtn addViewBtn" (click)="redirectTo(module.menu, module.is_set)">Add</button>
+                        <button *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).add" class="pull-left treaBtn ML15" [ngClass]="module.menu == 'Item Definition' && moduleList.required[3].is_set == 0 && moduleList.required[4].is_set == 0 ? 'inactiveBtn' : '' " (click)="csvUpload(module.menu)">CSV Upload</button>
+                    </div>
+                    <div class="col-sm-6" *ngIf="module.is_set == 1">
+                        <!-- <label for="upload" class="info-col pull-left">Updated</label> -->
+                        <button *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).view" class="pull-left treaBtn addViewBtn" (click)="redirectTo(module.menu, module.is_set)">View</button>
+                        <button *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).add" class="pull-left treaBtn ML15" [ngClass]="module.menu == 'Item Definition' && moduleList.required[3].is_set == 0 && moduleList.required[4].is_set == 0 ? 'inactiveBtn' : '' " (click)="csvUpload(module.menu)">CSV Upload</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </section>
+
+        <section class="onboardingquideBody">
+            <h2 class="detailsHeading">Optional</h2>
+            <p>The sections below are not required in order to start the platform, but filling in some information here will help you get off to a better start.</p>
+
+            <div class="form-group" *ngFor="let indx = index; let module of moduleList.optional;">
+                <div class="row" *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).view || checkAccess(module.menu, 1).add">
+                    <!-- 
+                        API response Data
+                        optional[1] = {menu: "Sub Contractor", type: "optional", is_set: 1, company_id: 4}
+                        optional[2] = {menu: "Assets", type: "optional", is_set: 1, company_id: 4}
+                        optional[3] = {menu: "Products", type: "optional", is_set: 1, company_id: 4}
+                        optional[4] = {menu: "Materials", type: "optional", is_set: 1, company_id: 4}
+                        optional[5] = {menu: "Supplier", type: "optional", is_set: 1, company_id: 4}
+                        optional[6] = {menu: "Client", type: "optional", is_set: 1, company_id: 4}
+                     -->
+                    <div class="col-sm-6">
+                        <div class="label-col">{{module.menu}}</div>
+                        <!-- <div class="label-col" [ngClass]="(module.menu == 'Employee' && moduleList.required[5].is_set == 0) || (module.menu == 'Assets' && (moduleList.required[1].is_set == 0 || moduleList.required[2].is_set == 0)) || (module.menu == 'Products' && (moduleList.required[1].is_set == 0 || moduleList.required[2].is_set == 0)) || (module.menu == 'Materials' && (moduleList.required[1].is_set == 0 || moduleList.required[2].is_set == 0)) ? 'optional' : '' ">{{module.menu}}</div> -->
+                    </div>
+                    <div class="col-sm-6" *ngIf="module.is_set == 0">
+                        <button *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).add" class="pull-left treaBtn addViewBtn" [ngClass]="(module.menu == 'Employee' && moduleList.required[5].is_set == 0) || ((module.menu == 'Assets' || module.menu == 'Products' ||module.menu == 'Materials') && (moduleList.required[1].is_set == 0 || moduleList.required[2].is_set == 0)) ? 'inactiveBtn' : '' "  (click)="redirectTo(module.menu, module.is_set)">Add</button>
+                        <button *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).add" class="pull-left treaBtn ML15" [ngClass]="(module.menu == 'Employee' && moduleList.required[5].is_set == 0) || ((module.menu == 'Assets' || module.menu == 'Products' ||module.menu == 'Materials') && (moduleList.required[1].is_set == 0 || moduleList.required[2].is_set == 0)) ? 'inactiveBtn' : '' " (click)="csvUpload(module.menu)">CSV Upload</button>
+                    </div>
+                    <div class="col-sm-6" *ngIf="module.is_set == 1">
+                            <!-- <label for="upload" class="info-col pull-left">Updated</label> -->
+                            <button *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).view" class="pull-left treaBtn addViewBtn" (click)="redirectTo(module.menu, module.is_set)">View</button>
+                            <button *ngIf="util.getRole() == 2 || checkAccess(module.menu, 1).add" class="pull-left treaBtn ML15" [ngClass]="(module.menu == 'Employee' && moduleList.required[5].is_set == 0) || ((module.menu == 'Assets' || module.menu == 'Products' ||module.menu == 'Materials') && (moduleList.required[1].is_set == 0 || moduleList.required[2].is_set == 0)) ? 'inactiveBtn' : '' " (click)="csvUpload(module.menu)">CSV Upload</button>
+                        </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="platformBtnWrap text-center clearfix">
+                <button class="lgBtn" [ngClass]="moduleList.required[0].is_set == 1 && moduleList.required[1].is_set == 1 && moduleList.required[2].is_set == 1 && moduleList.required[3].is_set == 1 && moduleList.required[4].is_set == 1 && moduleList.required[5].is_set == 1 ? '' : 'inactiveBtn'" routerLink="/csa">Start The Platform</button>
+            </div>
+        </section>
+    </div>
+</div>

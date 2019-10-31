@@ -1,0 +1,187 @@
+.businessSetupWrap .pageTitle{
+    margin-bottom: 50px;
+}
+.editBusinessDetails{
+    max-width: 85%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.editBusinessDetails .form-group{
+   margin-bottom: 20px;
+}
+
+.service-type-wrap {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    padding: 20px 0;
+}
+.service-type-wrap:not(:first-of-type) {
+    border-top: none;
+}
+.service-label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.serviceDefWrap .serviceDefTxt {
+    /* display: inline-block; */
+    position: relative;
+ 
+  }
+.closeIcon{
+     /* display: inline-block;
+     width: 20px;
+     margin-left: -20px; */
+     cursor: pointer;
+     position: absolute;
+     left: -20px;
+ }
+ .serviceDefText .closeIcon {
+    margin-top: 3px;
+ }
+/* 
+.serviceDefWrap .form-group{
+    margin-bottom: 32px;
+ } */
+.editBusinessDetails .table {
+    /* border-bottom: 1px solid #7E7E7E; */
+    margin-bottom: 15px;
+}
+
+/* .editBusinessDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    vertical-align: top;
+}
+
+.editBusinessDetails .table>tbody>tr>td,
+.editBusinessDetails .table>thead>tr>td,
+.editBusinessDetails .table>thead>tr>th{
+    border-color: #7E7E7E;
+    font-size: 14px;
+    line-height: 25px;
+    min-width: 190px;
+}
+
+.editBusinessDetails .table > tbody > tr > td {
+    color: #7E7E7E;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.editBusinessDetails .table > tbody > tr > td .form-group input {
+    min-width: 150px;
+    width: 150px;
+    font-weight: 500;
+ } */
+ /* .serviceDefWrap{
+    min-width: 150px;
+    width: 450px;
+    padding-right: 0px;
+ } */
+
+/* .editBusinessDetails .table > thead > tr > th:last-child,
+.editBusinessDetails .table > tbody > tr > td:last-child {
+    min-width: 150px;
+    width: 450px;
+    padding-right: 0px;
+ }
+.editBusinessDetails .table > tbody > tr > td:first-child,
+.editBusinessDetails .table > thead > tr > th:first-child {
+    border: 0px;
+    min-width: 40px;
+    width: 40px;
+}
+.editBusinessDetails .table > tbody > tr > td:first-child{
+    cursor: pointer;
+}
+.editBusinessDetails .table-responsive{
+    margin-left: -40px;
+} */
+.addIcon{
+    margin-left: 5px;
+}
+.addIcon>img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+
+.addIcon>span,
+.closeIcon>span{
+    /* cursor: pointer; */
+    padding-left: 10px;
+}
+.editBusinessBtnWrap{
+    text-align: center;
+}
+.editBusinessBtnWrap .mdBtn{
+    margin: 20px;
+}
+@media screen and (max-width: 767px){
+    .editBusinessDetails .table-responsive{
+        border: none;
+    }
+}
+
+.businessDetails{
+    max-width: 85%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.businessDetails .table {
+    border-bottom: 1px solid #7E7E7E;
+    margin-bottom: 15px;
+}
+
+.businessDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    vertical-align: top;
+    font-family: 'Montserrat-SemiBold';
+}
+
+.businessDetails .table>tbody>tr>td,
+.businessDetails .table>thead>tr>td,
+.businessDetails .table>thead>tr>th{
+    border-color: #7E7E7E;
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.businessDetails .table > tbody > tr > td {
+    color: #7E7E7E;
+}
+.businessDetails .table > tbody > tr > td>div {
+    padding: 5px 0px;
+}
+
+@media screen and (max-width: 767px){
+    .businessDetails .table-responsive{
+        border: none;
+    }
+}
+
+.errMsgCon{ text-align: center; }
+.errMsgCon small{ 
+  color: #F44336;
+    font-size: smaller;
+}
+.currencyWrap{
+    position: relative;
+    float: right;
+}
+.currencyWrap .currencySign{
+    position: absolute;
+    top: 3px;
+    left: 5px;
+}
+.currencyWrap .currInput{
+    padding-left: 20px;
+}
+/* .definitionHead{
+    display: inline-block;
+}
+.priceHead{
+    float: right;
+    margin-right: 20%;
+} */

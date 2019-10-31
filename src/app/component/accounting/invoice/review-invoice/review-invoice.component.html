@@ -1,0 +1,198 @@
+
+<div class="clearfix"></div>
+<div class="invoiceReviewSection">
+    <div class="pageTitle">Invoice</div>
+
+    <div class="headInfoWrap">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="label-col">Date</div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="info-col">{{util.getFormatedDate(pageData.project_estimate_date)}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="label-col">Client</div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="info-col">{{pageData.client_details.company_name}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="label-col">Quotation No.</div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="info-col"><a href="javascript:void(0)" class="email" [routerLink]="['/workflow/quote/csa/quotation-list/', pageData.project_estimate_id]">{{pageData.project_estimate_no}}</a></div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="pageData.work_orders.length > 0">
+                        <div class="col-sm-4">
+                            <div class="label-col">Work Order No.</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="info-col" *ngFor="let workorder of pageData.work_orders"><a href="javascript:void(0)" class="email" [routerLink]="['/workflow/wo/csa/work-order-list/', workorder.work_order_id]">{{workorder.work_order_no}}</a></div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="label-col">Billing Address</div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="info-col">
+                            {{util.concatenateStrings(pageData.client_billing_location.address_line_2,pageData.client_billing_location.address_line_1)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="invoiceDetTbl">	
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Service and Materials</th>
+                        <th>Cost</th>
+                        <th>Quantity</th>
+                        <th class="right-aligned">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of pageData.formData.items">
+                        <td *ngIf="item.add_to_invoice">{{item.name}}</td>
+                        <td *ngIf="item.add_to_invoice">{{item.cost | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                        <td *ngIf="item.add_to_invoice">{{item.invoice_quantity}} {{item.uom ? item.uom : ''}}</td>
+                        <td class="right-aligned" *ngIf="item.add_to_invoice">{{item.invoice_amount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                    </tr>
+                    <tr *ngFor="let item of pageData.formData.unlisted_items">
+                        <td>{{item.ad_hoc_service}}</td>
+                        <td>{{item.cost | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                        <td>{{item.quantity}} {{item.uom ? item.uom : ''}}</td>
+                        <td class="right-aligned">{{item.total_amount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="payScheduleWrap">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="section-heading">Payment Schedule</div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date Due</th>
+                                <th class="right-aligned">Amount Due</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pageData.payment_schedules; let indx=index">
+                                <td>{{util.getFormatedDate(item.payment_date)}}</td>
+                                <td class="right-aligned">{{item.amount_due | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="label-col">Subtotal</div>
+                    </div>
+                    <div class="col-sm-4 right-aligned">
+                        <div class="info-col">{{pageData.costs[0].subtotal | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="info-col right-aligned">Shipping and Handling</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="info-col right-aligned">{{pageData.formData.shipping_and_handling | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="info-col right-aligned">Adjustment</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="info-col right-aligned">{{pageData.formData.adjustment | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="info-col right-aligned">
+                            <span>Taxes</span> <span>{{pageData.formData.tax}}</span> <span> %</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 right-aligned">
+                        <div class="info-col right-aligned">{{pageData.costs[0].tax_amount | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="label-col">Total Payment Amount </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="label-col">{{pageData.costs[0].total_cost | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="label-col">Due Date</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="info-col right-aligned">{{pageData.formData.due_date}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="commentSection">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="label-col">Notes</div>
+                <div class="info-col">
+                    {{pageData.formData.notes}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="snedOption">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="checkBox">
+                    <label>
+                        <input autocomplete="nope" type="checkbox" [(ngModel)]="isSendInvoices" checked="true" name="isSendInvoices" id="isSendInvoices">
+                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                        Send Invoice to {{pageData.client_contact_details.name}} ( {{pageData.client_contact_details.email_id}} )
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="errMsgCon" *ngIf="isError">
+        <small>{{errMsg}}</small>
+    </div>
+    <div class="button-row">
+        <!-- routerLink="/account/csa/create-invoice" -->
+        <button mat-raised-button class="trea-btn" (click)="edit()">Edit</button>
+        <button
+        class="trea-btn" mat-raised-button id="previewBtn" (click)="previewDoc()">
+        Preview
+      </button>
+        <button mat-raised-button class="trea-btn" (click)="sendInvoice()" id="send">Create Invoice</button>
+        <button mat-raised-button class="trea-btn" (click)="cancel()">Cancel </button>
+    </div>
+</div>

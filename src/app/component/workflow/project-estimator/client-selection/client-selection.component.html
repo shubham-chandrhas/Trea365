@@ -1,0 +1,250 @@
+<div class="projectEstimationWrap">
+	<div> <h3>Project Estimator</h3></div>
+
+
+	<!-- <div class="container">
+      <h1>Angular 2 + Google Maps Places Autocomplete</h1>
+      <div class="form-group">
+        <input autocomplete="nope" placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+      </div>
+      <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+      </agm-map>
+    </div> -->
+
+
+	<form autocomplete="off" class="form-horizontal exitClientForm" [formGroup]="clientSelFm" role="form">
+		<div class="exitClientFormBody">
+			<div class="form-group">
+				<div class=" col-sm-4">
+					<div class="treaRadioBtn">
+				      <input autocomplete="nope" name="radio-group" type="radio" id="exitClient">
+				      <label for="exitClient">Existing Client</label>
+				    </div>
+				</div>
+				<div class="col-sm-8">
+					<!-- formControlName="existingClient" -->
+					<input autocomplete="nope" type="text" id="existingClient" name="existingClient" placeholder=""  class="form-control">
+					<!-- <span class="error-msg" *ngIf="existingClient.invalid && (existingClient.dirty || existingClient.touched || submitted)">
+						<small *ngIf="existingClient.errors.required">First Name is required.</small>
+						<small *ngIf="existingClient.errors.minlength">First name must be at least 2 characters long.</small>
+		                <small *ngIf="existingClient.errors.maxlength">First name must be less than 30 characters.</small>
+					</span> --> 
+				</div>
+			</div>
+
+			<div class="form-group">
+				<!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+				    <label class="col-sm-4 control-label" for="role">Work Location</label>
+					<div class="col-sm-8">
+					<select formControlName="workLocation" class="form-control">
+						<!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+						<option>30 Walmar Road, Toronto, ON M5R 2W3</option>
+						<option>1 King West, Toronto, ON M5R 2WR</option>
+						<option>30 Walmar Road, Toronto, ON M5R 2W3</option> 
+						<option>New Work Location</option>
+					</select>
+					<!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+						<small *ngIf="roleId.errors.required">Please Select Role.</small>
+					</span> --> 
+				</div>
+			</div>
+			<div class="form-group extraContact">
+				<!-- formControlName="extraContact"  -->
+				<label class="col-sm-4 control-label txtColor" for="extraContact">Extra Contact</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" id="extraContact" name="extraContact" placeholder="(optional)" class="form-control">
+					<!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+						<small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+						<small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+					</span>  -->
+				</div>
+			</div>
+			<div class="form-group">
+				<!-- formControlName="userEmail"  -->
+				<label class="col-sm-4 control-label txtColor" for="email">Email</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" id="email" name="email" placeholder="(optional)" class="form-control" >
+					<!-- <span class="error-msg" *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched || submitted)">
+						<small *ngIf="userEmail.errors.required">Email is required.</small>
+						<small *ngIf="userEmail.errors.pattern">Enter valid email.</small>
+					</span> --> 
+				</div>
+			</div>
+			<div class="form-group">
+				<!--  (keypress)="util.keyPress($event)" formControlName="userMobile"  -->
+				<label class="col-sm-4 control-label txtColor" for="userMobile">Phone Number</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" class="form-control" placeholder="(optional)">
+					<!-- <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" id="userMobile" name="userMobile" placeholder="(optional)" class="form-control" >
+					 <span class="error-msg" *ngIf="userMobile.invalid && (userMobile.dirty || userMobile.touched || submitted)">
+						<small *ngIf="userMobile.errors.required">Phone Number is required.</small>
+						<small *ngIf="userMobile.errors.pattern">Enter valid Mobile No.</small>
+					</span> --> 
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="newClientFormBody">
+			<div class="form-group">
+				<div class=" col-sm-4">
+					<div class="treaRadioBtn">
+				      <input autocomplete="nope" name="radio-group" type="radio" id="newClient">
+				      <label for="newClient">New Client</label>
+				    </div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="clientName">Client Name</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" id="clientName" name="clientName" placeholder="" class="form-control">
+					<!-- <input autocomplete="nope" type="text" id="clientName" name="clientName" placeholder="" formControlName="clientName" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.clientName)">
+					<span class="error-msg" *ngIf="clientName.invalid && (clientName.dirty || clientName.touched || submitted)">
+						<small *ngIf="clientName.errors.required">Client Name is required.</small>
+						<small *ngIf="clientName.errors.minlength">Client name must be at least 2 characters long.</small>
+		                <small *ngIf="clientName.errors.maxlength">Client name must be less than 30 characters.</small>
+					</span>  -->
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="contact">Contact</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" id="contact" name="contact" placeholder="" class="form-control">
+					<!-- <input autocomplete="nope" type="text" id="contact" name="contact" placeholder="" formControlName="contact" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.contact)">
+					<span class="error-msg" *ngIf="contact.invalid && (contact.dirty || contact.touched || submitted)">
+						<small *ngIf="contact.errors.required">Contact is required.</small>
+						<small *ngIf="contact.errors.minlength">Contact must be at least 2 characters long.</small>
+		                <small *ngIf="contact.errors.maxlength">Contact must be less than 30 characters.</small>
+					</span>  -->
+				</div>
+			</div>
+			<div class="form-group">
+				<!-- formControlName="userEmail"  -->
+				<label class="col-sm-4 control-label" for="email">Email</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" id="email" name="email" placeholder="" class="form-control" >
+					<!-- <span class="error-msg" *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched || submitted)">
+						<small *ngIf="userEmail.errors.required">Email is required.</small>
+						<small *ngIf="userEmail.errors.pattern">Enter valid email.</small>
+					</span> --> 
+				</div>
+			</div>
+			<div class="form-group">
+				<!--  (keypress)="util.keyPress($event)" formControlName="userMobile"  -->
+				<label class="col-sm-4 control-label" for="userMobile">Phone Number</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" class="form-control" placeholder="">
+					<!-- <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" id="userMobile" name="userMobile" placeholder="(optional)" class="form-control" >
+					 <span class="error-msg" *ngIf="userMobile.invalid && (userMobile.dirty || userMobile.touched || submitted)">
+						<small *ngIf="userMobile.errors.required">Phone Number is required.</small>
+						<small *ngIf="userMobile.errors.pattern">Enter valid Mobile No.</small>
+					</span> --> 
+				</div>
+			</div>
+			<div class="form-group">
+				<!-- formControlName="extraContact"  -->
+				<label class="col-sm-4 control-label" for="addressLine1">Address Line 1</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" id="addressLine1" name="addressLine1" placeholder="" class="form-control" placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search [formControl]="searchControl" (mouseover)="util.disableAutocomplete()">
+
+					<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+				        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+				    </agm-map>
+					<!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+						<small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+						<small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+					</span>  -->
+				</div>
+			</div>
+			<div class="form-group">
+				<!-- formControlName="extraContact"  -->
+				<label class="col-sm-4 control-label txtColor" for="addressLine2">Address Line 2</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" id="addressLine2" name="addressLine2" placeholder="(Optional)" class="form-control">
+					<!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+						<small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+						<small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+					</span>  -->
+				</div>
+			</div>
+			<div class="form-group">
+				<!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+				    <label class="col-sm-4 control-label" for="role">Country</label>
+					<div class="col-sm-8">
+					<!-- formControlName="roleId" -->
+					<select  class="form-control">
+						<!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+						<option>India</option>
+						<option>Canada</option>
+					</select>
+					<!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+						<small *ngIf="roleId.errors.required">Please Select Role.</small>
+					</span> --> 
+				</div>
+			</div>
+			<div class="form-group">
+				<!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+				    <label class="col-sm-4 control-label" for="role">Province</label>
+					<div class="col-sm-8">
+					<!-- formControlName="roleId" -->
+					<select class="form-control">
+						<!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+						<option>Option1</option>
+						<option>Option2</option>
+					</select>
+					<!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+						<small *ngIf="roleId.errors.required">Please Select Role.</small>
+					</span> --> 
+				</div>
+			</div>
+			<div class="form-group">
+				<!-- formControlName="extraContact"  -->
+				<label class="col-sm-4 control-label" for="city">City</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" id="city" name="city" placeholder="" class="form-control">
+					<!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+						<small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+						<small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+					</span>  -->
+				</div>
+			</div>
+			<div class="form-group">
+				<!-- formControlName="extraContact"  -->
+				<label class="col-sm-4 control-label" for="postalCode">Postal Code</label>
+				<div class="col-sm-8">
+					<input autocomplete="nope" type="text" id="postalCode" name="postalCode" placeholder="" class="form-control">
+					<!-- <span class="error-msg" *ngIf="extraContact.invalid && (extraContact.dirty || extraContact.touched || submitted)">
+						<small *ngIf="extraContact.errors.required">Extra Contact is required.</small>
+						<small *ngIf="extraContact.errors.pattern">Enter valid extraContact.</small>
+					</span>  -->
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="container">
+			<div class="mapWrap">
+				<agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [mapTypeId]="mapTypeId">
+  					<agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+				</agm-map>
+				<!-- <img class="img-responsive" src="assets/img/mapimg.png"> -->
+			</div>
+
+			<div class="col-md-12">
+			  <button (click)="setMapType('terrain')" class="btn btn-primary">Terrain</button>
+			  <button (click)="setMapType('satellite')" class="btn btn-danger">Satellite</button>
+			  <button (click)="setMapType('roadmap')" class="btn btn-warning">Road Map</button>
+			</div>
+		</div>
+		<!-- <div class="errMsgCon" *ngIf="isError"> 
+            <small>{{errMsg}}</small>
+        </div> -->
+
+		<div class="clientFormBtnWrap clearfix">
+			<button id="add-emp" routerLink="/workflow/quote/csa/quotation-generation" class="pull-left lgBtn">Next</button>
+			<!-- (click)="cancelAddEmp()" -->
+			<button class="pull-right lgBtn" routerLink="/workflow/quote/csa/quotation-list/0">Cancel</button>
+		</div>
+	</form>
+</div>
+
+

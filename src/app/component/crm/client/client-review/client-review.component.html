@@ -1,0 +1,175 @@
+<!-- Page URL :- http://localhost:4200/csa/client-review/ZWRpdA%3D%3D -->
+
+<div class="clientReviewCover">
+  <div class="pageTitle">New Client Information Review</div>
+  <div class="clientInfoSection">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="label-col" *ngIf="clientObj.company_name">Company Name</div>
+            <div class="label-col" *ngIf="clientObj.first_name">First Name</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-col" *ngIf="clientObj.company_name">{{clientObj.company_name}}</div>
+            <div class="info-col" *ngIf="clientObj.first_name">{{clientObj.first_name}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="label-col" *ngIf="clientObj.legal_name">Legal Name</div>
+            <div class="label-col" *ngIf="clientObj.last_name">Last Name</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-col optional" *ngIf="clientObj.legal_name">{{clientObj.legal_name}}</div>
+            <div class="info-col" *ngIf="clientObj.last_name">{{clientObj.last_name}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="label-col">Comments</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-col">{{clientObj.comments}}</div>
+          </div>
+        </div>
+        <div class="row" *ngFor="let item of clientObj.additional_fields">
+          <div class="col-sm-6">
+            <div class="label-col">{{item.label}}</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-col">{{item.data}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="label-col">Referral Type</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-col">{{clientObj.referral_type}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contactDetails">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="addresses clearfix">
+          <div *ngFor="let item of clientObj.address; let outAddrIndx = index;">
+            <div class="bold subTittle">Address {{outAddrIndx+1}}</div>
+            <div class="col-sm-5">
+              <div class="label-col">Address Type</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col"><div *ngFor="let type of item.selVal.selectedAddressType; let indx = index">{{type}} </div></div>
+            </div>
+            <div class="clearfix"></div>
+            <!-- <div class="col-sm-5">
+              <div class="label-col">Address Line 1</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{item.address_line_1}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-5">
+              <div class="label-col optional">Address Line 2</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col optional">{{item.address_line_2}}</div>
+            </div> -->
+            <div class="col-sm-5">
+                <div class="label-col">Address </div>
+              </div>
+              <div class="col-sm-7">
+                <div class="info-col">{{util.concatenateStrings(item.address_line_2,item.address_line_1)}}</div>
+              </div>
+            <div class="clearfix"></div>
+            <!-- <div class="col-sm-5">
+              <div class="label-col">Country</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{item.selVal.selectedCountry}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-5">
+              <div class="label-col">Province</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{item.province_id}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-5">
+              <div class="label-col">City</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{item.city_id}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-5">
+              <div class="label-col">Postal Code</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{item.postal_code}}</div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="contacts clearfix">
+          <div *ngFor = "let item of clientObj.contacts; let contactIndx = index;">
+            <div class="bold subTittle">Contact {{contactIndx+1}}</div>
+
+            <div class="col-sm-5">
+              <div class="label-col optional">Address</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col"><div *ngFor="let addr of item.selAdd; let indx = index">{{addr}} </div></div>
+              <!-- <div class="info-col">{{item.address}}</div> -->
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-5">
+              <div class="label-col optional">Contact Type</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col optional">{{item.contact_type}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-5">
+              <div class="label-col">Name</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{item.name}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-5">
+              <div class="label-col">Phone Number</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">
+                <!-- <span>+1 </span> -->
+                {{item.phone_no}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-5">
+              <div class="label-col">Email</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col email">{{item.email_id}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="errMsgCon" *ngIf="isError">
+    <small>{{ errMsg }}</small>
+  </div>
+  <div class="button-row clearfix">
+    <button mat-raised-button id="addCleint" class="trea-btn" (click)="addCleint()">Submit</button>
+    <button mat-raised-button class="trea-btn" (click)="goToEditDetails()">Edit</button>
+    <button mat-raised-button class="trea-btn" (click)="cancelReviewClient()">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,206 @@
+
+
+.printLabelSection{padding: 0px 20px;}
+/* 
+.trea-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    min-width: 80px;
+    padding: 0 8px;
+}
+.trea-btn:focus{
+    outline: none;
+}
+.trea-btn:hover{
+    color: #505050!important;
+    background-color: #FFCB36!important;
+} */
+
+.printLabelNav{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: 5px;
+}
+.printLabelNav .printLabelTab{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin-left: 20px;
+}
+.loc-btn{
+    background-color: #00a99d;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    /* min-width: 120px; */
+    width: 100%;
+}
+.selActiveOption{ color: #505050;background: #FFCB36; }
+.loc-btn:hover {
+    color: #505050;
+    background: #FFCB36;
+}
+.printLabelTab .loc-btn{
+    min-width: 70px;
+    padding: 0px 5px;
+}
+.add-icon{
+    color: #00a99d;
+    cursor: pointer;
+    border-radius: 0px;
+    font-size: 24px;
+    font-weight: 700;
+}
+/* .labelTitle{
+    text-align: center;
+    font-family: 'Montserrat-Bold';
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 25px;
+} */
+.labelTitle{
+    text-align: center;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+.listTitle{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 25px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.lblToPrint{
+    border: 1px solid #d1d1d1;
+}
+.allLabel{
+    border: 1px solid #d1d1d1;
+}
+
+.lblToPrintList{ min-height: 400px; }
+.lblToPrintList .table>tbody>tr>td,
+.lblToPrintList .table>tbody>tr>th, 
+.lblToPrintList .table>tfoot>tr>td, 
+.lblToPrintList .table>tfoot>tr>th, 
+.lblToPrintList .table>thead>tr>td, 
+.lblToPrintList .table>thead>tr>th{
+    padding: 5px 15px;
+    border-top: 0px solid #ddd;
+}
+
+.lblToPrintList .lblToPrintTbl>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: transparent!important; }
+.lblToPrintList .table-responsive{
+    max-height: 500px;
+    /* margin-bottom: 20px;
+    min-height: 300px; */
+}
+.lblToPrintList .table{
+    margin-bottom: 0px;
+}
+.lblToPrintList .lblToPrintTbl{
+    border: 0px;
+}
+.lblToPrintList .lblToPrintTbl thead{
+    background-color: #7E7E7E;
+    color: #FFFFFF;
+}
+.lblToPrintList .lblToPrintTbl thead th{
+    text-align: center;
+    line-height: 25px;
+    padding: 5px 0px;
+}
+.lblToPrintList .lblToPrintTbl tbody td{
+    text-align: left;
+    line-height: 25px;
+    padding-left: 20px;
+}
+.lblToPrintList .lblToPrintTbl tbody td:first-child{
+    min-width: 230px;
+}
+.labelsQty{
+    text-align: center!important;
+    width: 120px;
+    min-width: 120px;
+}
+.labelsQty input{
+    display: inline-block;
+    width: 30px;
+    vertical-align:middle;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+   box-shadow: none;
+   outline: none;
+    padding: 0px 3px;
+    text-align: center;
+}
+.labelsQty .fa-minus,
+.labelsQty .fa-plus{
+    display: inline-block;
+    width: 20px;
+    color: #00a99d;
+    text-align: center;
+}
+.totalPrintLabel{
+    text-align: right;
+    font-weight: 600;
+    color: #7E7E7E;
+    padding-right: 30px;
+    padding-top: 10px;
+}
+.lblToPrintTbl .bdr-left{
+    border-left: 1px solid #FFFFFF;
+}
+.labelActionBtnWrap{
+    text-align: center;
+    margin: 50px auto;
+}
+.labelActionBtnWrap .mdBtn{
+    color: #FFFFFF;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.assetsTab,
+.productsTab,
+.locationsTab{
+    margin-bottom: 20px;
+}
+.searchTxt {position: relative;}
+.searchTxt .trea-btn {position: absolute; width: 110px; color: #fff; line-height: 10px; right: 0px; top: 0px; box-shadow: none;}
+.scan-code-header {white-space: nowrap; padding-left: 5px;}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.printLabelSection .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

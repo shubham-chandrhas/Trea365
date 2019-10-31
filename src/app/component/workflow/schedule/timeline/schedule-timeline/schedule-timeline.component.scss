@@ -1,0 +1,131 @@
+@import '../../../../../../assets/scss/variables';
+
+.head-row {
+  margin-bottom: 20px; 
+  width: 100%;
+  float: left;
+}
+
+.schedule-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;  
+}
+
+.search-section {
+  float: left;
+}
+
+.search-icn {
+  padding: .375rem .75rem;
+  line-height: 22px;
+  color: #e9ecef;
+  text-align: center;
+  float: left;
+}
+
+.search-section .input-group {
+  border: 1px solid #CCCCCC;
+}
+
+.search-section .form-control {
+  border: none; width: 186px; height: 30px;
+}
+
+.search-section .form-control:hover,
+.search-section .form-control:focus, 
+.location-section .client-btn:hover, 
+.location-section .client-btn:focus {
+  outline: 0px;
+}
+
+
+.type-filter {
+  display: inline-block;
+  border: 1px solid $primary-color;
+  padding: $base-space;
+
+  label {
+    color: $primary-color;
+    font-weight: normal;
+  }
+}
+
+.date-filters {
+  label {
+    font-weight: normal;
+  }
+}
+
+.dateWrapper {
+  width: 140px;
+  display: inline-block;
+  position: relative;
+
+  .date {
+    display: inline-block;
+    width: 105px;
+    height: 25px;
+    outline: 0;
+    padding: 0 5px;
+  }
+  
+  .dateIcon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+    margin-left: 3px;
+
+    img {
+      max-height: 25px;
+     }
+  }
+}
+
+.client-btn {
+  background-color: $primary-color;
+  color: #FFF;
+  height: 30px;
+  line-height: 30px;
+  box-shadow: none;
+  height: 32px;
+  border-radius: 0px;
+}
+
+.schedule-view-select {
+  max-width: 10em;
+  min-width: 160px;
+}
+
+.invalid-input {
+  color: red;
+}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

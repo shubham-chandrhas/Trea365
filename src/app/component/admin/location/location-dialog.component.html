@@ -1,0 +1,218 @@
+<!-- Print Location HTML Here -->
+<div class="dialog" *ngIf="action == 'printLocation'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+    <!-- <i class="img-responsive" aria-hidden="true"><img class="" src="assets/icon/close_icon.png"></i> -->
+  </span>
+  <div class="dialog-hdr  searchModHead">
+    <div>Print Location Labels from {{locName}}</div>
+  </div>
+  <div class="WarehouseannexWrap locationlabelWrap">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="serPart text-center">
+          <span>Selected Labels</span>
+        </div>
+        <div class="searchWrap clearfix">
+          <div class="searchTxt">
+            <input autocomplete="nope" type="text" class="searchBox" name="search" placeholder="" [(ngModel)]="searchSelTag">
+          </div>
+          <div class="searchItems clearfix" >
+            <div class="table-responsive dragTbl" droppable (onDrop)="onItemDrop($event)">
+              <!--  dragTbl-->
+              <table class="table table-striped" >
+                <!-- <tr *ngIf="selLocList.length == 0"><td>&nbsp;</td></tr> -->
+                <tr *ngFor="let indx = index; let selLoc of selLocList | searchfilter:searchSelTag:'location_tag'">
+                  <td>
+                    <div class="checkBox">
+                      <label>
+                        <input autocomplete="nope" checked="" type="checkbox">
+                        <span class="iconChk cursorPtr" (click)="removeFromPrint(indx, selLoc.location_tag_id)"><i class="fa fa-check"></i> </span>
+                        {{selLoc.location_tag}}
+                      </label>
+                    </div>
+                  </td>
+                  <td class="labelsQty">
+                    <span class="cursorPtr" (click)="updateNoOfCopy('-', indx)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                    <input autocomplete="nope" type="text" [(ngModel)]="selLoc.noOfCopy" (change)="updateNoOfCopyOnInput(indx)"/>
+                    <span class="cursorPtr" (click)="updateNoOfCopy('+', indx)"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <span class="pull-right marT10">Total {{selLocList.length}}</span>
+        </div>
+      </div>
+      
+      <div class="col-sm-6">
+        <div class="serPart text-center">
+          <span>All Labels</span>
+        </div>
+        <div class="searchallWrap clearfix">
+          <div class="searchTxt">
+            <input autocomplete="nope" type="text" class="searchBox" name="search" placeholder="" [(ngModel)]="searchAllTag">
+          </div>
+          <div class="searchItems">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <tr draggable [dragData]="loc" *ngFor="let indx = index; let loc of tagsList | searchfilter:searchAllTag:'location_tag'">
+                  <td>
+                    <div class="checkBox">
+                      <label>
+                        <input autocomplete="nope" checked="" type="checkbox">
+                        <span class="iconChk cursorPtr" (click)="addToPrint(indx, loc.location_tag_id)"><i class="fa fa-check"></i> </span>
+                        {{loc.location_tag}}
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <span class="pull-right marT10">Total {{tagsList.length}}</span>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="button-row clearfix">
+        <!--<button mat-raised-button class="trea-btn" [ngClass]="selLocList.length > 0 ? '' : 'disable'" (click)="print('print-section')">Print</button>
+        <button mat-raised-button class="trea-btn" [ngClass]="selLocList.length > 0 ? '' : 'disable'" (click)="printPreview('print-section')">Preview</button>-->
+        <button mat-raised-button class="trea-btn" [ngClass]="selLocList.length > 0 ? '' : 'disable'" (click)="print('print-tags')">Preview and Print</button>
+        <button mat-raised-button class="trea-btn"[ngClass]="selLocList.length > 0 ? '' : 'disable'" (click)="exportpdf()">Export</button>
+        <button mat-raised-button class="trea-btn" (click)="cancel()">Remove All</button>
+        <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="print-area dn" id="print-loc-label">
+  <table style="border:1px dashed;border-collapse:collapse;">
+     <tbody>
+        <tr *ngFor="let outIndx = index; let printLoc of printList">
+           <td style="border:1px dashed;padding: 10px 20px;" *ngFor="let inIndx = index; let label of printLoc.locRow">
+              <div style="text-align: left;">
+               <ngx-barcode [bc-value]="label.scan_code" [bc-element-type]="'img'" [bc-format]="CODE39" [bc-display-value]="true"></ngx-barcode>
+              </div>
+           </td>
+        </tr>
+     </tbody>
+  </table>
+</div>
+
+<div class="dialog" *ngIf="action == 'updateTag'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr  searchModHead">
+    <div>Location Scan Codes</div>
+  </div>
+  <div class="WarehouseannexWrap" *ngIf="!isSuccess">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="serPart text-center">
+          <span>Location Tags</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="serPart text-center">
+          <span>Scan Code</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="">
+      <div class="table-responsive">
+        <table class="table table-striped headerScanCode">
+          <thead>
+            <tr>
+              <th class="diaW50P">
+                <div class="searchTxt">
+                  <input autocomplete="nope" type="text" class="searchBox" name="search" placeholder="" [(ngModel)]="searchCode">
+                </div>
+              </th>
+              <th class="diaW30P text-center">Default</th>
+              <th class="diaW20P text-center">New Scan Code</th>
+             </tr>
+           </thead>
+           <!-- <tbody>
+            <tr *ngFor="let indx = index; let loc of tagsList | searchfilter:searchCode:'location_tag'">
+              <td>{{loc.location_tag}}</td>
+              <td>{{loc.scan_code}}</td>
+              <td><input autocomplete="nope" type="text" [(ngModel)]="loc.newCode"></td>
+            </tr>
+          </tbody> -->
+        </table>
+      </div>
+    </div>
+
+    <div class="searchItems">
+      <div class="table-responsive">
+        <table class="table table-striped">
+           <tbody>
+            <tr *ngFor="let indx = index; let loc of tagsList | searchfilter:searchCode:'location_tag'">
+              <td class="diaW50P">{{loc.location_tag}}</td>
+              <td class="diaW30P">{{loc.scan_code}}</td>
+              <td class="diaW20P text-center"><input autocomplete="nope" class="inpTxt" type="text" [(ngModel)]="loc.newCode"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="errMsgCon" *ngIf="isError"><small>{{errMsg}}</small></div>
+    <div class="button-row">
+      <button id="update-record-btn" mat-raised-button class="trea-btn yes" (click)="updateTags()">Update</button>
+      <button mat-raised-button class="trea-btn cancel" (click)="closeDialog()">Cancel</button>
+    </div>      
+      
+  </div>
+  <div *ngIf="isSuccess">
+        <div class="dialog-txt">{{successMsg}}</div>
+        <!-- <div class="button-row">
+            <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">Done</button>
+        </div> -->   
+        <div class="button-row">
+            <button mat-raised-button class="trea-btn" (click)="closeDialog()">Done</button>
+        </div> 
+    </div>
+</div>
+
+
+<div class="print-area dn" id="print-section">
+  <div *ngFor="let outIndx = index; let printLoc of selLocList">
+      <div style="border:1px dashed;padding: 10px 20px;">
+         <div style="text-align: left;">
+            <ngx-barcode [bc-value]="printLoc.scan_code" [bc-element-type]="'img'" [bc-format]="CODE39" [bc-display-value]="true"></ngx-barcode>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="print-area dn" id="print-tags">
+   <div *ngFor="let outIndx = index; let printLoc of printList">
+      <div style="border:1px dashed;padding: 10px 20px;">
+         <div style="text-align: left;">
+            <ngx-barcode [bc-value]="printLoc.scan_code" [bc-element-type]="'img'" [bc-format]="CODE39" [bc-display-value]="true"></ngx-barcode>
+         </div>
+      </div>
+   </div>
+
+  <!-- <table style="border:1px dashed;border-collapse:collapse;" id="print-tags">
+    <tbody>
+      <tr *ngFor="let outIndx = index; let printLoc of printList">
+        <td style="border:1px dashed;padding: 10px 20px;" *ngFor="let inIndx = index; let loc of printLoc.locRow">
+          <div style="text-align: center;">
+            <ngx-barcode [bc-value]="loc.scan_code" [bc-format]="'CODE39'" [bc-display-value]="true"></ngx-barcode>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+
+  
+</div>

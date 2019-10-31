@@ -1,0 +1,556 @@
+<div class="dialog width100" *ngIf="dataObj.action == 'purchaseOrderList'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="dialog-hdr">
+    <div>Purchase Orders</div>
+  </div>
+  <div class="">
+    <div class="trea-data-table table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              <div class="table-hdr">
+                <div>
+                  <span>P/O No.</span>
+                  <span
+                    (click)="
+                      pageData.sortColumnType = 'N';
+                      pageData.sortColumn = 'purchase_order_no';
+                      pageData.sortOrder =
+                        pageData.sortColumn === 'purchase_order_no'
+                          ? pageData.sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        pageData.sortColumn == 'purchase_order_no' &&
+                        pageData.sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="pageData.orderNoSearch"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Date</span>
+                  <span
+                    (click)="
+                      pageData.sortColumnType = 'N';
+                      pageData.sortColumn = 'po_date';
+                      pageData.sortOrder =
+                        pageData.sortColumn === 'po_date'
+                          ? pageData.sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        pageData.sortColumn == 'po_date' &&
+                        pageData.sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="pageData.dateSearch"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Status</span>
+                  <span
+                    (click)="
+                      pageData.sortColumnType = 'A';
+                      pageData.sortColumn = 'status';
+                      pageData.sortOrder =
+                        pageData.sortColumn === 'status'
+                          ? pageData.sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        pageData.sortColumn == 'status' &&
+                        pageData.sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="pageData.statusSearch"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Supplier</span>
+                  <span
+                    (click)="
+                      pageData.sortColumnType = 'A';
+                      pageData.sortColumn = 'supplier_name';
+                      pageData.sortOrder =
+                        pageData.sortColumn === 'supplier_name'
+                          ? pageData.sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        pageData.sortColumn == 'supplier_name' &&
+                        pageData.sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="pageData.supplierSearch"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let indx = index;
+              let po;
+              of: pageData.purchaseOrderList
+                | sortBy
+                  : pageData.sortColumn
+                  : pageData.sortOrder
+                  : pageData.sortColumnType
+                | searchfilter: pageData.statusSearch:'status'
+                | searchfilter: pageData.orderNoSearch:'purchase_order_no'
+                | searchfilter: pageData.dateSearch:'purchase_order_date'
+                | searchfilter: pageData.supplierSearch:'supplier_name'
+                | listLengthfilter
+                | paginate: pageData.paginationKey
+            "
+            (click)="selectedIndex = indx; getSelectedPO(po)"
+            [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''"
+          >
+            <td>{{ po.purchase_order_no }}</td>
+            <td>{{ util.getFormatedDate(po.purchase_order_date) }}</td>
+            <td>
+              {{ po.status
+              }}<span class="dn">{{
+                indx == 0 ? updateCount(po.count) : ""
+              }}</span>
+            </td>
+            <td>{{ po.supplier_name }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div
+      class="treaPagination"
+      *ngIf="pageData.purchaseOrderList.length != 0 && constant.ITEM_COUNT != 0"
+    >
+      <div class="pull-right">
+        <span>
+          {{
+            1 +
+              (pageData.paginationKey.currentPage - 1) *
+                pageData.paginationKey.itemsPerPage
+          }}
+          -
+          {{
+            pageData.paginationKey.itemsPerPage <= pageData.listCount &&
+            pageData.paginationKey.itemsPerPage +
+              (pageData.paginationKey.currentPage - 1) *
+                pageData.paginationKey.itemsPerPage <=
+              pageData.listCount
+              ? pageData.paginationKey.itemsPerPage +
+                (pageData.paginationKey.currentPage - 1) *
+                  pageData.paginationKey.itemsPerPage
+              : pageData.listCount
+          }}</span
+        ><span> of {{ pageData.listCount }} items</span>
+      </div>
+      <div class="pull-right">
+        <select
+          [(ngModel)]="pageData.paginationKey.itemsPerPage"
+          (change)="util.changeItemPerPage()"
+        >
+          <option
+            *ngFor="let pageNo of constant.PAGINATION_ITEMS"
+            [ngValue]="pageNo"
+          >
+            {{ pageNo }}
+          </option>
+        </select>
+        <span> items per page</span>
+      </div>
+      <div class="pull-right">
+        <pagination-controls
+          (pageChange)="util.changePage($event, pageData.paginationKey)"
+          directionLinks="true"
+          autoHide="false"
+          previousLabel="Pre"
+          nextLabel="Next"
+          screenReaderPaginationLabel="Pagination"
+          screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page"
+        >
+        </pagination-controls>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="pageData.isError">
+      <small>{{ pageData.errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button mat-raised-button class="trea-btn" (click)="proceedWithPO()">
+        Receive Items...
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog width380" *ngIf="dataObj.action == 'SUCCESS'">
+  <span class="close-icon top40" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>{{ dataObj.header }}</div>
+  </div>
+  <div>
+    <div class="dialog-txt">{{ dataObj.message }}</div>
+    <div class="action-btn text-center">
+      <button
+        *ngIf="dataObj.alertBtn == 'CONTINUE_ADDING'"
+        mat-raised-button
+        class="treaBtn yes"
+        (click)="continueAdding()"
+      >
+        Continue Adding
+      </button>
+      <button
+        *ngIf="dataObj.alertBtn == 'DONE'"
+        mat-raised-button
+        class="treaBtn yes"
+        (click)="doneWithAdding()"
+      >
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- HTML for Add New Supplier -->
+<div class="dialog width750" *ngIf="dataObj.action == 'addNewSupplier'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div id="addSupOF" class="addSupplierOF">
+    <div *ngIf="pageData.addSupStep == 'S1'">
+      <app-add-supplier></app-add-supplier>
+    </div>
+    <div *ngIf="pageData.addSupStep == 'S2'">
+      <app-supplier-review></app-supplier-review>
+    </div>
+  </div>
+</div>
+<!-- End -->
+
+<!-- HTML for Add New Item Definition -->
+<div class="dialog width750" *ngIf="dataObj.action == 'addNewManufacturerPart'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="addSupplierOF">
+    <div *ngIf="pageData.addMfgPartStep == 'S1'">
+      <app-add-manufacturer-part></app-add-manufacturer-part>
+    </div>
+    <div *ngIf="pageData.addMfgPartStep == 'S2'">
+      <app-mfg-attributes></app-mfg-attributes>
+    </div>
+    <div *ngIf="pageData.addMfgPartStep == 'S3'">
+      <app-manufacturer-part-review></app-manufacturer-part-review>
+    </div>
+  </div>
+</div>
+<!-- End -->
+
+<!-- HTML for Add Product -->
+<div class="dialog width750" *ngIf="dataObj.action == 'addProduct'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="addInventoryOF">
+    <div *ngIf="pageData.addProductStep == 'S1'">
+      <app-add-product></app-add-product>
+    </div>
+    <div *ngIf="pageData.addProductStep == 'S2'">
+      <app-product-review></app-product-review>
+    </div>
+  </div>
+</div>
+<!-- End -->
+
+<!-- HTML for Add Material -->
+<div class="dialog width750" *ngIf="dataObj.action == 'addMaterial'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="addInventoryOF">
+    <div *ngIf="pageData.addMaterialStep == 'S1'">
+      <app-add-material></app-add-material>
+    </div>
+    <div *ngIf="pageData.addMaterialStep == 'S2'">
+      <app-material-review></app-material-review>
+    </div>
+  </div>
+</div>
+<!-- End -->
+
+<!-- HTML for Add Asset -->
+<div class="dialog width750" *ngIf="dataObj.action == 'addAsset'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="addInventoryOF">
+    <div *ngIf="pageData.addAsset == 'S1'">
+      <app-add-asset></app-add-asset>
+    </div>
+    <div *ngIf="pageData.addAsset == 'S2'">
+      <app-asset-review></app-asset-review>
+    </div>
+  </div>
+</div>
+<!-- End -->
+
+<!-- HTML for Add Asset -->
+<div
+  class="dialog width750"
+  *ngIf="
+    dataObj.action == 'UPLOAD_ASSET_DOC' ||
+    dataObj.action == 'UPLOAD_PRODUCT_DOC' ||
+    dataObj.action == 'UPLOAD_MATERIAL_DOC'
+  "
+>
+  <div class="dialog-hdr">
+    <span class="addDocClose" (click)="closeDialog()">
+      <img src="assets/icon/close_icon.png" />
+    </span>
+    <div>Add Images/Documents</div>
+    <div class="doc-section-wrap">
+      <div class="imageSection">
+        <!-- <h3 class="optional">Images/Documents (Optional)</h3> -->
+        <div
+          class="imgInfoSection"
+          *ngFor="let indx = index; let item; of: uploadDocData.imgDocPriArr"
+        >
+          <div class="row" *ngIf="item.isFileDelete == 0">
+            <div class="col-sm-3 PadR0">
+              <div
+                class="previewImg"
+                *ngIf="
+                  item.extension == 'jpeg' ||
+                  item.extension == 'jpg' ||
+                  item.extension == 'png' ||
+                  item.attachment_type == 1
+                "
+              >
+                <img [src]="item.attachment_path" class="img-responsive" />
+              </div>
+
+              <div
+                class="doc-preview"
+                *ngIf="item.extension == 'pdf' || item.attachment_type == 2"
+              >
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="col-sm-9">
+              <div class="previewTxt">
+                <div class="txtHead clearfix">
+                  <!--  class="pull-left" -->
+                  <div>
+                    <div class="file-name-txt ellipsis">
+                      <!--<span>{{item.attachment_name}}</span>-->
+                      <input
+                        autocomplete="nope"
+                        type="text"
+                        [(ngModel)]="item.attachment_name"
+                        [ngModelOptions]="{ standalone: true }"
+                        value=""
+                        placeholder=""
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="pdfExtension">.{{ item.extension }}</div>
+                    <span class="deleteDocIcon" (click)="removeImgDoc(indx)">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div class="clearfix"></div>
+                  <!--  class="pull-right" -->
+                  <div>
+                    <div
+                      class="treaRadioBtn"
+                      *ngIf="
+                        item.extension == 'jpeg' ||
+                        item.extension == 'jpg' ||
+                        item.extension == 'png'
+                      "
+                    >
+                      <input
+                        autocomplete="nope"
+                        type="radio"
+                        id="thumbnail{{ indx }}"
+                        name="radio-group"
+                        [checked]="item.thumbnail == 1"
+                        (change)="onSelectionChange(indx)"
+                      />
+                      <label class="thumbnailLabel" for="thumbnail{{ indx }}"
+                        >Set as thumbnail</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="txtDesc">
+                  <textarea
+                    class=""
+                    [(ngModel)]="item.comment"
+                    align="left"
+                    placeholder="(optional)"
+                  >
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="addAttrBtn" *ngIf="!uploadDocData.newFileUpload && uploadDocData.imgDocPriArr.length != 0 && isDeleteCount!=uploadDocData.imgDocPriArr.length">
+                    <span class="add-icon" (click)="changeUploadFileFlage()">
+                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    </span>
+                </div> -->
+
+        <!-- @Shahebaz -->
+
+        <div class="dropFileHere">
+          <file-drop
+            customstyle="dropFileHere"
+            headertext=""
+            (onFileDrop)="dropped($event, 'img')"
+            (onFileOver)="fileOver($event)"
+            (onFileLeave)="fileLeave($event)"
+          >
+            <p class="text">Drop file here (jpg, png or pdf)</p>
+            <p class="text">or</p>
+            <div class="selFileLink select-file">
+              <input
+                autocomplete="nope"
+                type="file"
+                class="file-in"
+                name="img"
+                multiple
+                (change)="onFileChange($event)"
+              />
+              <a href="javascript:void(0)">Select files</a>
+            </div>
+          </file-drop>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="errMsgCon mar-top" *ngIf="uploadDocData.isError">
+        <small>{{ uploadDocData.errMsg }}</small>
+      </div>
+
+      <div class="clearfix"></div>
+      <div class="button-row clearfix">
+        <button
+          mat-raised-button
+          id="update-doc-btn"
+          (click)="uploadNewDoc()"
+          [ngClass]="
+            uploadDocData.imgDocPriArr.length == 0 ? 'inactiveBtn' : ''
+          "
+          class="trea-btn"
+        >
+          Submit
+        </button>
+        <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- End -->
+</div>

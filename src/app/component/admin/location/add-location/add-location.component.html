@@ -1,0 +1,274 @@
+<div class="newLocationWrap">
+	<h1 class="pageTitle">New Location</h1>
+	<div class="addUserFormBody">
+		<form autocomplete="off"class="form-horizontal" role="form" [formGroup]="addLocationFm">
+			<div class="mainlocationDetails">
+				<div class="row">
+					<h3 class="form-heading">Main Location</h3>
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="label-col">Name</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input autocomplete="nope" type="text" id="Name" name="Name" value ="Warehouse Annex" placeholder="" class="form-control" formControlName="locationName">
+									<span class="error-msg" *ngIf="locationName.invalid && (locationName.dirty || locationName.touched || submitted)">
+                                            
+										<small *ngIf="locationName.errors.required">Location Name is required.</small>
+										<small *ngIf="locationName.errors.minlength">Location name must be at least 2 characters long.</small>
+										<small *ngIf="locationName.errors.maxlength">Location name must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}} characters.</small>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="label-col">Tag Form</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+                                        <!-- [ngClass]="pageData.tagFormAvailability == '1' ? 'red-font' : ''" -->
+                                    <input autocomplete="nope" type="text" id="shortForm" name="shortForm" value="WA" placeholder="" class="form-control"  (change)="validateTagForm($event)" formControlName="shortForm">
+                                    <span class="error-msg" *ngIf="pageData.isError"><small *ngIf="pageData.tagFormAvailability == '1'">Tag form is already exist.</small></span>
+									<span class="error-msg" *ngIf="shortForm.invalid && (shortForm.dirty || shortForm.touched || submitted)">
+                                            
+                                        <small *ngIf="shortForm.errors.required">Tag Form is required.</small>
+										<small *ngIf="shortForm.errors.maxlength">Tag Form must be less than or equal to 6 characters.</small>
+										<small *ngIf="shortForm.errors.pattern && !shortForm.errors.maxlength">Tag Form must be alphanumeric and contains (+/$.-%) characters.(i.e. CODE39 STD.)</small>
+										<!-- <small *ngIf="shortForm.errors.pattern">Enter valid Short Form( No space allowed ).</small> -->
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="label-col">Location Type</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<select class="form-control" formControlName="locationType">
+										<option *ngFor="let item of locationTypeList" [value]="item">{{item}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row" [hidden]="addLocationFm.get('locationType').value == 'Mobile'" >
+							<div class="col-sm-4">
+								<div class="label-col">Address Line 1</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input autocomplete="nope" type="text" id="addressLine1" name="addressLine1" placeholder="" class="form-control" placeholder="" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="address" (mouseover)="util.disableAutocomplete()">
+									<span class="error-msg" *ngIf="address.invalid && (address.dirty || address.touched || submitted)">
+										<small *ngIf="address.errors.required">Address is required.</small>
+										<!-- <small *ngIf="address.errors.minlength">Address must be at least 2 characters long.</small> -->
+										<!-- <small *ngIf="address.errors.maxlength">Address must be less than 30 characters.</small> -->
+									</span>
+								</div>
+							</div>
+                        </div>
+                        <div class="row" [hidden]="addLocationFm.get('locationType').value == 'Mobile'" >
+							<div class="col-sm-4">
+								<div class="label-col">Address Line 2</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input autocomplete="nope" type="text" id="addressLine2" name="addressLine2" placeholder="(optional)" class="form-control"   type="text" #search formControlName="address2">
+									<span class="error-msg" *ngIf="address2.invalid && (address2.dirty || address2.touched || submitted)">
+										
+										<small *ngIf="address2.errors.minlength">Address 2 must be at least 2 characters long.</small>
+                                    <small *ngIf="address2.errors.maxlength">Address 2 must be less than 120 characters.</small>
+									</span>
+								</div>
+							</div>
+                        </div>
+
+                        
+						<div class="row" *ngIf="addLocationFm.get('locationType').value == 'Mobile'">
+							<div class="col-sm-4">
+								<div class="label-col">Asset</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="autoCompleteList">
+										<div class="searchList">
+											<mat-form-field class="product">
+											<input autocomplete="nope" id="asset" matInput placeholder="" [formControl]="asset_name" [matAutocomplete]="assetAutoComp" (keyup)="validateAsset($event)">
+											<i *ngIf="asset_name.value!=''" (click)="util.clearAutoComplete('asset', [asset_name, asset])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+											<img *ngIf="asset_name.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+											<mat-autocomplete #assetAutoComp="matAutocomplete">
+											<mat-option *ngFor="let indx=index; let item of filteredAsset | async" [value]="item.data.short_tag" (onSelectionChange)="getSelectedAsset($event, item)">
+											<span>{{ item.data.short_tag }}</span>
+											</mat-option>
+											
+											<!-- <mat-option (click)="showAddSupplierPopup()">
+											<img aria-hidden src="assets/icon/icon-add.png" />
+											<span>Add Asset</span>
+											</mat-option> -->
+											</mat-autocomplete>
+											</mat-form-field>
+										</div>
+									</div>
+									<!-- <select class="form-control" formControlName="asset">
+											<option value='' selected>Select Asset</option>
+											<option *ngFor="let item of assetsList" [value]=item.data.asset_id>{{item.data.short_tag}}</option>
+									</select> -->
+									<span class="error-msg" *ngIf="asset.invalid && (asset.dirty || asset.touched || submitted)">
+										<small *ngIf="asset.errors.required">Please select Asset from the list.</small>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="divisionDetails">
+				<div class="row">
+					<h3 class="form-heading">Subdivisions (Optional)</h3>
+					<div class="col-sm-12" *ngFor="let division of divisions.controls; let indxOut=index" [formGroup]="division">
+						<div class="newDivision"  >
+							<h4 class="detailsHeading">
+							<a (click)="removeDivision(indxOut)" href="javascript:void(0)"><img src="assets/icon/close_icon.png" alt="Remove"></a>
+							Level {{indxOut+1}}
+							</h4>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="label-col">Division Name</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input autocomplete="nope" type="text" name="divisionName" value="Wing" placeholder="" class="form-control" [attr.id]="'divName'+indxOut" formControlName="divisionName" #div>
+									<span class="error-msg" *ngIf="getDivisionAt(indxOut).get('divisionName').invalid && (getDivisionAt(indxOut).get('divisionName').dirty || getDivisionAt(indxOut).get('divisionName').touched || submitted)">
+										<small *ngIf="getDivisionAt(indxOut).get('divisionName').errors.required">Division Name is required.</small>
+										<small *ngIf="getDivisionAt(indxOut).get('divisionName').errors.maxlength">Division name must be less than 30 characters.</small>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="label-col">Division Type</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<select  class="form-control" [attr.id]="'divType'+indxOut" formControlName="divisionType" (change)="setValidation(division)">
+										<option>Named</option>
+										<option>Numbered</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div *ngFor="let indxIn = index; let val of values(indxOut).controls" [formGroup]="val">
+							
+							<div class="row" *ngIf="getDivisionAt(indxOut).get('divisionType').value == 'Named'">
+								<div class="col-sm-4">
+									<div class="label-col">Value</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<input autocomplete="nope" type="text" [attr.id]="'div'+indxOut+'val'+indxIn" formControlName="value" name="value" value ="NE" placeholder="" class="form-control width95" #value>
+										<span class="error-msg" *ngIf="getValuesAt(indxOut, indxIn).get('value').invalid && (getValuesAt(indxOut, indxIn).get('value').dirty || getValuesAt(indxOut, indxIn).get('value').touched || submitted)">
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('value').errors.required">Value is required.</small>
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('value').errors.maxlength">Value must be less than 30 characters.</small>
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('value').errors.pattern && !getValuesAt(indxOut, indxIn).get('value').errors.maxlength">Value must be alphanumeric and contains (+/$.-%[space]) characters.(i.e. CODE39 STD.)</small>
+										</span>
+										<a href="javascript:void(0)" (click)="removeValue(indxOut, indxIn)" class="divClose" *ngIf="indxIn != 0"><img class="" src="assets/icon/close_icon.png"></a>
+									</div>
+								</div>
+							</div>
+							<div class="row" *ngIf="getDivisionAt(indxOut).get('divisionType').value == 'Numbered'">
+								<div class="col-sm-4">
+									<div class="label-col">Min</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<input autocomplete="nope" type="text" [attr.id]="'div'+indxOut+'min'+indxIn" formControlName="min" name="min" value ="0" placeholder="" class="form-control width95" (keyup)="getMinValue(getValuesAt(indxOut, indxIn))" (keypress)="util.numberCheck($event)" #min>
+										<span class="error-msg" *ngIf="getValuesAt(indxOut, indxIn).get('min').invalid && (getValuesAt(indxOut, indxIn).get('min').dirty || getValuesAt(indxOut, indxIn).get('min').touched || submitted)">
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('min').errors.required">Min value is required.</small>
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('min').errors.max">Min value must be less than {{getValuesAt(indxOut, indxIn).get('minValidation').value}}.</small>
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('min').errors?.min">Min value must be greater than and equal 1.</small>
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('min').errors.pattern && !getValuesAt(indxOut, indxIn).get('min').errors?.min && !getValuesAt(indxOut, indxIn).get('min').errors.max">Enter valid Min Number.</small>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="row" *ngIf="getDivisionAt(indxOut).get('divisionType').value == 'Numbered'">
+								<div class="col-sm-4">
+									<div class="label-col">Max</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<input autocomplete="nope" type="text" [attr.id]="'div'+indxOut+'max'+indxIn" formControlName="max" name="max" value ="10" placeholder="" class="form-control width95" (keypress)="util.numberCheck($event)">
+										<span class="error-msg" *ngIf="getValuesAt(indxOut, indxIn).get('max').invalid && (getValuesAt(indxOut, indxIn).get('max').dirty || getValuesAt(indxOut, indxIn).get('max').touched || submitted)">
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('max').errors.required">Max value is required.</small>
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('max').errors.max">Max value must be less than and equal 99.</small>
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('max').errors?.min">Max value must be greater than {{getValuesAt(indxOut, indxIn).get('maxValidation').value}}.</small>
+											<small *ngIf="getValuesAt(indxOut, indxIn).get('max').errors.pattern && !getValuesAt(indxOut, indxIn).get('max').errors.max && !getValuesAt(indxOut, indxIn).get('max').errors?.min">Enter valid Max Number.</small>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" *ngIf="getDivisionAt(indxOut).get('divisionType').value == 'Named'">
+							<div class="col-sm-4">
+							</div>
+							<div class="col-sm-6">
+								<div class="row">
+									<div class="addIcon">
+										<span class="cursorPtr" (click)="addValue(indxOut)">
+											<img src="assets/icon/icon-add.png"/> <span>Add a Value</span>
+										</span>
+									</div>
+								</div>
+								<!-- <div class="row">
+										<span (click)="addValue(indxOut)"><button  class=" btn" type="button"></button> Add Value</span>
+								</div> -->
+							</div>
+						</div>
+						
+						<!-- <div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-12"> -->
+										<!-- <div class="addIcon ML10" *ngIf="divisions.controls.length < 4">
+												<span class="cursorPtr" (click)="addDivision(divisions.controls.length)">
+																	<img src="assets/icon/icon-add.png" /><span> Add Division</span>
+												</span>
+										</div> -->
+										<!-- <span *ngIf="divisions.controls.length < 4" (click)="addDivision(divisions.controls.length)"><button  class=" btn" type="button"></button>Add Division</span> -->
+									<!-- </div>
+								</div>
+							</div>
+						</div> -->
+					</div>
+
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="addIcon" *ngIf="divisions.controls.length < 4">
+								<span class="cursorPtr" (click)="addDivision(divisions.controls.length)">
+									<img src="assets/icon/icon-add.png" /> <span>Add a Subdivision</span>
+								</span>
+							</div>
+						</div>
+						<!-- <div class="row">
+								<span *ngIf="divisions.controls.length < 4" (click)="addDivision(divisions.controls.length)"><button  class=" btn" type="button"></button>Add Division</span>
+						</div> -->
+					</div>
+				</div>
+			</div>
+			
+			<!-- <div><pre><code>{{ addLocationFm?.value | json }}</code></pre></div> -->
+			<div class="errMsgCon" *ngIf="isError">
+				<small>{{errMsg}}</small>
+			</div>
+			<div class="button-row clearfix">
+				<button mat-raised-button class="trea-btn" type="button" (click)="addLocation(addLocationFm)">Next</button>
+				<button mat-raised-button class="trea-btn" type="button" (click)="cancelNewLocation()">Cancel</button>
+			</div>
+		</form>
+	</div>
+</div>

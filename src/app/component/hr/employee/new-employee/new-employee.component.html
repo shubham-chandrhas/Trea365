@@ -1,0 +1,465 @@
+<div class="newEmployeeWrap">
+    <h1 class="pageTitle" *ngIf="pageData.action == 'add'">New Employee</h1>
+    <h1 class="pageTitle" *ngIf="pageData.action == 'edit'">Edit Employee</h1>
+
+    <div class="newEmployeeFrmWrap">
+        <form autocomplete="off" class="form-horizontal addMfgForm" role="form" [formGroup]="addEmpFm" (keydown.enter)="keyDownFunction($event, addEmpFm)"> <!-- @Shahebaz added(keydown.enter) (keydown.enter)="keyDownFunction($event, addEmpFm)" -->
+            <div class="newEmployeeFormBody">
+              <div class="form-group">
+                  <label class="col-sm-5 label-col" for="first_name">First Name</label>
+                  <div class="col-sm-7">
+                      <input autocomplete="nope" type="text" name="first_name" placeholder="" class="form-control" formControlName="first_name">
+                      <span class="error-msg" *ngIf="first_name.invalid && (first_name.dirty || first_name.touched || pageData.submitted)">
+                          <small *ngIf="first_name.errors.required">First Name is required.</small>
+                          <small *ngIf="first_name.errors.maxlength">First Name must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}} characters</small>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-5 label-col txtColor optional" for="last_name">Last Name</label>
+                  <div class="col-sm-7">
+                      <input autocomplete="nope" type="text" name="last_name" placeholder="(optional)" class="form-control optional" formControlName="last_name">
+                      <span class="error-msg" *ngIf="last_name.invalid && (last_name.dirty || last_name.touched || pageData.submitted)">
+                          <!-- <small *ngIf="last_name.errors.required">Last Name is required.</small> -->
+                          <small *ngIf="last_name.errors.maxlength">Last Name must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}} characters</small>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-5 label-col" for="username">Username</label>
+                  <div class="col-sm-7" *ngIf="pageData.action == 'add'">
+                        <!-- [ngClass]="pageData.usernameAvailability == '0' ? 'red-font' : ''" -->
+                      <input autocomplete="nope" type="text" name="username" placeholder="" class="form-control" 
+                          (change)="validateUsername($event)" formControlName="username">
+                      <span class="error-msg">
+                          <small *ngIf="pageData.usernameAvailability == '0'"> Username already exists.</small>
+                      </span>
+                      <span class="error-msg" *ngIf="username.invalid && (username.dirty || username.touched || pageData.submitted)">
+                          <small *ngIf="username.errors.required">Username is required.</small>
+                          <small *ngIf="username.errors.minlength">Username must be at least 8 characters long.</small>
+                          <small *ngIf="username.errors.maxlength">Username must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}}
+                              characters</small>
+                          <small *ngIf="username.errors.pattern && !username.errors.minlength && !username.errors.maxlength">Enter valid
+                              User Name.</small>
+                      </span>
+                  </div>
+                  <div class="col-sm-7" *ngIf="pageData.action == 'edit'">
+                        <label class="label-col" for="username">{{username.value}}</label>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-5 label-col" for="permission_role_id">Access Role</label>
+                  <div div class="col-sm-7" *ngIf="role_id && role_id.value != '2'">
+                      <div class="autoCompleteList">
+                          <div class="searchList">
+                              <mat-form-field class="product">
+                                  <input autocomplete="nope" id="permission_role_id" matInput placeholder="" [formControl]="role_name" [matAutocomplete]="permissionAutoComp" (keyup)="validatePermission($event)" name="accessRole{{autoNumber}}">
+                                  <i *ngIf="role_name.value!=''" (click)="util.clearAutoComplete('permission_role_id', [role_name, permission_role_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                  <img *ngIf="role_name.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                  <mat-autocomplete #permissionAutoComp="matAutocomplete">
+                                      <mat-option *ngFor="let indx=index; let item of filteredPermission | async | sortBy:'role_name':'ASC':'A'" [value]="item.role_name" (onSelectionChange)="getSelectedPermission(item,$event)">
+                                      <span>{{ item.role_name }}</span>
+                                      </mat-option>
+                                  </mat-autocomplete>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                      <span class="error-msg" *ngIf="role_name.invalid && (role_name.dirty || role_name.touched || pageData.submitted)">
+                          <small *ngIf="role_name.errors.required">Please select Access Role from the list.</small>
+                      </span>
+                  </div>
+                  <div class="col-sm-7" *ngIf="pageData.action == 'edit' && role_id.value == '2'">
+                        <label class="label-col" for="username">{{role_name.value}}</label>
+                  </div>
+              </div>
+
+              <h3 class="detailsHeading">Contact Details</h3>
+              <div class="form-group">
+                  <label class="col-sm-5 label-col txtColor optional" for="address1">Address 1</label>
+                  <div class="col-sm-7">
+                        <input autocomplete="nope" type="text" id="address1" name="address1" placeholder="(optional)" class="form-control optional" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="address1" (mouseover)="util.disableAutocomplete()">
+                        <!-- <input autocomplete="nope" type="text" id="address1" name="address1" placeholder="" formControlName="address1" class="form-control"> -->
+                        <span class="error-msg" *ngIf="address1.invalid && (address1.dirty || address1.touched || pageData.submitted)">
+                            <!-- <small *ngIf="address1.errors.required">Address 1 is required.</small> -->
+                            <small *ngIf="address1.errors.minlength">Address 1 must be at least 2 characters long.</small>
+                            <small *ngIf="address1.errors.maxlength">Address 1 must be less than 120 characters.</small>
+                        </span>
+                  </div>
+              </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col txtColor optional" for="address2">Address 2</label>
+                    <div class="col-sm-7">
+                        <input autocomplete="nope" type="text" id="address2" name="address2" placeholder="(optional)" formControlName="address2" class="form-control optional">
+                        <span class="error-msg" *ngIf="address2.invalid && (address2.dirty || address2.touched || pageData.submitted)">
+                            <small *ngIf="address2.errors.minlength">Address 2 must be at least 2 characters long.</small>
+                            <small *ngIf="address2.errors.maxlength">Address 2 must be less than 120 characters.</small>
+                        </span>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label class="col-sm-5 label-col" for="country_id">Country</label>
+                    <div class="col-sm-7">
+                        <select formControlName="countryId" class="form-control">
+                            <option value="" selected></option>
+                            <option [value]="country.country_id" *ngFor="let country of countries | sortBy:'country_name':'ASC':'A'"> {{country.country_name}}</option>
+                        </select>
+                        <span class="error-msg" *ngIf="countryId.invalid && (countryId.dirty || countryId.touched || pageData.submitted)">
+                            <small *ngIf="countryId.errors.required">Please select country from the list.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col" for="provinceId">Province</label>
+                    <div class="col-sm-7">
+                        <input autocomplete="nope" type="text" name="provinceId" placeholder="" formControlName="provinceId" class="form-control">
+                        
+                        <span class="error-msg" *ngIf="provinceId.invalid && (provinceId.dirty || provinceId.touched || pageData.submitted)">
+                            <small *ngIf="provinceId.errors.required">Province is required.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col" for="cityId">City</label>
+                    <div class="col-sm-7">
+                            <input autocomplete="nope" type="text" name="cityId" placeholder="" formControlName="cityId" class="form-control">
+
+                            <span class="error-msg" *ngIf="cityId.invalid && (cityId.dirty || cityId.touched || pageData.submitted)">
+                                <small *ngIf="cityId.errors.required">City is required.</small>
+                            </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col" for="postalCode">Postal Code</label>
+                    <div class="col-sm-7">
+                        <input autocomplete="nope" type="text" id="postalCode"  name="postalCode" formControlName="postalCode" class="form-control" >
+                        <span class="error-msg" *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched || pageData.submitted)">
+                            <small *ngIf="postalCode.errors.required">Postal Code is required.</small>
+                            <small *ngIf="postalCode.errors.minlength">Postal Code must be at least 3 characters long.</small>
+                            <small *ngIf="postalCode.errors.maxlength">Postal Code must be less than 10 characters.</small>
+                            <small *ngIf="postalCode.errors.pattern && !postalCode.errors.minlength && !postalCode.errors.maxlength">Enter Valid Postal Code</small>
+                        </span>
+                    </div>
+                </div> -->
+              <div class="form-group">
+                  <label class="col-sm-5 label-col" for="email_id">Email</label>
+                  <div class="col-sm-7">
+                        <!-- [ngClass]="pageData.emailAvailability == '0' ? 'red-font' : ''" -->
+                      <input autocomplete="nope" type="text" name="email_id"  (change)="validateEmail($event)" class="form-control"
+                            formControlName="email_id">
+                      <span class="error-msg"> <small *ngIf="pageData.emailAvailability == '0'">Email already exists.</small>
+                      </span>
+                      <span class="error-msg" *ngIf="email_id.invalid && (email_id.dirty || email_id.touched || pageData.submitted)">
+                          <small *ngIf="email_id.errors.required">Email is required.</small>
+                          <small *ngIf="email_id.errors.pattern">Enter valid email.</small>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-5 label-col txtColor optional" for="work_phone">Work Phone</label>
+                  <div class="col-sm-7">
+                      <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" name="work_phone" placeholder="(optional)" class="form-control" formControlName="work_phone">
+                      <span class="error-msg" *ngIf="work_phone.invalid && (work_phone.dirty || work_phone.touched || pageData.submitted)">
+                          <!-- <small *ngIf="work_phone.errors.required">Work Phone is required.</small> -->
+                          <small *ngIf="work_phone.errors.pattern">Enter valid Work Phone.</small>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-5 label-col txtColor optional" for="mobile_no">Personal Phone</label>
+                  <div class="col-sm-7">
+                      <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" name="mobile_no" placeholder="(optional)" class="form-control" formControlName="mobile_no">
+                      <span class="error-msg" *ngIf="mobile_no.invalid && (mobile_no.dirty || mobile_no.touched || pageData.submitted)">
+                          <small *ngIf="mobile_no.errors.pattern">Enter valid Personal Phone.</small>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-5 label-col txtColor optional" for="emergency_contact">Emergency Contact</label>
+                  <div class="col-sm-7">
+                      <input autocomplete="nope" type="text" name="emergency_contact" placeholder="(optional)" class="form-control" formControlName="emergency_contact">
+                      <span class="error-msg" *ngIf="emergency_contact.invalid && (emergency_contact.dirty || emergency_contact.touched || pageData.submitted)">
+                          <!-- <small *ngIf="emergency_contact.errors.required">Emergency Contact is required.</small> -->
+                          <!-- <small *ngIf="emergency_contact.errors.pattern">Enter valid Emergency Contact.</small> -->
+                          <small *ngIf="emergency_contact.errors.maxlength">Emergency Contact must be less than 30 characters.</small>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-5 label-col txtColor optional" for="emergency_number">Emergency Number</label>
+                  <div class="col-sm-7">
+                      <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" name="emergency_number" placeholder="(optional)" class="form-control" formControlName="emergency_number">
+                      <span class="error-msg" *ngIf="emergency_number.invalid && (emergency_number.dirty || emergency_number.touched || pageData.submitted)">
+                          <!-- <small *ngIf="emergency_number.errors.required">Emergency Number is required.</small> -->
+                          <small *ngIf="emergency_number.errors.pattern">Enter valid Emergency Number.</small>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-5 label-col txtColor optional" for="relationship">Relationship</label>
+                  <div class="col-sm-7">
+                      <input autocomplete="nope" type="text" name="relationship" placeholder="(optional)" class="form-control" formControlName="relationship">
+                      <span class="error-msg" *ngIf="relationship.invalid && (relationship.dirty || relationship.touched || pageData.submitted)">
+                          <small *ngIf="relationship.errors.maxlength">Relationship must be less than 30 characters.</small>
+                      </span>
+                  </div>
+              </div>
+
+              <h3 class="detailsHeading">Employment Details</h3>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col txtColor optional" for="permission_role_id">Business Type</label>
+                    <div div class="col-sm-7">
+                        <div class="autoCompleteList">
+                            <div class="trea-multi-select">
+                                <ss-multiselect-dropdown [options]="businessTypeList" [settings]="mulSelSettings"  [texts]="selectText" formControlName="business_type" placeholder="(optional)" (ngModelChange)="getSelectedBusinessType($event)"></ss-multiselect-dropdown>
+                            </div>
+                            <!-- <div class="searchList">
+                                <mat-form-field class="product">
+                                    <input autocomplete="nope" id="business_type_id" matInput placeholder="" [formControl]="business_type" [matAutocomplete]="businessTypeAutoComp" (keyup)="validateBusinessType($event)" name="businessType{{autoNumber}}">
+                                    <i *ngIf="business_type.value!=''" (click)="util.clearAutoComplete('business_type_id', [ business_type ]); user_services.setValue([]);serviceTypeList = [];" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <img *ngIf="business_type.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                    <mat-autocomplete #businessTypeAutoComp="matAutocomplete">
+                                        <mat-option *ngFor="let indx=index; let item of filteredBusinessType | async" [value]="item.businessType" (onSelectionChange)="getSelectedBusinessType($event, item)">
+                                        <span>{{ item.businessType }}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div> -->
+                        </div>
+                        <!-- <span class="error-msg" *ngIf="business_type.invalid && (business_type.dirty || business_type.touched || pageData.submitted)">
+                            <small *ngIf="business_type.errors.required">Please select Business Type from the list.</small>
+                        </span> -->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col txtColor optional" for="wageFrequency">Service Type</label>
+                    <div class="col-sm-7">
+                        <div class="trea-multi-select">
+                            <ss-multiselect-dropdown [options]="serviceTypeList" [settings]="mulSelSettings"  [texts]="selectText" formControlName="user_services" placeholder="(optional)" ></ss-multiselect-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col txtColor optional" for="employee_id">Employee ID</label>
+                    <div class="col-sm-7">
+                        <input autocomplete="nope" type="text" name="employee_id" placeholder="(optional)" class="form-control optional" formControlName="employee_id"  (change)="validateEmployeeID($event)" >
+                        <span class="error-msg" ><small *ngIf="pageData.employeeIdAvailability  == '1'">Employee ID is already exist.</small></span>
+                        <span class="error-msg" *ngIf="employee_id.invalid && (employee_id.dirty || employee_id.touched || pageData.submitted)">
+                            <small *ngIf="employee_id.errors.maxlength">Employee ID must be less than 30 characters.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col txtColor optional" for="title">Title</label>
+                    <div class="col-sm-7">
+                        <input autocomplete="nope" type="text" name="title" placeholder="(optional)" class="form-control optional" formControlName="title">
+                        <span class="error-msg" *ngIf="title.invalid && (title.dirty || title.touched || pageData.submitted)">
+                            <small *ngIf="title.errors.maxlength">Title must be less than 30 characters.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col txtColor optional" for="wage_frequency">Wage Frequency</label>
+                    <div div class="col-sm-7">
+                        <select class="form-control" formControlName="wage_frequency">
+                            <option value=""></option>
+                            <option value="Hourly">Hourly</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Bi-Weekly">Bi-Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                        </select>
+                        <!-- <span class="error-msg" *ngIf="wage_frequency.invalid && (wage_frequency.dirty || wage_frequency.touched || pageData.submitted)"> 
+                            <small *ngIf="wage_frequency.errors.required">Wage Frequency is required.</small>
+                        </span> -->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col txtColor optional" for="wage_amount">Wage Amount</label>
+                    <div class="col-sm-7">
+                        <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>  
+                        <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                        <input autocomplete="nope" type="number" name="wage_amount" placeholder="" class="form-control currencyInput" formControlName="wage_amount">
+                        <span class="error-msg" *ngIf="wage_amount.invalid && (wage_amount.dirty || wage_amount.touched || pageData.submitted)">
+                            <!-- <small *ngIf="wage_amount.errors.required">Wage Amount is required.</small> -->
+                            <small *ngIf="wage_amount.errors?.min">Minimum Wage Amount is 0.</small>
+                            <small *ngIf="wage_amount.errors.pattern">Invalid Amount (e.g 54, 78.25).</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 label-col" for="">Days Off</label>
+                    <div class="col-sm-7 PadL0">
+                        <div class="weekDaysWrap" *ngFor="let days of days_off.controls" [formGroup]="days">
+                            <div class="days Mar0">
+                                <div class="label-col">Sun</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="sunday">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Mon</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="monday">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Tue</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="tuesday">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Wed</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="wednesday">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Thu</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="thursday">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Fri</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="friday">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Sat</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="saturday">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="additional_fields.controls.length > 0">
+                  <h3 class="detailsHeading">Additional Information</h3>
+                  <div class="form-group" *ngFor="let field of additional_fields.controls; let indx=index" [formGroup]="field">
+                      <label class="col-sm-5 label-col" [ngClass]="field.get('optionalStatus').value == 'False' ? '' : 'optional'" for="relationship">{{field.get('label').value}}</label>
+                      <div class="col-sm-7" *ngIf="field.get('dataType').value != 'Date'">
+                          <input autocomplete="nope" type="text" name="relationship" placeholder="{{field.get('optionalStatus').value == 'False' ? '' : '(optional)'}}" class="form-control" [ngClass]="field.get('optionalStatus').value == 'False' ? '' : 'optional'" formControlName="data">
+                          <span class="error-msg" *ngIf="field.get('data').invalid && (field.get('data').dirty || field.get('data').touched || pageData.submitted)">
+                              <small *ngIf="field.get('data').errors.required">{{field.get('label').value}} is required.</small>
+                              <small *ngIf="field.get('data').errors.pattern">Enter valid {{field.get('label').value}}(e.g. <span *ngIf="field.get('dataType').value == 'Number'">101, 280 etc.</span><span *ngIf="field.get('dataType').value == 'Decimal'">2.5, 45.5 etc.</span><span *ngIf="field.get('dataType').value == 'Date'">YYYY-MM-DD, 2018-02-04 etc.</span>).</small>
+                          </span>
+                      </div>
+                      <div class="col-sm-7" *ngIf="field.get('dataType').value == 'Date'">
+                          <div class="dateWrapper">
+                              <!-- [min]="minDate"> -->
+                              <input autocomplete="nope" type="text"  formControlName="data" class="date" [matDatepicker]="picker" style="pointer-events: none;">
+                              <mat-datepicker #picker ></mat-datepicker>
+                              <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span>
+                              <div class="clearfix"></div>
+                              <span class="error-msg" *ngIf="field.get('data').invalid && (field.get('data').dirty || field.get('data').touched || pageData.submitted)">
+                                    <small *ngIf="field.get('data').errors.required">Date is required.</small>
+                                    <small *ngIf="field.get('data').errors.min">Please enter upcoming date.</small>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+
+            <div class="imageSection">
+                <h3 class="detailsHeading">Images/Documents (Optional)</h3>
+                <div class="imgInfoSection" *ngFor="let indx=index; let item of pageData.imgDocPriArr;">
+                    <div class="row" *ngIf="item.isDelete == 0">
+                        <div class="col-sm-3 PadR0">
+                            <div class="previewImg" *ngIf="item.extension == 'jpeg' || item.extension == 'jpg' || item.extension == 'png'">
+                                <img [src]="item.imgPath" class="img-responsive"/>  
+                                <!-- <img *ngIf="imagePreview" class="img-responsive" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview)"> -->
+                            </div>
+
+                            <div class="doc-preview" *ngIf="item.extension == 'pdf'">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            </div> 
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="previewTxt">
+                                <div class="txtHead clearfix">
+                                    <div class="pull-left">
+                                        <div class="file-name-txt ellipsis form-group">
+                                            <!--<span>{{item.fileName}}</span> --> 
+                                            <input autocomplete="nope" type="text" [(ngModel)]="item.fileName" [ngModelOptions]="{standalone: true}" value ="" placeholder="" class="form-control">
+                                        </div>
+                                        <div class="pdfExtension">
+                                                .{{item.extension}}
+                                        </div>
+                                        <!-- <span class="close-icon" (click)="removeImgDoc(indx)"> -->
+                                        <span class="close-icon" (click)="removeImgDoc(item.image_id, indx, 'img')">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <div class="pull-right">
+                                        <div class="treaRadioBtn" *ngIf=" item.extension == 'jpeg' || item.extension == 'jpg' || item.extension == 'png'">
+                                            <input autocomplete="nope" type="radio" id="thumbnail{{indx}}" name="radio-group" [checked]="item.thumbnail == 1" (change)="onSelectionChange(indx)">
+                                            <label for="thumbnail{{indx}}">Set as thumbnail</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="txtDesc">
+                                    <textarea class="" [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" align="left" placeholder="(optional)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="addAttrBtn" *ngIf="!pageData.newFileUpload && pageData.imgDocPriArr.length != 0">
+                    <div class="addIcon">
+                        <span (click)="changeUploadFileFlage()">
+                            <img src="assets/icon/icon-add.png"/><span>Add Image</span>
+                        </span>
+                    </div>
+                </div>  -->  <!-- @Shahebaz -->
+
+                <div class="dropFileHere">
+                    <file-drop customstyle="dropFileHere" headertext="" (onFileDrop)="dropped($event, 'img')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                        <p class="text">Drop file here (jpg, png or pdf)</p>
+                        <p class="text">or</p>
+                        <div class="selFileLink select-file">
+                            <input autocomplete="nope" type="file" class="file-in" name="img"  ng2FileSelect
+                             multiple (change)="onFileChange($event)"/>
+                            <a href="javascript:void(0)">Select files</a>
+                        </div>
+                    </file-drop>
+                </div>
+            </div>
+
+            <div class="errMsgCon" *ngIf="pageData.isError">
+                <small>{{pageData.errMsg}}</small>
+            </div>
+
+                <div class="button-row clearfix">
+                    <button mat-raised-button type="button" *ngIf="pageData.currentUrl == 'csa-onboarding' && pageData.action == 'add'" class="trea-btn" routerLink="/csa-onboarding/emp-fields">Previous</button>
+                    <button mat-raised-button class="trea-btn"  (click)="next(addEmpFm)">Next</button>
+                    <button mat-raised-button class="trea-btn" (click)="cancel()">Cancel</button>
+                </div>
+        </form>
+    </div>
+</div>

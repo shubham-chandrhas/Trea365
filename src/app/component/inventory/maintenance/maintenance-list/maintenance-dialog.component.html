@@ -1,0 +1,111 @@
+
+<div class="dialog width450" *ngIf="action == 'addNewMaintenance'">
+    <span class="close-icon" (click)="closeDialog()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
+    <div class="dialog-hdr">
+        <div>Maintenance Request</div>
+    </div>
+	<div class="addnewitemclassFormWrap" *ngIf="!isSuccess">
+	    <form autocomplete="off" class="form-horizontal addEmpForm" role="form" [formGroup]="addMaintenanceFrm">
+	        <div class="addUserFormBody">
+	            <!-- <div class="form-group">
+	                <label class="col-sm-4 control-label" for="itemClassName">Class Name</label>
+	                <div class="col-sm-8">
+	                    <input autocomplete="nope" type="text" name="itemClassName" formControlName="itemClassName" placeholder="" class="form-control">
+	                    <span class="error-msg" *ngIf="itemClassName.invalid && (itemClassName.dirty || itemClassName.touched || submitted)">
+	                        <small *ngIf="itemClassName.errors.required">Class Name is required.</small>
+	                        <small *ngIf="itemClassName.errors.minlength">Class name must be at least 2 characters long.</small>
+	                        <small *ngIf="itemClassName.errors.maxlength">Class name must be less than 30 characters.</small>
+	                    </span> 
+	                </div>
+	            </div> -->
+	            <div class="form-group">
+				    <label class="col-sm-4 control-label" for="asset_id">Repair Asset</label>
+				    <div class="col-sm-8" *ngIf="source !='ASSET_LIST'">
+				        <select class="form-control" formControlName="asset_id" (change)="selectAsset(asset_id)">
+				            <option value='' selected style="width:100px">Select Asset</option>
+                            <option *ngFor="let item of assetsList" [value]=item.data.asset_id>{{item.data.short_tag}}</option>
+				        </select>
+				        <span class="error-msg" *ngIf="asset_id.invalid && (asset_id.dirty || asset_id.touched || submitted)">
+							<small *ngIf="asset_id.errors.required">Please Select Asset.</small>
+						</span>
+				        <!-- <div class="mobilelocationWrap" *ngIf="addMaintenanceFrm.get('asset_id').value == 'Asset'">
+							<div class="checkBox">
+								<label>
+									<input autocomplete="nope" type="checkbox" checked="" formControlName="availForMobile">
+									<span class="iconChk"><i class="fa fa-check"></i> </span>
+									<span class="chkText">This Item Class can be used for mobile locations.</span>
+								</label>
+							</div>
+				        </div> -->
+					</div>
+					<div class="col-sm-8" *ngIf="source =='ASSET_LIST'">
+						<div class="info-col" style="padding-top:7px;">{{dataObj.reqObj.short_tag}}</div>
+					</div>
+                </div>
+                <div class="form-group" *ngIf="selectedAsset">
+                    <div class="clearfix">
+                        <div class="col-sm-4">
+                            <div class="label-col">Manufacturer</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="info-col">{{selectedAsset.manf_name}}</div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="col-sm-4">
+                            <div class="label-col">Item Definition</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="info-col">{{selectedAsset.full_name}}</div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="col-sm-4">
+                            <div class="label-col">Short Name</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="info-col">{{selectedAsset.short_tag}}</div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="col-sm-4">
+                            <div class="label-col">Serial No.</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="info-col">{{selectedAsset.serial_no}}</div>
+                        </div>
+                    </div>
+                </div>
+	            <div class="form-group clearfix">
+	                <label class="col-md-4 control-label txtColor" for="details">Details</label>
+	                <div class="col-md-8">
+	                    <textarea formControlName="maintenance_details" class="form-control comment" placeholder="" rows="4"></textarea>
+						<span class="error-msg" *ngIf="maintenance_details.invalid && (maintenance_details.dirty || maintenance_details.touched || submitted)">
+	                        <small *ngIf="maintenance_details.errors.required">Details are required.</small>
+	                        <!-- <small *ngIf="maintenance_details.errors.minlength">Details must be at least 2 characters long.</small>-->
+	                        <small *ngIf="maintenance_details.errors.maxlength">Details must not greater than {{constant.DEFAULT_COMMENT_MAXLENGTH}} characters.</small>
+	                    </span> 
+	                </div>
+	            </div>
+	            <div class="clearfix"></div>
+	        </div>
+
+	        <div class="errMsgCon" *ngIf="isError"> 
+	            <small>{{errMsg}}</small>
+	        </div>
+
+	        <div class="button-row">
+	            <button mat-raised-button id="addItemClass" class="trea-btn" (click)="addMaintenanceRequest(addMaintenanceFrm)">Submit</button>
+	            <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+	        </div>
+	    </form>
+	</div>
+	<div *ngIf="isSuccess">
+        <div class="dialog-txt">{{successMsg}}.</div>
+        <div class="button-row">
+            <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">Done</button>
+        </div>    
+    </div>
+</div>

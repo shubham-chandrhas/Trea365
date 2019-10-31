@@ -1,0 +1,16 @@
+.imagesWrap{
+	border:none;
+	padding: 0;
+}
+.selectWrap{ 
+	position: relative;
+    width: 200px;
+    margin: 0px auto; 
+}
+
+.disabledrag{
+    -webkit-user-drag: none;
+   -khtml-user-drag: none;
+   -moz-user-drag: none;
+   -o-user-drag: none;
+ }

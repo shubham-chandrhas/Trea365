@@ -1,0 +1,249 @@
+<div class="generateQuoteWrap">
+    <h1 class="pageTitle" *ngIf="isEdit === 'noEdit'">New Quote</h1>
+        <h1 class="pageTitle" *ngIf="isEdit === 'edit' ">
+          Quote No. {{PEService.projectEstimatorData.project_estimate_no}}(Edit)
+        </h1>
+
+
+    <div class="generatequoteDetails">
+        <form autocomplete="off"  role="form" [formGroup]="generateQuoteFm">
+
+            <h3 class="detailsHeading">Client</h3>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="form-group clearfix">
+                            <label class="col-sm-5 label-col" for="">Client Name</label>
+                            <div  class="col-sm-7">
+                                <div class="autoCompleteList">
+                                    <div class="searchList">
+                                        <mat-form-field class="product">
+                                            <input autocomplete="nope" name="quoteClientName{{name}}" matInput placeholder="" [formControl]="client_name" [matAutocomplete]="clientAutoComp" (keyup)="validateClient($event)" id="client_id">
+                                            <i *ngIf="client_name.value!=''" (click)="util.clearAutoComplete('client_id', [client_name, client_id, location, location_id, contact_name, contact_id, email, phoneNo]);showMap = false;" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                            <img *ngIf="client_name.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                            <mat-autocomplete #clientAutoComp="matAutocomplete">
+                                                <mat-option *ngFor="let indx=index; let client of filteredClients | async | sortBy:'company_name':'ASC':'A'" [value]="client.company_name" (onSelectionChange)="getSelectedClient(client,$event,'','')">
+                                                <span>{{ client.company_name }}</span>
+                                                </mat-option>
+
+                                                <mat-option (click)="showAddClientPopup()">
+                                                <img aria-hidden src="assets/icon/icon-add.png" />
+                                                <span>New Client</span>
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+
+                                        <div *ngIf="isClientLoad" class="loaderField"><i class="fa fa-spinner fa-pulse fa-3x fa-fw action"></i></div>
+                                    </div>
+                                </div>
+                                <span class="error-msg" *ngIf="client_id.invalid && (client_id.dirty || client_id.touched || submitted)">
+                                    <small *ngIf="client_id.errors.required">Please select Client from the list.</small>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group clearfix">
+                            <label class="col-sm-5 label-col" for="">Work Location</label>
+                            <div  class="col-sm-7" *ngIf="client_name.value">
+                                <div class="autoCompleteList">
+                                    <div class="searchList">
+                                        <mat-form-field class="product">
+                                            <input autocomplete="nope" name="quoteWorkLocation{{name}}" matInput placeholder="" [formControl]="location" [matAutocomplete]="locationAutoComp" (keyup)="validateLocation($event)" id="location_id">
+                                            <i *ngIf="location.value!=''" (click)="util.clearAutoComplete('location_id', [location, location_id]);showMap = false;" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                            <img *ngIf="location.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                            <mat-autocomplete #locationAutoComp="matAutocomplete">
+                                                <mat-option *ngFor="let indx=index; let location of filteredLocations | async" [value]="location.address_line_1" (onSelectionChange)="getSelectedLocation(location,$event)">
+                                                <span>{{ location.address_line_1 }}</span>
+                                                </mat-option>
+
+                                                <mat-option (click)="showAddWorkLocationPopup(client_id.value,'workLocation')">
+                                                <img aria-hidden src="assets/icon/icon-add.png" />
+                                                <span>New Address</span>
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <span class="error-msg" *ngIf="location_id.invalid && (location_id.dirty || location_id.touched || submitted)">
+                                    <small *ngIf="location_id.errors.required">Please select Work Location from the list.</small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group clearfix">
+                            <label class="col-sm-5 label-col" for="">Billing Address</label>
+                            <div  class="col-sm-7"  *ngIf="client_name.value">
+                                <div class="checkBox">
+                                    <label>
+                                        <!-- [(ngModel)]="sameAsWorkLocation" [ngModelOptions]="{standalone: true}" -->
+                                        <input [formControl]="billingLocationSameAsWork" type="checkbox">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                        Same as Work Location
+                                    </label>
+                                </div>
+                                <div class="clearfix" style="margin-bottom: 15px;"></div>
+                                <div class="autoCompleteList" *ngIf="!billingLocationSameAsWork.value">
+                                    <div class="searchList">
+                                        <mat-form-field class="product">
+                                            <input autocomplete="nope" name="quoteBillLocation{{name}}" matInput placeholder="" [formControl]="client_billing_location" [matAutocomplete]="billingLocationAutoComp" (keyup)="validateLocationB($event)" id="client_billing_location_id">
+                                            <i *ngIf="client_billing_location.value!=''" (click)="util.clearAutoComplete('client_billing_location_id', [client_billing_location, client_billing_location_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                            <img *ngIf="client_billing_location.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                            <mat-autocomplete #billingLocationAutoComp="matAutocomplete">
+                                                <mat-option *ngFor="let indx=index; let bill_location of filteredLocationsB | async" [value]="bill_location.address_line_1" (onSelectionChange)="getSelectedLocationB(bill_location,$event)">
+                                                <span>{{ bill_location.address_line_1 }}</span>
+                                                </mat-option>
+
+                                                <mat-option (click)="showAddWorkLocationPopup(client_id.value,'billLocation')">
+                                                <img aria-hidden src="assets/icon/icon-add.png" />
+                                                <span>New Address</span>
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <span class="error-msg" *ngIf="client_billing_location_id.invalid && (client_billing_location_id.dirty || client_billing_location_id.touched || submitted)">
+                                    <small *ngIf="client_billing_location_id.errors.required">Please select Billing Location from the list.</small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="form-group clearfix">
+                            <label class="col-sm-5 label-col" for="">Contact</label>
+                            <div  class="col-sm-7" *ngIf="location.value">
+                                <!-- <input class="form-control" name="" placeholder="" type="text" formControlName="contact"> -->
+                                <div class="autoCompleteList">
+                                    <div class="searchList">
+                                        <mat-form-field class="product">
+                                            <input autocomplete="nope" name="quoteContact{{name}}" matInput placeholder="" [formControl]="contact_name" [matAutocomplete]="contactAutoComp" (keyup)="validateContact($event)" id="contact_id">
+                                            <i *ngIf="contact_name.value!=''" (click)="util.clearAutoComplete('contact_id', [contact_name, contact_id, email, phoneNo])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                            <img *ngIf="contact_name.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                            <mat-autocomplete #contactAutoComp="matAutocomplete">
+                                                <mat-option *ngFor="let indx=index; let contact of filteredContact | async" [value]="contact.name" (onSelectionChange)="getSelectedContact(contact,$event)">
+                                                <span>{{ contact.name }}</span>
+                                                </mat-option>
+
+                                                <mat-option (click)="showAddContactPopup(filteredClients)">
+                                                <img aria-hidden src="assets/icon/icon-add.png" />
+                                                <span>New Contact</span>
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <span class="error-msg" *ngIf="contact_id.invalid && (contact_id.dirty || contact_id.touched || submitted)">
+                                    <small *ngIf="contact_id.errors.required">Please select Contact from the list.</small>
+                                    <small *ngIf="contact_id.errors.pattern">Enter valid contact No.</small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group clearfix">
+                            <label class="col-sm-5 label-col" for="">Email</label>
+                            <div  class="col-sm-7" *ngIf="contact_name.value">
+                                <input autocomplete="nope" class="form-control" name="" placeholder="" type="text" formControlName="email" readonly>
+                                <span class="error-msg" *ngIf="email.invalid && (email.dirty || email.touched || submitted)">
+                                    <small *ngIf="email.errors.required">Email address is required.</small>
+                                    <small *ngIf="email.errors.pattern">Enter valid email.</small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group clearfix">
+                            <label class="col-sm-5 label-col" for="phoneNo">Phone Number</label>
+                            <div  class="col-sm-7" *ngIf="contact_name.value">
+                                <input autocomplete="nope" class="form-control" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" name="" placeholder="" type="text" formControlName="phoneNo" readonly>
+                                <span class="error-msg" *ngIf="phoneNo.invalid && (phoneNo.dirty || phoneNo.touched || submitted)">
+                                    <small *ngIf="phoneNo.errors.required">Phone No is required.</small>
+                                    <small *ngIf="phoneNo.errors.pattern">Enter valid Phone No.</small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row" *ngIf="showMap">
+            <div class="col-sm-12">
+                <div class="mapWrap" >
+                   <div class="map-wrapper" id="map-wrapper" #screen>
+                     <agm-map [latitude]="PEService.locationDetails.latitude" [longitude]="PEService.locationDetails.longitude" [zoom]="PEService.locationDetails.zoom" [mapTypeId]="mapTypeId">
+                        <agm-marker [latitude]="PEService.locationDetails.latitude" [longitude]="PEService.locationDetails.longitude"></agm-marker>
+                    </agm-map>
+                   </div>
+                   <div class="clearfix"></div>
+                   <!-- // ---@Mohini---// -->
+                       <div class="pull-left  button-row" >
+                          <button id="capture_btn" (click)="captureMap()" mat-raised-button
+                          class="trea-btn">Capture</button>
+                       </div>
+                       <!-- // ---@Mohini---// -->
+                        <div class="quotNav  button-row">
+                            <div class="tabs Mar0">
+                                <button [ngClass]="mapTypeId == 'terrain' ? 'act-option' :''" (click)="setMapType('terrain')" mat-raised-button class="trea-btn">Terrain</button>
+                            </div>
+                            <div class="tabs">
+                                <button [ngClass]="mapTypeId == 'satellite' ? 'act-option' :''" (click)="setMapType('satellite')" mat-raised-button class="trea-btn">Satellite</button>
+                            </div>
+                            <div class="tabs">
+                                <button [ngClass]="mapTypeId == 'roadmap' ? 'act-option' :''" (click)="setMapType('roadmap')" mat-raised-button class="trea-btn">Road Map</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="detailsHeading">Requirements</h3>
+    <div class="row">
+        <div class="col-sm-12 form-group clearfix">
+            <label class="control-label label-col" style="text-align:left" for="">Requirements Description <span class="text-normal">(This is visible to the client)</span></label>
+            <textarea [formControl]="requirements" class="form-control requirements-desc" rows="5"></textarea>
+        </div>
+    </div>
+
+    <nav class="tabbed-nav MT20">
+        <ul class="tabs-list">
+            <li class="tabs">
+                <button [ngClass]="quatationTab == 'services' ? 'act-option' :''" (click)="changeQuotTab('services')" mat-raised-button class="trea-btn">Services</button>
+            </li>
+            <li class="tabs">
+                <button [ngClass]="quatationTab == 'materials' ? 'act-option' :''" (click)="changeQuotTab('materials')" mat-raised-button class="trea-btn">Products/Materials</button>
+            </li>
+            <li class="tabs">
+                <button [ngClass]="quatationTab == 'schedule' ? 'act-option' :''" (click)="changeQuotTab('schedule')" mat-raised-button class="trea-btn">Schedule</button>
+            </li>
+            <li class="tabs">
+                <button [ngClass]="quatationTab == 'payment-schedule' ? 'act-option' :''" (click)="changeQuotTab('payment-schedule')" mat-raised-button class="trea-btn">Payment Schedule</button>
+            </li>
+            <li class="tabs">
+                <button [ngClass]="quatationTab == 'images' ? 'act-option' :''" (click)="changeQuotTab('images')" mat-raised-button class="trea-btn">Images</button>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="servicesWrap">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="quotActionBtnWrap errMsgCon" *ngIf="isError">
+        <small>{{errMsg}}</small>
+    </div>
+    <div class="button-row clearfix">
+      <!-- <button mat-raised-button class="trea-btn" (click)="previous(generateQuoteFm)">Previous</button> -->
+      <button mat-raised-button class="trea-btn"  id="saveAsDraft" (click)="saveAsDraft()">Save</button>
+      <button mat-raised-button class="trea-btn" (click)="showSaveForFollowUpPopup()">Save & Assign...</button>
+      <button mat-raised-button class="trea-btn" (click)="showSiteInspectionPopup()">Schedule Site Inspection</button>
+      <button mat-raised-button class="trea-btn" (click)="next(generateQuoteFm)">Next</button>
+      <button mat-raised-button class="trea-btn" routerLink="/workflow/quote/csa/quotation-list/0">Cancel</button>
+    </div>
+</div>

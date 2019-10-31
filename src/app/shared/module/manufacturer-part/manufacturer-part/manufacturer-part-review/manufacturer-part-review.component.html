@@ -1,0 +1,224 @@
+<div
+  class="mfgReviewCover"
+  [ngClass]="currentPath == 'manufacturer-part-review' ? '' : 'ofClass'"
+>
+  <div class="pageTitle">New Item Definition Information Review</div>
+  <div class="row">
+    <div
+      [ngClass]="
+        currentPath == 'manufacturer-part-review' ? 'col-sm-12' : 'col-sm-8'
+      "
+    >
+      <div
+        class="row"
+        *ngIf="
+          mfgPartObj.classType == 'Asset' || mfgPartObj.classType == 'Product'
+        "
+      >
+        <div class="col-sm-4">
+          <div class="label-col">Manufacturer</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{ mfgPartObj.selectedVal.manufacturer }}</div>
+        </div>
+      </div>
+      <div
+        class="row"
+        *ngIf="
+          mfgPartObj.classType == 'Asset' || mfgPartObj.classType == 'Product'
+        "
+      >
+        <div class="col-sm-4">
+          <div class="label-col">Item Definition No</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{ mfgPartObj.manufacturerPartNo }}</div>
+        </div>
+      </div>
+      <div
+        class="row"
+        *ngIf="
+          mfgPartObj.classType == 'Asset' || mfgPartObj.classType == 'Product'
+        "
+      >
+        <div class="col-sm-4">
+          <div class="label-col">UPC</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{ mfgPartObj.manfUPC }}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="label-col">Name</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{ mfgPartObj.shortName }}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="label-col">Description</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{ mfgPartObj.fullName }}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="label-col">Class</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{ mfgPartObj.selectedVal.className }}</div>
+        </div>
+      </div>
+      <div
+        class="row"
+        *ngIf="
+          (mfgPartObj.classType == 'Asset' ||
+            mfgPartObj.classType == 'Product') &&
+          mfgPartObj.selectedVal.replacesName.length > 0
+        "
+      >
+        <div class="col-sm-4">
+          <div class="label-col">Replaces</div>
+        </div>
+        <div class="col-sm-8">
+          <div
+            class="info-col"
+            *ngFor="let replaces of mfgPartObj.selectedVal.replacesName"
+          >
+            {{ replaces }}
+          </div>
+        </div>
+      </div>
+      <div
+        class="row"
+        *ngIf="
+          (mfgPartObj.classType == 'Asset' ||
+            mfgPartObj.classType == 'Product') &&
+          mfgPartObj.selectedVal.equivalentName.length > 0
+        "
+      >
+        <div class="col-sm-4">
+          <div class="label-col">Equivalent</div>
+        </div>
+        <div class="col-sm-8">
+          <div
+            class="info-col"
+            *ngFor="let equivalent of mfgPartObj.selectedVal.equivalentName"
+          >
+            {{ equivalent }}
+          </div>
+        </div>
+      </div>
+      <div
+        class="row"
+        *ngIf="
+          mfgPartObj.classType == 'Product' ||
+          mfgPartObj.classType == 'Material'
+        "
+      >
+        <div class="col-sm-4">
+          <div class="label-col">Minimum Stock</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{ mfgPartObj.minimumStock }}</div>
+        </div>
+      </div>
+      <div
+        class="row"
+        *ngIf="
+          mfgPartObj.classType == 'Product' ||
+          mfgPartObj.classType == 'Material'
+        "
+      >
+        <div class="col-sm-4">
+          <div class="label-col">UOM</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="info-col">{{ mfgPartObj.selectedVal.UOMName }}</div>
+        </div>
+      </div>
+      <!-- <div class="row" *ngIf="mfgPartObj.classType == 'Product' || mfgPartObj.classType == 'Material'">
+                <div class="col-sm-4">
+                    <div class="label-col">Sales Markup (%)</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{mfgPartObj.salesMarkup}}</div>
+                </div>
+            </div> -->
+    </div>
+  </div>
+  <!-- <div class="attributeSection">
+        <div class="row">
+            <div class="bold MB30 ML15">Attributes</div>
+            <div class="col-sm-8">
+                <div class="row" *ngFor="let attribute of mfgPartObj.attribute">
+                    <div class="col-sm-4">
+                        <div class="label-col">{{attribute.label}}</div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="info-col">{{attribute.format}}</div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div> -->
+  <div class="imgDocSection" *ngIf="mfgPartObj.imgDocArr.length > 0">
+    <div class="row">
+      <div class="bold MB30 ML15">Images/Documents</div>
+      <div class="col-sm-8">
+        <div class="row" *ngFor="let item of mfgPartObj.imgDocArr">
+          <div class="col-sm-4 PadR0">
+            <div
+              class="previewImg"
+              *ngIf="item.extension == 'jpg' || item.extension == 'png'"
+            >
+              <img [src]="item.imgPath" class="img-responsive" />
+            </div>
+            <div class="docPdf" *ngIf="item.extension == 'pdf'">
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="previewTxt">
+              <div class="label-col">
+                {{ item.fileName }}.{{ item.extension }}
+              </div>
+              <div class="info-col">
+                {{ item.description }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="errMsgCon" *ngIf="isError">
+    <small>{{ errMsg }}</small>
+  </div>
+  <div class="button-row clearfix">
+    <button mat-raised-button class="trea-btn" (click)="editDetails()">
+      Edit
+    </button>
+    <button
+      mat-raised-button
+      id="sub-btn"
+      class="trea-btn"
+      (click)="submitNewMfgPart()"
+    >
+      Submit
+    </button>
+    <button
+      mat-raised-button
+      class="trea-btn"
+      (click)="cancelAddManufacturer()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

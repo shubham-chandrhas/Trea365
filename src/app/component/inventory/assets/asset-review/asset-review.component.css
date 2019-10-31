@@ -1,0 +1,47 @@
+.assetReviewCover{
+    max-width: 80%;
+    margin: 0 auto;
+}
+.assetReviewCover .reviewBtnWrap{
+    margin: 50px 0px;
+}
+.assetReviewCover .reviewBtnWrap .mdBtn{
+   margin-left: 15px;
+}
+.errMsgCon{ text-align: center;margin-top: 10px; }
+.errMsgCon small{ 
+    color: #F44336;
+    font-size: smaller;
+}
+/*ON THE FLY REVIEW ASSET*/
+.OTFClass .reviewBtnWrap{     margin: 20px 0px 0px 0px; }
+.OTFClass .reviewBtnWrap .mdBtn{ width: 100px; }
+/*END ON THE FLY REVIEW ASSET*/
+
+@media screen and (min-width:767px) and (max-width:991px){
+    .assetReviewCover{
+        max-width: 100%;
+    }
+    
+}
+@media screen and (max-width:767px){
+    .assetReviewCover{
+        max-width: 100%;
+    }
+    .assetReviewCover .reviewBtnWrap .mdBtn{
+        margin-left: 8px;
+        width: 120px;
+        padding: 5px;
+    }
+}
+@media screen and (max-width:480px){
+    .assetReviewCover .pageTitle{
+        font-size: 16px;
+        }
+}
+@media screen and (max-width:420px){
+    .assetReviewCover .reviewBtnWrap .mdBtn{
+        margin-left: 5px;
+        width: 85px;
+    }
+}

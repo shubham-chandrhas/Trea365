@@ -1,0 +1,88 @@
+
+// .trea-btn{
+//     background-color: #00A499;
+//     color: #FFFFFF;
+//     border-radius: 0px;
+//     height: 30px;
+//     line-height: 30px;
+//     min-width: 80px;
+//     padding: 0 8px;
+// }
+// .trea-btn:focus{
+//     outline: none;
+// }
+// .trea-btn:hover{
+//     color: #505050!important;
+//     background-color: #FFCB36!important;
+// }
+.productsWrap{
+    //max-width: 800px;
+}
+.productsWrap .table td input{
+    vertical-align:middle;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+   box-shadow: none;
+   // border: 1px solid #D1D1D1;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 1px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    outline: 0;
+    height: 25px;
+}
+.productsWrap .table th{
+    padding: 8px;
+}
+.productsWrap .table td,
+.productsWrap .table th{
+    vertical-align: top;
+    border: 0px;
+}
+.productsWrap .table td{
+    font-weight: normal;
+}
+.productsWrap .tAmtTxt{
+    text-align:right;
+    padding: 30px 8px;
+    font-weight: 700!important;
+}
+.productsWrap .tAmtVal{
+    padding: 30px 8px;
+    font-weight: 700!important;
+}
+.inputService{
+    width: 150px;
+}
+.inputCost,
+.inputQty,
+.inputAmt{
+    width: 90px;
+}
+.inputDetail{
+    outline: 0;
+}
+.addIcon{
+    margin-left: 20px;
+}
+.addIcon>img,
+.closeIcon>img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+.addIcon>span,
+.closeIcon>span{
+    /* cursor: pointer; */
+    padding-left: 10px;
+}
+.matProdForm .error-msg {
+  color: #F44336;
+  font-size: smaller;
+  font-weight: normal;
+  line-height: 14px;
+  /* position: absolute; */
+  display: block;
+}
+.mat-autocomplete-panel{ min-width: 450px !important; }

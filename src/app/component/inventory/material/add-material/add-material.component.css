@@ -1,0 +1,278 @@
+
+.addItemsFormWrap form,
+.addItemsFormWrap .newItemsWrap{ max-width: 620px;margin: 30px auto; }
+  .addItemsFormWrap form h3{
+    text-align: center;
+    font-weight: 700;
+  }
+  .addItemsFormWrap .form-horizontal .control-label {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    padding-top: 3px;
+  }
+  .addItemsFormWrap .addUserFormBody{
+    padding: 50px 10px 25px 10px;
+  }
+  .addItemsFormWrap .addFormBtnWrap{
+    margin: 50px 0px;
+  }
+  .addItemsFormWrap form .form-group{
+    margin-bottom: 25px;
+    position: relative;
+  }
+  .addItemsFormWrap form .TOP26{ top: 26px; }
+  .addItemsFormWrap form .form-group input,
+  .addItemsFormWrap form .form-group select{
+    border-radius: 0px;
+    height: 25px;
+    padding: 1px 10px;
+    font-weight:400;
+    min-width: 120px;
+  }
+  .addItemsFormWrap form .form-group select{
+    min-width: 100px;
+  }
+.addItemsFormWrap form .form-group textarea{
+    height: 100px;
+    position: relative;
+    line-height: 20px;
+    font-size: 14px;
+    transition: none;
+    background: transparent !important;
+    vertical-align: middle;
+    border-radius: 0px;
+    box-shadow: none;
+    border: 1px solid #D1D1D1;
+    overflow-y: auto;
+    padding: 1px 10px;
+    word-wrap: break-word;
+}
+  .addItemsFormWrap .errMsgCon{ text-align: center; }
+  .addItemsFormWrap .errMsgCon small{ 
+    color: #F44336;
+      font-size: smaller;
+  }
+
+.newItemsWrap h3{
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 50px;
+  }
+.newItemsWrap .label-col{
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.newItemsWrap .treaRadioBtn{
+    margin-bottom: 25px;
+}
+.newItemsWrap .treaRadioBtn label{
+ font-weight: 400;
+}
+.dateWrapper .date{
+    display: block;
+    width: 88%;
+    float: left;
+}
+.dateWrapper .dateIcon{
+    display: block;
+    width: 12%;
+    float: right;
+    text-align: right;
+    cursor: pointer;
+}
+.dateWrapper .dateIcon img{
+   max-height: 25px;
+}
+.storageDetailCover {
+    margin: 50px 0px 20px 0px;
+}
+.storageDetailCover h4 {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.storageDetTbl {
+    margin-left: -20px;
+}
+.storageDetTbl .table tr th {
+    font-weight: 500;
+    font-size: 14px;
+}
+.storageDetTbl .table tr td {
+    padding: 0px 20px;
+}
+.storageDetTbl .table tr td:first-child {
+    width: 10px;
+    padding:0px;
+}
+/* .storageDetTbl .table tr td:nth-child(2) {
+    width: 50%;
+} */
+.storageDetTbl input[type=number] {
+    width: 50px;
+    font-weight:400;
+}
+/* .addIcon {
+    color: #00a99d;
+} */
+.storageDetTbl .table > thead > tr > th, 
+.storageDetTbl .table > tbody > tr > th, 
+.storageDetTbl .table > tfoot > tr > th, 
+.storageDetTbl .table > thead > tr > td, 
+.storageDetTbl .table > tbody > tr > td, 
+.storageDetTbl .table > tfoot > tr > td {
+    border-top:none;
+}
+/* .addStorageRow::after {
+    content: "x";
+    color: red;
+    float: left;
+    margin-top: 5px;
+} */
+.addProdCanBtn {
+    float: right;
+}
+
+/*Dialog Start*/
+.dialog{ width: 350px; position: relative; }
+.add-field-dialog{ width: 400px !important; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+.dialog .loc-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+}
+.dialog-hdr{ text-align: center;font-weight: 700;font-size: 16px; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+.width450{ width: 450px; }
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+.client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+.treaBtn{
+    font-size: 14px;
+    line-height: 14px;
+    padding: 8px;
+    background: #3aa69b;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+}
+.treaBtn:focus{
+    outline: none;
+}
+.btn{
+    background-image: url("/assets/icon/icon-16.png");
+    display: inline-block;
+    padding: 9px;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    margin-right: 10px;
+}
+
+.addIcon{
+    margin-left: 5px;
+    margin-top: 15px;
+}
+.addIcon img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.addIcon span{
+    cursor: pointer;
+}
+
+/* Auto Complete Drop down list Css Start */
+
+  .autoCompleteList .searchList{
+    padding: 0px;
+  }
+  .autoCompleteList .searchList .search-icn{
+    left: 0px;
+  }
+  .autoCompleteList .searchList .mat-input-element {
+    /* padding-left: 30px; */
+    padding-left: 5px;
+  }
+  .searchList .mat-form-field-infix {
+    border: 1px solid #d1d1d1;
+    padding: 0px !important;
+    width: 160px;
+  }
+  .mat-input-infix{
+    padding: 5px 0px!important;
+  }
+  .selectBoxIcon{
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 25px;
+  }
+  .autoCompleteList .searchList .mat-form-field-wrapper{ padding-bottom: 0px; }
+.vs{visibility: hidden}
+
+/*ON THE FLY ADD PRODUCT ADDING*/
+.OTFClass form .MARB5{ margin-bottom: 5px !important; }
+.OTFClass .addUserFormBody{ padding: 10px; }
+.OTFClass form{ margin: 0px auto; }
+.OTFClass form .prodInfo, .OTFClass form .storageDetailCover h4{ margin-bottom: 0px; }
+.OTFClass form .storageDetailCover{ margin: 15px 0px 20px 0px; }
+.OTFClass form .addFormBtnWrap{ margin: 5px 0px; }
+.OTFClass .errMsgCon{ margin-bottom: 15px; }
+.OTFClass .price{max-width: 200px;}
+/*END ON THE FLY ADD PRODUCT ADDING*/
+
+@media screen and (max-width:767px) {
+.table-responsive {
+    border: none;
+}
+}
+@media screen and (max-width:360px) {
+.addProdCanBtn {
+    float: none;
+}
+}
+.currencySign{
+    position: absolute;
+    top: 5px;
+    left: 20px;
+}
+.currencyInput{
+    padding-left: 20px !important;
+}
+
+/* .addStorageRow .autoCompleteList{
+    width: 160px;
+  } */

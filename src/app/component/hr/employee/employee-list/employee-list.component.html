@@ -1,0 +1,601 @@
+<div class="emp-section">
+    <h1 class="pageTitle">Employees <span *ngIf="loggedInUser.role_id == '1'">(Users)</span></h1>
+    <p class="page-summary">
+      Regular staff on payroll employed by the company.
+      <span class="page-summary" *ngIf="loggedInUser.role_id == '1'">(Counted as registered users within the TREA365 web platform.</span>
+    </p>
+
+    <div class="trea-welcome" *ngIf="pageData.empList.length == 0 && onBoarding">
+            <h4>There are no Employees yet.</h4>
+            <p class="textJustified">
+                Employees are the company’s regular staff on payroll. They are also users of the online platform, and have access to different features and functions based on their Access Role.
+            </p>
+            <p class="textJustified">
+                Employees will be listed here when an authorized user has created one.
+            </p>
+            <p class="textJustified">
+                    Access Roles must be created before an Employee can be added.
+            </p>
+            <div class="button-row clearfix" *ngIf="(util.getRole() != 1) || (util.getRole() == 1 && pageData.permissionAvailability)">
+               
+              <button 
+                mat-raised-button
+                class="trea-btn"
+                type="button"
+                (click)="addEmp()"
+              >
+               Create an Employee
+              </button>
+              <button
+                mat-raised-button
+                class="trea-btn"
+                type="button"
+                (click)="addFromCSV()"
+              >
+                Upload Bulk Data
+              </button>
+            </div>
+            <div class="clearfix" *ngIf="(util.getRole() == 1) || (util.getRole() != 1 && !pageData.permissionAvailability)">
+                <p class="note">Please contact an administrator who can add Employee</p> 
+            </div>          
+        </div>
+
+    <div class="head-row clearfix" *ngIf="pageData.empList.length != 0">
+        <div class="search-section">
+            <div class="input-group">
+                <span class="search-icn" id="basic-addon1">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.searchList" (ngModelChange)="getSearchTxt(pageData.searchList)" placeholder="" aria-label="" aria-describedby="basic-addon1" >
+                <button mat-raised-button class="client-btn" (click)="pageData.searchTxt = pageData.searchList">Search</button>
+            </div>
+          </div>
+
+          <div class="page-top-buttons">
+            <div *ngIf="util.getRole() == 1 || util.getRole() == 2 || permissionsSet.exportEmployee">
+              <div class="dropdown">
+                <button mat-raised-button class="client-btn dropdown-toggle" type="button" data-toggle="dropdown">Export</button>
+                <ul class="dropdown-menu">
+                  <li><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="exportEmpAsPdf()">Export as PDF</a></li>
+                  <li><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="exportEmpAsCSV()">Export as CSV</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div *ngIf="loggedInUser.role_id != '1' && (util.getRole() == 2 || permissionsSet.createDeleteField)">
+              <button mat-raised-button class="client-btn" (click)="addFields()" >Fields</button>
+            </div>
+
+            <div *ngIf="(util.getRole() != 1) || (util.getRole() == 1 && pageData.permissionAvailability)" >
+                <div class="dropdown" >
+                    <button mat-raised-button class="client-btn dropdown-toggle" type="button" data-toggle="dropdown">New Employee</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="addEmp()">Manual Input</a></li>
+                        <li><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="addFromCSV()">Bulk Upload</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="trea-data-table table-responsive" *ngIf="pageData.empList.length != 0">
+        <!-- Edited by Shubham removed [ngStyle]="{'width':tableWidth}"  :::  There was design issues in employee list if minimising the view size -->
+        <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th width="300">
+                        <div class="table-hdr">
+                            <div>
+                                <span>Employee ID</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'employee_id';pageData.sortOrder = pageData.sortColumn === 'employee_id' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'employee_id' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.empIdSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="300">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Name</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'name';pageData.sortOrder = pageData.sortColumn === 'name' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'name' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.nameSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="300" *ngIf="loggedInUser.role_id != '1'">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Title</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'title';pageData.sortOrder = pageData.sortColumn === 'title' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'title' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.titleSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="300">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Access Role</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'role_name';pageData.sortOrder = pageData.sortColumn === 'role_name' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'role_name' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.permissionSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="300">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Email</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'email_id';pageData.sortOrder = pageData.sortColumn === 'email_id' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'email_id' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.emailSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="300">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Phone</span>
+                                <span (click)="pageData.sortColumnType='N';pageData.sortColumn = 'work_phone';pageData.sortOrder = pageData.sortColumn === 'work_phone' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'work_phone' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.phoneSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+
+                    <th width="200" *ngFor="let fieldIndx = index; let field of pageData.fields;">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>{{field.label}}</span>
+                                <span (click)="pageData.sortColumnType = field.dataType == 'Number' || field.dataType == 'Decimal' ? 'N' : 'A';pageData.sortColumn = 'label'+(fieldIndx+1); pageData.sortOrder = pageData.sortColumn === 'label'+(fieldIndx+1) ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'label'+(fieldIndx+1) && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" (keyup)="pageData.additionalFieldSearchTxt = pageData[fieldIndx]; pageData.additionalFieldSearchKey = 'label'+(fieldIndx+1);" [(ngModel)]="pageData[fieldIndx]" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+
+                    <th width="300" *ngIf="loggedInUser.role_id == '1'">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Access Status</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'permission_role_name';pageData.sortOrder = pageData.sortColumn === 'permission_role_name' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'permission_role_name' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.accessSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let indx = index; let emp of pageData.empList | sortBy:pageData.sortColumn:pageData.sortOrder:pageData.sortColumnType | searchfilter:pageData.empIdSearch:'employee_id' | searchfilter:pageData.nameSearch:'name' |  searchfilter:pageData.titleSearch:'title' | searchfilter:pageData.permissionSearch:'role_name' | searchfilter:pageData.emailSearch:'email_id' | searchfilter:pageData.phoneSearch:'work_phone' | searchfilter:pageData.accessSearch:'permission_role_name' | searchfilter:pageData.additionalFieldSearchTxt:pageData.additionalFieldSearchKey | searchfilter:pageData.searchTxt:searchKeywords | listLengthfilter | paginate: pageData.paginationKey" [ngClass]="pageData.selectedIndex == indx ? 'sel-row-highlight' : ''" (click)="pageData.selectedIndex = indx;getSelectedEmp(emp, indx);">
+                    <td>{{emp.employee_id}}</td>
+                    <td>{{emp.name}}<span class="dn">{{ indx == 0 ? updateCount(emp.count) : ''}}</span></td>
+                    <td *ngIf="loggedInUser.role_id != '1'">{{emp.title}}</td>
+                    <td>{{emp.role_name}}</td>
+                    <td><a href="javascript:void(0)" class="email">{{emp.email_id}}</a></td>
+                    <!-- <span>{{emp.country_code}} </span> -->
+                    <td><span>{{util.maskPhoneNumber(emp.work_phone)}}</span></td>
+                    <td *ngFor="let field of emp.additional_fields"><span>{{field.data}}</span></td>
+                    <td *ngIf="loggedInUser.role_id == '1'">{{emp.permission_role_name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="treaPagination" *ngIf="pageData.empList.length != 0 && constant.ITEM_COUNT != 0">
+        <div class="pull-right">
+            <span> {{1+(pageData.paginationKey.currentPage-1)*pageData.paginationKey.itemsPerPage}} - {{(pageData.paginationKey.itemsPerPage <= pageData.listCount) && (pageData.paginationKey.itemsPerPage+(pageData.paginationKey.currentPage-1)*pageData.paginationKey.itemsPerPage <= pageData.listCount) ? pageData.paginationKey.itemsPerPage+(pageData.paginationKey.currentPage-1)*pageData.paginationKey.itemsPerPage : pageData.listCount}}</span><span> of {{pageData.listCount}} items</span>
+        </div>
+        <div class="pull-right">
+            <select [(ngModel)]="pageData.paginationKey.itemsPerPage" (change)="util.changeItemPerPage()">
+                <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+            </select>
+            <span> items per page</span>
+        </div>
+        <div class="pull-right">
+            <pagination-controls
+                (pageChange)="util.changePage($event, pageData.paginationKey)"
+                directionLinks="true"
+                autoHide="false"
+                previousLabel="Pre"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+    <!-- Selected Employee -->
+    <div id="empMark" class="sel-emp-con" *ngIf="pageData.selectedEmp">
+        <h2 class="selectedTitle">{{pageData.selectedEmp.first_name}} {{pageData.selectedEmp.last_name}}</h2>
+
+        <nav class="tabbed-nav">
+            <ul class="tabs-list">
+                <li class="tabs">
+                    <button mat-raised-button class="trea-btn" [ngClass]="pageData.empDetails == 'details' ? 'act-option' :''" (click)="showDetails('details')">Details</button>
+                </li>
+                <li class="tabs">
+                    <button *ngIf="util.getRole() == 1 || util.getRole() == 2 || permissionsSet.viewEmployeeDocuments" mat-raised-button class="trea-btn" [ngClass]="pageData.empDetails == 'documents' ? 'act-option' :''" (click)="showDetails('documents')">Documents</button>
+                </li>
+                <li class="tabs">
+                    <button mat-raised-button class="trea-btn" [ngClass]="pageData.empDetails == 'schedule' ? 'act-option' :''" (click)="showSchedule('schedule')" >Schedule</button>
+                </li>
+                <li class="tabs">
+                    <button mat-raised-button class="trea-btn"  [ngClass]="pageData.empDetails == 'assets' ? 'act-option' :''" (click)="showAssets('assets')" >Assets</button>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sel-emp" *ngIf="pageData.empDetails != 'schedule' && pageData.empDetails != 'assets'">
+            <div class="pull-right">
+                <div class="add-client add-field addEmpBtnWrap">
+                    <div class="dropdown">
+                        <button *ngIf="util.getRole() == 1 || util.getRole() == 2 || permissionsSet.editEmployee || permissionsSet.deleteEmployee" mat-raised-button class="client-btn dropdown-toggle" type="button" data-toggle="dropdown">Edit</button>
+                        <ul class="dropdown-menu">
+                            <li *ngIf="util.getRole() == 1 || util.getRole() == 2 || permissionsSet.editEmployee"><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="editEmp()">Edit Information</a></li>
+                            <li *ngIf="(util.getRole() == 1 || util.getRole() == 2 || permissionsSet.deleteEmployee) && pageData.empDetails == 'details'"><a id="delete-btn" href="javascript:void(0)" mat-raised-button class="client-btn" (click)="deleteEmployee()">Delete</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scheduleDetails" *ngIf="pageData.empDetails == 'assets'">
+          <h3 class="detailsHeading">Asset List</h3>
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>
+                         <th>Asset Name</th>
+                         <th>Assigned Date</th>
+                         <th>Serial No.</th>
+                         <th>Scan Code</th>
+                         <th>Asset Current Location</th>
+                         <th>Manufacturer</th>
+                         <th>Item Definition</th>
+                         <th>Asset Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngIf="assinedAssetListObj">
+                  <tr *ngFor="let item of assinedAssetListObj; let i = index">
+                    <td>{{item.short_tag}}</td>
+                    <td>{{item.created_at | date: 'yyyy/MM/dd'}}</td>
+                    <td>{{item.serial_no}}</td>
+                    <td>{{item.scan_code}}</td>
+                    <td>{{item.location_details.location_name}}</td>
+                    <td><span *ngIf="item.manufacturer !== null">{{item.manufacturer.manf_name}}</span></td>
+                    <td>{{item.manf_part_detail.short_name}}</td>
+                    <td>{{item.status}}</td>
+
+                  </tr>
+                </ng-container>
+                  </tbody>
+              </table>
+          </div>
+        </div>
+
+        <div class="detailsWrap" *ngIf="pageData.empDetails == 'details'">
+          <h3 class="detailsHeading">Account Details</h3>
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Username</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">{{pageData.selectedEmp.username}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Access Role</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">{{pageData.selectedEmp.role_name}}</div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                  <a *ngIf="util.getRole() == 1 || util.getRole() == 2 || permissionsSet.resetPassword" href="javascript:void(0)" mat-raised-button class="client-btn" (click)="resetPassword()">Reset Password</a>
+              </div>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="contact-wrap">
+              <h3 class="detailsHeading">Contact Details</h3>
+                <!-- <div class="row">
+                    <div class="col-sm-3">
+                        <div class="label-col">Address 1</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="info-col">{{pageData.selectedEmp.user_address.address_line_1}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-3">
+                            <div class="label-col">Address 2</div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="info-col">{{pageData.selectedEmp.user_address.address_line_2}}</div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="label-col">Address </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="info-col">{{util.concatenateStrings(pageData.selectedEmp.addressLine2,pageData.selectedEmp.addressLine1)}}</div>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="label-col">Email</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="info-col"><a href="javascript:void(0)" class="email">{{pageData.selectedEmp.email_id}}</a></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="label-col">Work Phone</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <!-- <span>{{pageData.selectedEmp.country_code}}</span>&nbsp; -->
+                        <div class="info-col"><span>{{util.maskPhoneNumber(pageData.selectedEmp.work_phone)}}</span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="label-col">Personal Phone</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="info-col">
+                            <span *ngIf="pageData.selectedEmp.mobile_no"><span>{{util.maskPhoneNumber(pageData.selectedEmp.mobile_no)}}</span></span>
+                            <span *ngIf="!pageData.selectedEmp.mobile_no">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="label-col">Emergency Contact</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="info-col">
+                            <div>{{pageData.selectedEmp.emergency_contact}}</div>
+                            <div>{{pageData.selectedEmp.relationship}}</div>
+                            <div *ngIf="pageData.selectedEmp.emergency_number">{{util.maskPhoneNumber(pageData.selectedEmp.emergency_number)}}</div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+
+          <div class="employment-wrap">
+              <h3 class="detailsHeading">Employment Details</h3>
+                  <div class="row">
+                      <div class="col-sm-3">
+                          <div class="label-col">Employee ID</div>
+                      </div>
+                      <div class="col-sm-9">
+                          <div class="info-col">{{pageData.selectedEmp.employee_id}}</div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-3">
+                          <div class="label-col">Title</div>
+                      </div>
+                      <div class="col-sm-9">
+                          <div class="info-col">{{pageData.selectedEmp.title}}</div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-3">
+                          <div class="label-col">Service Type(s)</div>
+                      </div>
+                      <div class="col-sm-9">
+                          <ul class="info-col">
+                            <li *ngFor="let service of pageData.selectedEmp.user_services">{{service.service_type}}</li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-3">
+                          <div class="label-col">Days Off</div>
+                      </div>
+                      <div class="col-sm-9">
+                          <div class="info-col" *ngIf="pageData.selectedEmp.days_off.length>0">
+                              <span *ngIf="pageData.selectedEmp.days_off[0].sunday">Sun,</span>
+                              <span *ngIf="pageData.selectedEmp.days_off[0].monday">Mon,</span>
+                              <span *ngIf="pageData.selectedEmp.days_off[0].tuesday">Tue,</span>
+                              <span *ngIf="pageData.selectedEmp.days_off[0].wednesday">Wed,</span>
+                              <span *ngIf="pageData.selectedEmp.days_off[0].thursday">Thu,</span>
+                              <span *ngIf="pageData.selectedEmp.days_off[0].friday">Fri,</span>
+                              <span *ngIf="pageData.selectedEmp.days_off[0].saturday">Sat</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-3">
+                          <div class="label-col">Wage Frequency</div>
+                      </div>
+                      <div class="col-sm-9">
+                          <div class="info-col" *ngIf="pageData.selectedEmp.wage_frequency && pageData.selectedEmp.wage_frequency != null && pageData.selectedEmp.wage_frequency != 'null'">{{pageData.selectedEmp.wage_frequency}}</div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                        <div class="label-col">Wage Amount</div>
+                    </div>
+                    <div class="col-sm-9">
+                      <div class="info-col" *ngIf="pageData.selectedEmp.wage_amount && pageData.selectedEmp.wage_amount != null && pageData.selectedEmp.wage_amount != 'null'">
+                          <!-- <span class="currencySign" *ngIf="util.getCurrency()=='INR'">₹</span>
+                          <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span> -->
+                          {{pageData.selectedEmp.wage_amount | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                      </div>
+                  </div>
+            </div>
+
+            <div *ngIf="pageData.selectedEmp.additional_fields.length > 0" class="additional-fields-wrap">
+                <h3 class="detailsHeading">Additional Information</h3>
+                <div class="row" *ngFor="let field of pageData.selectedEmp.additional_fields" [ngClass]=" field.optionalStatus == 'True' ? 'optional' : '' ">
+                    <div class="col-sm-6">
+                        <div class="label-col">{{field.label}}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">{{field.data}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Tab -->
+        <div class="documentWrap row" *ngIf="pageData.empDetails == 'documents'">
+            <div class="row" *ngFor="let file of pageData.selectedEmp.docShow">
+                <div class="col-sm-4" *ngFor="let inDoc of file.inArray">
+                    <div class="documents" *ngIf="inDoc.docType == 'doc'">
+                        <div class="docPdf">
+                            <a [href]="inDoc.doc_path" target="_blank">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true" ></i>
+                                <!--<img src="assets/icon/document_icon.png"/>-->
+                            </a>
+                        </div>
+                        <div class="docName">
+                            <a [href]="inDoc.doc_path" target="_blank">
+                                <span>{{inDoc.doc_name}}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="documents" *ngIf="inDoc.docType == 'img'">
+                        <img [src]="inDoc.image_path" (click)="showImage(inDoc.image_path)"/>
+                        <div class="docName">
+                            <span>{{inDoc.image_name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
+        <div class="detailsWrap" *ngIf="pageData.empDetails == 'schedule'">
+            <h3 class="detailsHeading">Unavailability Schedules</h3>
+            <div class="scheduleDetails">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Schedule No.</th>
+                                <th>Start Date</th>
+                                <th>Start Time</th>
+                                <th>End Date</th>
+                                <th>End Time</th>
+                                <!-- <th>Repeat</th>
+                                <th>Repeat Every</th>
+                                <th>Repeat On</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pageData.selectedEmp.schedules">
+                                <td>
+                                    <a href="javascript:void(0)" [routerLink]="['/workflow/schedule/csa/schedule-list/', item.scheduling_id]" class="email">#{{item.scheduling_id}}</a>
+                                </td>
+                                <td>{{ item.schedule_type == 3 ? 'N/A' : ( util.getFormatedDate(item.start_date) ) }}</td>
+                                <td>{{ item.schedule_type == 3 ? 'N/A' : item.start_time.substring(0,5) }} {{ item.schedule_type == 3 ? '' : item.start_time_format }}</td>
+                                <td>{{ item.schedule_type == 3 ? 'N/A' : ( util.getFormatedDate(item.end_date) ) }}</td>
+                                <td>{{ item.schedule_type == 3 ? 'N/A' : item.end_time.substring(0,5) }} {{ item.schedule_type == 3 ? '' : item.end_time_format }}</td>
+                                <!-- <td>{{ item.wo_schedule_type.status }}</td>
+                                <td>{{ item.schedule_days && item.schedule_type == 2 ? item.schedule_days : 'N/A' }}</td>
+                                <td>{{ item.schedule_repeat ? item.wo_schedule_repeat.status : 'N/A' }}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <h3 class="detailsHeading">Work Order Schedules</h3>
+            <div class="scheduleDetails">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Work Order No.</th>
+                                <th>Start Date</th>
+                                <th>Start Time</th>
+                                <th>End Date</th>
+                                <th>End Time</th>
+                                <!-- <th>Repeat</th>
+                                <th>Repeat Every</th>
+                                <th>Repeat On</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pageData.selectedEmp.workorder_schedules">
+                                <td>
+                                    <a href="javascript:void(0)" [routerLink]="['/workflow/wo/csa/work-order-list/', item.work_order_id]" class="email">#{{item.work_order_no}}</a>
+                                </td>
+                                <td>{{ item.schedule_type == 3 ? 'N/A' : ( util.getFormatedDate(item.start_date) ) }}</td>
+                                <td>{{ item.schedule_type == 3 ? 'N/A' : item.start_time.substring(0,5) }} {{ item.schedule_type == 3 ? '' : item.start_time_format }}</td>
+                                <td>{{ item.schedule_type == 3 ? 'N/A' : ( util.getFormatedDate(item.end_date) ) }}</td>
+                                <td>{{ item.schedule_type == 3 ? 'N/A' : item.end_time.substring(0,5) }} {{ item.schedule_type == 3 ? '' : item.end_time_format }}</td>
+                                <!-- <td>{{ item.wo_schedule_type.status }}</td>
+                                <td>{{ item.schedule_days && item.schedule_type == 2 ? item.schedule_days : 'N/A' }}</td>
+                                <td>{{ item.schedule_repeat ? item.wo_schedule_repeat.status : 'N/A' }}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <table id="empTbl" class="dn">
+        <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th *ngIf="loggedInUser.role_id != '1'">Title</th>
+            <th>Permission</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th *ngFor="let fieldIndx = index; let field of pageData.fields;">{{field.label}}</th>
+            <th *ngIf="loggedInUser.role_id == '1'">Access Status</th>
+        </tr>
+        <tr *ngFor="let indx = index; let emp of pageData.empList | sortBy:pageData.sortColumn:pageData.sortOrder:pageData.sortColumnType | searchfilter:pageData.empIdSearch:'employee_id' | searchfilter:pageData.nameSearch:'name' |  searchfilter:pageData.titleSearch:'title' | searchfilter:pageData.permissionSearch:'role_name' | searchfilter:pageData.emailSearch:'email_id' | searchfilter:pageData.phoneSearch:'work_phone' | searchfilter:pageData.accessSearch:'permission_role_name' | searchfilter:pageData.additionalFieldSearchTxt:pageData.additionalFieldSearchKey | searchfilter:pageData.searchTxt:searchKeywords">
+            <td>{{emp.employee_id}}</td>
+            <td>{{emp.name}}</td>
+            <td *ngIf="loggedInUser.role_id != '1'">{{emp.title}}</td>
+            <td>{{emp.role_name}}</td>
+            <td>{{emp.email_id}}</td>
+            <td><span>{{emp.work_phone}}</span></td>
+            <td *ngFor="let field of emp.additional_fields"><span>{{field.data}}</span></td>
+            <td *ngIf="loggedInUser.role_id == '1'">{{emp.permission_role_name}}</td>
+        </tr>
+    </table>

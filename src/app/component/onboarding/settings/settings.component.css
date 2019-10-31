@@ -1,0 +1,220 @@
+
+.treaActionBtn{ background-color: #00A499;color: #FFFFFF;border-radius: 0px;height: 30px;line-height: 30px;text-decoration: none; }
+.treaActionBtn{ background-color: #00A499;color: #FFFFFF;border-radius: 0px;height: 30px;line-height: 30px;text-decoration: none; }
+
+.newSupBtn {margin-top: 35px;}
+.account .pageSubTitle{ margin-top: 20px; }
+.account .topLogo img{ width: 230px;margin: 30px auto; }
+.account .compLogo { 
+    max-width: 100px;
+    max-height: 100px;
+    min-height: 40px;
+    border: 1px solid #CCC;
+    margin-top: 15px; 
+    overflow: hidden;
+}
+/* .account .compLogo img{ width: 100%;height: 100%; } */
+
+
+.accountDetailWrap{
+       max-width: 960px;
+    margin: 30px auto;
+}
+.promaryAccountFormBody .control-label , .newClientFormBody .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.promaryAccountFormBody .Marl15{
+	margin-left: -15px;
+}
+.promaryAccountFormBody .newUserbtnwrap .btn {
+    background-image: url("/assets/icon/icon-16.png");
+    display: inline-block;
+    padding: 9px;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    margin-right: 5px;
+}
+.promaryAccountFormBody .closeBtnWrap img{
+	margin-bottom: 3px;
+    margin-left:-15px;
+    cursor: pointer;
+}
+.promaryAccountFormBody  .compOrg{
+	margin-right: 15px;
+    margin-top: 20px;
+    max-width: 36%;
+}
+
+.promaryAccountFormBody  .closeBtn{
+	position: absolute;
+    margin-top: 20px;
+}
+
+.promaryAccountFormBody .lgBtn{
+  width:120px;
+  margin-top: 40px;
+    overflow: hidden;
+    position: relative;
+    float:right;
+  }
+.primaryFormBtnWrap{ text-align: center; }
+.primaryFormBtnWrap .lgBtn{
+  float: initial;
+}
+.accountDetailWrap .newUserbtnwrap{
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+.updateaccountDetails .form-group {
+  margin-bottom: 25px;
+}
+.accountDetailWrap .img-wrap{ 
+  max-width: 100px;
+  max-height: 100px;
+  margin:10px;
+  position: relative; 
+}
+.accountDetailWrap .img-wrap>img{
+  max-height: 100px;
+  margin: 10px auto;
+}
+.accountDetailWrap .img-wrap .close-icon{ position: absolute;top: 0px;right: -15px; cursor: pointer; }
+
+.logo-upload {
+  width: 150px;
+}
+.logo-upload input[type="file"]{
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+.logo-upload label {
+  font-weight: normal;
+  text-align: center;
+  margin-top: 10px;
+  box-shadow:  0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.addIcon{
+    margin-left: 5px;
+}
+.addIcon img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+    margin-right: 10px; 
+}
+.addIcon span{
+    cursor: pointer;
+}
+
+.dialog {
+    width: 100%;
+    max-width: 750px;
+    position: relative;
+}
+
+.add-field-dialog {
+    width: 400px !important;
+}
+
+.dialog .close-icon {
+    position: absolute;
+    color: #CD5023;
+    right: -10px;
+    top: -15px;
+    cursor: pointer;
+}
+
+.dialog .loc-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.dialog-hdr {
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    color:#505050;
+}
+
+.dialog-txt {
+    text-align: center;
+    margin: 25px 0px;
+    font-size: 16px;
+}
+
+.dialog .action-btn .left,
+.dialog .action-btn .right {
+    width: 50%;
+}
+
+.dialog .action-btn .left {
+    text-align: right;
+}
+
+.dialog .action-btn .yes {
+    margin-right: 10px;
+}
+
+.dialog .action-btn .cancel {
+    margin-left: 10px;
+}
+
+.dialog label {
+    text-align: left;
+    line-height: 25px;
+    margin: 5px 0;
+}
+
+.dialog .input-txt {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.dialog .input-err-msg {
+    left: 15px;
+}
+
+.dialog .trea-logo {
+    height: 40px;
+    width: 200px;
+    margin: 0px auto 30px auto;
+}
+
+.dialog .trea-logo img {
+    width: 130px;
+    margin: 0px auto;
+}
+
+.client-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+.errMsgCon{ text-align: center; }
+.errMsgCon small{ 
+    color: #F44336;
+    font-size: smaller;
+}
+.custom-padding{
+    padding-right:5px;
+    padding-left:5px;
+}
+.padd0 {
+    padding-left: 0px;
+    margin-left: -8px;
+}
+.displayNone {
+    display : none;
+}

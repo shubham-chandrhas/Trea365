@@ -1,0 +1,351 @@
+
+<div class="generateQuoteWrap">
+    <div class="pageTitle"><span *ngIf="!isEdit">New</span><span *ngIf="isEdit">Edit</span> Schedule ({{scheduleFor}})</div>
+    <div class="container-fluid">
+        <div class="selSection">
+            <div class="clearfix"></div>
+            <form autocomplete="off" role="form" [formGroup]="scheduleForAssetForm">
+                <div class="generatequoteDetails" *ngIf="scheduleFor == 'Asset'">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Asset</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group clearfix">
+                                        <div class="autoCompleteList">
+                                            <div class="searchList">
+                                                <mat-form-field class="product">
+                                                    <input autocomplete="nope" matInput placeholder=""  [formControl]="asset_name" [matAutocomplete]="AssetAutoComp" (keyup)="validateAsset($event)" id="asset_id" >
+                                                    <i *ngIf="asset_name.value!=''" (click)="util.clearAutoComplete('asset_id', [asset_name, asset_id]); clearSelAsset();" class="clearAutoComplete fa fa-times-circle"></i>
+                                                    <img *ngIf="asset_name.value==''" class="selectBoxIcon" src="assets/icon/select.png" />
+                                                    <mat-autocomplete #AssetAutoComp="matAutocomplete">
+                                                        <mat-option *ngFor="let indx=index; let asset of filteredAssets | async | searchfilter:'Available':'asset_status'" [value]="asset.short_tag" (onSelectionChange)="getSelectedAsset(asset,$event)">
+                                                        <span>{{ asset.short_tag }}</span>
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <span class="error-msg" *ngIf="asset_name.invalid && (asset_name.dirty || asset_name.touched || submitted)">
+                                            <small *ngIf="asset_name.errors.required">Please select Asset from the list.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row MB20" *ngIf="assetDetails">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Manufacturer</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">{{assetDetails.manf_name}}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Item Definition No.</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">{{assetDetails.manf_part_no }}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Short Name</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">{{assetDetails.short_name}}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Class</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">{{assetDetails.item_class_name ? assetDetails.item_class_name : '-'}}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">UPC</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">{{assetDetails.upc ? assetDetails.upc : '-'}}</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Name</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">{{assetDetails.short_tag ? assetDetails.short_tag : '-'}}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Scan Code</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">{{assetDetails.scan_code ? assetDetails.scan_code : '-'}}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Serial No</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">{{assetDetails.serial_no ? assetDetails.serial_no : '-'}}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Location</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-col">{{assetDetails.location_name ? assetDetails.location_name : '-'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Assign to</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group clearfix">
+                                        <div class="autoCompleteList">
+                                            <div class="searchList">
+                                                <mat-form-field class="product">
+                                                    <input autocomplete="off" matInput placeholder=""  [formControl]="assign_name" [matAutocomplete]="EmpAutoComp" (keyup)="validateEmp($event)" id="emp_id" name="assignTo">
+                                                    <i *ngIf="assign_name.value!=''" (click)="util.clearAutoComplete('emp_id', [assign_name, assign_to])" class="clearAutoComplete fa fa-times-circle"></i>
+                                                    <img *ngIf="assign_name.value==''" class="selectBoxIcon" src="assets/icon/select.png" />
+                                                    <mat-autocomplete #EmpAutoComp="matAutocomplete">
+                                                        <mat-option *ngFor="let indx=index; let emp of filteredEmployee | async" [value]="emp.emp_name" (onSelectionChange)="getSelectedEmp(emp,$event)">
+                                                        <span>{{ emp.emp_name }}</span>
+                                                        </mat-option>
+                                                        
+                                                    </mat-autocomplete>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <span class="error-msg" *ngIf="assign_name.invalid && (assign_name.dirty || assign_name.touched || submitted)">
+                                            <small *ngIf="assign_name.errors.required">Please select Assign to from the list.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div><!--generatequoteDetails end here-->
+
+                <div class="generatequoteDetails" *ngIf="scheduleFor == 'Person'">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="label-col">Name</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group clearfix">
+                                        <div class="autoCompleteList">
+                                            <div class="searchList">
+                                                <mat-form-field class="product">
+                                                    <input autocomplete="nope" matInput placeholder="" [formControl]="staff_name" [matAutocomplete]="EmpAutoComp" (keyup)="validateEmp($event)" id="staff_id">
+                                                    <i *ngIf="staff_name.value!=''" (click)="util.clearAutoComplete('staff_id', [staff_name, staff_id]); clearSelEmp();" class="clearAutoComplete fa fa-times-circle"></i>
+                                                    <img *ngIf="staff_name.value==''" class="selectBoxIcon" src="assets/icon/select.png" />
+                                                    <mat-autocomplete #EmpAutoComp="matAutocomplete">
+                                                        <mat-option *ngFor="let indx=index; let emp of filteredEmployee | async | sortBy:'emp_name':'ASC':'A'" [value]="emp.emp_name" (onSelectionChange)="getSelectedEmp(emp,$event)">
+                                                        <span>{{ emp.emp_name }}</span>
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <span class="error-msg" *ngIf="staff_name.invalid && (staff_name.dirty || staff_name.touched || submitted)">
+                                            <small *ngIf="staff_name.errors.required">Please select Name from the list.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" *ngIf="personDetails">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="label-col">Date Generated</div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="info-col">{{util.getFormatedDate(personDetails.created_at)}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="label-col">Employee ID</div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="info-col">{{personDetails.employee_id ? personDetails.employee_id : '-'}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="label-col">Title</div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="info-col">{{personDetails.title ? personDetails.title : '-'}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div *ngIf="personDetails">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="label-col">Email</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="info-col"><a href="javascript:void(0)" class="email">{{personDetails.email_id ? personDetails.email_id : '-'}}</a></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="label-col">Work Phone</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="info-col">{{personDetails.work_phone ? util.maskPhoneNumber(personDetails.work_phone) : '-'}}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="label-col">Personal Phone</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="info-col">{{personDetails.mobile_no ? util.maskPhoneNumber(personDetails.mobile_no) : '-'}}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="label-col">Emergency Contact</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="info-col">{{personDetails.emergency_contact ? util.maskPhoneNumber(personDetails.emergency_contact) : '-'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="servicesDetails">
+                    <div>
+                        <div class="treaRadioBtn MB20 dn">
+                            <input autocomplete="nope" name="radio-group" type="radio" (change)="changeSchedule('once')" id="scheduleOnce" [checked]="scheduleType == 'once'">
+                            <label for="scheduleOnce">Schedule Once</label>
+                        </div>
+                        <div class="scheduleOnceWrap" *ngIf="scheduleType == 'once'">
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <div class="label-col">Start Date</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="dateWrapper">
+                                        <input autocomplete="nope" type="text" formControlName="start_date" placeholder="" class="date ptrN" [matDatepicker]="pickerStart" [min]="minDate">
+                                        <mat-datepicker #pickerStart (selectedChanged)="startDateChange($event)"></mat-datepicker>
+                                        <span class="dateIcon" (click)="pickerStart.open()"><img src="assets/icon/date_picker.png"></span>
+                                        <div class="clearfix"></div>
+                                        <span class="error-msg" *ngIf="start_date.invalid && (start_date.dirty || start_date.touched || submitted)">
+                                            <small *ngIf="start_date.errors.required">Start Date is required.</small>
+                                        </span>
+                                    </div> 
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="label-col">End Date</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="dateWrapper">
+                                        <input autocomplete="nope" type="text" formControlName="end_date" placeholder="" class="date ptrN" [matDatepicker]="pickerEnd" [min]="start_date.value">
+                                        <mat-datepicker #pickerEnd (selectedChanged)="clearEndTime()"></mat-datepicker>
+                                        <span class="dateIcon" (click)="pickerEnd.open()"><img src="assets/icon/date_picker.png"></span>
+                                        <div class="clearfix"></div>
+                                        <span class="error-msg" *ngIf="end_date.invalid && (end_date.dirty || end_date.touched || submitted)">
+                                            <small *ngIf="end_date.errors.required">End Date is required.</small>
+                                        </span>
+                                    </div> 
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="form-group timeWrap">
+                                <div class="col-sm-2">
+                                    <div class="label-col">Start Time</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="time">
+                                        <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" placeholder="__:__" formControlName="start_time" type="text" name="" class="hours" (keyup)="clearEndTime()"/>
+                                        <select formControlName="start_time_format" class="">
+                                            <option [value]="'am'">am</option>
+                                            <option [value]="'pm'">pm</option>
+                                        </select>
+                                    </div>
+                                    <span class="error-msg" *ngIf="start_time.invalid && (start_time.dirty || start_time.touched || submitted)">
+                                        <small *ngIf="start_time.errors.required">Start Time is required.</small>
+                                        <small *ngIf="start_time.errors.pattern">Enter valid Start Time.</small>
+                                    </span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="label-col">End Time</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="time">
+                                        <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" placeholder="__:__" formControlName="end_time" type="text" name="" class="hours"  (keyup)="compareendtime($event)"/>
+                                        <select formControlName="end_time_format" class="" (change)= "compareendtime($event)">
+                                            <option [value]="'am'">am</option>
+                                            <option [value]="'pm'">pm</option>
+                                        </select>
+                                    </div>
+                                    <span class="error-msg" *ngIf="!end_time.errors">
+                                        <small *ngIf="timeNowError">End time is not less than start time.</small>
+                                    </span>
+                                    <span class="error-msg" *ngIf="end_time.invalid && (end_time.dirty || end_time.touched || submitted)">
+                                        <small *ngIf="end_time.errors.required">End Time is required.</small>
+                                        <small *ngIf="end_time.errors.pattern">Enter valid End Time.</small>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paymentmodeDetails">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group clearfix">
+                                        <label class="col-md-4 control-label txtColor" for="comment">Details</label>
+                                        <div class="col-md-8">
+                                            <textarea formControlName="details" class="form-control " placeholder="" rows="6"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div><!--paymentmodeDetails end here-->
+
+                      <div class="button-row">
+                        <button mat-raised-button id="next-btn" (click)="next(scheduleFor)" class="trea-btn">Next</button>
+                        <button mat-raised-button routerLink="/workflow/schedule/csa/schedule-list/0" class="trea-btn">Cancel</button>
+                      </div>
+
+                </div><!--servicesDetails end here-->
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+.treaActionBtn{ background-color: #00A499;color: #FFFFFF;border-radius: 0px;height: 30px;line-height: 30px;text-decoration: none; }
+
+.newroleWrap{
+	max-width: 684px;
+    margin: 30px auto;
+}
+ .nextcancelBtnWrap{
+    margin: 79px 0px 25px 2px;
+}
+ .nextcancelBtnWrap .treaActionBtn{
+	width:158px;
+}
+.newrolereviewWrap .label-col, .newrolereviewWrap .info-col{
+	margin-bottom: 15px;
+}
+.newrolereviewWrap .info-col{
+	font-weight: 500;
+}
+.newrolereviewWrap .fa-check{
+	text-align: center;
+	margin: 5px 27px;
+	color: #00A499;
+}
+.newrolereviewWrap .nextcancelBtnWrap .editBtn{
+	margin: 0 9%;
+}
+.errMsgCon{ text-align: center; margin-bottom: 20px; }
+.errMsgCon small{ 
+  	color: #F44336;
+    font-size: smaller;
+}
+.hrMar{ margin: 10px 0 5px; }
+.actionName{ font-size: 12px;font-weight: 400;padding-left: 15px; }
+@media only screen and (max-width: 821px) and (min-width: 768px){
+	.newrolereviewWrap .nextcancelBtnWrap .editBtn{
+		margin: 0 5%;
+	}
+}

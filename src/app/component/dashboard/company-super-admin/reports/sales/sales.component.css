@@ -1,0 +1,191 @@
+
+.salesOptionTabsTop,
+.salesOptionTabsBottom{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.salesOptionTabsTop{
+  margin-bottom: 0px;
+}
+.salesOptionTabsTop .tabs{
+  -webkit-flex: 1;  /* Safari 6.1+ */
+  -ms-flex: 1;  /* IE 10 */    
+  flex: 1;
+  margin: 0px;
+  border-bottom: 4px solid #00A499;
+  padding: 5px 0px;
+}
+.salesOptionTabsTop .tabs .infoText{
+  font-size: 12px;
+  text-align: center;
+}
+.salesOptionTabsBottom .tabs{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin: 0px;
+    padding: 0px;
+  }
+  .salesOptionTabsBottom{
+    margin-bottom: 50px;
+  }
+  .salesOptionTabsBottom .tabs .vertLine{
+    width: 4px;
+    height: 15px;
+    margin: 0 auto;
+    background-color: #00A499;
+  }
+  .salesOptionTabsBottom .treaRadioBtn{
+    position: relative;
+  }
+  .salesOptionTabsBottom .treaRadioBtn [type="radio"]:checked + label, .treaRadioBtn [type="radio"]:not(:checked) + label {
+    /* position: relative; */
+    position: absolute;  
+    left: 41%;
+  }
+  .leadPart, .closurePart, .performancePart, .generationPart, .disputePart{
+    text-align: center;
+   font-weight:700;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 25px;
+  }
+  .leadPart span, .closurePart span, .performancePart span, .generationPart span, .disputePart span{
+    text-decoration: underline;
+  }
+  .leadTable{
+    text-align: center;
+  }
+  .leadTable .table thead tr th{
+    text-align: center;
+   font-weight:700;
+    font-size: 22px;
+    line-height: 30px;
+    border: 1px solid #00A499;
+    border-bottom: 1px solid transparent;
+    vertical-align: top;
+  }
+  .leadTable .table tbody tr td{
+   font-weight:700;
+    font-size: 22px;
+    line-height: 30px;
+    border: 1px solid #00A499;
+  }
+  .leadTable .table tbody tr td span{
+    text-decoration: underline;
+  }
+  .imgclosureBox{
+    width: 680px;
+    margin: 0 auto 80px;
+    display: inline-block;
+  }
+  .imgclosureBox .closure1Img{
+    margin-top: -5px;
+  }
+  .cloPieL{
+    float: left;
+    margin: 0 0 0 25px;
+  }
+  .cloPieR{
+    float: right;
+    margin: 0 25px 0 0;
+  }
+  .imgclosureBox img{
+    margin: auto;
+  }
+  .cloPieT .chartStatP{
+    position: absolute;
+    width: 200px;
+        top: 30px;
+    left: 120%;
+  }
+  .cloPieL .chartStatP, .cloPieR .chartStatP{
+    width: 100%;
+    max-width: 150px;
+    margin: 10px 0 30px;
+  }
+  .closureDetails{
+    border-bottom: 1px solid #00A499;
+    margin: 53px -15px;
+    text-align: center;
+  }
+  .leadBot{
+    border-bottom: 1px solid #00A499;
+    margin: -21px;
+  }
+  .performanceBot{
+    border-bottom: 1px solid #00A499;
+    margin: 24px -15px;
+  }
+  .rankBox1{
+   font-weight:700;
+    font-size: 70px;
+    vertical-align: middle;
+    color: #00A499;
+  }
+  .rankBox2{
+   font-weight:700;
+    font-size: 70px;
+    vertical-align: middle;
+    color: #00A499;
+    opacity: 0.8;
+  }
+  .rankBox3{
+   font-weight:700;
+    font-size: 70px;
+    vertical-align: middle;
+    color: #00A499;
+    opacity: 0.6;
+  }
+  .performerTxt{
+    font-size: 28px;
+  }
+  .rateTxt{
+   font-weight:700;
+    font-size: 28px;
+    color: #1E3345;
+  }
+  .performanceTable .table thead tr th,
+  .performanceTable .table tbody tr td{
+    width:50%;
+    border: 0px;
+  }
+  .generationWrap span{
+    font-weight: bold;
+    color: black;
+  }
+  .generationPart{
+    margin: 27px auto;  
+  }
+  .generationWrap{
+    margin: 72px -15px;
+  }
+  .generationBot{
+    margin: 50px -15px;
+    border-bottom: 1px solid #00A499;
+  }
+  .disputeParant{
+    display: table;
+  }
+  .disputeChild{
+    display: table-cell;
+    vertical-align: middle;
+    height: 135px;
+  }
+  .totalDisp{
+    color: #d0021B;
+   font-weight:700;
+    font-size: 30px;
+  }
+  .totalClosure{
+   font-weight:700;
+    font-size: 30px;
+  }
+  .disputeWrap{
+    margin: auto 34px;
+  }

@@ -1,0 +1,140 @@
+.dialog{ width: 350px; position: relative; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+.dialog .loc-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+}
+.dialog-hdr{ text-align: center; font-weight: 600; font-size: 16px; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+.dailogContainer { width: 440px;}
+
+
+.timeInput {
+  width: 80px;
+  float: left;
+}
+.timeFormat {
+  width: 80px;
+  float: left;
+  margin-left: 15px;
+}
+.frmWrapper {
+  margin: 35px 0px 0px 0px;
+}
+.dailogContainer, .frmWrapper select {
+}
+.frmWrapper form label {
+  font-weight: normal;
+  font-size: 14px;
+  float: left;
+}
+.frmWrapper input[type=text] {
+}
+.modTxtInput {
+  float: left;
+  width: 85%;
+  margin-right: 3%;
+}
+.modDatePic {
+  float: right;
+}
+/* .modbtnWrap {
+  text-align: center;
+} */
+.dateWrapper input{
+  width: 240px;
+  float: left;
+  margin-top: 3px;
+}
+.dateWrapper .dateIcon{
+  margin: 0 0 0 10px;
+}
+.searchList{ padding: 0px; }
+.clientSearch .mat-form-field .mat-form-field-infix{ padding-bottom: 0px !important; }
+.searchList .clientSearch .mat-input-element{ padding-bottom: 0px !important; }
+.mat-form-field-infix{ padding: 0px !important; } 
+.searchList .search-icn{ top: 3px; }
+.mapWeap agm-map { height: 650px; }
+.mapWeap .quotNav{ max-width: 300px;margin-top: 15px;float: right; }
+
+.form-control[disabled], .form-control[readonly]{
+    background: #fff;
+}
+/* Auto Complete Drop down list Css Start */
+
+  .autoCompleteList .searchList{
+    padding: 0px;
+  }
+  .autoCompleteList .searchList .search-icn{
+    left: 0px;
+  }
+  .autoCompleteList .searchList .mat-input-element {
+    /* padding-left: 30px; */
+    padding-left: 5px;
+  }
+  .searchList .mat-form-field-infix {
+    border: 1px solid #d1d1d1;
+    padding: 0px !important;
+    width: 160px;
+  }
+  .mat-input-infix{
+    padding: 5px 0px!important;
+  }
+  .selectBoxIcon{
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 25px;
+  }
+  .autoCompleteList .searchList .mat-form-field-wrapper{ padding-bottom: 0px; }
+  .vs{visibility: hidden}
+
+.treaBtn{
+  font-size: 14px;
+  line-height: 14px;
+  padding: 8px;
+  background: #00A99D;
+  border-radius: 0px;
+  border: none;
+  color: #fff;
+}
+.inputDetail{
+    outline: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+.noteLbl{ text-align: left;padding-bottom: 5px;
+    padding-left: 5px; }
+
+@media screen and (max-width:390px) {
+.modTxtInput { 
+  width: 80%;
+}
+.modDatePic {
+  float: right;
+}
+}
+

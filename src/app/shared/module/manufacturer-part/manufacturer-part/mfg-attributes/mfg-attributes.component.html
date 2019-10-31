@@ -1,0 +1,118 @@
+<div class="attributesWrap" [ngClass]="currentPath == 'mfg-attributes' ? '' : 'ofClass'">
+  <div class="pageTitle">New Item Definition</div>
+  <div class="addAttrForm form" role="form">
+    <div class="addFormBody">
+      <!-- <div class="attrSection">
+        <h3 class="topHdr optional">Attributes (Optional)</h3>
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-6 control-label">Label</label>
+            <label class="col-sm-6 control-label">Data</label>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div class="addRemoveAttr" *ngFor="let indx=index; let item of pageData.attributeList;">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-6">
+                <input autocomplete="nope" type="text"  [(ngModel)]="item.label" placeholder="" class="form-control">
+              </div>
+              <div class="col-sm-6">
+                <input autocomplete="nope" type="text" [(ngModel)]="item.format" placeholder="" class="form-control">
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <span class="close-icon" (click)="removeAttribute(indx)">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="errMsgCon" *ngIf="pageData.isAttributeError">
+          <small>{{pageData.errMsg}}</small>
+        </div>
+        <div class="addAttrBtn">
+          <span class="add-icon" (click)="addAttribute()">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>
+          </span>
+          <span class="cursorPtr" (click)="addAttribute()">New Attribute</span>
+        </div>
+      </div> -->
+      <div class="imageSection">
+        <h3 class="optional">Images/Documents (Optional)</h3>
+        <div class="imgInfoSection" *ngFor="let indx=index; let item of pageData.imgDocPriArr;">
+          <div class="row">
+            <div class="col-sm-3 PadR0">
+              <div class="previewImg" *ngIf="item.extension == 'jpeg' || item.extension == 'jpg' || item.extension == 'png'">
+                <img [src]="item.imgPath" class="img-responsive"/>
+              </div>
+
+              <div class="doc-preview" *ngIf="item.extension == 'pdf'">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="col-sm-9">
+              <div class="previewTxt">
+                <div class="txtHead clearfix">
+                  <div class="pull-left">
+                    <!--<div class="file-name-txt ellipsis">
+                      <span>{{item.fileName}}</span>
+                    </div>-->
+                    <div class="file-name-txt ellipsis form-group">
+                        <!--<span>{{item.fileName}} .{{item.extension}}</span>-->
+                        <input autocomplete="nope" type="text" [(ngModel)]="item.fileName" [ngModelOptions]="{standalone: true}" value ="" placeholder="" class="form-control">   
+                    </div>
+                    <div class="pdfExtension">
+                            .{{item.extension}}
+                    </div>
+                    <span class="close-icon" (click)="removeImgDoc(indx,'img')">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div class="pull-right">
+                    <div class="treaRadioBtn" *ngIf="item.extension == 'jpeg' || item.extension == 'jpg' || item.extension == 'png'">
+                      <input autocomplete="nope" type="radio" id="thumbnail{{indx}}" name="radio-group" [checked]="item.thumbnail == 1" (change)="onSelectionChange(indx)">
+                      <label for="thumbnail{{indx}}">Set as thumbnail</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="txtDesc">
+                  <div class="docLabel">Description</div>
+                  <textarea class="" [(ngModel)]="item.description" align="left" placeholder="(optional)">
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="addAttrBtn" *ngIf="!pageData.newFileUpload && pageData.imgDocPriArr.length != 0">
+          <span class="add-icon" (click)="changeUploadFileFlage()">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>
+          </span>
+          <span class="cursorPtr" (click)="changeUploadFileFlage()">Add Document</span>
+        </div>
+
+        <div [ngClass]="pageData.dragOver ? 'drag-over' : ''" class="dropFileHere" *ngIf="pageData.newFileUpload || pageData.imgDocPriArr.length == 0">
+          <file-drop customstyle="dropFileHere" headertext="" (onFileDrop)="dropped($event, 'img')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+            <p class="text">Drop file here (jpg, png or pdf)</p>
+            <p class="text">or</p>
+            <div class="selFileLink select-file">
+              <input autocomplete="nope" type="file" class="file-in" name="img" multiple (change)="onFileChange($event)"/>
+              <a href="javascript:void(0)">Select files</a>
+            </div>
+          </file-drop>
+        </div>
+      </div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="pageData.isError">
+      <small>{{pageData.errMsg}}</small>
+    </div>
+
+    <div class="button-row clearfix">
+      <button mat-raised-button id="add-manufacturer-part-btn" class="trea-btn" (click)="previousPage()">Previous</button>
+      <button mat-raised-button class="trea-btn" (click)="mfgReview()">Next</button>
+      <button mat-raised-button class="trea-btn" (click)="cancelAddManufacturer()">Cancel</button>
+    </div>
+  </div>
+</div>

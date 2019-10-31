@@ -1,0 +1,363 @@
+<div class="row">
+  <div class="col-sm-12 text-center">
+    <h3 class="pageTitle">CSV Preview</h3>
+  </div>
+</div>
+
+<div class="upload-result table-responsive">
+
+  <!-- Business Type -->
+  <table class="table table-striped" *ngIf="pageData.moduleType == 'business-type'">
+    <thead>
+      <tr>
+        <th>Business Type</th>
+        <th>Service Type</th>
+        <th>Service Name</th>
+        <th>Service Cost</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let indx=index ; let business_data of pageData.CsvData" class="{{business_data.is_valid == 1 ? 'valid-row' : 'invalid-row'}}">
+        <td>{{business_data.business_type}}</td>
+        <td>{{business_data.service_type}}</td>
+        <td>{{business_data.service_name}}</td>
+        <td>{{business_data.service_cost}}</td>
+        <td class="{{business_data.is_valid == 1 ? 'succ' : 'fail'}}">
+          <span class="{{business_data.is_valid == 1 ? 'succ' : 'fail'}}">{{business_data.is_valid == 1 ? 'Success' :
+            'Fail'}}</span>
+          <i *ngIf="business_data.is_valid == 0" popover="{{business_data.error_msg}}" popoverPlacement="left"
+            [popoverOnHover]="true" [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true"
+            required></i>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <!-- Supplier -->
+  <table class="table table-striped" *ngIf="pageData.moduleType == 'supplier'">
+    <thead>
+      <tr>
+        <th>Product and Material</th>
+        <th>Asset</th>
+        <th>Finance</th>
+        <th>Contractors</th>
+        <th>Repair Services</th>
+        <th>Warranty</th>
+        <th>Supplier Name</th>
+        <th>Email Id</th>
+        <th>Phone No</th>
+        <th>Address1</th>
+        <th>Address 2</th>
+        <th>Comment</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let indx=index ; let supplier_data of pageData.CsvData" class="{{supplier_data.is_valid == 1 ? 'valid-row' : 'invalid-row'}}">
+        <td>{{supplier_data.product_and_material}}</td>
+        <td>{{supplier_data.asset}}</td>
+        <td>{{supplier_data.finance}}</td>
+        <td>{{supplier_data.contractors}}</td>
+        <td>{{supplier_data.repair_services}}</td>
+        <td>{{supplier_data.warranty}}</td>
+        <td>{{supplier_data.supplier_name}}</td>
+        <td>{{supplier_data.email_id}}</td>
+        <td>{{supplier_data.phone_no}}</td>
+        <td>{{supplier_data.address1}}</td>
+        <td>{{supplier_data.address2}}</td>
+        <td>{{supplier_data.comment}}</td>
+        <td class="{{supplier_data.is_valid == 1 ? 'succ' : 'fail'}}">
+          <span class="{{supplier_data.is_valid == 1 ? 'succ' : 'fail'}}">{{supplier_data.is_valid == 1 ? 'Success' :
+            'Fail'}}</span>
+          <i *ngIf="supplier_data.is_valid == 0" popover="{{supplier_data.error_msg}}" popoverPlacement="left"
+            [popoverOnHover]="true" [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true"
+            required></i>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <!-- Manufacturer -->
+  <table class="table table-striped" *ngIf="pageData.moduleType == 'manufacturer'">
+    <thead>
+      <tr>
+        <th>Manufacturer Name</th>
+        <!-- <th>Manufacturer Type</th> -->
+        <th>Product Manufacturer</th>
+        <th>Asset Manufacturer</th>
+        <th>Comment</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let indx=index ; let manf_data of pageData.CsvData" class="{{manf_data.is_valid == 1 ? 'valid-row' : 'invalid-row'}}">
+        <td>{{manf_data.manufacturer_name}}</td>
+        <!-- <td>{{manf_data.manufacturer_type}}</td> -->
+        <td>{{manf_data.product_manufacturer ? manf_data.product_manufacturer : ''}}</td>
+        <td>{{manf_data.asset_manufacturer ? manf_data.asset_manufacturer : ''}}</td>
+        <td>{{manf_data.comment}}</td>
+        <td class="{{manf_data.is_valid == 1 ? 'succ' : 'fail'}}">
+          <span class="{{manf_data.is_valid == 1 ? 'succ' : 'fail'}}">{{manf_data.is_valid == 1 ? 'Success' : 'Fail'}}</span>
+          <i *ngIf="manf_data.is_valid == 0" popover="{{manf_data.error_msg}}" popoverPlacement="left" [popoverOnHover]="true"
+            [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true" required></i>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <!-- Assets -->
+  <table class="table table-striped" *ngIf="pageData.moduleType == 'assets'">
+    <thead>
+      <tr>
+        <th>Manufacturer Name</th>
+        <th>Item Def No</th>
+        <th>Serial NO</th>
+        <th>Scan Code</th>
+        <th>Asset Name</th>
+        <th>Location</th>
+        <th>Assign TO</th>
+        <th>Comment</th>
+        <th>Ownership Type</th>
+        <th>Supplier Name</th>
+        <th>Purchase Date</th>
+        <th>Purchase Price</th>
+        <th>Esti Useful Life</th>
+        <th>Residual Value</th>
+        <th>Paid Capital</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Terms</th>
+        <th>Monthly Payment</th>
+        <th>Waranty Supplier Name</th>
+        <th>Wanranty End Date</th>
+        <th>Account Ref No</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let indx=index ; let asset of pageData.CsvData" class="{{asset.is_valid == 1 ? 'valid-row' : 'invalid-row'}}">
+        <td>{{asset.manufacturer_name}}</td>
+        <td>{{asset.item_defination_no}}</td>
+        <td>{{asset.serial_no}}</td>
+        <td>{{asset.scan_code}}</td>
+        <td>{{asset.asset_name}}</td>
+        <td>{{asset.location}}</td>
+        <td>{{asset.assign_to}}</td>
+        <td>{{asset.comment}}</td>
+        <td>{{asset.ownership_type}}</td>
+        <td>{{asset.supplier_name}}</td>
+        <td>{{asset.purchase_date}}</td>
+        <td>{{asset.purchase_price}}</td>
+        <td>{{asset.estimated_useful_life}}</td>
+        <td>{{asset.residual_value}}</td>
+        <td>{{asset.paid_capital}}</td>
+        <td>{{asset.start_date}}</td>
+        <td>{{asset.end_date}}</td>
+        <td>{{asset.terms}}</td>
+        <td>{{asset.monthly_payment}}</td>
+        <td>{{asset.warrnty_supplier_name}}</td>
+        <td>{{asset.warranty_end_date}}</td>
+        <td>{{asset.acccount_ref_no}}</td>
+        <td class="{{asset.is_valid == 1 ? 'succ' : 'fail'}}">
+          <span class="{{asset.is_valid == 1 ? 'succ' : 'fail'}}">{{asset.is_valid == 1 ? 'Success' : 'Fail'}}</span>
+          <i *ngIf="asset.is_valid == 0" popover="{{asset.error_msg}}" popoverPlacement="left" [popoverOnHover]="true"
+            [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true" required></i>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <!-- Product -->
+  <table class="table table-striped" *ngIf="pageData.moduleType == 'product'">
+    <thead>
+      <tr>
+        <th>Supplier Name</th>
+        <th>Manufacturer Name</th>
+        <th>Item Def No</th>
+        <th>Quantity</th>
+        <th>Purchase Price</th>
+        <th>Sales Price</th>
+        <th>Location</th>
+        <th>Comment</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let indx=index ; let product of pageData.CsvData" class="{{product.is_valid == 1 ? 'valid-row' : 'invalid-row'}}">
+        <td>{{product.supplier_name}}</td>
+        <td>{{product.manufacturer_name}}</td>
+        <td>{{product.item_defination_no}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.purchase_price}}</td>
+        <td>{{product.sell_price}}</td>
+        <td>{{product.location}}</td>
+        <td>{{product.comment}}</td>
+        <td class="{{product.is_valid == 1 ? 'succ' : 'fail'}}">
+          <span class="{{product.is_valid == 1 ? 'succ' : 'fail'}}">{{product.is_valid == 1 ? 'Success' : 'Fail'}}</span>
+          <i *ngIf="product.is_valid == 0" popover="{{product.error_msg}}" popoverPlacement="left" [popoverOnHover]="true"
+            [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true" required></i>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <!-- Material -->
+  <table class="table table-striped" *ngIf="pageData.moduleType == 'material'">
+    <thead>
+      <tr>
+        <th>Supplier Name</th>
+        <th>Category Name</th>
+        <th>Item Def Name</th>
+        <th>Quantity</th>
+        <th>Purchase Price</th>
+        <th>Sales Price</th>
+        <th>Location</th>
+        <th>Comment</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let indx=index ; let material of pageData.CsvData" class="{{material.is_valid == 1 ? 'valid-row' : 'invalid-row'}}">
+        <td>{{material.supplier_name}}</td>
+        <td>{{material.category_name}}</td>
+        <td>{{material.item_defination_name}}</td>
+        <td>{{material.quantity}}</td>
+        <td>{{material.purchase_price}}</td>
+        <td>{{material.sell_price}}</td>
+        <td>{{material.location}}</td>
+        <td>{{material.comment}}</td>
+        <td class="{{material.is_valid == 1 ? 'succ' : 'fail'}}">
+          <span class="{{material.is_valid == 1 ? 'succ' : 'fail'}}">{{material.is_valid == 1 ? 'Success' : 'Fail'}}</span>
+          <i *ngIf="material.is_valid == 0" popover="{{material.error_msg}}" popoverPlacement="left" [popoverOnHover]="true"
+            [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true" required></i>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <!-- Client -->
+  <table class="table table-striped" *ngIf="pageData.moduleType == 'client'">
+    <thead>
+      <tr>
+        <th>Client Type</th>
+        <th>Company Name</th>
+        <!-- <th>Legal Name</th> -->
+        <th>First Name</th>
+        <th>Last Name</th>
+        <!-- <th>Address Type</th> -->
+        <th>Address 1</th>
+        <th>Address 2</th>
+        <!-- <th>Contact Type</th> -->
+        <th>Contact Person Name</th>
+        <th>Email</th>
+        <th>Phone No</th>
+        <!-- <th>Comment</th> -->
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let indx=index ; let client of pageData.CsvData" class="{{client.is_valid == 1 ? 'valid-row' : 'invalid-row'}}">
+        <td>{{client.client_type}}</td>
+        <td>{{client.company_name}}</td>
+        <!-- <td>{{client.legal_name}}</td> -->
+        <td>{{client.first_name}}</td>
+        <td>{{client.last_name}}</td>
+        <!-- <td>{{client.address_type}}</td> -->
+        <td>{{client.address1}}</td>
+        <td>{{client.address2}}</td>
+        <!-- <td>{{client.contact_type}}</td> -->
+        <td>{{client.contact_person_name}}</td>
+        <td>{{client.email_id}}</td>
+        <td>{{client.phone_no}}</td>
+        <!-- <td>{{client.comment}}</td> -->
+        <td class="{{client.is_valid == 1 ? 'succ' : 'fail'}}">
+          <span class="{{client.is_valid == 1 ? 'succ' : 'fail'}}">{{client.is_valid == 1 ? 'Success' : 'Fail'}}</span>
+          <i *ngIf="client.is_valid == 0" popover="{{client.error_msg}}" popoverPlacement="left" [popoverOnHover]="true"
+            [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true" required></i>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <!-- Employee -->
+<table class="table table-striped" *ngIf="pageData.moduleType == 'employee'">
+	<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<!-- <th>UserName</th> -->
+			<!-- <th>Access Role</th> -->
+			<th>Address 1</th>
+			<th>Address 2</th>
+			<th>Email</th>
+			<th>Work Phone</th>
+			<th>Wage Frequency</th>
+			<th>Wage Amount</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let indx=index ; let employee of pageData.CsvData"
+			class="{{employee.is_valid == 1 ? 'valid-row' : 'invalid-row'}}">
+			<td>{{employee.first_name}}</td>
+			<td>{{employee.last_name}}</td>
+			<!-- <td>{{employee.username}}</td> -->
+			<!-- <td>{{employee.access_role}}</td> -->
+			<td>{{employee.address1}}</td>
+			<td>{{employee.address2}}</td>
+			<td>{{employee.email_id}}</td>
+			<td>{{employee.work_phone}}</td>
+			<td>{{employee.wage_frequency}}</td>
+			<td>{{employee.wage_amount}}</td>
+			<td class="{{employee.is_valid == 1 ? 'succ' : 'fail'}}">
+				<span
+					class="{{employee.is_valid == 1 ? 'succ' : 'fail'}}">{{employee.is_valid == 1 ? 'Success' : 'Fail'}}</span>
+				<i *ngIf="employee.is_valid == 0" popover="{{employee.error_msg}}" popoverPlacement="left"
+					[popoverOnHover]="true" [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle"
+					aria-hidden="true" required></i>
+
+			</td>
+		</tr>
+
+	</tbody>
+</table>
+  <div class="col-sm-12" *ngIf="errMsg">
+    <p class="text-center" style="color:red;">{{errMsg}}</p>
+  </div>
+
+  <div class="col-sm-12" *ngIf="successMsg">
+    <p class="text-center" style="color:green;">{{successMsg}}</p>
+  </div>
+
+  <div class="col-sm-12 text-center dataCount">
+    <p>Total Record: <span> <b>{{pageData.CsvData.length}}</b></span> , Valid Record: <span><b>{{pageData.validRecord}}</b></span>,
+      Invalid Record: <span><b>{{pageData.InvalidRecord}}</b></span></p>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="col-sm-12 ">
+	<div class="onboardingquideWrap col-sm-12 text-center">
+      <!-- <a mat-raised-button class="client-btn" href="{{file.downloadBaseURL+'bulk_emp_upload.csv'}}">Download Template</a> -->
+		<a class="client-btn  simpleBtn" href="javascript:void(0)" (click)="insertValidData()" id="update-field-btn">Insert
+			Valid Data</a>
+
+		<a *ngIf="pageData.invalidUrl" class="client-btn  simpleBtn" href="{{pageData.invalidUrl}}" id="update-field-btn" target="_blank">Get
+			Invalid Data</a>
+		
+		<a class="client-btn simpleBtn" href="javascript:void(0)" (click)="cancelUploadData()">Cancel</a>
+	
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+</div>

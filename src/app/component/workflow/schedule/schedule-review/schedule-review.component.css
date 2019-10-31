@@ -1,0 +1,33 @@
+.schedule-section{ padding: 0px 20px; }
+.schedule-section .search-section{ float: left; }
+.schedule-section .add-client{ float: right; }
+
+.schedule-section .additional-field{ font-weight:600; }
+.search-section .form-control{ border: none; width: 186px; height: 30px; }
+
+.selSection{ margin-bottom: 20px; }
+.serPart{ font-weight:700; font-size: 16px;line-height: 30px;margin-bottom: 25px;margin-top: 50px; }
+.selPart .loc-btn{ width: 160px; }
+.selSection .label-col{font-size: 14px; font-weight:600; line-height: 25px; }
+.selSection .info-col{ font-size: 14px; line-height: 25px; }
+
+.servicesDetails .table tr th{ width: 10%;}
+.paymentsDetails .table  tr th:nth-child(1) { width: 20%; }
+.servicesDetails .table  tr th:nth-child(5) { width: 50%; }
+.servicesDetails .table > thead > tr > th, .scheduleDetails .table > thead > tr > th,.paymentsDetails .table > thead > tr > th{ border-top: 1px solid #ddd;border-bottom: 1px solid #ccc; }
+.servicesDetails .table>tfoot{border-bottom: 1px solid #ccc;border-top: 1px solid #ccc;}
+.servicesDetails .tfooter{ border-bottom:1px solid #ccc;text-align:center;border-top:1px solid #ccc;padding: 20px;color:#000; }
+.scheduleDetailsnext .table{ width: 40%;margin-top: 30px; }
+.payLabel{ font-size: 16px;font-weight:600; }
+.editquoteBtnWrap{ text-align: center;margin: 30px 0px; }
+.email{ color: #00A499; font-weight:600; text-decoration: none;}
+.schedule-section .client-btn, .dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+.scheduleSubmitBtn{ margin: 0px 20px; }
+.search-section .form-control:hover, .search-section .form-control:focus, .schedule-section .client-btn:hover, .schedule-section .client-btn:focus{ outline: 0px; }

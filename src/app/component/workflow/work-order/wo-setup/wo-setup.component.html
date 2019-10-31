@@ -1,0 +1,200 @@
+<div class="workOrderSetup">
+    <div class="pageTitle">Work Order Setup</div>
+    <form autocomplete="off" role="form" [formGroup]="WOSetupForm">
+        <div class="mainContent">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label" for="quetNo">Quote No.</label>
+                        <div class="col-sm-8">
+                            <div class="quetNo"><a [routerLink]="['/workflow/quote/csa/quotation-list/', selectedQuotation.project_estimate_id]" href="javascript:void(0)">{{selectedQuotation.project_estimate_no}}</a></div>
+                            <!-- <div class="info-col quetNo email">{{selectedQuotation.project_estimate_no}}</div> -->
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label" for="assignTo">Assign to</label>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="autoCompleteList">
+                                    <div class="searchList">
+                                        <mat-form-field class="product">
+                                        <input autocomplete="nope" id="assignee_id" matInput placeholder="" [formControl]="assignee" [matAutocomplete]="assigneeAutoComp" (keyup)="validateAssignee($event)">
+                                        <i *ngIf="assignee.value!=''" (click)="util.clearAutoComplete('assignee_id', [assignee, assignee_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                        <img *ngIf="assignee.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                        <mat-autocomplete #assigneeAutoComp="matAutocomplete">
+                                        <mat-option *ngFor="let indx=index; let item of filteredAssignee | async" [value]="item.status" (onSelectionChange)="getSelectedAssignee(item,$event)">
+                                        <span>{{ item.status }}</span>
+                                        </mat-option>
+                                        </mat-autocomplete>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <span class="error-msg" *ngIf="assignee.invalid && (assignee.dirty || assignee.touched || submitted)">
+                                    <small *ngIf="assignee.errors.required">Please select assignee from the list.</small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+        </div>
+        <div class="reqDescWrap">
+            <div class="col-sm-12">
+                <div class="title bold">Requirements Description</div>
+                <p class="description">{{selectedQuotation.requirements}}</p>
+                <div class="viewImgLink" *ngIf="selectedQuotation.images && selectedQuotation.images[0]"><a href="javascript:void(0)" (click)="showImage(selectedQuotation.images[0] ? selectedQuotation.images[0].image_path : '', selectedQuotation.images ? selectedQuotation.images : [])">View Image</a></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-12 recurring-section" *ngIf="isRecurringWO">
+            <!-- <p class="titletxt">Recurring Work Orders</p> -->
+
+            <table class="">
+                <caption class="text-center">Recurring Work Orders</caption>
+                <thead>
+                    <tr>
+                        <th>W/O No.</th>
+                        <th>Start Date</th>
+                        <th>Start Time</th>
+                        <th>End Date</th>
+                        <th>End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let indx=index; let wo of constant.TEMP;">
+                        <td>#{{indx+1}}</td>
+                        <td>{{wo.start_date}}</td>
+                        <td>{{wo.start_time.substring(0,5)}} {{wo.start_time_format}}</td>
+                        <td>{{wo.end_date}}</td>
+                        <td>{{wo.end_time.substring(0,5)}} {{wo.end_time_format}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="addAllWOChkBox">
+            <div class="checkBox">
+                <label>
+                    <!-- <input autocomplete="nope" [(ngModel)]="sameAsWorkLocation" [ngModelOptions]="{standalone: true}"  (change)="changeBillingAddress($event)" type="checkbox"> -->
+                    <input autocomplete="nope" type="checkbox" [formControl]="add_all_WO" (change)="changeAddAllToWO()">
+                    <span class="iconChk"><i class="fa fa-check"></i> </span>
+                    Add All to Work Order
+                </label>
+            </div>
+        </div>
+        <div class="woSetupTbl clearfix">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="titletxt">Services</p>
+                    <div class="note text-center">
+                        <span *ngIf="isRecurringWO">(All services you add for 1 work order.)</span>
+                    </div>
+                    <div class="table-responsive serviceTbl">
+                        <table class="table">
+                            <tr>
+                                <th width="400">Service</th>
+                                <th width="400">Details</th>
+                                <th width="400" class="splitTd">
+                                    <div class="text-center">Quantity</div>
+                                    <span>Quoted</span>
+                                    <span>Remaining</span>
+                                </th>
+                                <th width="400">WO Quantity</th>
+                            </tr>
+                            <tr *ngFor="let service of services.controls; let indx=index;" [formGroup]="service">
+                                <td>{{getServiceAt(indx).get('service').value}}</td>
+                                <td>{{getServiceAt(indx).get('details').value}}</td>
+                                <td class="splitTd">
+                                    <span class="quoteParent">
+                                        <span class="quoteQ">{{getServiceAt(indx).get('quantity').value}}</span>
+                                        <span *ngIf="isRecurringWO" class="quoteFormula">({{selectedQuotation.services[indx].wo_total_quantity}}/{{constant.TEMP.length}} = {{getServiceAt(indx).get('quantity').value}})</span>
+                                    </span>
+                                    <span style="color: #d0021B;">{{getServiceAt(indx).get('wo_remaining_quantity').value - service.get('WO_quantity').value < 0 ? 0 : (getServiceAt(indx).get('wo_remaining_quantity').value - service.get('WO_quantity').value).toFixed(2) }}</span>
+                                </td>
+                                <!-- <td>{{getServiceAt(indx).get('quantity').value}}</td> -->
+                                <td>
+                                    <div class="form-group" [ngClass]="isRecurringWO ? 'qtyTxtMar' : ''">
+                                        <input autocomplete="nope" name="WO_quantity" type="number" class="inputQty PadR0" formControlName="WO_quantity" >
+                                        <span class="error-msg" *ngIf="(service.get('WO_quantity').invalid) && (service.get('WO_quantity').dirty || service.get('WO_quantity').touched || submitted)">
+                                            <small *ngIf="service.get('WO_quantity').errors.required">Quantity is Required.</small>
+                                            <!-- <small *ngIf="service.get('WO_quantity').errors.max">Quantity must not excced remaining quantity({{service.get('wo_remaining_quantity').value}}).</small> -->
+                                            <small *ngIf="service.get('WO_quantity').errors.pattern">Invalid Quantity.</small>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="titletxt">Materials</p>
+                    <div class="note text-center">
+                        <span *ngIf="isRecurringWO">(All materials you add for 1 work order.)</span>
+                    </div>
+                    <div class="table-responsive materialsTbl">
+                        <table class="table">
+                            <tr>
+                                <th width="400">Product Type</th>
+                                <th width="400">Details</th>
+                                <th width="400" class="splitTd">
+                                    <div class="text-center">Quantity</div>
+                                    <span>Quoted</span>
+                                    <span>Remaining</span>
+                                </th>
+                                <th width="400">WO Quantity</th>
+                            </tr>
+                            <tr *ngFor="let material of materials.controls; let indx=index;" [formGroup]="material">
+                                <td>{{getMaterialAt(indx).get('material_details').value}}</td>
+                                <td>{{getMaterialAt(indx).get('details').value}}</td>
+                                <td class="splitTd">
+                                    <span class="quoteParent">
+                                        <span class="quoteQ">{{getMaterialAt(indx).get('quantity').value}}</span>
+                                        <span *ngIf="isRecurringWO" class="quoteFormula">({{selectedQuotation.product_materials[indx].wo_total_quantity}}/{{constant.TEMP.length}} = {{getMaterialAt(indx).get('quantity').value}})</span>
+                                    </span>
+                                    <!-- <span>{{getMaterialAt(indx).get('quantity').value}}</span> -->
+                                    <span style="color: #d0021B;">{{getMaterialAt(indx).get('wo_remaining_quantity').value - material.get('WO_quantity').value < 0 ? 0 : (getMaterialAt(indx).get('wo_remaining_quantity').value - material.get('WO_quantity').value).toFixed(2)}}</span>
+                                </td>
+                                <!-- <td>{{getMaterialAt(indx).get('quantity').value}}</td> -->
+                                <td>
+                                    <div class="form-group" [ngClass]="isRecurringWO ? 'qtyTxtMar' : ''">
+                                        <input autocomplete="nope" name="WO_quantity" type="number" class="inputQty PadR0" formControlName="WO_quantity">
+                                        <span class="error-msg" *ngIf="(material.get('WO_quantity').invalid) && (material.get('WO_quantity').dirty || material.get('WO_quantity').touched || submitted)">
+                                            <small *ngIf="material.get('WO_quantity').errors.required">Quantity is Required.</small>
+                                            <!-- <small *ngIf="material.get('WO_quantity').errors.max">Quantity must not excced remaining quantity({{material.get('wo_remaining_quantity').value}}).</small> -->
+                                            <small *ngIf="material.get('WO_quantity').errors.pattern">Invalid Quantity.</small>
+                                        </span>
+                                        <span class="">&nbsp;{{material.get('uom').value}}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isRecurringWO" style="font-size: 12px;">
+            *(Quoted Quantity = Total PE Quantity / No. Of W/O Occurrence)
+        </div>
+        <div class="clearfix"></div>
+        <div class="button-row">
+            <button *ngIf="!isRecurringWO" mat-raised-button class="trea-btn" (click)="createWorkOrder(WOSetupForm)">Create W/O</button>
+            <button *ngIf="isRecurringWO" mat-raised-button class="trea-btn" (click)="createWorkOrder(WOSetupForm)">Create All W/O</button>
+            <button mat-raised-button class="trea-btn cancelBtn" routerLink="/workflow/wo/csa/work-order-list/0">Cancel</button>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+</div>

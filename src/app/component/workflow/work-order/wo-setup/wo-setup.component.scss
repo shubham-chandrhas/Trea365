@@ -1,0 +1,100 @@
+// .trea-btn{
+//     background-color: #00A499;
+//     color: #FFFFFF;
+//     border-radius: 0px;
+//     height: 30px;
+//     line-height: 30px;
+//     min-width: 80px;
+//     padding: 0 8px;
+// }
+// .trea-btn:focus{
+//     outline: none;
+// }
+// .trea-btn:hover{
+//     color: #505050!important;
+//     background-color: #FFCB36!important;
+// }
+.workOrderSetup{
+    max-width: 1024px;
+    margin: 0 auto;
+}
+.reqDescWrap .title{
+    margin: 20px auto;
+    text-align: center;
+} 
+.reqDescWrap .description{
+    margin-bottom: 10px;
+}
+.reqDescWrap .viewImgLink>a,
+.quetNo>a{
+    text-decoration: underline;
+    color: #00a99d;
+    outline: 0;
+}
+.addAllWOChkBox{
+    padding: 15px;
+    margin-top: 50px;
+}
+.addAllWOChkBox .checkBox label {
+    color: #505050;
+    font-weight: normal;
+}
+.woSetupTbl {margin-top: 10px;}
+.woSetupTbl .titletxt {
+    text-align: center;
+    font-weight: 700; 
+    font-size: 18px; 
+}
+.woSetupTbl .serviceTbl,
+.woSetupTbl .materialsTbl{
+    margin-bottom: 40px;
+}
+.woSetupTbl table tr th {
+    border-top: 1px solid #7e7e7e;
+    border-bottom: 1px solid #7e7e7e;
+ }
+ .woSetupTbl table tr td{
+     color: #7e7e7e;
+     font-weight: normal;
+ }
+ .woSetupTbl table tr td .inputQty{
+    max-width: 100px;
+}
+ .btnWrap{
+     text-align: center;
+     margin: 30px auto;
+ }
+ .btnWrap .cancelBtn{
+    margin-left: 30px;
+ }
+ .woSetupTbl table tr td .form-group{
+   position: relative;
+   
+}
+.woSetupTbl table tr td .form-group .error-msg{
+    left: 0;
+    top: 25px;
+ }
+.splitTd span{
+    width: 48%;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+.splitTd span:first-child{
+    /* border-right: 1px solid #333; */
+}
+th.splitTd span{
+    font-size: 12px;
+}
+.recurring-section{ margin-top: 30px; margin-bottom: 30px; }
+.recurring-section table{ width: 100%; }
+.recurring-section table th{ font-weight: 600;border-bottom: 1px solid #CCC;text-align:center; padding: 5px; opacity: 0.8; }
+.recurring-section table td{ text-align:center; padding: 5px; }
+.recurring-section table caption{ font-weight: 600; padding-bottom: 10px; }
+.note{ margin: 0px 0px 25px 0px; font-size: 14px; }
+.splitTd .quoteFormula{ display: inline-block;width: 100%;font-size: 12px; }
+.splitTd .quoteQ{ display: inline-block;width: 100%; }
+.splitTd .quoteParent{ border-right: 1px solid #333; }
+.qtyTxtMar{ margin: 8px 0px !important; }
+

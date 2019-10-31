@@ -1,0 +1,859 @@
+<div class="dialog dailogContainer" *ngIf="action == 'quotationList'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="dialog-hdr">
+    <div>Quotations</div>
+  </div>
+  <div class="">
+    <div class="trea-data-table table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              <div class="table-hdr">
+                <div>
+                  <span>Quote No</span>
+                  <span
+                    (click)="
+                      pageData.sortColumn = 'project_estimate_no';
+                      pageData.sortColumnType = 'N';
+                      pageData.sortOrder =
+                        pageData.sortColumn === 'project_estimate_no'
+                          ? pageData.sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        pageData.sortColumn == 'project_estimate_no' &&
+                        pageData.sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                    [(ngModel)]="quoteNoSearch"
+                  />
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Date</span>
+                  <span
+                    (click)="
+                      pageData.sortColumn = 'project_estimate_date';
+                      pageData.sortColumnType = 'A';
+                      pageData.sortOrder =
+                        pageData.sortColumn === 'project_estimate_date'
+                          ? pageData.sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        pageData.sortColumn == 'project_estimate_date' &&
+                        pageData.sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                    [(ngModel)]="dateSearch"
+                  />
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Client</span>
+                  <span
+                    (click)="
+                      pageData.sortColumn = 'company_name';
+                      pageData.sortColumnType = 'A';
+                      pageData.sortOrder =
+                        pageData.sortColumn === 'company_name'
+                          ? pageData.sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        pageData.sortColumn == 'company_name' &&
+                        pageData.sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                    [(ngModel)]="clientSearch"
+                  />
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Followed by</span>
+                  <span
+                    (click)="
+                      pageData.sortColumn = 'first_name';
+                      pageData.sortColumnType = 'A';
+                      pageData.sortOrder =
+                        pageData.sortColumn === 'first_name'
+                          ? pageData.sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        pageData.sortColumn == 'first_name' &&
+                        pageData.sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                    [(ngModel)]="followedBySearch"
+                  />
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Status</span>
+                  <span
+                    (click)="
+                      pageData.sortColumn = 'status_text';
+                      pageData.sortColumnType = 'A';
+                      pageData.sortOrder =
+                        pageData.sortColumn === 'status_text'
+                          ? pageData.sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        pageData.sortColumn == 'status_text' &&
+                        pageData.sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                    [(ngModel)]="statusSearch"
+                  />
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let indx = index;
+              let quote;
+              of: pageData.quotationList
+                | sortBy
+                  : pageData.sortColumn
+                  : pageData.sortOrder
+                  : pageData.sortColumnType
+                | searchfilter: statusSearch:'status_text'
+                | searchfilter: dateSearch:'project_estimate_date'
+                | searchfilter: clientSearch:'company_name'
+                | searchfilter: quoteNoSearch:'project_estimate_no'
+                | searchfilter: followedBySearch:'first_name'
+                | listLengthfilter
+                | paginate: paginationKey
+            "
+            (click)="getSelectedQuotation(quote, indx)"
+            [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''"
+          >
+            <td>{{ quote.project_estimate_no }}</td>
+            <td>{{ util.getFormatedDate(quote.project_estimate_date) }}</td>
+            <td>{{ quote.company_name }}</td>
+            <td>{{ quote.first_name }}</td>
+            <td>
+              <span class="dn">{{
+                indx == 0 ? updateCount(quote.count) : ""
+              }}</span
+              >{{ quote.status_text }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div
+      class="treaPagination"
+      *ngIf="pageData.quotationList.length != 0 && constant.ITEM_COUNT != 0"
+    >
+      <div class="pull-right">
+        <span>
+          {{
+            1 + (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+          }}
+          -
+          {{
+            paginationKey.itemsPerPage <= listCount &&
+            paginationKey.itemsPerPage +
+              (paginationKey.currentPage - 1) * paginationKey.itemsPerPage <=
+              listCount
+              ? paginationKey.itemsPerPage +
+                (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+              : listCount
+          }}</span
+        ><span> of {{ listCount }} items</span>
+      </div>
+      <div class="pull-right">
+        <select
+          [(ngModel)]="paginationKey.itemsPerPage"
+          (change)="util.changeItemPerPage()"
+        >
+          <option
+            *ngFor="let pageNo of constant.PAGINATION_ITEMS"
+            [ngValue]="pageNo"
+          >
+            {{ pageNo }}
+          </option>
+        </select>
+        <span> items per page</span>
+      </div>
+      <div class="pull-right">
+        <pagination-controls
+          (pageChange)="changePage($event)"
+          directionLinks="true"
+          autoHide="false"
+          previousLabel="Pre"
+          nextLabel="Next"
+          screenReaderPaginationLabel="Pagination"
+          screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page"
+        >
+        </pagination-controls>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="errMsgCon" *ngIf="pageData.isError">
+    <small>{{ pageData.errMsg }}</small>
+  </div>
+  <div class="button-row">
+    <button mat-raised-button class="trea-btn" (click)="goToWoSetup()">
+      Select
+    </button>
+    <button mat-raised-button class="trea-btn" (click)="goToNewWOReview()">
+      Review
+    </button>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<!-- HTML for Member Search -->
+<!-- <div class="dialog dailogContainer" *ngIf="action == 'memberSearch'">
+    <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr searchModHead">
+        <div>Select Available Team Members</div>
+    </div>
+    <div class="searchWrap clearfix">
+        <div class="searchArea">
+            <div id="imaginary_container clearfix"> 
+                <form autocomplete="off">
+                  <div class="input-group stylish-input-group input-append">
+                      <span class="input-group-addon">
+                          <img src="assets/icon/search_icon.png">
+                      </span>
+                      <input autocomplete="nope" type="text" class="form-control"  placeholder="" >
+                  </div>
+                </form>
+            </div>
+        </div>
+        <div class="searchItems">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  John Smith
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Bob Jones
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Tom Thompson
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Bill Williams
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  John Smith
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Bob Jones
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><p class="pull-right searchTotal">Total 4</p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="searchModalFoot clearfix">
+            <div class="col-sm-6">
+                <button class="lgBtn">Done</button>
+            </div>
+            <div class="col-sm-6">
+                <p class="pull-right">1 Selected</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clearfix"></div>
+</div> -->
+
+<!-- HTML for Asset Search -->
+<!-- <div class="dialog dailogContainer" *ngIf="action == 'assetSearch'">
+    <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr searchModHead">
+        <div>Select Available Assets</div>
+    </div>
+    <div class="searchWrap clearfix">
+        <div class="searchArea">
+            <div id="imaginary_container clearfix"> 
+                <form autocomplete="off">
+                  <div class="input-group stylish-input-group input-append">
+                      <span class="input-group-addon">
+                          <img src="assets/icon/search_icon.png">
+                      </span>
+                      <input autocomplete="nope" type="text" class="form-control"  placeholder="" >
+                  </div>
+                </form>
+            </div>
+        </div>
+        <div class="searchItems">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Acme C-Saw 200 (Serial xxxxxx)
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Acme C-Saw 200 (Serial xxxxxx)
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Acme C-Saw 200 (Serial xxxxxx)
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Acme C-Saw 200 (Serial xxxxxx)
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Acme C-Saw 200 (Serial xxxxxx)
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkBox">
+                                <label>
+                                  <input autocomplete="nope" checked="" type="checkbox">
+                                  <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                  Acme C-Saw 200 (Serial xxxxxx)
+                                </label>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><p class="pull-right searchTotal">Total 4</p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="searchModalFoot clearfix">
+            <div class="col-sm-6">
+                <button class="lgBtn">Done</button>
+            </div>
+            <div class="col-sm-6">
+                <p class="pull-right">1 Selected</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clearfix"></div>
+</div> -->
+
+<!-- HTML for Split Quantity -->
+<!-- <div class="dialog dailogContainer" *ngIf="action == 'splitQuantity'">
+    <span class="close-icon" (click)="closeDialog()">
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+        <div>Split Quantity</div>
+    </div>
+    <div class="searchWrap splitSearchWrap clearfix">
+        <div class="row">
+            <div class="form-group clearfix">
+                <label class="col-md-5 control-label txtColor" for="serviceType">Product or Service</label>
+                <div class="col-md-7">
+                    <p>Phasselus</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group clearfix">
+                <label class="col-md-5 control-label" for="role">Split to</label>
+                <div class="col-md-7">
+                    <select class="form-control">
+                        <option>Work Order 2</option>
+                    </select> 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group clearfix">
+                <label class="col-md-5 control-label txtColor" for="serviceType">Quantity</label>
+                <div class="col-md-7">
+                    <input autocomplete="nope" class="form-control splitTxtIn" name="" placeholder="" type="text">
+                    <span class="splitOutOf">/10</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group clearfix">
+                <div class="col-sm-6">
+                    <div class="splitQuaBtn">
+                        <button class="mdBtn">Split</button>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="splitQuaBtn">
+                        <button class="mdBtn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clearfix"></div>
+</div> -->
+
+<!-- HTML for Select Location from Products/Material in External Work order -->
+<!--  This is old code you remove @Yogesh Date - 30 Apr 2019  -->
+<!-- <div class="dialog width550" *ngIf="action == 'selectLocation'">
+    <span class="close-icon crDialog" (click)="closeDialog()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
+    <div class="dialog-hdr">
+        <div>Location</div>
+    </div>
+    <div class="productFormWrap" *ngIf="!isSuccess">
+        <form autocomplete="off" class="form-horizontal" role="form"> -->
+<!-- <div class="formBody">
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" name="radio-group" type="radio" id="radio-group1" value="1" [(ngModel)]="locationType" (change)="getLocType()">
+                    <label for="radio-group1">Supplier</label>
+                </div>
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" name="radio-group" type="radio" id="radio-group2" value="2" [(ngModel)]="locationType" (change)="getLocType()">
+                    <label for="radio-group2">Work</label>
+                </div>
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" name="radio-group" type="radio" id="radio-group3" value="3" [(ngModel)]="locationType" (change)="getLocType()">
+                    <label for="radio-group3">Internal</label>
+                </div>
+                <div class="clearfix"></div>
+            </div> -->
+<!-- <form autocomplete="off" class="supplierForm" role="form" [formGroup]="addSupplierForm" *ngIf="locationType == '1'">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label" for="supplier">Supplier</label>
+                    <div class="col-sm-7">
+                        <div class="autoCompleteList">
+                            <div class="searchList">
+                                <mat-form-field class="product">
+                                    <input autocomplete="nope" matInput placeholder="" aria-label="Name" [formControl]="supplier" [matAutocomplete]="supplierAutoComp" (keyup)="validateSupplier($event)" id="supplier_id">
+                                    <i *ngIf="supplier.value!=''" (click)="util.clearAutoComplete('supplier_id', [supplier, supplier_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <img *ngIf="supplier.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                    <mat-autocomplete #supplierAutoComp="matAutocomplete">
+                                        <mat-option *ngFor="let indx=index; let item of filteredSupplier | async" [value]="item.supplier_name" (onSelectionChange)="getSelectedSupplier(item, $event)">
+                                        <span>{{ item.supplier_name }}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <span class="error-msg" *ngIf="supplier_id.invalid && (supplier_id.dirty || supplier_id.touched || submitted)">
+                            <small *ngIf="supplier_id.errors.required">Please select Supplier from the list.</small>
+                        </span>
+                    </div>
+                </div>
+            </form> -->
+
+<!-- <form autocomplete="off" class="supplierForm" role="form" [formGroup]="addInLocForm" *ngIf="locationType == '3'">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="mainLocation">Main Location</label>
+                    <div class="col-sm-8">
+                        <div class="autoCompleteList">
+                            <div class="searchList">
+                                <mat-form-field class="product">
+                                    <input autocomplete="nope" matInput placeholder=""  [formControl]="location" [matAutocomplete]="locations" (keyup)="validateLoc($event)" id="location_id">
+                                    <i *ngIf="location.value!=''" (click)="util.clearAutoComplete('location_id', [location, location_id,location_tag,location_tag_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <img *ngIf="location.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                    <mat-autocomplete #locations="matAutocomplete">
+                                        <mat-option *ngFor="let loc of filteredLocations | async" (onSelectionChange)="getSelectedLocation($event, loc)" [value]="loc.location_name">
+                                            <span>{{ loc.location_name }}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <span class="error-msg" *ngIf="location_id.invalid && (location_id.dirty || location_id.touched || submitted)">
+                            <small *ngIf="location_id.errors.required">Please select Location from the list.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="subLocation">Sub Location</label>
+                    <div class="col-sm-8">
+                        <div class="autoCompleteList">
+                            <div class="searchList">
+                                <mat-form-field class="product">
+                                    <input autocomplete="nope" matInput placeholder=""  [formControl]="location_tag" [matAutocomplete]="tags" (keyup)="validateLocTags($event)" id="location_tag_id">
+                                    <i *ngIf="location_tag.value!=''" (click)="util.clearAutoComplete('location_tag_id', [location_tag, location_tag_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <img *ngIf="location_tag.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                    <mat-autocomplete #tags="matAutocomplete">
+                                        <mat-option *ngFor="let tag of filteredTags | async" (onSelectionChange)="getSelectedTag($event, tag)" [value]="tag.location_tag">
+                                            <span>{{ tag.location_tag }}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <span class="error-msg" *ngIf="location_tag_id.invalid && (location_tag_id.dirty || location_tag_id.touched || submitted)">
+                            <small *ngIf="location_tag_id.errors.required">Please select Sub Location from the list.</small>
+                        </span>
+                    </div>
+                </div>
+            </form>
+
+            <div class="errMsgCon" *ngIf="isError"> 
+                <small>{{errMsg}}</small>
+            </div>
+
+            <div class="text-center button-row">
+                <button mat-raised-button id="selectLocation" class="trea-btn" (click)="select()">Select</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+<div class="dialog" *ngIf="action == 'updateConfirmation'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>Work Order Update</div>
+  </div>
+  <!-- *ngIf="!isSuccess" -->
+  <div>
+    <div class="dialog-txt">
+      <div>Send the update to the project estimator?</div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="action-btn">
+      <div class="left pull-left">
+        <div class="add-client pull-right">
+          <button
+            id="addCRBtn"
+            mat-raised-button
+            class="treaBtn yes"
+            (click)="yes()"
+          >
+            Yes
+          </button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="right pull-left">
+        <div class="add-client pull-left">
+          <button
+            mat-raised-button
+            class="treaBtn cancel"
+            (click)="closeDialog()"
+          >
+            Cancel
+          </button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <!-- <div *ngIf="isSuccess">
+        <div class="dialog-txt">{{successMsg}}.</div>
+        <div class="action-btn text-center">
+            <button id="" mat-raised-button class="treaBtn yes" (click)="closeDialog()">Done</button>
+        </div>    
+    </div> -->
+</div>
+
+<div class="dialog" *ngIf="action == 'createCRConfirmation'">
+  <span class="close-icon crDialog" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>Change Request Warning</div>
+  </div>
+  <!-- *ngIf="!isSuccess" -->
+  <div>
+    <div class="dialog-txt">
+      <div>{{ dataObj.msg }}</div>
+      <!-- <div class="PadT15">Do you want to continue ?</div> -->
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="addCRBtn"
+        mat-raised-button
+        class="trea-btn"
+        (click)="continueCreatingCR()"
+      >
+        Okay
+      </button>
+      <!-- <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button> -->
+    </div>
+  </div>
+  <!-- <div *ngIf="isSuccess">
+        <div class="dialog-txt">{{successMsg}}.</div>
+        <div class="action-btn text-center">
+            <button id="" mat-raised-button class="treaBtn yes" (click)="closeDialog()">Done</button>
+        </div>    
+    </div> -->
+</div>
+
+<!-- Approve Confirmation -->
+<div class="dialog" *ngIf="action == 'approvalConfirmation'">
+    <span class="close-icon" (click)="closeDialog()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
+    <div class="dialog-hdr">
+      <div>Complete Work Order</div>
+    </div>
+    <!-- *ngIf="!isSuccess" -->
+    <div>
+      <div class="dialog-txt text-left">
+        <div class="optional">
+          <form
+            autocomplete="off"
+            role="form"
+            [formGroup]="addApproveConfirmationNoteForm"
+          >
+            <div class="noteLbl">Note:</div>
+            <div class="form-group">
+              <!-- formControlName="approve_note" -->
+              <textarea
+                placeholder="(Optional)"
+                class="inputDetail"
+                rows="4"
+                formControlName="approve_note"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <div class="errMsgCon" *ngIf="isError">
+        <small>{{ errMsg }}</small>
+      </div>
+  
+      <div class="button-row">
+        <button
+          id="confirm-btn"
+          mat-raised-button
+          class="trea-btn"
+          (click)="confirm()"
+        >
+          Confirm
+        </button>
+        <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+          Cancel
+        </button>
+      </div>
+    </div>
+    <!-- <div *ngIf="isSuccess">
+              <div class="dialog-txt">{{successMsg}}.</div>
+              <div class="button-row">
+                  <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">Done</button>
+              </div>    
+          </div> -->
+</div>
+  <!-- End -->

@@ -1,0 +1,14 @@
+.dispatchSection .mapWrap{   
+	margin: 0 auto;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+.mapWrap agm-map { height: 400px; }
+.selectedWO{ margin-top: 40px; }
+.dispatchSection .info-col{ font-weight: 600;  }
+.txtActive a{
+    color: #00A499;
+    text-decoration: underline;
+}
+.dispatchSection .woMap{ height: 350px; width: 350px; margin: 0px auto; }
+.woMap agm-map{ height: 350px; width: 350px; }

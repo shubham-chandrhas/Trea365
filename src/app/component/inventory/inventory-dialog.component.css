@@ -1,0 +1,292 @@
+/*Dialog Start*/
+.width450{ width: 450px; }
+.width750{ width: 750px; }
+.width100{
+  width: 100%;
+}
+.dialog{ 
+  max-width: 750px; 
+  width: 100%;
+  position: relative;
+ }
+.add-field-dialog{ width: 400px !important; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+.dialog .top40{ top: -40px; }
+.dialog-hdr{ text-align: center;font-weight:700;font-size: 16px; position: relative; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+.treaBtn{
+  font-size: 14px;
+  line-height: 14px;
+  padding: 8px;
+  background: #3aa69b;
+  border-radius: 0px;
+  border: none;
+  color: #fff;
+}
+.width380{ width: 380px; }
+.purchaseOrderBtnWrap{
+  text-align: center;
+}
+.purchaseOrderBtnWrap .mdBtn{
+  margin: 10px;
+}
+.errMsgCon{ text-align: center; }
+.errMsgCon small{ 
+    color: #F44336;
+    font-size: smaller;
+}
+/*Dialog End*/
+
+.inventory-section {
+    padding: 0px 20px;
+}
+
+.inventory-section .search-section {
+    float: left;
+}
+
+.inventory-section .add-client {
+    float: right;
+}
+
+.inventory-section .client-btn,
+.dialog .client-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.search-section .input-group {
+    border: 1px solid #CCCCCC;
+}
+
+.search-section .form-control {
+    border: none;
+    width: 186px;
+    height: 30px;
+}
+
+.inventory-section .filter-search {
+    float: left;
+}
+
+.inventory-section .filter-label {
+    line-height: 30px;
+    padding: 0px 10px 0px 20px;
+    font-size: 14px;
+}
+
+.inventory-section .added-filter {
+    line-height: 30px;
+    padding: 0px 10px;
+    margin: 0px 5px;
+    background-color: #F1BC4E;
+    font-size: 14px;
+}
+
+.inventory-section .added-filter .fa-times {
+    color: #CD5023;
+    cursor: pointer;
+}
+
+.search-section .form-control:hover,
+.search-section .form-control:focus,
+.inventory-section .client-btn:hover,
+.inventory-section .client-btn:focus {
+    outline: 0px;
+}
+
+.inventory-section .fa-signal {
+    cursor: pointer;
+}
+
+.trea-data-table table>thead {
+    background-color: #7E7E7E;
+    color: #FFFFFF;
+}
+
+.trea-data-table table>thead>tr>th {
+    font-weight: 600;
+    font-size: 14px;
+    height: 80px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.trea-data-table table>tbody>tr>td {
+    font-size: 14px;
+    padding-left: 24px;
+}
+
+.trea-data-table .bdr-left {
+    border-left: 1px solid #FFFFFF;
+}
+
+.trea-data-table .table-hdr {
+    height: 100%;
+    padding-left: 14px;
+}
+
+.trea-data-table input {
+    background-color: #7e7e7e;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-bottom: 2px solid #FFFFFF;
+    border-radius: 0px;
+    box-shadow: none;
+    color: #FFFFFF;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.trea-data-table table>tbody>tr:hover {
+    cursor: pointer;
+    color: #505050;
+    background-color: #FFCB36;
+}
+
+.trea-data-table .sel-row-highlight {
+    color: #505050;
+    background-color: #FFCB36;
+}
+
+.selSection {
+    margin-bottom: 20px;
+}
+
+.selPartTitle {
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 25px;
+}
+
+.tblTitle {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 25px;
+    margin-top: 50px;
+}
+
+.selSection .label-col {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 25px;
+}
+
+.selSection .info-col {
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.orderedItems .table {
+    border-bottom: 1px solid #7E7E7E;
+}
+
+.orderedItems .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    vertical-align: top;
+}
+.purchaseorderDetails .margin20 {
+    margin: 20px auto;
+}
+
+.orderedItems .table>tbody>tr>td,
+.orderedItems .table>thead>tr>td,
+.orderedItems .table>thead>tr>th{
+    border-color: #7E7E7E;
+}
+
+.orderedItems .table > tbody > tr > td {
+    padding-bottom: 30px;
+    color: #7E7E7E;
+}
+.orderedItems .table > tbody > tr > td:nth-child(1),
+.orderedItems .table > tbody > tr > td:nth-child(2){
+    min-width: 200px;
+}
+.orderedItems .table > thead > tr > th:nth-child(3),
+.orderedItems .table > thead > tr > th:nth-child(4),
+.orderedItems .table > tbody > tr > td:nth-child(3),
+.orderedItems .table > tbody > tr > td:nth-child(4){
+    min-width: 150px;
+    max-width: 150px;
+    text-align: center;
+}
+.unlistedItems .table,
+.problemItems .table{
+    border-bottom: 0px;
+}
+.problemItems .table>thead>tr>th {
+    vertical-align: top;
+    border-bottom: 1px solid #7E7E7E;
+    border-top: 1px solid #7E7E7E;
+}
+.dialog .addSupplierOF,.dialog .addInventoryOF{
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px 20px;
+}
+.treaRadioBtn .thumbnailLabel{ line-height: 20px;margin-bottom: 0px;margin-top: 15px; }
+@media screen and (max-width: 767px){
+    .orderedItems .table-responsive{
+        border: none;
+    }
+}
+/* Added New css for Upload Img Popup Start*/
+.addDocClose{
+    position: absolute;
+    right: 0;
+    top: -15px;
+    cursor: pointer;
+}
+.deleteDocIcon{
+    color: #CD5023;
+    cursor: pointer;
+    margin-left: 15px;
+}
+.inactiveBtn {
+    background: #7e7e7e;
+    pointer-events: none;
+  }
+
+.doc-section-wrap{
+    max-height: 470px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+  }
+  .pdfExtension {
+    line-height: 25px;
+    float:left;     
+}  
+
+  /* Added New css for Upload Img Popup  End*/

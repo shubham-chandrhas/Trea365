@@ -1,0 +1,83 @@
+<div class="productReviewCover" [ngClass]="currentURL == 'material-review' ? '' : 'OTFClass'">
+    <h3 class="pageTitle">New Material Information Review</h3>
+    <div class="prodInfoRevWrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <form autocomplete="off">
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="supplier">Supplier</label>
+                            <div class="col-sm-8">
+                                {{materialInfo.requestData.supplier}}
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="category">Category</label>
+                            <div class="col-sm-8">
+                                {{materialInfo.requestData.class_name}}
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="name">Name</label>
+                            <div class="col-sm-8">
+                                {{materialInfo.requestData.material_name}}
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="UOMName">Units</label>
+                            <div class="col-sm-8">
+                                {{materialInfo.requestData.uom}}
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="price">Purchase Price (Per Unit)</label>
+                            <div class="col-sm-8">
+                                {{materialInfo.requestData.purchase_price | currency: util.getCurrency() :'symbol-narrow'}}
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="price">Sale Price (Per Unit)</label>
+                            <div class="col-sm-8">
+                                {{materialInfo.requestData.sales_price | currency: util.getCurrency() :'symbol-narrow'}}
+                            </div>
+                        </div>
+
+                        <div class="prodInfoRevTbl table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th>Main Location</th>
+                                    <th>Sub Location</th>
+                                    <th>Quantity (Units)</th>
+                                </tr>
+                                <tr *ngFor="let location of materialInfo.requestData.material_location">
+                                    <td>{{location.location_name}}</td>
+                                    <td>{{location.location_tag_name}}</td>
+                                    <td>{{location.quantity}} {{ location.quantity > 1 ? materialInfo.displayData.uom_name.uom_symbol_plural: materialInfo.displayData.uom_name.uom_symbol }}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><span class="pull-right">Total Quantity</span></td>
+                                    <td>{{totalQuantity}} {{ totalQuantity > 1 ? materialInfo.displayData.uom_name.uom_symbol_plural: materialInfo.displayData.uom_name.uom_symbol }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="clearfix form-group ">
+                            <label class="col-sm-4 control-label" for="comment">Comment</label>
+                            <div class="col-sm-8 info-col">
+                                <p>{{materialInfo.requestData.comment}}</p>
+                            </div>
+                        </div>
+                        <div class="errMsgCon" *ngIf="isError">
+                            <small>{{errMsg}}</small>
+                        </div>
+                        <div class="button-row text-center">
+                            <button mat-raised-button class="trea-btn" (click)="editMaterial()">Edit</button>
+                            <button mat-raised-button class="trea-btn" id="material-sub-btn" (click)="submitMaterial()">Submit</button>
+                            <button mat-raised-button class="trea-btn" (click)="cancelMaterial()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

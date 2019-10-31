@@ -1,0 +1,211 @@
+
+.orderPart, .avgcostPart, .hoursPart, .pricePart{ 
+    text-align: center;
+    font-weight:700;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 25px;
+  }
+  .hoursPart, .pricePart{
+    margin-top: 35px;
+  }
+  .avgcostPart{
+    margin:35px 0px 4px;
+  }
+  .txtWrap{
+    margin-top: 25px;
+  }
+  .costTxt{
+    font-size: 30px;
+  }
+  .workorderDetails .orderPart span, 
+  .averageCostDetails .avgcostPart span, 
+  .hoursDetails .hoursPart span,
+  .priceDetails .pricePart span{
+    text-decoration: underline;
+  }
+  .workorderTable .table,
+  .rateTable .table, 
+  .averageCostTable .table{
+    text-align: center;
+    margin: 15px auto;
+  }
+  .workorderTable .table tbody tr td:nth-child(4){
+    color: #000000;
+  }
+  .workorderTable .table thead tr th{
+    text-align: center;
+    border-bottom: 1px solid transparent;
+    /* color: #7e7e7e; */
+    font-weight: 200;
+}
+.rateTable .table thead tr th,
+.averageCostTable .table thead tr th,
+.hoursTable .table thead tr th{
+    text-align: center;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 30px;
+}
+  .workorderTable .table tbody tr td{
+    padding-top: 65px;
+    font-weight:700;
+    font-size: 35px;
+  }
+  .workorderTable .table tbody tr th{
+    vertical-align: middle;
+    font-weight:700;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    text-align: left;
+    padding-top: 72px;
+  }
+  .rateTable .table thead tr th,
+  .averageCostTable .table thead tr th, 
+  .hoursTable .table thead tr th{
+    width:25%;
+  }
+  .averageCostTable .costWrap{
+    width: 131px;
+    border-top: 1px solid;
+  }
+  .rateTable .table tbody tr td img{
+    margin:0 auto;
+  }
+  .rateTable .table tbody tr td:nth-child(1),
+  .averageCostTable .table tbody tr td:nth-child(1),
+  .hoursTable .table tbody tr td:nth-child(1){
+    text-align: left;
+    border: 0px;
+  }
+  .averageCostTable .table tbody tr td:nth-child(2),
+  .hoursTable .table tbody tr td:nth-child(2){
+    text-align: left;
+    border: 0px;
+  }
+  .averageCostTable .table tbody tr td:nth-child(3),
+  .hoursTable .table tbody tr td:nth-child(3){
+    text-align: left;
+    border: 0px;
+  }
+  .rateTable .table tbody tr td:nth-child(4),
+  .averageCostTable .table tbody tr td:nth-child(4),
+  .hoursTable .table tbody tr td:nth-child(4){
+    text-align: left;
+    border: 0px;
+  }
+  .botLine{
+    border-bottom: 1px solid #00A499;
+    margin-top: 20px;
+  }
+  .ehbotLine{
+    border-bottom: 1px solid #00A499;
+    margin-top: 50px;
+  }
+  .averageCostWrap{
+    margin: 0 58px;
+  }
+  .averageCostDetails .totalCost,
+  .hoursDetails .totalCost{
+    font-weight:700;
+  }
+ 
+  .averageCostDetails .cost, 
+  .hoursDetails .cost{
+    font-weight:700;
+    font-size: 35px;
+    margin-bottom: 35px;
+  }
+  .averageCostTable, .hoursTable {
+        width: 92%;
+        margin: auto 6%;
+    }
+  .averageCostDetails .lblTxt, 
+  .hoursDetails .lblTxt{
+    /* line-height: 35px; */
+    font-size: 16px;
+    font-weight:400;
+    }
+ .workflowbtnWrap{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 850px;
+  }
+  .hoursDetails .exthTxt{
+    color: #D0021B;
+  }
+  .priceDetails .prangeWrap img{
+    margin:0 auto;
+  }
+  .prangeWrap{
+    margin: 45px;
+  }
+  .prangeTable .table,
+  .prangeTable .table thead tr th,
+  .prangeTable .table tbody tr td{
+    border: 1px solid #00A499;
+    text-align: center;
+    vertical-align:middle;
+    font-weight: 200;
+  }
+
+  .prangeTable .spDiv{
+    width: 0;
+    height: 20px;
+    border: 1px solid #00A499;
+    margin: 0 auto;
+  }
+  .prangeTable .priceTxt,
+  .prangeTable .unitTxt{
+    color: #00A499;
+  }
+  /* css for radio button tab */
+  .workflowOptionTabsTop,
+.workflowOptionTabsBottom{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.workflowOptionTabsTop{
+  margin-bottom: 0px;
+}
+.workflowOptionTabsTop .tabs{
+  -webkit-flex: 1;  /* Safari 6.1+ */
+  -ms-flex: 1;  /* IE 10 */    
+  flex: 1;
+  margin: 0px;
+  border-bottom: 4px solid #00A499;
+  padding: 5px 0px;
+}
+.workflowOptionTabsTop .tabs .infoText{
+  font-size: 12px;
+  text-align: center;
+}
+.workflowOptionTabsBottom .tabs{
+  -webkit-flex: 1;  /* Safari 6.1+ */
+  -ms-flex: 1;  /* IE 10 */    
+  flex: 1;
+  margin: 0px;
+  padding: 0px;
+}
+.workflowOptionTabsBottom{
+  margin-bottom: 50px;
+}
+.workflowOptionTabsBottom .tabs .vertLine{
+  width: 4px;
+  height: 15px;
+  margin: 0 auto;
+  background-color: #00A499;
+}
+.workflowOptionTabsBottom .treaRadioBtn{
+  position: relative;
+}
+.workflowOptionTabsBottom .treaRadioBtn [type="radio"]:checked + label, .treaRadioBtn [type="radio"]:not(:checked) + label {
+  /* position: relative; */
+  position: absolute;  
+  left: 42%;
+}

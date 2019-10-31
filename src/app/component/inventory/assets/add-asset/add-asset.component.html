@@ -1,0 +1,702 @@
+<div class="addItemsFormWrap" [ngClass]="currentPath == 'add-asset' ? '' : 'OTFClass'">
+  <!--  <form autocomplete="off" class="form-horizontal addAssetForm" role="form">
+        <div class="newItemsWrap" *ngIf="isPO">
+            <h3>New Asset</h3>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group1" value="WithPO" [(ngModel)]="addOpt">
+                <label for="radio-group1">From Purchase Order</label>
+            </div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group2" value="WithoutPO" [(ngModel)]="addOpt">
+                <label for="radio-group2">Asset Without Purchase Order</label>
+            </div>
+            <div class="button-row clearfix">
+                <button mat-raised-button id="add-emp" class="trea-btn" (click)="next()">Next</button>
+                <button mat-raised-button class="trea-btn" (click)="assetCancel()">Cancel</button>
+            </div>
+            <div class="clearfix"></div>
+        </div> -->
+
+        <!-- <form autocomplete="off" class="form-horizontal addInventoryForm" role="form" [formGroup]="addEmpFm" (keydown)="keyDownFunction($event, addEmpFm)"> -->
+    <!-- </form>-->
+    <form autocomplete="off" class="form-horizontal addAssetForm" role="form" [formGroup]="addNewAForm">
+        <div class="addUserFormBody firstSection" *ngIf="isAddNew"> <!--*ngIf="isAddNew"-->
+            <h1 class="pageTitle">New Asset <span *ngIf="currentPath != 'add-asset'">({{addNewAForm.get('quantity_status').value}} Items)</span></h1>
+
+            <h2 class="form-heading">General Information</h2>
+            <div class="form-group" [hidden]="currentPath != 'add-asset'">
+                <label class="col-sm-4 control-label" for="manufacturer">Manufacturer</label>
+                <div class="col-sm-8">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" matInput placeholder="" [formControl]="manufacturer" [matAutocomplete]="manufacturerAutoComp" (keyup)="validateManf($event)" id="manf_id">
+                                <i *ngIf="manufacturer.value!=''" (click)="util.clearAutoComplete('manf_id', [manufacturer, manf_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="manufacturer.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #manufacturerAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let indx=index; let item of filteredManufacturer | async | searchfilter:'1':'is_asset_type' | sortBy:'manf_name':'ASC':'A'" [value]="item.manf_name" (onSelectionChange)="getMfg(item,$event)">
+                                    <span>{{ item.manf_name }}</span>
+                                    </mat-option>
+
+                                    <mat-option (click)="showAddManufacturerPopup()">
+                                    <img aria-hidden src="assets/icon/icon-add.png" />
+                                    <span>New Manufacturer</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <select formControlName="manf_id" class="form-control" (change)="changeManf()">
+                        <option value="" selected></option>
+                        <option *ngFor="let indx=index ;let manufacturer of manufacturerList" [value]="manufacturer.manf_id" >{{manufacturer.manf_name}}</option>
+                    </select> -->
+                    <span class="error-msg" *ngIf="manf_id.invalid && (manf_id.dirty || manf_id.touched || submitted)">
+                        <small *ngIf="manf_id.errors.required">Please select Manufacturer from the list.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group" [hidden]="currentPath != 'add-asset'">
+                <label class="col-sm-4 control-label" for="mfgPartNo">Item Definition</label>
+                <div class="col-sm-8">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" matInput placeholder="" [formControl]="manufacturerPart" [matAutocomplete]="manufacturerPartAutoComp" (keyup)="validateManfPart($event)" id="manf_part_id">
+                                <i *ngIf="manufacturerPart.value!=''" (click)="util.clearAutoComplete('manf_part_id', [manufacturerPart, manf_part_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="manufacturerPart.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #manufacturerPartAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let indx=index; let item of filteredManufacturerPart | async | sortBy:'short_name':'ASC':'A'" [value]="item.short_name" (onSelectionChange)="getMfgPart(item,$event)">
+                                    <span>{{ item.short_name }}</span>
+                                    </mat-option>
+
+                                    <mat-option (click)="showAddManufacturerPartPopup()">
+                                    <img aria-hidden src="assets/icon/icon-add.png" />
+                                    <span>New Item Definition</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <select formControlName="manf_part_id" class="form-control" (change)="changeManfParts()">
+                        <option value="" selected></option>
+                        <option *ngFor="let indx=index ;let manfPart of manfPartsList" [value]="manfPart.manf_part_id" >{{manfPart.short_name}}</option>
+                    </select> -->
+                    <span class="error-msg" *ngIf="manf_part_id.invalid && (manf_part_id.dirty || manf_part_id.touched || submitted)">
+                        <small *ngIf="manf_part_id.errors.required">Please select Item Definition from the list.</small>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group marBtm5" [hidden]="currentPath == 'add-asset'">
+                <label class="col-sm-4 control-label" for="shortName">Manufacturer</label>
+                <div class="col-sm-8">
+                    <div class="info-col PadT5">{{manfPartsDetails.manf_name}}</div>
+                </div>
+            </div>
+            <div class="form-group marBtm5" [hidden]="currentPath == 'add-asset'">
+                <label class="col-sm-4 control-label" for="shortName">Item Definition No.</label>
+                <div class="col-sm-8">
+                    <div class="info-col PadT5">{{manfPartsDetails.manf_part_no}}</div>
+                </div>
+            </div>
+
+            <div class="form-group" [ngClass]="currentPath == 'add-asset' ? '' : 'marBtm5'" *ngIf="manfPartsDetails?.length != 0">
+                <label class="col-sm-4 control-label" for="shortName">Name</label>
+                <div class="col-sm-8">
+                    <div class="info-col PadT5">{{manfPartsDetails.short_name}}</div>
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="currentPath == 'add-asset' ? '' : 'marBtm5'" *ngIf="manfPartsDetails?.length != 0">
+                <label class="col-sm-4 control-label" for="class">Category</label>
+                <div class="col-sm-8">
+                    <div class="info-col PadT5">{{manfPartsDetails.class_name.item_class_name}}</div>
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="currentPath == 'add-asset' ? '' : 'marBtm5'" *ngIf="manfPartsDetails?.length != 0">
+                <label class="col-sm-4 control-label" for="class">UPC</label>
+                <div class="col-sm-8">
+                    <div class="info-col PadT5">{{manfPartsDetails.upc}}</div>
+                </div>
+            </div>
+            <h2 class="form-heading">Asset Identification</h2>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="shortTag">Asset Name</label>
+                <div class="col-sm-8">
+                    <div class="shortTagTxt">
+                        <!-- @Shahebaz : (focusout : Start) -->
+                        <input autocomplete="nope" type="text" name="assetName" formControlName="short_tag" placeholder="" class="form-control"   (change)="validateAssetName($event)">
+                        <!-- @Shahebaz : (focusout : End) -->
+                        <!-- @Shubham : (change : End)  -->
+                        <!-- [ngClass]="pageData.assetNameAvailability == '1' ? 'red-font' : ''" -->
+                        <span class="error-msg" *ngIf="pageData.isError"><small *ngIf="pageData.assetNameAvailability == '1'">Asset name is already exist.</small></span>
+                        <span class="error-msg" *ngIf="short_tag.invalid && (short_tag.dirty || short_tag.touched || submitted)">
+                            <small *ngIf="short_tag.errors.required">Asset name is required.</small>
+                            <small *ngIf="short_tag.errors.maxlength">Asset name must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}} characters.</small>
+                        </span>
+                        <!-- <input autocomplete="nope" type="text" name="shortTag" placeholder="" class="form-control"> -->
+                        <!-- <i popover="Client's company legal name." popoverPlacement="right" [popoverOnHover]="true" [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true" required></i> -->
+                        <!-- <i popover="Popover message here..." popoverPlacement="left" [popoverOnHover]="true" [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true" required></i> -->
+                    </div>
+                    
+                    <!-- <input autocomplete="nope" type="text" name="CompPartNo" placeholder="" formControlName="CompPartNo" class="form-control" (keypress)="util.noSpace($event)" (keypress)="util.noFirstSpace($event, addEmpFm.value.firstName)">
+                        <span class="error-msg" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || submitted)">
+                            <small *ngIf="firstName.errors.required">First Name is required.</small>
+                            <small *ngIf="firstName.errors.minlength">First name must be at least 2 characters long.</small>
+                            <small *ngIf="firstName.errors.maxlength">First name must be less than 30 characters.</small>
+                        </span>  -->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="serialNo">Serial No.</label>
+                <div class="col-sm-8">
+                    <input autocomplete="nope" type="text" name="serialNo" formControlName="serial_no" (keypress)="util.noSpace($event)" placeholder="" class="form-control"  (change)="validateSerialNo($event)">
+                    <!-- [ngClass]="pageData.serialNoAvailability == '1' ? 'red-font' : ''" -->
+                    <span class="error-msg" *ngIf="pageData.isError"><small *ngIf="pageData.serialNoAvailability == '1'">Serial number is already exist.</small></span>
+                    <span class="error-msg" *ngIf="serial_no.invalid && (serial_no.dirty || serial_no.touched || submitted)">
+                        <small *ngIf="serial_no.errors.required">Serial number is required.</small>
+                        <small *ngIf="serial_no.errors.minlength && !serial_no.errors.pattern">Serial number must be at least 6 digits long.</small>
+                        <small *ngIf="serial_no.errors.maxlength && !serial_no.errors.pattern">Serial number must be less than 30 digits.</small>
+                        <small *ngIf="serial_no.errors.pattern">Serial number accept digits only.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="scanCode">Scan Code</label>
+                <div class="col-sm-8">
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="radio-group" type="radio" id="sysGen" checked>
+                        <label for="sysGen" (click)="sysGeneratedCodeClick()">System Generated</label>
+                    </div>
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="radio-group" type="radio" [(ngModel)]="barCode" [ngModelOptions]="{standalone: true}" id="metalBarcode" value="barcode">
+                        <label for="metalBarcode" (click)="scanCodeClick()">Enter metal barcode</label>
+                        <input autocomplete="nope" type="text" name="scanCode" formControlName="scan_code" placeholder="" class="form-control">
+                        <span class="error-msg" *ngIf="scan_code.invalid && (scan_code.dirty || scan_code.touched || submitted)">
+                            <small *ngIf="scan_code.errors.required">Scan Code is required.</small>
+                        </span>
+                    </div>
+                    <!-- <input autocomplete="nope" type="text" name="scanCode" placeholder="" class="form-control"> -->
+                </div>
+            </div>
+
+            <h2 class="form-heading">Asset Assignment</h2>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="role">Main Location</label>
+                <div class="col-sm-8">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" matInput placeholder=""  [formControl]="location" [matAutocomplete]="locations" (keyup)="validateLoc($event)" id="location_id">
+                                <i *ngIf="location.value!=''" (click)="util.clearAutoComplete('location_id', [location, location_id,location_tag,location_tag_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="location.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #locations="matAutocomplete">
+                                    <mat-option *ngFor="let loc of filteredLocations | async | sortBy:'location_name':'ASC':'A'" (onSelectionChange)="getSelectedLocation($event, loc)" [value]="loc.location_name">
+                                        <span>{{ loc.location_name }}</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+
+                            <div *ngIf="isMainLocationLoad" class="loaderField"><i class="fa fa-spinner fa-pulse fa-3x fa-fw action"></i></div>
+                        </div>
+                    </div>
+                    <span class="error-msg" *ngIf="location_id.invalid && (location_id.dirty || location_id.touched || submitted)">
+                        <small *ngIf="location_id.errors.required">Please select Location from the list.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="role">Sub Location</label>
+                <div class="col-sm-8">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" matInput placeholder="" [formControl]="location_tag" [matAutocomplete]="tags" (keyup)="validateLocTags($event)" id="location_tag_id">
+                                <i *ngIf="location_tag.value!=''" (click)="util.clearAutoComplete('location_tag_id', [location_tag, location_tag_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="location_tag.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #tags="matAutocomplete">
+                                    <mat-option *ngFor="let tag of filteredTags | async" (onSelectionChange)="getSelectedTag($event, tag)" [value]="tag.location_tag">
+                                        <span>{{ tag.location_tag }}</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+
+                            <div *ngIf="isSubLocationLoad" class="loaderField"><i class="fa fa-spinner fa-pulse fa-3x fa-fw action"></i></div>
+                        </div>
+                    </div>
+                    <span class="error-msg" *ngIf="location_tag_id.invalid && (location_tag_id.dirty || location_tag_id.touched || submitted)">
+                        <small *ngIf="location_tag_id.errors.required">Please select Location Tag from the list.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="role">Assign To</label>
+                <div class="col-sm-8">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" matInput placeholder=""  [formControl]="assign_name" [matAutocomplete]="EmpAutoComp" (keyup)="validateEmp($event)" id="emp_id" name="assignTo{{autoNumber}}">
+                                <i *ngIf="assign_name.value!=''" (click)="util.clearAutoComplete('emp_id', [assign_name, assign_to])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="assign_name.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #EmpAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let indx=index; let emp of filteredEmployee | async | sortBy:'emp_name':'ASC':'A'" [value]="emp.emp_name" (onSelectionChange)="getSelectedEmp(emp,$event)">
+                                    <span>{{ emp.emp_name }}</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <span class="error-msg" *ngIf="location_tag_id.invalid && (location_tag_id.dirty || location_tag_id.touched || submitted)">
+                        <small *ngIf="location_tag_id.errors.required">Please select Location Tag from the list.</small>
+                    </span> -->
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top:40px">
+                <label class="col-sm-4 control-label optional" for="comment">Comment</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" formControlName="comment" placeholder="(optional)"></textarea>
+                    <span class="error-msg" *ngIf="comment.invalid && (comment.dirty || comment.touched || pageData.submitted)">
+                        <small *ngIf="comment.errors.maxlength">Comment must not greater than {{constant.DEFAULT_COMMENT_MAXLENGTH}} characters.</small>
+                    </span>
+                </div>
+            </div>
+
+            <div class="button-row clearfix">
+                <button mat-raised-button class="trea-btn" (click)="addManufacturer(addNewAForm)">Next</button>
+                <button mat-raised-button class="trea-btn" (click)="assetCancel()">Cancel</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </form>
+    <form autocomplete="off" class="form-horizontal addAssetForm" role="form" [formGroup]="addFinanceForm">
+        <div class="addUserFormBody secondSection" *ngIf="isFinancial">
+            <h3>Financial Information <span *ngIf="currentPath != 'add-asset'"> ({{addNewAForm.get('quantity_status').value}} Items)</span></h3>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="ownershipType">Ownership Type</label>
+                <div class="col-sm-8">
+                    <select class="form-control" formControlName="ownership_type" (change)="changeOwnerShip()">
+                        <option value="" selected></option>
+                        <option>Owned</option>
+                        <option>Leased</option>
+                        <option>Financed</option>
+                    </select>
+                    <span class="error-msg" *ngIf="ownership_type.invalid && (ownership_type.dirty || ownership_type.touched || finSubmitted)">
+                        <small *ngIf="ownership_type.errors.required">Ownership type is required.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="owenedType" *ngIf="isOwned">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="supplier">Supplier</label>
+                    <div class="col-sm-8">
+                        <div class="autoCompleteList">
+                            <div class="searchList">
+                                <mat-form-field class="product">
+                                    <input autocomplete="nope" matInput placeholder="" [formControl]="supplier" [matAutocomplete]="supplierAutoComp" (keyup)="validateSupplier($event)" id="supplier_id">
+                                    <i *ngIf="supplier.value!=''" (click)="util.clearAutoComplete('supplier_id', [supplier, supplier_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <img *ngIf="supplier.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                    <mat-autocomplete #supplierAutoComp="matAutocomplete">
+                                        <mat-option *ngFor="let indx=index; let item of filteredSupplier | async" [value]="item.supplier_name" (onSelectionChange)="getSelectedSupplier(item, $event)">
+                                        <span>{{ item.supplier_name }}</span>
+                                        </mat-option>
+
+                                        <mat-option (click)="showAddSupplierPopup('ASSET', '2')">
+                                        <img aria-hidden src="assets/icon/icon-add.png" />
+                                        <span>New Supplier</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!-- <select class="form-control" formControlName="supplier_id">
+                            <option value="" selected></option>
+                            <option *ngFor="let supplier of assetSuppliers" [value]="supplier.supplier_id">{{supplier.supplier_name}}</option>
+                        </select> -->
+                        <span class="error-msg" *ngIf="supplier_id.invalid && (supplier_id.dirty || supplier_id.touched || finSubmitted)">
+                            <small *ngIf="supplier_id.errors.required">Supplier is required.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isOwned">
+                    <label class="col-sm-4 control-label" for="purchaseDate">Purchase Date</label>
+                    <div class="col-sm-8">
+                        <div class="dateWrapper">
+                            <!-- <input autocomplete="nope" type="text" placeholder="" formControlName="caslDate" class="date" [matDatepicker]="picker" [min]="minDate"> -->
+                            <input autocomplete="nope" type="text" formControlName="purchase_date" placeholder="" class="date" [matDatepicker]="picker" [max]="maxDate" style="pointer-events: none;">
+                            <mat-datepicker #picker (selectedChanged)="purchaseDateChange($event)"></mat-datepicker>
+                            <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span>
+                            <div class="clearfix"></div>
+                            <span class="error-msg" *ngIf="purchase_date.invalid && (purchase_date.dirty || purchase_date.touched || finSubmitted)">
+                                <small *ngIf="purchase_date.errors.required">Purchase Date is required.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isOwned">
+                    <label class="col-sm-4 control-label" for="price">Purchase Price</label>
+                    <div class="col-sm-8">
+                        <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                        <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                        <input autocomplete="nope" type="text" name="price" formControlName="purchase_price" placeholder="" class="form-control currencyInput" (keyup)="calcMonthlyDepriciation($event, 'PP')">
+                        <span class="error-msg" *ngIf="purchase_price.invalid && (purchase_price.dirty || purchase_price.touched || finSubmitted)">
+                            <small *ngIf="purchase_price.errors.required">Purchase Price is required.</small>
+                            <small *ngIf="purchase_price.errors.pattern">Enter Valid Purchase Price (e.g 54, 54.00, 100, 145.60).</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isOwned">
+                    <label class="col-sm-4 control-label" for="usefulLife">Estimated Useful Life</label>
+                    <div class="col-sm-8">
+                        <div class="inMonthWrap">
+                            <input autocomplete="nope" type="text" formControlName="esti_useful_life" name="usefulLife" placeholder="" class="monthInput form-control" (keyup)="calcMonthlyDepriciation($event, 'EUL')" >
+                            <span class="monthTxt">Months</span>
+                            <div class="clearfix"></div>
+                            <span class="error-msg" *ngIf="esti_useful_life.invalid && (esti_useful_life.dirty || esti_useful_life.touched || finSubmitted)">
+                                <small *ngIf="esti_useful_life.errors.required">Estimated Useful Life is required.</small>
+                                <small *ngIf="esti_useful_life.errors.pattern">Invalid Amount (e.g 54, 78.25).</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isOwned">
+                    <label class="col-sm-4 control-label" for="residualValue">Residual Value</label>
+                    <div class="col-sm-8">
+                        <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                        <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                        <input autocomplete="nope" type="text" formControlName="residual_value" name="residualValue" placeholder="" class="form-control currencyInput" (keyup)="calcMonthlyDepriciation($event, 'RV')">
+                        <span class="error-msg" *ngIf="residual_value.invalid && (residual_value.dirty || residual_value.touched || finSubmitted)">
+                            <small *ngIf="residual_value.errors.required">Residual Value is required.</small>
+                            <small *ngIf="residual_value.errors.pattern">Enter Valid Residual Value (e.g 54, 54.00, 100, 145.60).</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isOwned">
+                    <label class="col-sm-4 control-label" for="equipAge">Age of Equipment</label>
+                    <div class="col-sm-8">
+                        <div class="inMonthWrap inMonthValue">
+                            <input autocomplete="nope" type="text" [(ngModel)]="age_of_equip" [ngModelOptions]="{standalone: true}"> Months
+                            <!-- <input autocomplete="nope" type="number" formControlName="age_of_equipment" name="equipAge" placeholder="" class="monthInput form-control" (keypress)="util.numberCheck($event)"> -->
+                            <!-- <span class="monthTxt">Months</span> -->
+                            <div class="clearfix"></div>
+                            <span class="error-msg" *ngIf="age_of_equipment.invalid && (age_of_equipment.dirty || age_of_equipment.touched || finSubmitted)">
+                                <small *ngIf="age_of_equipment.errors.required">Age of Equipment is required.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isOwned">
+                    <label class="col-sm-4 control-label" for="monthlyDep">Monthly Depreciation</label>
+                    <div class="col-sm-8">
+                        <div class="info-col">
+                            {{assetObj.montly_depreciation | currency: util.getCurrency() :'symbol-narrow'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isOwned">
+                    <label class="col-sm-4 control-label" for="presentValue">Present Value</label>
+                    <div class="col-sm-8">
+                        <div class="info-col">
+                            {{assetObj.present_value | currency: util.getCurrency() :'symbol-narrow'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" *ngIf="isLeased">
+                <label class="col-sm-4 control-label" for="leasedFrom">Leased From</label>
+                <div class="col-sm-8">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" matInput placeholder="" [formControl]="leased_from" [matAutocomplete]="leasedAutoComp" (keyup)="validateLSupplier($event)" id="leased_from_id">
+                                <i *ngIf="leased_from.value!=''" (click)="util.clearAutoComplete('leased_from_id', [leased_from, leased_from_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="leased_from.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #leasedAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let indx=index; let item of filteredLeasedFrom | async" [value]="item.supplier_name" (onSelectionChange)="getSelectedLSupplier(item, $event)">
+                                    <span>{{ item.supplier_name }}</span>
+                                    </mat-option>
+
+                                    <mat-option (click)="showAddSupplierPopup('LEASED', '3')">
+                                    <img aria-hidden src="assets/icon/icon-add.png" />
+                                    <span>New Supplier</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <select class="form-control" formControlName="leased_from">
+                        <option value="" selected></option>
+                        <option *ngFor="let supplier of financeSuppliers" [value]="supplier.supplier_id">{{supplier.supplier_name}}</option>
+                    </select> -->
+                    <span class="error-msg" *ngIf="leased_from.invalid && (leased_from.dirty || leased_from.touched || finSubmitted)">
+                        <small *ngIf="leased_from.errors.required">Leased From is required.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isFinanced">
+                <label class="col-sm-4 control-label" for="financedFrom">Financed From</label>
+                <div class="col-sm-8">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" matInput placeholder=""  [formControl]="financed_from" [matAutocomplete]="financedAutoComp" (keyup)="validateFSupplier($event)" id="financed_from_id">
+                                <i *ngIf="financed_from.value!=''" (click)="util.clearAutoComplete('financed_from_id', [financed_from, financed_from_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="financed_from.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #financedAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let indx=index; let item of filteredFinancedFrom | async" [value]="item.supplier_name" (onSelectionChange)="getSelectedFSupplier(item, $event)">
+                                    <span>{{ item.supplier_name }}</span>
+                                    </mat-option>
+
+                                    <mat-option (click)="showAddSupplierPopup('FINANCED', '3')">
+                                    <img aria-hidden src="assets/icon/icon-add.png" />
+                                    <span>New Supplier</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <select class="form-control" formControlName="financed_from">
+                        <option value="" selected></option>
+                        <option *ngFor="let supplier of financeSuppliers" [value]="supplier.supplier_id">{{supplier.supplier_name}}</option>
+                    </select> -->
+                    <span class="error-msg" *ngIf="financed_from.invalid && (financed_from.dirty || financed_from.touched || finSubmitted)">
+                        <small *ngIf="financed_from.errors.required">Financed From is required.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isFinanced">
+                <label class="col-sm-4 control-label" for="purchaseDate">Purchase Date</label>
+                <div class="col-sm-8">
+                    <div class="dateWrapper">
+                        <!-- <input autocomplete="nope" type="text" placeholder="" formControlName="caslDate" class="date" [matDatepicker]="picker" [min]="minDate"> -->
+                        <input autocomplete="nope" type="text" formControlName="purchase_date" placeholder="" class="date" [matDatepicker]="picker" [max]="maxDate" style="pointer-events: none;">
+                        <mat-datepicker #picker (selectedChanged)="purchaseDateChange($event)"></mat-datepicker>
+                        <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span>
+                        <div class="clearfix"></div>
+                        <span class="error-msg" *ngIf="purchase_date.invalid && (purchase_date.dirty || purchase_date.touched || finSubmitted)">
+                            <small *ngIf="purchase_date.errors.required">Purchase Date is required.</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isFinanced">
+                <label class="col-sm-4 control-label" for="price">Purchase Price</label>
+                <div class="col-sm-8">
+                    <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                    <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                    <input autocomplete="nope" type="text" name="price" formControlName="purchase_price" placeholder="" class="form-control currencyInput" (keyup)="calcMonthlyDepriciation($event, 'PP')">
+                    <span class="error-msg" *ngIf="purchase_price.invalid && (purchase_price.dirty || purchase_price.touched || finSubmitted)">
+                        <small *ngIf="purchase_price.errors.required">Purchase Price is required.</small>
+                        <small *ngIf="purchase_price.errors.pattern">Enter Valid Purchase Price (e.g 54, 54.00, 100, 145.60).</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isFinanced">
+                <label class="col-sm-4 control-label" for="usefulLife">Estimated Useful Life</label>
+                <div class="col-sm-8">
+                    <div class="inMonthWrap">
+                        <input autocomplete="nope" type="text" formControlName="esti_useful_life" name="usefulLife" placeholder="" class="monthInput form-control" (keyup)="calcMonthlyDepriciation($event, 'EUL')" >
+                        <span class="monthTxt">Months</span>
+                        <div class="clearfix"></div>
+                        <span class="error-msg" *ngIf="esti_useful_life.invalid && (esti_useful_life.dirty || esti_useful_life.touched || finSubmitted)">
+                            <small *ngIf="esti_useful_life.errors.required">Estimated Useful Life is required.</small>
+                            <small *ngIf="esti_useful_life.errors.pattern">Invalid Amount (e.g 54, 78.25).</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isFinanced">
+                <label class="col-sm-4 control-label" for="residualValue">Residual Value</label>
+                <div class="col-sm-8">
+                    <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                    <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                    <input autocomplete="nope" type="text" formControlName="residual_value" name="residualValue" placeholder="" class="form-control currencyInput" (keyup)="calcMonthlyDepriciation($event, 'RV')">
+                    <span class="error-msg" *ngIf="residual_value.invalid && (residual_value.dirty || residual_value.touched || finSubmitted)">
+                        <small *ngIf="residual_value.errors.required">Residual Value is required.</small>
+                        <small *ngIf="residual_value.errors.pattern">Enter Valid Residual Value (e.g 54, 54.00, 100, 145.60).</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isFinanced">
+                <label class="col-sm-4 control-label" for="equipAge">Age of Equipment</label>
+                <div class="col-sm-8">
+                    <div class="inMonthWrap inMonthValue">
+                        <input autocomplete="nope" type="text" [(ngModel)]="age_of_equip" [ngModelOptions]="{standalone: true}"> Months
+                        <!-- <input autocomplete="nope" type="number" formControlName="age_of_equipment" name="equipAge" placeholder="" class="monthInput form-control" (keypress)="util.numberCheck($event)"> -->
+                        <!-- <span class="monthTxt">Months</span> -->
+                        <div class="clearfix"></div>
+                        <span class="error-msg" *ngIf="age_of_equipment.invalid && (age_of_equipment.dirty || age_of_equipment.touched || finSubmitted)">
+                            <small *ngIf="age_of_equipment.errors.required">Age of Equipment is required.</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isFinanced">
+                <label class="col-sm-4 control-label" for="monthlyDep">Monthly Depreciation</label>
+                <div class="col-sm-8">
+                    <div class="info-col">
+                        {{assetObj.montly_depreciation | currency: util.getCurrency() :'symbol-narrow'}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isFinanced">
+                <label class="col-sm-4 control-label" for="presentValue">Present Value</label>
+                <div class="col-sm-8">
+                    <div class="info-col">
+                        {{assetObj.present_value | currency: util.getCurrency() :'symbol-narrow'}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isFinanced">
+                <label class="col-sm-4 control-label optional" for="paidCapital">Paid Capital</label>
+                <div class="col-sm-8">
+                    <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                    <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                    <input autocomplete="nope" type="text" formControlName="paid_capital" name="paidCapital" placeholder="(Optional)" class="form-control optional currencyInput">
+                    <span class="error-msg" *ngIf="paid_capital.invalid && (paid_capital.dirty || paid_capital.touched || finSubmitted)">
+                        <small *ngIf="paid_capital.errors.required">Paid Capital is required.</small>
+                        <small *ngIf="paid_capital.errors.pattern">Enter Valid Paid Capital (e.g 54, 54.00, 100, 145.60).</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isLeased || isFinanced">
+                <label class="col-sm-4 control-label" for="leaseStartDate">Start Date</label>
+                <div class="col-sm-8">
+                    <div class="dateWrapper">
+                        <!-- <input autocomplete="nope" type="text" placeholder="" formControlName="caslDate" class="date" [matDatepicker]="picker" [min]="minDate"> -->
+                        <input autocomplete="nope" type="text" formControlName="start_date" placeholder="" class="date ptrN" [matDatepicker]="picker" [max]="maxDate">
+                        <mat-datepicker #picker (selectedChanged)="startDateChange($event)"></mat-datepicker>
+                        <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span>
+                        <div class="clearfix"></div>
+                        <span class="error-msg" *ngIf="start_date.invalid && (start_date.dirty || start_date.touched || finSubmitted)">
+                            <small *ngIf="start_date.errors.required">Start Date is required.</small>
+                        </span>
+                        <!-- <mat-datepicker #picker></mat-datepicker>
+                        <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span> -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isLeased || isFinanced">
+                <label class="col-sm-4 control-label" for="leaseEndDate">End Date</label>
+                <div class="col-sm-8">
+                    <div class="dateWrapper">
+                        <!-- <input autocomplete="nope" type="text" placeholder="" formControlName="caslDate" class="date" [matDatepicker]="picker" [min]="minDate"> -->
+                        <input autocomplete="nope" type="text" formControlName="end_date" placeholder="" class="date ptrN" [matDatepicker]="endDatePicker" [min]="minEndDate">
+                        <mat-datepicker #endDatePicker (selectedChanged)="endDateChange($event)"></mat-datepicker>
+                        <span class="dateIcon" (click)="endDatePicker.open()"><img src="assets/icon/date_picker.png"></span>
+                        <div class="clearfix"></div>
+                        <span class="error-msg" *ngIf="end_date.invalid && (end_date.dirty || end_date.touched || finSubmitted)">
+                            <small *ngIf="end_date.errors.required">End Date is required.</small>
+                        </span>
+                        <!-- <span class="error-msg e-msg" *ngIf="addVendorFm.get('contact.caslDate').invalid && (addVendorFm.get('contact.caslDate').dirty || addVendorFm.get('contact.caslDate').touched || conSubmitted)">
+                        <small *ngIf="addVendorFm.get('contact.caslDate').errors.required">CASL Date is required.</small>
+                        </span>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span> -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isLeased || isFinanced">
+                <label class="col-sm-4 control-label" for="term">Term</label>
+                <div class="col-sm-8">
+                    <div class="inMonthWrap">
+                        <input autocomplete="nope" type="text" formControlName="term"  [(ngModel)]="addFinanceForm.term" name="term" placeholder="" class="monthInput form-control hidden" readonly="true"  (keypress)="util.numberCheck($event)">
+                        <div>{{addFinanceForm.term}}<span class="monthTxt">Months</span></div>
+                        
+                        <div class="clearfix"></div>
+                        <span class="error-msg" *ngIf="term.invalid && (term.dirty || term.touched || finSubmitted)">
+                            <small *ngIf="term.errors.required">Term is required.</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="isLeased || isFinanced">
+                <label class="col-sm-4 control-label" for="monthlyPayment">Monthly Payment</label>
+                <div class="col-sm-8">
+                    <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                    <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                    <input autocomplete="nope" type="text" formControlName="monthly_payment" name="monthlyPayment" placeholder="" class="form-control currencyInput">
+                    <span class="error-msg" *ngIf="monthly_payment.invalid && (monthly_payment.dirty || monthly_payment.touched || finSubmitted)">
+                        <small *ngIf="monthly_payment.errors.required">Monthly Payment is required.</small>
+                        <small *ngIf="monthly_payment.errors.pattern">Enter Valid Price (e.g 54, 54.00, 100, 145.60).</small>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label optional" for="warrantySupplier">Warranty Supplier</label>
+                <div class="col-sm-8">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" matInput placeholder=""  [formControl]="warranty_supplier" [matAutocomplete]="warrantySupplierAutoComp" (keyup)="validateWSupplier($event)" id="warranty_supplier_id">
+                                <i *ngIf="warranty_supplier.value!=''" (click)="util.clearAutoComplete('warranty_supplier_id', [warranty_supplier, warranty_supplier_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="warranty_supplier.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #warrantySupplierAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let indx=index; let item of filteredWarrantySupplier | async" [value]="item.supplier_name" (onSelectionChange)="getSelectedWSupplier(item, $event)">
+                                    <span>{{ item.supplier_name }}</span>
+                                    </mat-option>
+
+                                    <mat-option (click)="showAddSupplierPopup('WARRANTY', '6')">
+                                    <img aria-hidden src="assets/icon/icon-add.png" />
+                                    <span>New Supplier</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                   <!--  <select class="form-control optional" formControlName="warranty_supplier_id">
+                        <option value="" selected></option>
+                        <option *ngFor="let supplier of financeSuppliers" [value]="supplier.supplier_id">{{supplier.supplier_name}}</option>
+                    </select> -->
+                    <span class="error-msg" *ngIf="warranty_supplier_id.invalid && (warranty_supplier_id.dirty || warranty_supplier_id.touched || finSubmitted)">
+                        <small *ngIf="warranty_supplier_id.errors.required">Warranty Supplier is required.</small>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label optional" for="warrentyDate">Warranty End Date</label>
+                <div class="col-sm-8">
+                    <div class="dateWrapper">
+                        <!-- <input autocomplete="nope" type="text" placeholder="" formControlName="caslDate" class="date" [matDatepicker]="picker" [min]="minDate"> -->
+                        <!-- [min]="minDate" -->
+                        <input autocomplete="nope" type="text" formControlName="warranty_end_date" placeholder="(Optional)" class="date optional" [matDatepicker]="picker" style="pointer-events: none;">
+                        <mat-datepicker #picker></mat-datepicker>
+                        <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span>
+                        <div class="clearfix"></div>
+                        <span class="error-msg" *ngIf="warranty_end_date.invalid && (warranty_end_date.dirty || warranty_end_date.touched || finSubmitted)">
+                            <small *ngIf="warranty_end_date.errors.required">Warranty End Date is required.</small>
+                        </span>
+                        <!-- <span class="error-msg e-msg" *ngIf="addVendorFm.get('contact.caslDate').invalid && (addVendorFm.get('contact.caslDate').dirty || addVendorFm.get('contact.caslDate').touched || conSubmitted)">
+                        <small *ngIf="addVendorFm.get('contact.caslDate').errors.required">CASL Date is required.</small>
+                        </span>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span> -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label optional" for="accRefNo">Accounting Ref No.</label>
+                <div class="col-sm-8">
+                    <input autocomplete="nope" type="text" formControlName="acc_ref_no" name="accRefNo" placeholder="(Optional)" class="form-control optional">
+                    <span class="error-msg" *ngIf="acc_ref_no.invalid && (acc_ref_no.dirty || acc_ref_no.touched || finSubmitted)">
+                        <small *ngIf="acc_ref_no.errors.required">Accounting Ref No is required.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <!-- <div class="errMsgCon" *ngIf="isError">
+            <small>{{errMsg}}</small>
+            </div> -->
+
+            <div class="button-row clearfix">
+                <button mat-raised-button class="trea-btn" (click)="assetPrevious()">Previous</button>
+                <button mat-raised-button class="trea-btn" (click)="assetReview(addFinanceForm)">Next</button>
+                <button mat-raised-button class="trea-btn" (click)="assetCancel()">Cancel</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+

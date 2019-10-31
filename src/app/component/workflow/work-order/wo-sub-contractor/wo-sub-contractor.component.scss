@@ -1,0 +1,207 @@
+
+// .trea-btn{
+//     background-color: #00A499;
+//     color: #FFFFFF;
+//     border-radius: 0px;
+//     height: 30px;
+//     line-height: 30px;
+//     min-width: 80px;
+//     padding: 0 8px;
+// }
+// .trea-btn:focus{
+//     outline: none;
+// }
+// .trea-btn:hover{
+//     color: #505050!important;
+//     background-color: #FFCB36!important;
+// }
+.pageTitle,
+.infoWrap,
+.repairAssetInfo,
+.scheduleWrap,
+.servicesWrap{
+    margin-bottom: 40px;
+}
+.scheduleWrap,
+.servicesWrap{
+    max-width: 890px;
+    margin: 0px auto;
+}
+.dateWrapper .date{
+    display: inline-block;
+    width: 110px;
+    outline: 0;
+}
+.dateWrapper .dateIcon{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    vertical-align: top;
+    margin-left: 5px;
+}
+.dateWrapper .dateIcon img{height: 100%; width: 100%;}
+.dateWrapper .treaRadioBtn{
+    display: inline-block;
+    
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:before, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:before{
+    top: -12px;
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:after, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:after{
+    top: -9px;
+}
+.dateWrap{
+    margin-top: 20px;
+}
+.timeWrap .hours,
+.timeWrap select{
+    vertical-align:middle;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+   box-shadow: none;
+   border: 1px solid #D1D1D1;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 1px 7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 25px;
+    width: 70px;
+    outline: 0;
+}
+.afterOccurWrap{
+    margin-top: 20px;
+}
+.afterOccurWrap .treaRadioBtn{
+    display: inline-block;
+}
+.afterOccurWrap .occurence{
+    display: inline-block;
+}
+.afterOccurWrap .treaRadioBtn label{
+    font-weight: normal;
+    color: #505050;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.afterOccurWrap .occurence input{
+    width: 55px;
+    padding: 1px 6px;
+    text-align: center;
+}
+
+.form-control[disabled], .form-control[readonly]{
+    background: #fff;
+}
+.addIcon{
+    margin-left: 20px;
+}
+.addIcon>img,
+.closeIcon>img{
+    max-width: 100%;
+    cursor: pointer;
+}
+.addIcon>img{
+    vertical-align: text-top;
+}
+.addIcon>span,
+.closeIcon>span{
+    /* cursor: pointer; */
+    padding-left: 10px;
+}
+
+.paymentScheduleWrap{
+    max-width: 700px;
+    margin: 0px auto;
+}
+.paymentScheduleWrap .taxes{
+    width: 80px;
+}
+.paymentScheduleWrap .calculateSection{
+    margin: 40px auto 60px;
+}
+.error-msg{
+    display: block;
+}
+.calculateSection .error-msg{
+    /* margin-left: 44px; */
+    right: 20px;
+}
+.closeIcon{
+    position: absolute;
+    left: 0px;
+    cursor: pointer;
+}
+.dateIcon{
+    cursor: pointer;
+}
+
+.recurringWrap,
+.scheduleOnceWrap{
+    margin-bottom: 40px;
+}
+.recurringWrap .selectRepeat select{
+    width: 110px;
+}
+
+.weekDaysWrap{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+}
+.weekDaysWrap .days{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin-left: 1px;
+    text-align: center;
+}
+.weekDaysWrap .days .checkBox{
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+.scheduleWrap .treaRadioBtn{
+	margin: 0 0 15px 0;
+}
+.BtnWrap{
+    margin: 30px auto;
+    text-align: center;
+}
+.BtnWrap .cancel{
+    margin-left: 30px;
+}
+
+/* Auto Complete Drop down list Css Start */
+
+.autoCompleteList .searchList{
+    padding: 0px;
+  }
+  .autoCompleteList .searchList .search-icn{
+    left: 0px;
+  }
+  .autoCompleteList .searchList .mat-input-element {
+    /* padding-left: 30px; */
+    padding-left: 5px;
+  }
+  .searchList .mat-form-field-infix {
+    border: 1px solid #d1d1d1;
+    padding: 0px !important;
+    width: 160px;
+  }
+  .mat-input-infix{
+    padding: 5px 0px!important;
+  }
+  .selectBoxIcon{
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 25px;
+  }
+  .autoCompleteList .searchList .mat-form-field-wrapper{ padding-bottom: 0px; }
+  .vs{visibility: hidden}
+  .ML15{margin-left: 15px;}
+ 

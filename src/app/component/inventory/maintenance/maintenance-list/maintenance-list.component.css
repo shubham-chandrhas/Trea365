@@ -1,0 +1,213 @@
+.maintenance-section .search-section{ float: left; }
+.maintenance-section .add-maintenance{ float: right; }
+/* .maintenance-section .add-maintenance{ float: right; } */
+.maintenance-section .trea-btn, .search-section .client-btn {
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+.act-option,
+.trea-btn:hover,
+.client-btn:hover  {
+  color: #505050!important;
+  background: #FFCB36!important;
+}
+.maintenance-section .additional-field{ font-weight: 600; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 150px; height: 30px; padding-left: 0px; padding-right: 26px;}
+.maintenance-section .filter-search{ float: left; }
+.maintenance-section .filter-label{ line-height: 30px; padding: 0px 10px 0px 20px; font-size: 14px; }
+.maintenance-section  .added-filter{ line-height: 30px; padding: 0px 10px;margin: 0px 5px; background-color: #F1BC4E;font-size: 14px; }
+.maintenance-section  .added-filter .fa-times{ color: #CD5023;cursor: pointer; }
+.search-section .form-control:hover, .search-section .form-control:focus, .maintenance-section .trea-btn:hover, .maintenance-section .trea-btn:focus{ outline: 0px; }
+.maintenance-section .fa-signal{ cursor: pointer; }
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ 
+  font-weight: 600; 
+  font-size: 14px; 
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+/* .trea-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    min-width: 80px;
+    padding: 0 8px;
+    width: 100%;
+  } */
+
+.maintenancePart{ 
+    text-align: center;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 25px;
+  }
+  .maintenancePart .trea-btn{
+      width: 160px;
+  }
+
+   .btnWrap{
+    margin: 50px auto;
+  }
+  .btnWrap .trea-btn{
+    margin: auto 16px;
+  }
+  .btnWrap .trea-btn {
+    width: 180px;
+} 
+
+.select-btn .dropdown-menu {
+  /* min-width: 120px; */
+  width: 100%;
+  padding: 0px;
+  text-align: center;
+}
+.select-btn .open>.loc-btn{
+background-color: #FFCB36;;
+}
+.select-btn .dropdown-menu>li>a{
+  padding: 3px 10px;
+  line-height: 24px;
+}
+.loc-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  /* min-width: 120px; */
+  width: 100%;
+}
+.loc-btn:hover {
+  color: #505050;
+  background: #FFCB36;
+}
+.edit-loc-btn{ width: 160px !important; }
+
+
+/*Dialog Start*/
+.dialog{ width: 350px; position: relative; }
+.add-field-dialog{ width: 400px !important; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+.dialog .loc-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+}
+.dialog-hdr{ text-align: center;font-weight: 700;font-size: 16px; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px;}
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+.width450{ width: 450px; }
+.width700{ width: 700px; }
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+
+.treaBtn{
+    font-size: 14px;
+    line-height: 14px;
+    padding: 8px;
+    background: #3aa69b;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+  }
+  .treaBtn:focus{
+    outline: none;
+  }
+  /*Dialog End*/
+
+
+/*css for popup*/
+
+.addnewitemclassFormWrap{
+  margin-top: 30px;
+}
+.comment{
+  border-radius: 0px;
+}
+.comment:focus{
+  border-color: #D1D1D1;
+  box-shadow: none;
+}
+.addEmpFormBtnWrap {
+  margin-top: 20px;
+}
+.itemDetails{ 
+  max-width: 1070px;
+  margin: 0 auto;
+  margin-bottom: 20px; 
+}
+.widLbl28{
+  width:28%;
+}
+.widLbl72{
+  width:72%;
+}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.maintenance-section .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

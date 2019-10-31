@@ -1,0 +1,78 @@
+.tsa-section{ padding: 0px 20px; }
+.tsa-section .search-client{ float: left; }
+.tsa-section .add-client{ float: right; }
+.tsa-section .client-btn, .dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.search-client .input-group{ border: 1px solid #CCCCCC; }
+.search-client .form-control{ border: none; width: 186px; height: 30px; }
+.tsa-section .filter-search{ float: left; }
+.tsa-section .filter-label{ line-height: 30px; padding: 0px 10px 0px 20px; font-size: 14px; }
+.tsa-section  .added-filter{ line-height: 30px; padding: 0px 10px;margin: 0px 5px; background-color: #F1BC4E;font-size: 14px; }
+.tsa-section  .added-filter .fa-times{ color: #CD5023;cursor: pointer; }
+.search-client .form-control:hover, .search-client .form-control:focus, .tsa-section .client-btn:hover, .tsa-section .client-btn:focus{ outline: 0px; }
+.tsa-section .fa-signal{ cursor: pointer; }
+
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{
+  font-weight:600;
+  font-size: 14px;
+  vertical-align: top;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+.userSection{ font-size: 14px; }
+.selDivSection .pageSubTitle{ margin-bottom: 10px; }
+.w10per{ width: 10%; }
+.link-clr{ color: #00A499 }
+.trea-data-table table {
+    min-width: 1050px;
+}
+.addIcon{
+    /* margin-left: 20px; */
+    cursor: pointer;
+}
+.addIcon>img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+.cursorPtr span{
+    /* cursor: pointer; */
+    padding-left: 10px;
+    vertical-align: top;
+}
+
+.pastDue-90{
+  background-color: red !important;
+  color: #e9ecef;
+}
+
+.pastDue{
+  background-color: orange !important;
+  color: #e9ecef;
+}
+
+.Due{
+  background-color: rgb(233, 56, 139) !important;
+  color: #e9ecef;
+}

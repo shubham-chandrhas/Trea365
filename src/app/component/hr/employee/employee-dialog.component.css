@@ -1,0 +1,107 @@
+
+/*Dialog Start*/
+.width450{ width: 450px; }
+.width750{ width: 750px; }
+.width100{
+  width: 100%;
+}
+.dialog{ 
+  max-width: 750px; 
+  width: 100%;
+  position: relative;
+ }
+.add-field-dialog{ width: 400px !important; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+
+.dialog-hdr{ text-align: center;font-weight: 700; font-size: 16px; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+
+.dialog .client-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+    outline: 0;
+  }
+  .emp-section .add-client{ float: right; }
+  .add-client .fa-question-circle{
+    color: #F47E48;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 50px;
+    line-height: 30px; 
+  }
+  .treaBtn{
+    font-size: 14px;
+    line-height: 14px;
+    padding: 8px;
+    background: #3aa69b;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+  }
+  .treaBtn:focus{
+    outline: none;
+  }
+/*Dialog End*/
+
+.feildsTable>.table {
+    margin-bottom: 15px;
+  }
+  .feildsTable td .form-group{
+    margin-bottom: 0px;
+  }
+  .feildsTable td .form-control{
+    width: 150px;
+  }
+  .feildsTable .table>tbody>tr>td{
+    border-top: 0px;
+  }
+  .addFieldsBtnWrap{
+    text-align: center;
+  }
+  .addFieldsBtnWrap .mdBtn{
+    margin: 10px;
+  }
+  .dialog .successText{
+    margin: 20px auto;
+    text-align: center;
+  }
+  .businessTypeCreated .close-icon{
+    top: -30px;
+  }
+.addFields>img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+.addFields>span{
+    /* cursor: pointer; */
+    padding-left: 5px;
+}
+.addFields{
+    margin-left: 35px;
+    margin-bottom: 20px;
+}

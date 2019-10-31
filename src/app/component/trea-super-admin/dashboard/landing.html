@@ -1,0 +1,112 @@
+<div class="wrapper">
+    <div id="processing-spinner" class="data-loading dn">
+        <div class="loading-spinner">
+            <mat-spinner [diameter]="60" [color]="'primary'"></mat-spinner>
+        </div>
+    </div>
+    
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="javascript:void(0)" class="logo">
+            <span class="logo-mini"><img src="assets/logo/trea_small_logo.png" class="img-responsive"></span>
+            <span class="logo-lg"><img src="assets/logo/trea-logo.png" class="img-responsive"></span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                
+                <!-- User Account Menu -->
+                <li class="dropdown user user-menu">
+                <!-- Menu Toggle Button -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <!-- The user image in the navbar-->
+                    <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                    <span class="hidden-xs">{{userName}}</span>
+                    <div class="user-name">[Admin]</div>
+                </a>
+                <!-- <div class="user-name" *ngIf="companyInfo && companyInfo.company_display_name">{{companyInfo.company_display_name}}</div>
+                <div class="user-name">[Admin]</div> -->
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+                <li class="setting-icon dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                    <ul class="dropdown-menu">
+                        <!-- <li><a (click)="goToAdminDashboard()" href="javascript:void(0)" mat-raised-button class="treaBtn">Platform</a></li> -->
+                        <li><a (click)="logout()" href="javascript:void(0)" mat-raised-button class="treaBtn">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar" id="leftside-navigation">
+
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel">
+            
+            </div>
+
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu onboardingMenu" data-widget="tree">
+            
+            <li><a href="javascript:void(0);" routerLink="/su/tsa/dashboard/0"> <span>Company</span></a></li>
+            <li><a href="javascript:void(0);" routerLink="/su/tsa/error-log"> <span>Error Log</span></a></li>
+           
+            <!-- <li>
+                <a href="javascript:void(0);" (click)="logout()"><span>Logout</span></a>
+            </li> -->
+            </ul>
+            <!-- <div class="toggleMenu" id="toggleMenu" (click)="toggleArrow()">
+                <img src="assets/icon/{{onboardArrowIcon ? 'left_arrow' : 'right_arrow'}}.png">
+            </div> -->
+            <nav class="navbar navbar-static-bottom" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <!-- <span class="sr-only">Toggle navigation</span> -->
+                <!-- <div class="toggleMenu" (click)="toggleArrow()">
+                    <img src="assets/icon/{{onboardArrowIcon ? 'left_arrow' : 'right_arrow'}}.png">
+                </div> -->
+                </a>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <!-- Main content -->
+        <section class="content container-fluid">
+            <!--------------------------
+            | Your Page Content Here |
+            -------------------------->
+            <router-outlet></router-outlet>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <div class="copyrightTxt">Copyright &copy; 2019 Trea365</div> 
+    </footer>
+
+    <!-- Add the sidebar's background. This div must be placed
+    immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>

@@ -1,0 +1,165 @@
+.invoiceDetTbl {
+  margin: 40px auto;
+}
+.invoiceDetTbl .table {
+  margin-bottom: 20px;
+}
+.invoiceDetTbl .table tbody tr td a,
+.trea-data-table .table tbody tr td a {
+  color: #00a499;
+  text-decoration: underline;
+}
+
+.invoiceDetTbl .table > thead > tr > th,
+.invoiceDetTbl .table > tbody > tr > td {
+  vertical-align: middle;
+  /* text-align: center; */
+}
+.invoiceDetTbl .table > tbody > tr > td {
+  border-bottom: 1px solid #7e7e7e; /* @Shahebaz */
+}
+
+.invoiceDetTbl .table > thead > tr > th {
+  border-top: 1px solid #7e7e7e;
+  border-bottom: 1px solid #7e7e7e;
+  min-width: 100px;
+}
+.invoiceDetTbl .table > tfoot > tr > td {
+  border-top: 1px solid;
+  min-width: 100px;
+}
+.invoiceDetTbl .table > thead > tr > th:first-child,
+.invoiceDetTbl .table > tbody > tr > td:first-child {
+  width: 350px;
+}
+.payScheduleWrap .table {
+  max-width: 320px;
+}
+.payScheduleWrap .table > thead > tr > th,
+.payScheduleWrap .table > tbody > tr > td {
+  border-top: 0px solid #7e7e7e;
+  border-bottom: 0px solid #7e7e7e;
+  font-size: 14px;
+  padding-left: 0px;
+}
+.payScheduleWrap .table > thead > tr > th {
+  font-weight: 700;
+}
+.payScheduleWrap .info-col {
+  padding: 2px 0px;
+}
+.invoiceQty {
+  /* text-align: center; */
+  padding-bottom: 9px;
+}
+.invoiceQty input,
+.commentSection textarea,
+.payScheduleWrap .info-col input {
+  vertical-align: middle;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  box-shadow: none;
+  border: 1px solid #d1d1d1;
+  font-size: inherit;
+  overflow: hidden;
+  padding: 1px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  outline: 0;
+  height: 25px;
+  width: 130px;
+}
+.payScheduleWrap .info-col input {
+  width: 70%;
+  margin-top: 5px;
+}
+.taxes input {
+  width: 60px !important;
+}
+.txtActive {
+  color: #00a499;
+  text-decoration: underline;
+}
+
+.invoiceBtnWrap {
+  max-width: 600px;
+  margin: 40px auto;
+}
+.invoiceBtnWrap .mdBtn {
+  background-color: #00a499;
+  color: #ffffff;
+}
+.commentSection textarea {
+  width: 100%;
+  min-height: 120px;
+  margin-top: 10px;
+}
+
+.addIcon {
+  margin-left: 20px;
+}
+.addIcon label > img {
+  max-width: 100%;
+  vertical-align: text-top;
+  cursor: pointer;
+}
+.addIcon label > span,
+.closeIcon label > span {
+  /* cursor: pointer; */
+  padding-left: 10px;
+}
+.payScheduleWrap .dateIcon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  vertical-align: top;
+  margin: 5px 0 0 5px;
+}
+.payScheduleWrap .dateIcon img {
+  width: 25px;
+}
+.splitTd span {
+  width: 48%;
+  display: inline-block;
+  text-align: center;
+}
+.splitTd span:first-child {
+  border-right: 1px solid #333;
+}
+th.splitTd span {
+  font-size: 12px;
+}
+.invoiceService .form-group {
+  width: 79%;
+  display: inline-block;
+}
+@media only screen and (max-width: 814px) {
+  .payScheduleWrap .dateWrapper input {
+    padding: 3%;
+  }
+  .splitTd span {
+    width: 90%;
+    display: inline-block;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 1185px) {
+  .invoiceDetTbl .invoiceService input {
+    max-width: 79%;
+  }
+  .invoiceDetTbl .invoiceCost input {
+    max-width: 50%;
+  }
+  .splitTd span {
+    width: 90%;
+    display: inline-block;
+    text-align: center;
+  }
+}
+.invoiceDetTbl table tr td .inputQty {
+  max-width: 100px;
+}
+.font-bold {
+  font-weight: bold;
+}
+

@@ -1,0 +1,98 @@
+<div class="productReviewCover" [ngClass]="currentURL == 'product-review' ? '' : 'OTFClass'">
+    <h3 class="pageTitle">New Product Information Review</h3>
+    <div class="prodInfoRevWrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <form autocomplete="off">
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="supplier">Supplier</label>
+                            <div class="col-sm-8">
+                                <p>{{productInfo.requestData.supplier}}</p>
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="manufacturer">Manufacturer</label>
+                            <div class="col-sm-8">
+                                <p>{{productInfo.requestData.manufacturer}}</p>
+                            </div>
+                        </div>
+                        <!-- <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="mfg">Item Definition</label>
+                            <div class="col-sm-8">
+                                <p>{{productInfo.displayData.full_name}}</p>
+                            </div>
+                        </div> -->
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="shortName">Name</label>
+                            <div class="col-sm-8">
+                                <p>{{productInfo.displayData.short_name}}</p>
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="class">Category</label>
+                            <div class="col-sm-8">
+                                <p>{{productInfo.displayData.class_name.item_class_name}}</p>
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="upc">UPC</label>
+                            <div class="col-sm-8">
+                                <p>{{productInfo.displayData.upc}}</p>
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="price">Purchase Price (Per Unit)</label>
+                            <div class="col-sm-8">
+                                <p>{{productInfo.requestData.purchase_price | currency: util.getCurrency() :'symbol-narrow'}}</p>
+                            </div>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="price">Sale Price (Per Unit)</label>
+                            <div class="col-sm-8">
+                                <p>{{productInfo.requestData.sales_price | currency: util.getCurrency() :'symbol-narrow'}}</p>
+                            </div>
+                        </div>
+                        
+
+                        <div class="prodInfoRevTbl table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th>Main Location</th>
+                                    <th>Sub Location</th>
+                                    <th>Quantity (Units)</th>
+                                </tr>
+                                <tr *ngFor="let location of productInfo.requestData.products_location">
+                                    <td>{{location.location_name}}</td>
+                                    <td>{{location.location_tag_name}}</td>
+                                    <td>{{location.quantity}} {{ location.quantity > 1 ? productInfo.displayData.uom_name.uom_symbol_plural: productInfo.displayData.uom_name.uom_symbol }}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><span class="pull-right">Total Quantity</span></td>
+                                    <td>{{totalQuantity}} {{ totalQuantity > 1 ? productInfo.displayData.uom_name.uom_symbol_plural: productInfo.displayData.uom_name.uom_symbol }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="clearfix form-group">
+                            <label class="col-sm-4 control-label" for="comment">Comment</label>
+                            <div class="col-sm-8 overflowTxt">
+                                <p>{{productInfo.requestData.comment}}</p>
+                            </div>
+                        </div>
+                        <div class="errMsgCon" *ngIf="isError">
+                            <small>{{errMsg}}</small>
+                        </div>
+                        <div class="clearfix">
+                            <div class="button-row">
+                                <button mat-raised-button class="trea-btn" (click)="editProduct()">Edit</button>
+                                <button mat-raised-button class="trea-btn" id="product-sub-btn" (click)="submitProduct()">Submit</button>
+                                <button mat-raised-button class="trea-btn" (click)="cancelProduct()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

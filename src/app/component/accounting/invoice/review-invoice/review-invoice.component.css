@@ -1,0 +1,71 @@
+
+
+
+.invoiceDetTbl {
+    margin: 40px auto;
+}
+.invoiceDetTbl .table{
+    margin-bottom: 20px;
+}
+.invoiceDetTbl .table tbody tr td a,
+.trea-data-table .table tbody tr td a {
+    color: #00A499;
+    text-decoration: underline;
+}
+
+.invoiceDetTbl .table > thead > tr > th,
+.invoiceDetTbl .table > tbody > tr > td {
+    vertical-align: middle;
+    /* text-align: center; */
+}
+
+.invoiceDetTbl .table > thead > tr > th,
+.invoiceDetTbl .table > tbody > tr > td {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    min-width: 100px;
+}
+.invoiceDetTbl .table > thead > tr > th:first-child,
+.invoiceDetTbl .table > tbody > tr > td:first-child{
+    width: 350px;
+}
+.payScheduleWrap .table{
+    max-width: 320px;
+}
+.payScheduleWrap .table > thead > tr > th,
+.payScheduleWrap .table > tbody > tr > td {
+    border-top: 0px solid #7E7E7E;
+    border-bottom: 0px solid #7E7E7E;
+    font-size: 14px;
+    padding-left: 0px;
+}
+.payScheduleWrap .table > thead > tr > th{
+    font-weight: 600;
+}
+.payScheduleWrap .info-col{
+    padding: 2px 0px;
+}
+.commentSection .info-col{
+    line-height: 18px;
+}
+.txtActive{
+    color: #00A499;
+    text-decoration: underline;
+}
+
+.invoiceBtnWrap{
+    max-width: 600px;
+    margin: 40px auto;
+}
+.invoiceBtnWrap .mdBtn{
+    background-color: #00A499;
+    color: #ffffff;
+    margin: 5px;
+}
+.right-aligned{
+    text-align: right !important;
+}
+.section-heading{
+    text-align: left;
+    font-weight: bold;
+}

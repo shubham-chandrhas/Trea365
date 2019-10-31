@@ -1,0 +1,255 @@
+<div class="manufacturerWrap">
+  <h1 class="pageTitle">Manufacturers</h1>
+  <p class="page-summary">Manufacturers of all Assets and Products used within the company.</p>
+
+  <div class="trea-welcome" *ngIf="manufacturerList.length == 0  && onBoarding">
+        <h4>There are no Manufacturers yet.</h4>
+        <p class="textJustified">
+            Maintaining a list of Manufacturers that produce all Assets and Products purchased by the company will help you sort and add them more easily.
+        </p>
+        <p class="textJustified">
+            Manufacturers will be listed here when an authorized user has created one.
+        </p>
+        <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createManufacturer">
+          <!-- <p class="remarks">Start defining your service catalog by creating a Business Type:
+            </p>   -->
+          <button 
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            (click)="addManufacturer()"
+          >
+          Create a Manufacturer
+          </button>
+          <button
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            (click)="addFromCSV()"
+          >
+            Upload Bulk Data
+          </button>
+        </div>
+        <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createManufacturer">
+            <p class="note">Please contact an administrator who can add Manufacturer</p> 
+        </div>          
+    </div>
+
+  <div class="head-row clearfix" *ngIf="manufacturerList.length != 0">
+      <div class="search-section">
+          <div class="input-group">
+              <span class="search-icn" id="basic-addon1">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+              <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="searchList" (ngModelChange)="getSearchTxt(searchList)" placeholder="" aria-label="" aria-describedby="basic-addon1">
+              <button mat-raised-button class="client-btn" (click)="searchTxt = searchList" >Search</button>
+          </div>
+      </div>
+
+      <div class="add-manu addMFG" *ngIf="util.getRole() == 2 || permissionsSet.createManufacturer">
+        <div class="dropdown">
+          <button mat-raised-button class="client-btn dropdown-toggle" type="button" data-toggle="dropdown">New
+            Manufacturer
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="addManufacturer()">Manual Input</a></li>
+            <li><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="addFromCSV()">Bulk Upload</a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
+
+  <div class="manufactererList" *ngIf="manufacturerList.length != 0">
+    <div class="table-responsive trea-data-table">
+      <table class="table table-striped manufactererTbl">
+        <thead>
+          <tr>
+            <th width="200">
+               <div class="table-hdr">
+                 <div>
+                    <span>Manufacturer</span>
+                    <span (click)="sortColumn = 'manf_name';sortColumnType = 'A';sortOrder = sortColumn === 'manf_name' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                       <i [ngClass]=" sortColumn == 'manf_name' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                    </span>
+                 </div>
+                 <div>
+                    <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="manfSearch">
+                 </div>
+              </div>
+            </th>
+            <th width="200">
+              <div class="bdr-left table-hdr">
+                <div>
+                   <span>Type</span>
+                   <span (click)="sortColumn = 'type';sortColumnType = 'A';sortOrder = sortColumn === 'type' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                      <i [ngClass]=" sortColumn == 'type' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                   </span>
+                </div>
+                <div>
+                   <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="typeSearch">
+                </div>
+             </div>
+           </th>
+            <th width="400">
+              <div class="bdr-left table-hdr" >
+                 <div>
+                    <span>Description</span>
+                    <span (click)="sortColumn = 'comment';sortColumnType = 'A';sortOrder = sortColumn === 'comment' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                       <i [ngClass]=" sortColumn == 'comment' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                    </span>
+                 </div>
+                 <div>
+                    <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="commentSearch">
+                 </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let indx=index ;let manufacturer of manufacturerList | sortBy:sortColumn:sortOrder:sortColumnType | searchfilter:manfSearch:'manf_name' | searchfilter:typeSearch:'type' | searchfilter:commentSearch:'comment' | searchfilter:searchTxt:'manf_name,type,comment' | listLengthfilter | paginate: paginationKey" (click) = "getSelectedManufacturer(manufacturer, indx)" [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''">
+            <td>{{manufacturer.manf_name}}<span class="dn">{{ indx == 0 ? updateCount(manufacturer.count) : ''}}</span></td>
+            <td>
+              {{manufacturer.type}}
+              <!-- {{ manufacturer.is_asset_type ? "Asset" : "" }} {{ manufacturer.is_product_type ? "Product" : "" }} {{ manufacturer.is_material_type ? "Material" : "" }} -->
+            </td>
+            <td>{{manufacturer.comment}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="treaPagination" *ngIf="manufacturerList.length != 0 && constant.ITEM_COUNT != 0">
+      <div class="pull-right">
+          <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+      </div>
+      <div class="pull-right">
+          <select [(ngModel)]="paginationKey.itemsPerPage" (change)="util.changeItemPerPage()">
+          <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+          </select>
+          <span> items per page</span>
+      </div>
+      <div class="pull-right">
+          <pagination-controls
+              (pageChange)="util.changePage($event, paginationKey)"
+              directionLinks="true"
+              autoHide="false"
+              previousLabel="Pre"
+              nextLabel="Next"
+              screenReaderPaginationLabel="Pagination"
+              screenReaderPageLabel="page"
+              screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+      </div>
+      <div class="clearfix"></div>
+  </div>
+
+  <div class="selDivSection" *ngIf="selectedManufacturer">
+    <div id="mfgMark" class="selDiv">
+        <span>Manufacturer</span>
+        <div class="pull-right select-btn">
+          <div class="dropdown">
+            <button *ngIf="util.getRole() == 2 || permissionsSet.editManufacturer || permissionsSet.deleteManufacturer"  mat-raised-button class="loc-btn dropdown-toggle edit-loc-btn" type="button" data-toggle="dropdown">Edit
+            </button>
+            <ul class="dropdown-menu" style="right: 0px !important;left: auto;">
+                <li *ngIf="util.getRole() == 2 || permissionsSet.editManufacturer "><a href="javascript:void(0)" class="loc-btn" (click)="editManufacturerFlageChange()">Edit Information</a></li>
+                <li *ngIf="util.getRole() == 2 ||  permissionsSet.deleteManufacturer"><a href="javascript:void(0)" class="loc-btn" (click)="showDeleteConfirmation()">Delete</a></li>
+            </ul>
+          </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row" >
+        <div class="col-sm-12">
+          
+
+          <form autocomplete="off" [formGroup]="editManufacturFm">
+            <div class="row clearfix">
+                <div class="col-sm-3" [ngClass]="isEditManufacturer ? 'marT30' : ''">
+                    <div class="label-col">Manufacturer</div>
+                </div>
+                <div class="col-sm-9" *ngIf="!isEditManufacturer">
+                    <div class="info-col" >
+                        {{selectedManufacturer.manf_name}}
+                    </div>
+                </div>
+
+                <div class="col-sm-6" *ngIf="isEditManufacturer" [ngClass]="isEditManufacturer ? 'marT30' : ''">
+                        <div class="info-col" >
+                            <input autocomplete="nope" type="text" id="" name="manfName" placeholder="" formControlName="manfName" class="form-control">
+                        </div>
+                    </div>
+            </div>    
+            <div class="row clearfix">
+            <div class="col-sm-3">
+              <div class="label-col" [ngClass]="isEditManufacturer ? 'marT30' : ''">Manufacturer Type</div>
+            </div>
+            <div class="col-sm-9" >
+              <div class="info-col" *ngIf="!isEditManufacturer">
+                 <span *ngIf="selectedManufacturer.is_asset_type == 1">Asset</span>
+                 <span *ngIf="selectedManufacturer.is_asset_type == 1 && selectedManufacturer.is_product_type == 1">,</span>
+                 <span *ngIf="selectedManufacturer.is_product_type == 1">Product</span>
+                 <!-- <span *ngIf="(selectedManufacturer.is_product_type == 1 && selectedManufacturer.is_material_type == 1) || (selectedManufacturer.is_asset_type == 1 && selectedManufacturer.is_material_type == 1)">,</span>
+                 <span *ngIf="selectedManufacturer.is_material_type == 1">Material</span> -->
+              </div>
+
+              <div class="info-col" [ngClass]="isEditManufacturer ? 'marT30' : ''" *ngIf="isEditManufacturer">
+                <div class="checkBox">
+                  <label class="typeCheck">
+                      <input autocomplete="nope" type="checkbox" formControlName="isAsset">
+                      <span class="iconChk"><i class="fa fa-check"></i> </span>
+                      <span class="chkText">Asset</span>
+                  </label>
+
+                  <label class="typeCheck">
+                      <input autocomplete="nope" type="checkbox" formControlName="isProduct">
+                      <span class="iconChk"><i class="fa fa-check"></i> </span>
+                      <span class="chkText">Product</span>
+                  </label>
+
+                  <!-- <label class="typeCheck">
+                      <input autocomplete="nope" type="checkbox" formControlName="isMaterial">
+                      <span class="iconChk"><i class="fa fa-check"></i> </span>
+                      <span class="chkText">Material</span>
+                  </label> -->
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <div class="col-sm-3">
+                <div class="label-col" [ngClass]="isEditManufacturer ? 'marT30' : ''">Description</div>
+            </div>
+            <div class="col-sm-9" >
+              <div class="info-col" *ngIf="!isEditManufacturer">
+                  {{selectedManufacturer.comment}}
+              </div>
+                 <div class="info-col" [ngClass]="isEditManufacturer ? 'marT30' : ''" *ngIf="isEditManufacturer">
+                    <textarea id="comment" name="comment" style="height: 150px;" placeholder="(optional)" class="form-control" formControlName="comment"></textarea>
+
+                    <span class="error-msg" *ngIf="comment.invalid && (comment.dirty || comment.touched)">
+                      <small *ngIf="comment.errors.minlength">Comment must be at least 2 characters long.</small>
+                      <small *ngIf="comment.errors.maxlength">Comment must not greater than {{constant.DEFAULT_COMMENT_MAXLENGTH}} characters.</small>
+                    </span>
+                  </div>
+            </div>
+          </div>
+          </form>
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError && isEditManufacturer">
+      <small>{{errMsg}}</small>
+    </div>
+
+    <div class="button-row clearfix" *ngIf="isEditManufacturer">
+        <button mat-raised-button id="update-manufacturer-btn" (click)="updateManufacturer(editManufacturFm)" class="trea-btn">Update</button>
+        <button mat-raised-button class="trea-btn" (click)="cancelEditManufacturer()">Cancel</button>
+    </div>
+
+  </div>
+
+</div>

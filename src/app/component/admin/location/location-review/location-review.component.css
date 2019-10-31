@@ -1,0 +1,36 @@
+.treaActionBtn{ background-color: #00A499;color: #FFFFFF;border-radius: 0px;height: 30px;line-height: 30px;text-decoration: none; }
+
+.newLocationinformationreviewWrap .addUserFormBody{
+	max-width: 1000px;
+    margin: 30px auto;
+}
+
+
+.divisionDetails .Division1{
+	margin-bottom: 20px;
+}
+.addUserFormBody .addLocationFormBtnWrap{
+	margin: 54px 50px 80px 50px;
+}
+.newLocationinformationreviewWrap .addUserFormBody .treaActionBtn{
+	width: 160px; margin-left: 15px;
+}
+.newLocationinformationreviewWrap .mar20{
+	margin:20px auto;
+}
+.newLocationinformationreviewWrap  .mar60{
+	margin-top: 60px;
+}
+.newLocationinformationreviewWrap  .locWrap{
+	    margin: 45px auto;
+}
+.actionBtnWrap{ max-width: 560px;margin: 0px auto; }
+.errMsgCon{ text-align: center; margin-bottom: 25px; }
+.errMsgCon small{ 
+	color: #F44336;
+    font-size: smaller;
+}
+
+.divValuesList {
+	list-style-position: inside;
+  }

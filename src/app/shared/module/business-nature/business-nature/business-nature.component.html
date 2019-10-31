@@ -1,0 +1,313 @@
+<div class="businessNature">
+    <h1 class="pageTitle">Nature of Business</h1>
+    <p class="page-summary">The company's complete service catalog, defined in three tiers.</p>
+
+    <div class="trea-welcome" *ngIf="businessNatureList.length == 0 && onBoarding">
+        <h4>There is no information yet for Nature of Business.</h4>
+        <p class="textJustified">
+            Nature of Business details your company’s complete service catalog. Define all activities carried out by your workers, and specify a default price for each (don’t worry, you can override these as necessary on each project estimate). Services are grouped into general categories called Service Types, and these fall under the main areas of your business, the Business Types.
+        </p>
+        <p class="textJustified">
+            Business Types will be listed here when an authorized user has created one.
+        </p>
+        <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createNatureofBusiness">
+          <p class="remarks">Start defining your service catalog by creating a Business Type:
+            </p>  
+          <button 
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            routerLink="/csa/add-business-nature" (click)="newBusinessType()"
+          >
+           Create a Business Type
+          </button>
+          <button
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            (click)="addFromCSV()"
+          >
+            Upload Bulk Data
+          </button>
+        </div>
+        <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createNatureofBusiness">
+            <p class="note">Please contact an administrator who can add Business Type</p> 
+        </div>          
+    </div>
+    
+    <div class="clearfix"></div>
+
+    <div class="head-row clearfix" *ngIf="businessNatureList.length != 0">
+        <div class="search-section" >
+            <div class="input-group">
+                <span class="search-icn" id="basic-addon1">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+                <input autocomplete="nope" [(ngModel)]="searchList" (ngModelChange)="getSearchTxt(searchList)" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                <button (click)="searchTxt = searchList" mat-raised-button class="client-btn" >Search</button>
+            </div>
+        </div>
+        <div class="add-business addTreaBtnWrap" *ngIf="util.getRole() == 2 || permissionsSet.createNatureofBusiness">
+            <div class="dropdown">
+                <button  mat-raised-button class="client-btn dropdown-toggle"
+                    type="button" data-toggle="dropdown">New Business Type
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)" mat-raised-button class="client-btn" routerLink="/csa/add-business-nature" (click)="newBusinessType()">Manual Input</a></li>
+                    <li><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="addFromCSV()">Bulk Upload</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="trea-data-table table-responsive" *ngIf="businessNatureList.length != 0">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="300">
+                        <div class="table-hdr">
+                            <div>
+                                <span>Business Type</span>
+                                <span (click)="sortColumnType='A';sortList('businessType');">
+                                    <i [ngClass]=" sortColumn == 'businessType' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="typeSearch">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="300">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Service Type</span>
+                                <span (click)="sortColumnType='A';sortList('serviceType');">
+                                    <i [ngClass]=" sortColumn == 'serviceType' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="nameSearch">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="300">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Service Definition</span>
+                                <span (click)="sortColumnType='A';sortList('serviceDefinition');">
+                                    <i [ngClass]=" sortColumn == 'serviceDefinition' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="definitionSearch">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="300">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <!-- <span (click)="pageData.sortColumnType = 'N';pageData.sortColumn = 'quantity';pageData.sortOrder = pageData.sortColumn === 'quantity' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'quantity' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span> -->
+                                <span>Price</span>
+                                <span (click)="sortColumnType='N';sortColumn = 'servicePrice';sortOrder = sortColumn === 'servicePrice' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" sortColumn == 'servicePrice' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="priceSearch">
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let indx=index; let businessNature of businessNatureList | sortBy:sortColumn:sortOrder:sortColumnType | searchfilter:typeSearch:'businessType' | searchfilter:nameSearch:'serviceType' | searchfilter:definitionSearch:'serviceDefinition' | searchfilter:priceSearch:'servicePrice' | searchfilter:searchTxt:'businessType,serviceType,serviceDefinition,servicePrice' | listLengthfilter | paginate: paginationKey" [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''" (click)="getSelectedBusinessNature(businessNature,indx)">
+                    <td>{{businessNature.businessType}}<span class="dn">{{ indx == 0 ? updateCount(businessNature.count) : ''}}</span></td>
+                    <td>{{businessNature.serviceType}}</td>
+                    <td>{{businessNature.serviceDefinition}}</td>
+                    <td class="qty-cost">
+                        <!-- <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                        <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                        {{businessNature.servicePrice.toFixed(2)}} -->
+                        {{businessNature.servicePrice | currency: util.getCurrency() :'symbol-narrow'}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="treaPagination" *ngIf="businessNatureList.length != 0 && constant.ITEM_COUNT != 0">
+        <div class="pull-right">
+            <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+        </div>
+        <div class="pull-right">
+            <select [(ngModel)]="paginationKey.itemsPerPage" (change)="changeItemPerPage()">
+                <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+            </select>
+            <span> items per page</span>
+        </div>
+        <div class="pull-right">
+            <pagination-controls
+                (pageChange)="changePage($event)"
+                directionLinks="true"
+                autoHide="false"
+                previousLabel="Pre"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+
+    <!-- Selected Business Type -->
+    <div class="selBusinessSection" *ngIf="selectedBusinessNature">
+        <h2 class="selectedTitle">{{selectedBusinessNature.businessType}}</h2>
+        <div id="businessNatureMark" class="selBusiness">
+            <!-- <span>Item Classes</span> -->
+            <div class="pull-right select-btn">
+                <div class="dropdown" *ngIf="util.getRole() == 2 || permissionsSet.editNatureofBusiness || permissionsSet.deleteNatureofBusiness">
+                    <button  mat-raised-button class="loc-btn dropdown-toggle edit-loc-btn" type="button" data-toggle="dropdown">Edit
+                    </button>
+                    <ul class="dropdown-menu" style="right: 0px !important;left: auto;">
+                        <li *ngIf="util.getRole() == 2 || permissionsSet.editNatureofBusiness"><a href="javascript:void(0)" class="loc-btn" (click)="editBusinessNature()">Edit Information</a></li>
+                        <li *ngIf="util.getRole() == 2 || permissionsSet.deleteNatureofBusiness"><a href="javascript:void(0)" class="loc-btn" (click)="deleteBusinessNatureDailog()">Delete</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="businessDetails">
+            <!-- <div class="row MB30">
+                <div class="col-sm-3">
+                    <div class="label-col">Business Type</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="label-col overflowTxt">{{selectedBusinessNature.businessType}}</div>
+                </div>
+            </div> -->
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Service Type</th>
+                            <th>Service Definition</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor = "let service of selectedBusinessNature.services">
+                            <td>{{service.serviceType}}</td>
+                            <td>
+                                <div *ngFor = "let definition of service.serviceDefinition">{{definition.name}}</div>
+                            </td>
+                            <td>
+                                <div *ngFor = "let defPrice of service.serviceDefinition">
+                                    <!-- <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                                    <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span> -->
+                                    {{defPrice.price | currency: util.getCurrency() :'symbol-narrow'}}
+                                </div>
+                                <!-- <p>B: {{b | currency:'CAD':'symbol-narrow':'4.2-2'}}</p> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- <div class="editBusinessDetails" *ngIf="action == 'edit'">
+            <div class="row MB30">
+                <div class="col-sm-3">
+                    <div class="label-col">Business Type</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="label-col">Construction</div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th class="PadL0">Service Type</th>
+                        <th class="optional">Service Definition</th>
+                        <th class="optional">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><span><img src="assets/icon/close_icon.png" /></span></td>
+                        <td class="PadL0">Roofing</td>
+                        <td>
+                            <div class="closeIcon">
+                                <img src="assets/icon/close_icon.png" /><span>Sodales</span>
+                            </div>
+                            <div class="closeIcon">
+                                <img src="assets/icon/close_icon.png" /><span>Consectetur</span>
+                            </div>
+                            <div class="addIcon">
+                                <img src="assets/icon/icon-add.png" /><span>Service Definition</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input autocomplete="nope" type="text" class="form-control" value="$300"/>
+                            </div>
+                            <div class="form-group">
+                                <input autocomplete="nope" type="text" class="form-control" value="$300"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span><img src="assets/icon/close_icon.png" /></span></td>
+                        <td class="PadL0">Framing</td>
+                        <td>
+                            <div class="closeIcon">
+                                <img src="assets/icon/close_icon.png" /><span>Sodales</span>
+                            </div>
+                            <div class="addIcon">
+                                <img src="assets/icon/icon-add.png" /><span>Service Definition</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input autocomplete="nope" type="text" class="form-control" value="$300"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="PadL0">
+                            <div class="addIcon Mar0">
+                                <img src="assets/icon/icon-add.png" /><span>Service Type</span>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="button-row">
+                <button mat-raised-button class="trea-btn" (click)="changeAction('view')">Update</button>
+                <button mat-raised-button class="trea-btn" (click)="changeAction('view')">Cancel</button>
+            </div>
+        </div> -->
+        <!-- <div class="errMsgCon" *ngIf="isError && isEditManufacturer">
+            <small>{{errMsg}}</small>
+        </div> -->
+    </div>
+
+</div>
+
+
+

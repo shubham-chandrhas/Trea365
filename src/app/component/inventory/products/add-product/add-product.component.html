@@ -1,0 +1,676 @@
+<div class="addItemsFormWrap" [ngClass]="currentPath == 'add-product' ? '' : 'OTFClass'">
+   <!-- <div class="newItemsWrap" *ngIf="pageData.addOption == 'WithPO'">
+        <h3>New Product</h3>
+        <div class="treaRadioBtn">
+            <input autocomplete="nope" name="radio-group" type="radio" id="radio-group1" value="WithPO" [(ngModel)]="pageData.addOpt">
+            <label for="radio-group1">From Purchase Order</label>
+        </div>
+        <div class="treaRadioBtn">
+            <input autocomplete="nope" name="radio-group" type="radio" id="radio-group2" value="WithoutPO" [(ngModel)]="pageData.addOpt">
+            <label for="radio-group2">Product Without Purchase Order</label>
+        </div>
+        <div class="button-row clearfix">
+            <button mat-raised-button id="add-emp" class="trea-btn" (click)="next()">Next</button>
+            <button mat-raised-button class="trea-btn" (click)="cancelProduct()">Cancel</button>
+        </div>
+        <div class="clearfix"></div>
+    </div> -->
+
+    <form autocomplete="off" class="form-horizontal addInventoryForm" role="form"  [formGroup]="addProductForm"> <!-- *ngIf="pageData.addOption == 'WithOutPO' && pageData.locationList.length > 0" -->
+        <h3 class="pageTitle">New Product <span *ngIf="currentPath != 'add-product'">({{pageData.prodInfo.requestData.quantity_ordered}} Items)</span></h3>
+        <div class="addUserFormBody">
+            <div class="form-group MARB5" [hidden]="currentPath != 'add-product'">
+                <label class="col-sm-5 control-label" for="supplier_id">Supplier</label>
+                <div class="col-sm-7">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" id="supplier_id" matInput placeholder=""  [formControl]="supplier" [matAutocomplete]="supplierAutoComp" (keyup)="validateSupplier($event)">
+                                <i *ngIf="supplier.value!=''" (click)="util.clearAutoComplete('supplier_id', [supplier_id, supplier])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="supplier.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #supplierAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let indx=index; let item of filteredSupplier | async | sortBy:'supplier_name':'ASC':'A'" [value]="item.supplier_name" (onSelectionChange)="getSelectedSupplier(item, $event)">
+                                        <span>{{ item.supplier_name }}</span>
+                                    </mat-option>
+
+                  <mat-option value="" (click)="showAddSupplierPopup()">
+                    <img aria-hidden src="assets/icon/icon-add.png" />
+                    <span>New Supplier</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+              <div *ngIf="isSupplierLoad" class="loaderField">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw action"></i>
+              </div>
+            </div>
+          </div>
+          <span
+            class="error-msg TOP26"
+            *ngIf="
+              supplier_id.invalid &&
+              (supplier_id.dirty || supplier_id.touched || pageData.submitted)
+            "
+          >
+            <small *ngIf="supplier_id.errors.required"
+              >Please select Supplier from the list.</small
+            >
+          </span>
+        </div>
+      </div>
+      <div class="form-group MARB5" [hidden]="currentPath != 'add-product'">
+        <label class="col-sm-5 control-label" for="manf_id">Manufacturer</label>
+        <div class="col-sm-7">
+          <div class="autoCompleteList">
+            <div class="searchList">
+              <mat-form-field class="product">
+                <input
+                  autocomplete="nope"
+                  id="manf_id"
+                  matInput
+                  placeholder=""
+                  [formControl]="manufacturer"
+                  [matAutocomplete]="manufacturerAutoComp"
+                  (keyup)="validateManf($event)"
+                />
+                <i
+                  *ngIf="manufacturer.value != ''"
+                  (click)="
+                    util.clearAutoComplete('manf_id', [
+                      manf_id,
+                      manufacturer,
+                      manf_part_id,
+                      manufacturerPart
+                    ])
+                  "
+                  class="clearAutoComplete fa fa-times-circle"
+                  aria-hidden="true"
+                ></i>
+                <img
+                  *ngIf="manufacturer.value == ''"
+                  class="selectBoxIcon"
+                  aria-hidden
+                  src="assets/icon/select.png"
+                />
+
+                <mat-autocomplete #manufacturerAutoComp="matAutocomplete">
+                  <mat-option
+                    *ngFor="
+                      let indx = index;
+                      let item;
+                      of: filteredManufacturer
+                        | async
+                        | searchfilter: '1':'is_product_type'
+                        | sortBy: 'manf_name':'ASC':'A'
+                    "
+                    [value]="item.manf_name"
+                    (onSelectionChange)="getMfg(item, $event)"
+                  >
+                    <span>{{ item.manf_name }}</span>
+                  </mat-option>
+
+                  <mat-option value="" (click)="showAddManufacturerPopup()">
+                    <img aria-hidden src="assets/icon/icon-add.png" />
+
+                    <span>New Manufacturer</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+          <span
+            class="error-msg TOP26"
+            *ngIf="
+              manf_id.invalid &&
+              (manf_id.dirty || manf_id.touched || pageData.submitted)
+            "
+          >
+            <small *ngIf="manf_id.errors.required"
+              >Please select Manufacturer from the list.</small
+            >
+          </span>
+        </div>
+      </div>
+      <div class="form-group MARB5" [hidden]="currentPath != 'add-product'">
+        <label class="col-sm-5 control-label" for="manf_part_id"
+          >Item Definition</label
+        >
+        <div class="col-sm-7">
+          <div class="autoCompleteList">
+            <div class="searchList">
+              <mat-form-field class="product">
+                <input
+                  autocomplete="nope"
+                  id="manf_part_id"
+                  matInput
+                  placeholder=""
+                  [formControl]="manufacturerPart"
+                  [matAutocomplete]="manufacturerPartAutoComp"
+                  (keyup)="validateManfPart($event)"
+                />
+                <i
+                  *ngIf="manufacturerPart.value != ''"
+                  (click)="
+                    util.clearAutoComplete('manf_part_id', [
+                      manf_part_id,
+                      manufacturerPart
+                    ])
+                  "
+                  class="clearAutoComplete fa fa-times-circle"
+                  aria-hidden="true"
+                ></i>
+                <img
+                  *ngIf="manufacturerPart.value == ''"
+                  class="selectBoxIcon"
+                  aria-hidden
+                  src="assets/icon/select.png"
+                />
+
+                <mat-autocomplete #manufacturerPartAutoComp="matAutocomplete">
+                  <mat-option
+                    *ngFor="
+                      let indx = index;
+                      let item;
+                      of: filteredManufacturerPart
+                        | async
+                        | sortBy: 'short_name':'ASC':'A'
+                    "
+                    [value]="item.short_name"
+                    (onSelectionChange)="getMfgPart(item, $event)"
+                  >
+                    <span>{{ item.short_name }}</span>
+                  </mat-option>
+
+                  <mat-option value="" (click)="showAddManufacturerPartPopup()">
+                    <img aria-hidden src="assets/icon/icon-add.png" />
+
+                    <span>New Item Definition</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+          <span
+            class="error-msg TOP26"
+            *ngIf="
+              manf_part_id.invalid &&
+              (manf_part_id.dirty || manf_part_id.touched || pageData.submitted)
+            "
+          >
+            <small *ngIf="manf_part_id.errors.required"
+              >Please select Item Definition from the list.</small
+            >
+          </span>
+        </div>
+      </div>
+      <div class="form-group prodInfo" [hidden]="currentPath == 'add-product'">
+        <label class="col-sm-5 control-label" for="shortDescription"
+          >Supplier</label
+        >
+        <div class="col-sm-7">
+          <div class="info-col">{{ supplier.value }}</div>
+        </div>
+      </div>
+      <div class="form-group prodInfo" [hidden]="currentPath == 'add-product'">
+        <label class="col-sm-5 control-label" for="shortDescription"
+          >Manufacturer</label
+        >
+        <div class="col-sm-7">
+          <div class="info-col">{{ manufacturer.value }}</div>
+        </div>
+      </div>
+      <div class="form-group prodInfo" [hidden]="currentPath == 'add-product'">
+        <label class="col-sm-5 control-label" for="shortDescription"
+          >Item Definition</label
+        >
+        <div class="col-sm-7">
+          <div class="info-col">{{ manufacturerPart.value }}</div>
+        </div>
+      </div>
+      <!-- <div class="form-group prodInfo" *ngIf="pageData.selectedMfgPart">
+                <label class="col-sm-5 control-label" for="shortDescription">Short Name</label>
+                <div class="col-sm-7">
+                    <div class="info-col">{{pageData.selectedMfgPart.short_name}}</div>
+                </div>
+            </div> -->
+      <div class="form-group prodInfo" *ngIf="pageData.selectedMfgPart">
+        <label class="col-sm-5 control-label" for="class">Category</label>
+        <div class="col-sm-7">
+          <div class="info-col">
+            {{ pageData.selectedMfgPart.class_name.item_class_name }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group prodInfo" *ngIf="pageData.selectedMfgPart">
+        <label class="col-sm-5 control-label" for="class">UPC</label>
+        <div class="col-sm-7">
+          <div class="info-col">{{ pageData.selectedMfgPart.upc }}</div>
+        </div>
+      </div>
+
+      <div
+        class="form-group prodInfo"
+        *ngIf="pageData.selectedMfgPart && pageData.selectedMfgPart.uom_name"
+      >
+        <label class="col-sm-5 control-label" for="class">UOM</label>
+        <div class="col-sm-7">
+          <div class="info-col">
+            {{
+              pageData.selectedMfgPart.uom_name
+                ? pageData.selectedMfgPart.uom_name.uom_name
+                : "N/A"
+            }}
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-group prodInfo"
+        *ngIf="pageData.prodInfo && pageData.prodInfo.requestData"
+        [hidden]="currentPath == 'add-product'"
+      >
+        <label class="col-sm-5 control-label" for="shortDescription"
+          >Quantity</label
+        >
+        <div class="col-sm-7">
+          <div class="info-col">
+            {{ pageData.prodInfo.requestData.quantity_ordered }}
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-group prodInfo"
+        *ngIf="pageData.prodInfo && pageData.prodInfo.requestData"
+        [hidden]="currentPath == 'add-product'"
+      >
+        <label class="col-sm-5 control-label" for="shortDescription"
+          >Purchase Price (Per Unit)</label
+        >
+        <div class="col-sm-7">
+          <div class="info-col">
+            {{
+              purchase_price.value
+                | currency: util.getCurrency():"symbol-narrow"
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group" [hidden]="currentPath != 'add-product'">
+        <label class="col-sm-5 control-label" for="price">Quantity</label>
+        <div class="col-sm-7">
+          <input
+            autocomplete="nope"
+            type="number"
+            name="price"
+            formControlName="totalQuantity"
+            (change)="calculateRemainingQuantity()"
+            (keypress)="util.noSpace($event)"
+            placeholder=""
+            class="form-control price PadR0"
+          />
+          <span
+            class="error-msg"
+            *ngIf="
+              totalQuantity.invalid &&
+              (totalQuantity.dirty ||
+                totalQuantity.touched ||
+                pageData.submitted)
+            "
+          >
+            <small *ngIf="totalQuantity.errors.required"
+              >Quantity is required.</small
+            >
+            <small *ngIf="totalQuantity.errors.pattern"
+              >Invalid Quantity.</small
+            >
+          </span>
+        </div>
+      </div>
+      <div class="form-group" [hidden]="currentPath != 'add-product'">
+        <label class="col-sm-5 control-label" for="price"
+          >Purchase Price (Per Unit)</label
+        >
+        <div class="col-sm-7">
+          <span class="currencySign" *ngIf="util.getCurrency() == 'INR'"
+            >&#8377;</span
+          >
+          <span class="currencySign" *ngIf="util.getCurrency() != 'INR'">{{
+            util.getCurrencySign()
+          }}</span>
+          <input
+            autocomplete="nope"
+            type="text"
+            name="price"
+            formControlName="purchase_price"
+            (keypress)="util.noSpace($event)"
+            placeholder=""
+            class="form-control price currencyInput"
+            (keyup)="util.removeCommas(purchase_price)"
+          />
+          <span
+            class="error-msg"
+            *ngIf="
+              purchase_price.invalid &&
+              (purchase_price.dirty ||
+                purchase_price.touched ||
+                pageData.submitted)
+            "
+          >
+            <small *ngIf="purchase_price.errors.required"
+              >Purchase Price is required.</small
+            >
+            <small *ngIf="purchase_price.errors.pattern">Invalid Price.</small>
+          </span>
+        </div>
+      </div>
+      <!-- [hidden]="currentPath != 'add-product'" -->
+      <div class="form-group">
+        <label class="col-sm-5 control-label" for="price"
+          >Sale Price (Per Unit)</label
+        >
+        <div class="col-sm-7">
+          <span class="currencySign" *ngIf="util.getCurrency() == 'INR'"
+            >&#8377;</span
+          >
+          <span class="currencySign" *ngIf="util.getCurrency() != 'INR'">{{
+            util.getCurrencySign()
+          }}</span>
+          <input
+            autocomplete="nope"
+            type="text"
+            name="price"
+            formControlName="sales_price"
+            (keyup)="util.removeCommas(sales_price)"
+            (keypress)="util.noSpace($event)"
+            placeholder=""
+            class="form-control price currencyInput"
+          />
+          <span
+            class="error-msg"
+            *ngIf="
+              sales_price.invalid &&
+              (sales_price.dirty || sales_price.touched || pageData.submitted)
+            "
+          >
+            <small *ngIf="sales_price.errors.required"
+              >Sale Price is required.</small
+            >
+            <small *ngIf="sales_price.errors.pattern">Invalid Price.</small>
+          </span>
+        </div>
+      </div>
+
+      <!-- *ngIf="totalQuantity.value != ''" -->
+      <div class="storageDetailCover clearfix">
+        <h4>Storage Details</h4>
+        <div class="storageDetTbl table-responsive">
+          <table class="table">
+            <tr>
+              <th></th>
+              <th>Main Location</th>
+              <th>Sub Location</th>
+              <th>Quantity (Units)</th>
+            </tr>
+            <tr
+              class="addStorageRow"
+              *ngFor="
+                let location of products_location.controls;
+                let indx = index
+              "
+              [formGroup]="location"
+            >
+              <td>
+                <img
+                  (click)="removeLocation(indx, location)"
+                  *ngIf="indx != 0"
+                  src="assets/icon/close_icon.png"
+                />
+              </td>
+              <td>
+                <div class="form-group">
+                  <div class="autoCompleteList">
+                    <div class="searchList">
+                      <mat-form-field class="product">
+                        <input
+                          autocomplete="nope"
+                          id="loc_name_{{ indx }}"
+                          matInput
+                          placeholder=""
+                          [formControl]="location.get('location_name')"
+                          [matAutocomplete]="locationAutoComp"
+                          (keyup)="validateLocation($event, location, indx)"
+                        />
+                        <i
+                          *ngIf="location.get('location_name').value != ''"
+                          (click)="
+                            util.clearAutoComplete(
+                              'loc_name_',
+                              [
+                                location.get('location_name'),
+                                location.get('location_id'),
+                                location.get('location_tag_name'),
+                                location.get('location_tag_id')
+                              ],
+                              indx
+                            )
+                          "
+                          class="clearAutoComplete fa fa-times-circle"
+                          aria-hidden="true"
+                        ></i>
+                        <img
+                          *ngIf="location.get('location_name').value == ''"
+                          class="selectBoxIcon"
+                          aria-hidden
+                          src="assets/icon/select.png"
+                        />
+                        <mat-autocomplete #locationAutoComp="matAutocomplete">
+                          <mat-option
+                            *ngFor="
+                              let optionIndx = index;
+                              let item;
+                              of: location.get('filteredLocation').value | async
+                            "
+                            [value]="item.location_name"
+                            (onSelectionChange)="
+                              getLocation(item, $event, indx)
+                            "
+                          >
+                            <span>{{ item.location_name }}</span>
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+
+                      <div *ngIf="isMainLocationLoad" class="loaderField">
+                        <i
+                          class="fa fa-spinner fa-pulse fa-3x fa-fw action"
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    class="error-msg"
+                    *ngIf="
+                      location.get('location_id').invalid &&
+                      (location.get('location_id').dirty ||
+                        location.get('location_id').touched ||
+                        pageData.submitted)
+                    "
+                  >
+                    <small *ngIf="location.get('location_id').errors.required"
+                      >Please select Main Location from the list.</small
+                    >
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <div class="autoCompleteList">
+                    <div class="searchList">
+                      <mat-form-field class="product">
+                        <input
+                          autocomplete="nope"
+                          id="loc_tag_{{ indx }}"
+                          matInput
+                          placeholder=""
+                          [formControl]="location.get('location_tag_name')"
+                          [matAutocomplete]="locationTagAutoComp"
+                          (keyup)="validateLocationTag($event, location, indx)"
+                        />
+                        <i
+                          *ngIf="location.get('location_tag_name').value != ''"
+                          (click)="
+                            util.clearAutoComplete(
+                              'loc_tag_',
+                              [
+                                location.get('location_tag_name'),
+                                location.get('location_tag_id')
+                              ],
+                              indx
+                            )
+                          "
+                          class="clearAutoComplete fa fa-times-circle"
+                          aria-hidden="true"
+                        ></i>
+                        <img
+                          *ngIf="location.get('location_tag_name').value == ''"
+                          class="selectBoxIcon"
+                          aria-hidden
+                          src="assets/icon/select.png"
+                        />
+                        <mat-autocomplete
+                          #locationTagAutoComp="matAutocomplete"
+                        >
+                          <mat-option
+                            *ngFor="
+                              let optionIndx = index;
+                              let item;
+                              of: location.get('filteredLocationTag').value
+                                | async
+                            "
+                            [value]="item.location_tag"
+                            (onSelectionChange)="
+                              getLocationTag(item, $event, indx)
+                            "
+                          >
+                            <span>{{ item.location_tag }}</span>
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+
+                      <div
+                        *ngIf="location.get('isSubLocationLoad').value"
+                        class="loaderField"
+                      >
+                        <i
+                          class="fa fa-spinner fa-pulse fa-3x fa-fw action"
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    class="error-msg"
+                    *ngIf="
+                      location.get('location_tag_id').invalid &&
+                      (location.get('location_tag_id').dirty ||
+                        location.get('location_tag_id').touched ||
+                        pageData.submitted)
+                    "
+                  >
+                    <small
+                      *ngIf="location.get('location_tag_id').errors.required"
+                      >Please select Sub Location from the list.</small
+                    >
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="number"
+                      class="PadR0"
+                      formControlName="quantity"
+                      (change)="calculateRemainingQuantity()"
+                      (keypress)="util.moneyCheck($event)"
+                    />
+                  </div>
+                  <span
+                    class="error-msg"
+                    *ngIf="
+                      location.get('quantity').invalid &&
+                      (location.get('quantity').dirty ||
+                        location.get('quantity').touched ||
+                        pageData.submitted)
+                    "
+                  >
+                    <small *ngIf="location.get('quantity').errors.required"
+                      >Quantity is required.</small
+                    >
+                    <small *ngIf="location.get('quantity').errors.pattern"
+                      >Invalid Quantity.</small
+                    >
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td colspan="2" class="text-right remainingQ">
+                Remaining Quantity :
+                {{ remainingQuantity.value < 0 ? 0 : remainingQuantity.value }}
+              </td>
+            </tr>
+          </table>
+
+          <div class="addIcon">
+            <span (click)="addLocation('0')">
+              <img src="assets/icon/icon-add.png" /><span>Add Location</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-5 control-label optional" for="comment"
+          >Comment</label
+        >
+        <div class="col-sm-7">
+          <textarea
+            class="form-control optional"
+            placeholder="(optional)"
+            formControlName="comment"
+          ></textarea>
+          <span
+            class="error-msg"
+            *ngIf="
+              comment.invalid &&
+              (comment.dirty || comment.touched || pageData.submitted)
+            "
+          >
+            <small *ngIf="comment.errors.maxlength"
+              >Comment must not greater than
+              {{ constant.DEFAULT_COMMENT_MAXLENGTH }} characters.</small
+            >
+          </span>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="errMsgCon" *ngIf="pageData.isError">
+      <small>{{ pageData.errMsg }}</small>
+    </div>
+    <div class="button-row clearfix">
+      <button
+        mat-raised-button
+        (click)="reviewProduct(addProductForm)"
+        class="trea-btn"
+      >
+        Next
+      </button>
+      <button mat-raised-button (click)="cancelProduct()" class="trea-btn">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,201 @@
+<div class="itemclassesWrap">
+  <div class="class-section">
+    <h1 class="pageTitle">Item Categories</h1>
+    <p class="page-summary">Categories of inventory items, and classification into Assets, Products, and Materials.</p>
+
+    <div class="trea-welcome" *ngIf="itemClassList.length == 0  && onBoarding">
+            <h4>There are no Item Categories yet.</h4>
+            <p class="textJustified">
+                Item categories help you group all inventory under recognizable labels. Each category will also define how the system handles and manages items within it: as Assets, Products, or Materials.
+            </p>
+            <p class="textJustified">
+                Item Categories will be listed here when an authorized user has created one.
+            </p>
+            <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createItemCategory">
+              <!-- <p class="remarks">Start defining your service catalog by creating a Business Type:
+                </p>   -->
+              <button 
+                mat-raised-button
+                class="trea-btn"
+                type="button"
+                (click)="showAddClassPopup()"
+              >
+              Create an Item Category
+              </button>
+              <!-- <button
+                mat-raised-button
+                class="trea-btn"
+                type="button"
+                (click)="addFromCSV()"
+              >
+                Upload Bulk Data
+              </button> -->
+            </div>
+            <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createItemCategory">
+                <p class="note">Please contact an administrator who can add Item Category</p> 
+            </div>          
+        </div>
+
+    <div class="head-row clearfix" *ngIf="itemClassList.length != 0">
+      <div class="search-section">
+        <div class="input-group">
+          <span class="search-icn" id="basic-addon1">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </span>
+
+          <input
+            type="text" autocomplete="nope"
+            class="form-control"
+            [(ngModel)]="searchList"
+            (ngModelChange)="getSearchTxt(searchList)"
+            placeholder=""
+            aria-label=""
+            aria-describedby="basic-addon1"
+          />
+
+					<button mat-raised-button (click)="searchTxt = searchList" class="client-btn" >Search</button>
+				</div>
+			</div>
+			<div class="add-client newPurhaseBtnWrap">
+				<button *ngIf="util.getRole() == 2 || permissionsSet.createItemCategory" mat-raised-button class="client-btn" type="button" (click)="showAddClassPopup()">New Item Category
+				</button>
+			</div>
+	</div>
+		<div class="clearfix"></div>
+		<div class="table-responsive" *ngIf="itemClassList.length != 0">
+			<div class="trea-data-table ">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th width="400">
+                  <div class="table-hdr">
+                      <div>
+                         <span>Item Category</span>
+                         <span (click)="sortColumn = 'item_class_name';sortColumnType = 'A';sortOrder = sortColumn === 'item_class_name' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                            <i [ngClass]=" sortColumn == 'item_class_name' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                         </span>
+                      </div>
+                      <div>
+                         <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="categorySearch">
+                      </div>
+                   </div>
+              </th>
+							<th width="400">
+                  <div class="bdr-left table-hdr">
+                      <div>
+                         <span>Item Type</span>
+                         <span (click)="sortColumn = 'item_class_type';sortColumnType = 'A';sortOrder = sortColumn === 'item_class_type' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                            <i [ngClass]=" sortColumn == 'item_class_type' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                         </span>
+                      </div>
+                      <div>
+                         <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="typeSearch">
+                      </div>
+                   </div>
+              </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let indx=index ;let item of itemClassList |  sortBy:sortColumn:sortOrder:sortColumnType | searchfilter:categorySearch:'item_class_name' | searchfilter:typeSearch:'item_class_type'| searchfilter:searchTxt:'item_class_name,item_class_type' | listLengthfilter | paginate: paginationKey" (click)="getSelectedItemClass(item,indx)" [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''">
+							<td>{{item.item_class_name}}<span class="dn">{{ indx == 0 ? updateCount(item.count) : ''}}</span></td>
+							<td>{{item.item_class_type}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+      <div class="treaPagination" *ngIf="itemClassList.length != 0 && constant.ITEM_COUNT != 0">
+        <div class="pull-right">
+          <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+        </div>
+        <div class="pull-right">
+          <select [(ngModel)]="paginationKey.itemsPerPage" (change)="changeItemPerPage()">
+            <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+          </select>
+          <span> items per page</span>
+        </div>
+        <div class="pull-right">
+          <pagination-controls
+            (pageChange)="changePage($event)"
+            directionLinks="true"
+            autoHide="false"
+            previousLabel="Pre"
+            nextLabel="Next"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="clearfix"></div>
+          </div>
+        </div>
+    <div class="clearfix"></div>
+
+
+      <div class="selDivSection" *ngIf="selItemClass">
+		    <div id="classMark" class="selDiv">
+		        <span>{{selItemClass.item_class_name}}</span>
+		        <div class="pull-right select-btn">
+		          <div class="dropdown">
+		            <button *ngIf="util.getRole() == 2 || permissionsSet.editItemCategory || permissionsSet.deleteItemCategory" mat-raised-button class="loc-btn dropdown-toggle edit-loc-btn" type="button" data-toggle="dropdown">Edit
+		            </button>
+		            <ul class="dropdown-menu" style="right: 0px !important;left: auto;">
+		                <li *ngIf="util.getRole() == 2 || permissionsSet.editItemCategory "><a (click)="editItemClass()" href="javascript:void(0)" class="loc-btn">Edit Information</a></li>
+		                <li *ngIf="util.getRole() == 2 ||  permissionsSet.deleteItemCategory"><a (click)="showDeleteClassPopup()" href="javascript:void(0)" class="loc-btn" >Delete</a></li>
+		            </ul>
+		          </div>
+		        </div>
+		    </div>
+		    <div class="clearfix"></div>
+		    <div class="row">
+		        <div class="col-sm-12">
+							<!--<div class="row">
+								<div class="col-sm-3">
+									<div class="label-col">Item Category</div>
+								</div>
+								<div class="col-sm-9">
+									<div class="info-col">{{selItemClass.item_class_name}}</div>
+								</div>
+							</div>-->
+							<div class="row">
+								<div class="col-sm-3">
+										<div class="label-col">Item Type</div>
+								</div>
+								<div class="col-sm-9">
+									<div class="info-col">{{selItemClass.item_class_type}}</div>
+								</div>
+							</div>
+							<div class="row" *ngIf="selItemClass.item_class_type == 'Asset'">
+								<div class="col-sm-3">
+									<div class="label-col">Mobile Location Availability</div>
+								</div>
+								<div class="col-sm-9">
+									<div class="info-col">{{selItemClass.avail_for_mobile == 1 ? "Yes" : "No"}}</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="label-col">Comment</div>
+								</div>
+								<div class="col-sm-9">
+									<div class="info-col" *ngIf="!isEdit">{{selItemClass.comment}}</div>
+									<form autocomplete="off" [formGroup]="editItemClassFrm">
+										<div *ngIf="isEdit" class="info-col">
+                      <textarea id="" name="comment" style="height: 150px;" class="form-control comment" formControlName="comment"></textarea>
+                      <span class="error-msg" *ngIf="comment.invalid && (comment.dirty || comment.touched)">
+                        <small *ngIf="comment.errors.maxlength">Comment must not greater than {{ constant.DEFAULT_COMMENT_MAXLENGTH}} characters.</small>
+                      </span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+                  <div *ngIf="isEdit" class="button-row clearfix">
+                    <button mat-raised-button id="updateItemClass" class="trea-btn updateBtn" (click)="updateItmeClass(editItemClassFrm)">Update</button>
+                    <button mat-raised-button (click)="cancelDisplayInfo()" class="trea-btn mdcancelBtn">Cancel</button>
+                  </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

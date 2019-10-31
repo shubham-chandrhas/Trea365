@@ -1,0 +1,249 @@
+.assetsPart,
+.breakdownPart,
+.inventoryPart {
+    text-align: center;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 25px;
+}
+.inventoryPart{
+    margin: 45px 0 20px 0;
+}
+.assetsPart span,
+.breakdownPart span,
+.inventoryPart span {
+    text-decoration: underline;
+}
+
+.assetsWrap span {
+    font-weight: 700;
+}
+
+.imgassetsBox img {
+    margin: 30px 0;
+}
+
+.imgbreakdBox img {
+    margin: 30px 0 30px 10px;
+}
+
+.yieldWrap {
+    margin: 30px 0;
+}
+
+.paidBox {
+    padding: 13px;
+    background-color: #000000;
+    width: 40px;
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: top;
+}
+
+.paidDetails,
+.financedDetails,
+.depreciationDetails,
+.valueDetails {
+    display: inline-block;
+    width: 66%;
+}
+
+.paidDetails .Padb20,
+.financedDetails .Padb20,
+.depreciationDetails .Padb20,
+.valueDetails .Padb20 {
+    padding-bottom: 15px;
+    font-size: 20px;
+}
+
+.financedBox {
+    padding: 13px;
+    background-color: #FFCB36;
+    width: 40px;
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: top;
+}
+
+.paidWrap,
+.financedWrap,
+.depreciationWrap,
+.valueWrap {
+    margin-bottom: 20px;
+}
+
+.depreciationBox {
+    padding: 13px;
+    background-color: #D0021B;
+    width: 40px;
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: top;
+}
+
+.valueBox {
+    padding: 13px;
+    background-color: #00A99D;
+    width: 40px;
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: top;
+}
+
+.assetsprodWrap .bottomLine {
+    border-bottom: 1px solid #00A99D;
+    margin: 0 -15px 20px -15px;
+}
+
+.utilizationDetails {
+    margin: 50px auto;
+}
+
+.utilizationDetails span,
+.yieldDetails span {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.utilizationTxt {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.breakdownWrap{
+    margin-bottom: 20px;
+}
+/* css for asset Table */
+.assetTable{
+    border-top: 1px solid #00A499;
+    border-bottom: 1px solid #00A499;
+    margin: 0 -15px;
+  }
+  .assetTable .table{
+    margin-bottom: 0px; 
+  }
+  .assetTable .table > thead > tr > th, 
+  .assetTable .table > tbody > tr > th, 
+  .assetTable .table > tbody > tr > td  {
+    border-bottom: 2px solid transparent;
+    border-right: 1px solid #00A499;
+    text-align: center;
+    width:16.6;
+    padding: 40px 15px;
+}
+.assetTable .table > thead > tr > th:last-child,
+.assetTable .table > tbody > tr > td:last-child{
+  border-right: 0px;
+}
+.assetTable .table > thead > tr > th:nth-child(1){
+    font-weight: 700;
+    font-size: 30px;
+    vertical-align: middle;
+    color: #505050;
+}
+.assetTable .table > thead > tr > th {
+    font-weight: 700;
+    font-size: 70px;
+    vertical-align: middle;
+    color:#00A499;
+
+}
+.assetTable .table > thead > tr > th:nth-child(3){
+   opacity: 0.8;
+}
+.assetTable .table > thead > tr > th:nth-child(4){
+    opacity: 0.6;
+ }
+ .assetTable .table > thead > tr > th:nth-child(5){
+    opacity: 0.4;
+ }
+ .assetTable .table > thead > tr > th:nth-child(6){
+    opacity: 0.2;
+ }
+
+ .assetTable .table tbody tr th{
+    vertical-align: middle;
+ }
+ .assetTable .table tbody tr td{
+    vertical-align: middle;
+    height: 118px;
+ }
+ .headingTxt{
+    font-weight: 700;
+ }
+ .commonTxt{
+    color:#00A499;
+    font-weight: 700;
+ }
+ .imgassetBox{
+    width: 129px;
+    border-radius: 50%;
+    border: 4px solid #f6f6f6;
+    padding: 20px;
+    margin: auto;
+ }
+ .imgassetBox img{
+    height: 70px;
+    margin: 0 auto 10px;
+    display: block;
+ }
+ .Mart10{
+     margin-top:10px;
+ }
+ /* new table */
+ .inventoryTable .table,
+  .rateTable .table, 
+  .averageCostTable .table{
+    text-align: center;
+    margin: 15px auto;
+  }
+  .inventoryTable .table tbody tr td:nth-child(4){
+    color: #D0021B;
+  }
+  .inventoryTable .table thead tr th{
+    text-align: center;
+    border-bottom: 1px solid transparent;
+    /* color: #7e7e7e; */
+    font-weight: 200;
+    vertical-align: top;
+}
+.rateTable .table thead tr th,
+.averageCostTable .table thead tr th,
+.hoursTable .table thead tr th{
+    text-align: center;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 30px;
+}
+  .inventoryTable .table tbody tr td{
+    padding-top: 65px;
+    font-weight: 700;
+    font-size: 35px;
+    border: 0px;
+  }
+  .inventoryTable .table tbody tr th{
+    vertical-align: middle;
+    font-weight: 700;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    text-align: left;
+    padding-top: 72px;
+  }
+ 
+  .updateTxt{
+    padding-left: 11px;
+    font-size: 13px;
+    color: #D0021B;
+  }
+
+  .MarB35{
+    margin-bottom: 35px;
+  }
+  @media only screen and (max-width: 785px) and (min-width: 768px) 
+   {
+    .updateTxt{
+    text-align: left;
+    } 
+   }

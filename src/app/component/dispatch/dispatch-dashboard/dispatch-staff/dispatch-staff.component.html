@@ -1,0 +1,187 @@
+<div class="dispatchSection">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="mapWrap" *ngIf="showMap">
+                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [minZoom]= 2 [maxZoom]= 18 [mapTypeId]="mapTypeId">
+                    <agm-marker *ngFor="let marker of pageData.staff"
+                        [latitude]="marker.latitude"
+                        [longitude]="marker.longitude"
+                        [iconUrl]="'https://devtrea.s3.us-east-2.amazonaws.com/marker1550658715.jpg'" (markerClick)="getSelectedStaff(marker, indx)" >
+
+                    </agm-marker>
+                </agm-map>
+                <div class="quotNav button-row">
+                        <button [ngClass]="mapTypeId == 'terrain' ? 'act-option' :''" (click)="setMapType('terrain')" mat-raised-button class="trea-btn">Terrain</button>
+                        <button [ngClass]="mapTypeId == 'satellite' ? 'act-option' :''" (click)="setMapType('satellite')" mat-raised-button class="trea-btn">Satellite</button>
+                        <button [ngClass]="mapTypeId == 'roadmap' ? 'act-option' :''" (click)="setMapType('roadmap')" mat-raised-button class="trea-btn">Road Map</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+
+    <div class="trea-data-table table-responsive" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="200">
+                        <div class="table-hdr">
+                            <div>
+                                <span>Name</span>
+                                <span (click)="pageData.columnType = 'A';pageData.sortColumn = 'id';pageData.sortOrder = pageData.sortColumn === 'id' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'id' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="pageData.woNoSearch">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="200">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Staff Type</span>
+                                <span (click)="pageData.columnType = 'A';pageData.sortColumn = 'id';pageData.sortOrder = pageData.sortColumn === 'id' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'id' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="pageData.typeSearch">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="400">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Location</span>
+                                <span (click)="pageData.columnType = 'A';pageData.sortColumn = 'id';pageData.sortOrder = pageData.sortColumn === 'id' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'id' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="pageData.addressSearch">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="200">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>W/O No.</span>
+                                <span (click)="pageData.columnType = 'A';pageData.sortColumn = 'id';pageData.sortOrder = pageData.sortColumn === 'id' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'id' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="pageData.startSearch">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="200">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Status</span>
+                                <span (click)="pageData.columnType = 'A';pageData.sortColumn = 'id';pageData.sortOrder = pageData.sortColumn === 'id' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'id' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="pageData.endSearch">
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let indx=index ;let staff of staffList | sortBy:pageData.sortColumn:pageData.sortOrder:pageData.sortColumnType | searchfilter:pageData.woNoSearch:'first_name' | searchfilter:pageData.typeSearch:'staff_type' |  searchfilter:pageData.addressSearch:'woAddress' | searchfilter:pageData.startSearch:'work_order_no' |  
+                searchfilter:pageData.endSearch:'status' | listLengthfilter | paginate: pageData.paginationKey" (click)="getSelectedStaff(staff, indx)" [ngClass]="pageData.selectedIndex == indx ? 'sel-row-highlight' : ''">
+                    <td>{{staff.first_name}} <span class="dn">{{ indx == 0 ? updateCount(staff.count) : ''}}</span></td>
+                    <td>{{staff.staff_type}}</td>
+                    <td>{{staff.wo_address}}</td>
+                    <td>{{staff.work_order_no}}</td>
+                    <td>{{staff.status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="treaPagination" *ngIf="pageData.staff && pageData.staff.length != 0">
+        <div class="pull-right">
+            <span> {{1+(pageData.paginationKey.currentPage-1)*pageData.paginationKey.itemsPerPage}} - {{(pageData.paginationKey.itemsPerPage <= pageData.listCount) && (pageData.paginationKey.itemsPerPage+(pageData.paginationKey.currentPage-1)*pageData.paginationKey.itemsPerPage <= pageData.listCount) ? pageData.paginationKey.itemsPerPage+(pageData.paginationKey.currentPage-1)*pageData.paginationKey.itemsPerPage : pageData.listCount}}</span><span> of {{pageData.listCount}} items</span>
+        </div>
+        <div class="pull-right">
+            <select [(ngModel)]="pageData.paginationKey.itemsPerPage" (change)="util.changeItemPerPage()">
+                <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+            </select>
+            <span> items per page</span>
+        </div>
+        <div class="pull-right">
+            <pagination-controls
+                (pageChange)="util.changePage($event, pageData.paginationKey)"
+                directionLinks="true"
+                autoHide="false"
+                previousLabel="Pre"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+        </div>
+        <div class="clearfix"></div>
+        </div>
+
+    <div id="DispatchD" class="qutationreviewWrap" *ngIf="selectedStaffList" >
+        
+        <div >
+                <h2 class="selectedTitle MB15">{{selectedStaffList.first_name}}</h2>
+        </div>
+        
+        <div class="row" >
+            <div class="col-sm-6">
+                <div class="woMap">
+                    <agm-map [latitude]="selectedStaffList.latitude" [longitude]="selectedStaffList.longitude" [zoom]=14 [mapTypeId]="mapTypeId">
+                        <agm-marker *ngIf="selectedStaffList.latitude != null" [latitude]="selectedStaffList.latitude" [longitude]="selectedStaffList.longitude" [iconUrl]="'https://devtrea.s3.us-east-2.amazonaws.com/marker1550658715.jpg'"></agm-marker>
+                        <agm-marker *ngIf="selectedStaffList.wo_latitude != null" [latitude]="selectedStaffList.wo_latitude" [longitude]="selectedStaffList.wo_longitude" [iconUrl]="'https://devtrea.s3.us-east-2.amazonaws.com/marker1550658220.jpg'"></agm-marker>
+                    </agm-map>
+                </div>
+            </div>
+                
+            <div class="col-sm-6 selSection" >
+                <!-- <div class="row txtActive"><a class="col-sm-12" href="javascript:void(0)" [routerLink]="['/workflow/wo/csa/work-order-list/', selectedStaffList.work_order_id]">View team member</a></div> -->
+                <div class="row txtActive"><a class="col-sm-12" href="javascript:void(0)" [routerLink]="['/hr/csa/employee-list/', selectedStaffList.user_id]">View team member</a></div>
+                <div class="row">    
+                    <div class="col-sm-3 info-col">Staff Type:</div>
+                    <div class="col-sm-7">{{selectedStaffList.staff_type}}</div>
+                </div> 
+                <div class="row">
+                    <div class="col-sm-3 info-col">Service Type(s):</div>
+                    <div class="col-sm-7">{{selectedStaffList.service_types}}</div>    
+                </div>
+                <div *ngIf="selectedStaffList.work_order_no != ''">
+                <div class="row txtActive"><a class="col-sm-12" href="javascript:void(0)" [routerLink]="['/workflow/wo/csa/work-order-list/', selectedStaffList.work_order_id]">WO # {{selectedStaffList.work_order_no}}</a></div>
+                <div class="row">
+                    <div class="col-sm-3 info-col">WO Address:</div>
+                    <div class="col-sm-7">{{selectedStaffList.wo_address}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 info-col">Assigned Start:</div>
+                    <div class="col-sm-7">{{selectedStaffList.assigned_start}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 info-col">Assigned End:</div>
+                    <div class="col-sm-7">{{selectedStaffList.assigned_end}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 info-col">Status:</div>
+                    <div class="col-sm-7">{{selectedStaffList.status}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 info-col">Distance from site?</div>
+                    <div class="col-sm-7">{{selectedStaffList.distace_from_site}}</div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

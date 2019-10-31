@@ -1,0 +1,487 @@
+<div class="financialsWrap">
+  <div class="financialsOptionTabsTop">
+        <div class="tabs">
+            <div class="infoText">Weekly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Bi-weekly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Monthly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Quarterly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Yearly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Bi-yearly</div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="financialsOptionTabsBottom">
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group1" checked>
+                <label for="radio-group1"></label>
+            </div>
+        </div>
+        <div class="tabs" id="myid">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group2">
+                <label for="radio-group2"></label>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group3">
+                <label for="radio-group3"></label>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group4">
+                <label for="radio-group4"></label>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group5">
+                <label for="radio-group5"></label>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group6">
+                <label for="radio-group6"></label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="payableDetails">
+        <div class="payablePart">
+            <span>Accounts Payable Turnover Ratio</span>
+        </div>
+        <div class="equationWrap">
+            <div class="totalTxt">
+                <div class="">Total Supplier Purchases</div>
+                <div class="marbottom"></div>
+                <div class="">Avreage Accounts Payable</div>
+            </div>
+            <div class="equalTxt">
+                    =
+            </div>
+            <div class="valueTxt">
+                <div>$1,000,000</div>
+                <div class="marbottom"></div>
+                <div>$200,000</div>
+            </div>
+            <div class="equalTxt">
+                    =
+            </div>
+            <div class="equal2Txt">
+                   5
+            </div> 
+             <div class="clearfix"></div>
+        </div>
+        <div class="imgturnoverBox">
+            <!-- <img class="img-responsive" src="assets/img/turnoverfast.png"> -->
+            <div class="barChart">
+                <div class="chartWrap">
+                    <canvas id="aptrChart" width="100" height="100"></canvas>
+                    <div class="titleAxis titleY">Turnover Rate</div>
+                    <div class="titleAxis titleX">Year</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center Mar20">
+            Trea365 has paid of it's suppliers <span>25% faster</span> in 2017 compared to 2016.
+        </div>
+        <div class="bottomLine"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="receivableDetails">
+        <div class="receivablePart">
+            <span>Accounts Receivable Turnover Ratio</span>
+        </div>
+        <div class="equationWrap">
+            <div class="totalTxt">
+                <div class="">Net Credit Sales</div>
+                <div class="marbottom"></div>
+                <div class="">Avreage Accounts Receivable</div>
+            </div>
+            <div class="equalTxt">
+                    =
+            </div>
+            <div class="valueTxt">
+                <div>$1,500,000</div>
+                <div class="marbottom"></div>
+                <div>$400,000</div>
+            </div>
+            <div class="equalTxt">
+                    =
+            </div>
+            <div class="equal2Txt">
+                   3.75
+            </div> 
+             <div class="clearfix"></div>
+        </div>
+        <div class="imgturnoverBox">
+            <!-- <img class="img-responsive" src="assets/img/turnoverslow.png"> -->
+            <div class="barChart">
+                <div class="chartWrap">
+                    <canvas id="artrChart" width="100" height="100"></canvas>
+                    <div class="titleAxis titleY">Turnover Rate</div>
+                    <div class="titleAxis titleX">Year</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center Mar20">
+            Trea365 has received from it's customers <span class="receivableTxt">6.25% slower</span> in 2017 compared to 2016.
+        </div>
+        <div class="bottomLine"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="currentDetails">
+        <div class="currentPart">
+            <span>Current Ratio</span>
+        </div>
+        <div class="equationWrap">
+            <div class="totalTxt">
+                <div class="">Current Assets</div>
+                <div class="marbottom"></div>
+                <div class="">Current Liabilities</div>
+            </div>
+            <div class="equalTxt">
+                    =
+            </div>
+            <div class="valueTxt">
+                <div>$500,000</div>
+                <div class="marbottom"></div>
+                <div>$300,000</div>
+            </div>
+            <div class="equalTxt">
+                    =
+            </div>
+            <div class="equal2Txt">
+                   1.6
+            </div> 
+             <div class="clearfix"></div>
+        </div>
+        <div class="imgturnoverBox">
+            <!-- <img class="img-responsive" src="assets/img/turnoverincrase.png"> -->
+            <div class="barChart">
+                <div class="chartWrap">
+                    <canvas id="crChart" width="100" height="100"></canvas>
+                    <div class="titleAxis titleY">Turnover Rate</div>
+                    <div class="titleAxis titleX">Year</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center Mar20">
+            Trea365 has had a <span class="currentTxt">6.6% increase</span> in it's current ratio from 2016 to 2017.
+        </div>
+        <div class="bottomLine"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="profitabilityDetails">
+        <div class="profitabilityPart">
+            <span>Profitability % per Business Unit</span>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-4 constructionWrap">
+                <div class="">
+                    <div class="constructionPart">Construction</div>
+                    <div class="imgProfitBox">
+                        <!-- <img class="img-responsive" src="assets/img/leads.png"> -->
+                        <div class="pieChart">
+                            <div class="chartWrap">
+                                <canvas id="conChart" width="100" height="100"></canvas>
+                                <div class="chartStat" [ngStyle]="{'color': chartData.conData.backgroundColor[0] }">{{chartData.conData.data[0]}}%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jobTxt">Profitability Per Job</div>
+                    <div>
+                        <div><strong>1)</strong>Landscaping</div>
+                        <div><strong>2)</strong>Gardening</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 maintenanceWrap">
+                <div class="">
+                    <div class="constructionPart">Maintenance</div>
+                    <div class="imgProfitBox">
+                        <!-- <img class="img-responsive" src="assets/img/leads.png"> -->
+                        <div class="pieChart">
+                            <div class="chartWrap">
+                                <canvas id="mainChart" width="100" height="100"></canvas>
+                                <div class="chartStat" [ngStyle]="{'color': chartData.mainData.backgroundColor[0] }">{{chartData.mainData.data[0]}}%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jobTxt">Profitability Per Job</div>
+                    <div>
+                        <div>
+                            <div><strong>1)</strong>Property Maintenance</div>
+                            <div><strong>2)</strong>Snow Shoveling</div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-4 ServicingWrap">
+                    <div class="">
+                        <div class="constructionPart">Servicing</div>
+                        <div class="imgProfitBox">
+                            <!-- <img class="img-responsive" src="assets/img/leads.png"> -->
+                            <div class="pieChart">
+                            <div class="chartWrap">
+                                <canvas id="servChart" width="100" height="100"></canvas>
+                                <div class="chartStat" [ngStyle]="{'color': chartData.servData.backgroundColor[0] }">{{chartData.servData.data[0]}}%</div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="jobTxt">Profitability Per Job</div>
+                        <div>
+                            <div><strong>1)</strong>Plumbing</div>
+                            <div><strong>2)</strong>Electrical Work</div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="bottomLine"></div>
+    <div class="badDebtsDetails">
+        <div class="badbadDebtsPart">
+            <span>Bad Debts</span>
+        </div>
+        <div class="Mar66">
+            In 2017<strong>, 2.5</strong> % of accounts receivavle has been uncollected resulting  in a bad debet estimate of <span class="debetTxt">$10,000.</span>
+        </div>
+        <div class="badDebtsTable table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="headTxt">Year</td>
+                        <td>2013</td>
+                        <td>2014</td>
+                        <td>2015</td>
+                        <td>2016</td>
+                        <td>2017</td>
+                    </tr>
+                    <tr>
+                        <td class="headTxt">Bad Debt Percentile</td>
+                        <td>3%</td>
+                        <td>1.75%</td>
+                        <td>3.5%</td>
+                        <td>3%</td>
+                        <td>2.5%</td>
+                    </tr>
+                        <tr>
+                            <td class="headTxt">Bad Debt Amount</td>
+                            <td>$8000</td>
+                            <td>$9000</td>
+                            <td>$15,000</td>
+                            <td>$12,500</td>
+                            <td>$10,000</td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="bottomLine"></div>
+    <div class="clearfix"></div>
+    <div class="costDetails">
+        <div class="costPart">
+            <span>Leasing/ Financing Costs</span>
+        </div>
+        <div class="costWrap">
+            <div class="col-sm-4">
+                <div class="Mar30">
+                    Total Leasing Cost
+                </div>
+                <div class="lcostTxt">
+                    $500,000
+                </div>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <div class="Mar30">
+                    Total Financing Cost
+                </div>
+                <div class="fcostTxt">
+                    $250,000
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="bottomLine"></div>
+    <div class="clearfix"></div>
+    <div class="cashflowDetails">
+        <div class="cashflowPart">
+            <span>Operating Cash Flow</span>
+        </div>
+        <div class="costWrap">
+            <div class="col-sm-4">
+                <div class="Mar30">
+                    Total Revenue
+                </div>
+                <div class="lcostTxt">
+                    $1,800,000
+                </div>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <div class="Mar30">
+                    Projected Cash Flow
+                </div>
+                <div class="fcostTxt">
+                    $100,000
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="costWrap">
+            <div class="col-sm-4">
+                <div class="Mar30">
+                    Operating Cash
+                </div>
+                <div class="lcostTxt">
+                    $1,650,000
+                </div>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <div class="Mar30">
+                Operating Cash Flow
+                </div>
+                <div class="ofcostTxt">
+                    $150,000
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="cashflowTxt">
+        Trea365 has had a <span>positive cash flow influx  of $150,000</span> and is <span>$50,000</span> more than projected.
+    </div>
+    <div class="clearfix"></div>
+    <div class="bottomLine"></div>
+    <div class="goodDetails">
+        <div class="goodPart">
+            <span>Cost Of Goods Sold</span>
+        </div>
+        <div class="goodWrap">
+            <div class="col-sm-4">
+                <div class="Mar30">
+                    Material Cost
+                </div>
+                <div class="lcostTxt">
+                    $300,000
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="Mar30">
+                    Labour Cost
+                </div>
+                <div class="lcostTxt">
+                    $400,000
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="Mar30 Padl30">
+                    Total COGS
+                </div>
+                <div class="lcostTxt">
+                    $700,000
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="goodTable">
+            <table class="table">
+            <tbody>
+                <tr>
+                    <td class="headTxt">Year</td>
+                    <td>2013</td>
+                    <td>2014</td>
+                    <td>2015</td>
+                    <td>2016</td>
+                    <td>2017</td>
+                </tr>
+                <tr >
+                    <td class="headTxt">Total COGS</td>
+                    <td>$580,000</td>
+                    <td>$600,000</td>
+                    <td>$650,000</td>
+                    <td>$680,500</td>
+                    <td>$700,000</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="bottomLine"></div>
+    <div class="clearfix"></div>
+    <div class="growthDetails">
+        <div class="growthPart">
+            <span>Company Growth Rate</span>
+        </div>
+        <div class="imgProfitBox">
+            <!-- <img class="img-responsive" src="assets/img/growthrate.png"> -->
+            <div class="barChart">
+                <div class="chartWrap">
+                    <canvas id="cgrChart" width="100" height="100"></canvas>
+                    <div class="titleAxis titleY">Revenue $</div>
+                    <div class="titleAxis titleX">Year</div>
+                </div>
+            </div>
+        </div>
+        <div class="growthWrap">
+                <div class="col-sm-4">
+                    <div class="Mar30">
+                        Net Profile
+                    </div>
+                    <div class="lcostTxt">
+                        $2,000,000
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="Mar30">
+                       Total Revenue
+                    </div>
+                    <div class="lcostTxt">
+                        $1,800,000
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="Mar30">
+                        Net Profile Margin
+                    </div>
+                    <div class="ofcostTxt Padl40">
+                        10%
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="growthTxt">
+                Trea365 on avreage has <span> growth is revenue by 16.6% and increased it's net profile margin by 10%</span> from 2016 to 2017.
+            </div>
+    </div>
+</div>
+

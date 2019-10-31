@@ -1,0 +1,602 @@
+<div class="maintenance-section">
+  <h1 class="pageTitle">Maintenance Requests</h1>
+  <p class="page-summary">
+    Repair and service requests made for company Assets.
+  </p>
+
+  <div class="trea-welcome" *ngIf="maintenanceList.length == 0 && onBoarding">
+        <h4>There are no Maintenance Requests yet.</h4>
+        <p class="textJustified">
+            Maintenance Requests can be created for any Asset that requires service, maintenance, or repairs. Those Assets will be unavailable for work orders until they have been repaired.
+        </p>
+        <p class="textJustified">
+            Maintenance Records will be listed here when an authorized user has created one.
+        </p>
+        <p class="textJustified">
+            Assets must be created before a Maintenance Request can be made.
+        </p>
+        <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createMaintenance">
+           
+          <button 
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            (click)="newMaintenanceRequest()"
+          >
+          Create a Maintenance Request
+          </button>
+          
+        </div>
+        <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createMaintenance">
+            <p class="note">Please contact an administrator who can add Maintenance Request</p> 
+        </div>          
+    </div>
+  <div class="head-row clearfix" *ngIf="maintenanceList.length > 0">
+    <div class="search-section">
+      <div class="input-group">
+        <span class="search-icn" id="basic-addon1">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+        <input
+          autocomplete="nope"
+          [(ngModel)]="searchList"
+          type="text"
+          (ngModelChange)="getSearchTxt(searchList)"
+          class="form-control"
+          placeholder=""
+          aria-label=""
+          aria-describedby="basic-addon1"
+        />
+        <button
+          mat-raised-button
+          class="client-btn"
+          (click)="searchTxt = searchList"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+
+    <div class="add-maintenance">
+      <button
+        *ngIf="util.getRole() == 2 || permissionsSet.createMaintenance"
+        mat-raised-button
+        class="trea-btn"
+        (click)="newMaintenanceRequest()"
+      >
+        New Request
+      </button>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="trea-data-table table-responsive" *ngIf="maintenanceList.length > 0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="300">
+            <div class="table-hdr">
+              <div>
+                <span>Asset</span>
+                <span
+                  (click)="
+                    sortColumnType = 'A';
+                    sortColumn = 'short_name';
+                    sortOrder =
+                      sortColumn === 'short_name'
+                        ? sortOrder === 'ASC'
+                          ? 'DSC'
+                          : 'ASC'
+                        : 'ASC'
+                  "
+                >
+                  <i
+                    [ngClass]="
+                      sortColumn == 'short_name' && sortOrder == 'ASC'
+                        ? 'fa-rotate-90'
+                        : 'fa-rotate-270'
+                    "
+                    class="fa fa-signal"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </div>
+              <div>
+                <input
+                  autocomplete="nope"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="nameSearch"
+                />
+              </div>
+            </div>
+          </th>
+          <th width="300">
+            <div class="bdr-left table-hdr">
+              <div>
+                <span>Location Tag</span>
+                <span
+                  (click)="
+                    sortColumnType = 'A';
+                    sortColumn = 'location_name';
+                    sortOrder =
+                      sortColumn === 'location_name'
+                        ? sortOrder === 'ASC'
+                          ? 'DSC'
+                          : 'ASC'
+                        : 'ASC'
+                  "
+                >
+                  <i
+                    [ngClass]="
+                      sortColumn == 'location_name' && sortOrder == 'ASC'
+                        ? 'fa-rotate-90'
+                        : 'fa-rotate-270'
+                    "
+                    class="fa fa-signal"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </div>
+              <div>
+                <input
+                  autocomplete="nope"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="locationSearch"
+                />
+              </div>
+            </div>
+          </th>
+          <th width="300">
+            <div class="bdr-left table-hdr">
+              <div>
+                <span>Serial No.</span>
+                <span
+                  (click)="
+                    sortColumnType = 'A';
+                    sortColumn = 'serial_no';
+                    sortOrder =
+                      sortColumn === 'serial_no'
+                        ? sortOrder === 'ASC'
+                          ? 'DSC'
+                          : 'ASC'
+                        : 'ASC'
+                  "
+                >
+                  <i
+                    [ngClass]="
+                      sortColumn == 'serial_no' && sortOrder == 'ASC'
+                        ? 'fa-rotate-90'
+                        : 'fa-rotate-270'
+                    "
+                    class="fa fa-signal"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </div>
+              <div>
+                <input
+                  autocomplete="nope"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="serialNoSearch"
+                />
+              </div>
+            </div>
+          </th>
+          <th width="300">
+            <div class="bdr-left table-hdr">
+              <div>
+                <span>Scan code</span>
+                <span
+                  (click)="
+                    sortColumnType = 'A';
+                    sortColumn = 'scan_code';
+                    sortOrder =
+                      sortColumn === 'scan_code'
+                        ? sortOrder === 'ASC'
+                          ? 'DSC'
+                          : 'ASC'
+                        : 'ASC'
+                  "
+                >
+                  <i
+                    [ngClass]="
+                      sortColumn == 'scan_code' && sortOrder == 'ASC'
+                        ? 'fa-rotate-90'
+                        : 'fa-rotate-270'
+                    "
+                    class="fa fa-signal"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </div>
+              <div>
+                <input
+                  autocomplete="nope"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="scanCodeSearch"
+                />
+              </div>
+            </div>
+          </th>
+
+          <th width="300">
+            <div class="bdr-left table-hdr">
+              <div>
+                <span>Status</span>
+                <span
+                  (click)="
+                    sortColumnType = 'A';
+                    sortColumn = 'status';
+                    sortOrder =
+                      sortColumn === 'status'
+                        ? sortOrder === 'ASC'
+                          ? 'DSC'
+                          : 'ASC'
+                        : 'ASC'
+                  "
+                >
+                  <i
+                    [ngClass]="
+                      sortColumn == 'status' && sortOrder == 'ASC'
+                        ? 'fa-rotate-90'
+                        : 'fa-rotate-270'
+                    "
+                    class="fa fa-signal"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </div>
+              <div>
+                <input
+                  autocomplete="nope"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="statusSearch"
+                />
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngIf="maintenanceList.length > 0">
+        <tr
+          *ngFor="
+            let indx = index;
+            let item;
+            of: maintenanceList
+              | sortBy: sortColumn:sortOrder:sortColumnType
+              | searchfilter: nameSearch:'short_name'
+              | searchfilter: locationSearch:'location_name'
+              | searchfilter: serialNoSearch:'serial_no'
+              | searchfilter: scanCodeSearch:'scan_code'
+              | searchfilter: statusSearch:'status'
+              | searchfilter
+                : searchTxt
+                : 'short_name,location_name,serial_no,scan_code,status'
+              | listLengthfilter
+              | paginate: paginationKey
+          "
+          (click)="selectMaintenance(item, indx)"
+          [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''"
+        >
+          <td>
+            {{ item.short_name
+            }}<span class="dn">{{
+              indx == 0 ? updateCount(item.count) : ""
+            }}</span>
+          </td>
+          <td>{{ item.location_name }}</td>
+          <td>{{ item.serial_no }}</td>
+          <td>{{ item.scan_code }}</td>
+          <td>{{ item.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="treaPagination"
+    *ngIf="maintenanceList.length !=0  && constant.ITEM_COUNT != 0"
+  >
+    <div class="pull-right">
+      <span>
+        {{ 1 + (paginationKey.currentPage - 1) * paginationKey.itemsPerPage }} -
+        {{
+          paginationKey.itemsPerPage <= listCount &&
+          paginationKey.itemsPerPage +
+            (paginationKey.currentPage - 1) * paginationKey.itemsPerPage <=
+            listCount
+            ? paginationKey.itemsPerPage +
+              (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+            : listCount
+        }}</span
+      ><span> of {{ listCount }} items</span>
+    </div>
+    <div class="pull-right">
+      <select
+        [(ngModel)]="paginationKey.itemsPerPage"
+        (change)="changeItemPerPage()"
+      >
+        <option
+          *ngFor="let pageNo of constant.PAGINATION_ITEMS"
+          [ngValue]="pageNo"
+        >
+          {{ pageNo }}
+        </option>
+      </select>
+      <span> items per page</span>
+    </div>
+    <div class="pull-right">
+      <pagination-controls
+        (pageChange)="changePage($event)"
+        directionLinks="true"
+        autoHide="false"
+        previousLabel="Pre"
+        nextLabel="Next"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page"
+      >
+      </pagination-controls>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+
+  <!-- Selected Request -->
+  <div id="maintenanceMark" class="itemDetails" *ngIf="selectedMaintenance">
+    <div class="maintenancePart">
+      <h2 class="pageTitle">
+        Maintenance Request for {{ selectedMaintenance.short_name }}
+      </h2>
+      <!-- <button *ngIf="util.getRole() == 2 || permissionsSet.editMaintenance" [ngClass]="action =='editDetails' ? 'act-option' :''" (click)="changeAction('editDetails')" mat-raised-button class="pull-right trea-btn">Edit</button> -->
+      <div class="pull-right select-btn">
+        <div class="dropdown">
+          <button
+            *ngIf="
+              util.getRole() == 2 ||
+              permissionsSet.editMaintenance ||
+              permissionsSet.removeItem
+            "
+            mat-raised-button
+            class="loc-btn dropdown-toggle edit-loc-btn"
+            type="button"
+            data-toggle="dropdown"
+          >
+            Edit
+          </button>
+          <ul class="dropdown-menu" style="right: 0px !important;left: auto;">
+            <li
+              *ngIf="
+                (util.getRole() == 2 || permissionsSet.editMaintenance) &&
+                (selectedMaintenance.status == 'Requested' ||
+                  selectedMaintenance.status == 'Scheduled')
+              "
+            >
+              <a
+                href="javascript:void(0)"
+                class="loc-btn"
+                (click)="changeAction('editDetails')"
+                >Edit Information</a
+              >
+            </li>
+            <li *ngIf="util.getRole() == 2 || permissionsSet.removeItem">
+              <a
+                href="javascript:void(0)"
+                class="loc-btn"
+                (click)="showDeleteClassPopup()"
+                >Delete</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <h4 class="detailsHeading">Asset Details</h4>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="label-col">Asset</div>
+        </div>
+        <div class="col-sm-3">
+          <div class="info-col">
+            <a
+              href="javascript:void(0)"
+              [routerLink]="[
+                '/inventory/csa/asset-list/',
+                selectedMaintenance.asset_id
+              ]"
+              class="email"
+              >{{ selectedMaintenance.short_name }}</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="label-col">Category</div>
+        </div>
+        <div class="col-sm-3">
+          <div class="info-col">
+            <!-- TODO: Get Item Category -category- -->
+            {{
+              selectedMaintenance.manf_part_detail
+                ? selectedMaintenance.manf_part_detail.class_name
+                    .item_class_name
+                : ""
+                ? selectedMaintenance.manf_part_detail.class_name
+                    .item_class_name
+                : ""
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="label-col">Location Tag</div>
+        </div>
+        <div class="col-sm-3">
+          <div class="info-col">{{ selectedMaintenance.location_name }}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="label-col">Serial No.</div>
+        </div>
+        <div class="col-sm-3">
+          <div class="info-col">{{ selectedMaintenance.serial_no }}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="label-col">Scan Code</div>
+        </div>
+        <div class="col-sm-3">
+          <div class="info-col">{{ selectedMaintenance.scan_code }}</div>
+        </div>
+      </div>
+      <!-- <div class="needMaintenance available-btn-txt text-center" *ngIf="selectedMaintenance.status == 'Needs Maintenance'">
+                <a href="javascript:void(0)" (click)="changeStatusToAvailable(selectedMaintenance.asset_id)">Repaired and Available</a>
+            </div> -->
+      <!-- NOTE: This section is not necessary unless the status can be modified from here. This needs to be discussed.
+                <div class="row">
+                    <div class="col-sm-3">
+                    <div class="label-col">Asset Status</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="info-col">{{selectedMaintenance.status}}</div>
+                </div>
+            </div>
+            -->
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <h4 class="detailsHeading">Requested Maintenance</h4>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="label-col">Request Date</div>
+          </div>
+          <div class="col-sm-3">
+            <div class="info-col">
+              {{ selectedMaintenance.request_date | date: "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="label-col">Reported By</div>
+          </div>
+          <div class="col-sm-3">
+            <div class="info-col">
+              {{
+                selectedMaintenance.user_detail.first_name
+                  ? selectedMaintenance.user_detail.first_name
+                  : "" + " " + selectedMaintenance.user_detail.last_name
+                  ? selectedMaintenance.user_detail.last_name
+                  : ""
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="label-col">Details</div>
+          </div>
+          <div class="col-sm-6" *ngIf="action != 'editDetails'">
+            <div class="info-col">
+              {{ selectedMaintenance.maintenance_details }}
+            </div>
+          </div>
+          <div class="col-sm-6" *ngIf="action == 'editDetails'">
+            <form autocomplete="off" [formGroup]="editMaintenanceFrm">
+              <textarea
+                rows="5"
+                class="form-control"
+                formControlName="maintenance_details"
+                >{{ selectedMaintenance.maintenance_details }}</textarea
+              >
+              <span
+                class="error-msg"
+                *ngIf="
+                  maintenance_details.invalid &&
+                  (maintenance_details.dirty || maintenance_details.touched)
+                "
+              >
+                <small *ngIf="maintenance_details.errors.required"
+                  >Maintenance Details are required.</small
+                >
+                <small *ngIf="maintenance_details.errors.minlength"
+                  >Maintenance Details must be at least 2 characters
+                  long.</small
+                >
+                <small *ngIf="maintenance_details.errors.maxlength"
+                  >Details must not greater than
+                  {{ constant.DEFAULT_COMMENT_MAXLENGTH }} characters.</small
+                >
+              </span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="button-row clearfix" *ngIf="action == 'editDetails'">
+      <button
+        mat-raised-button
+        id="updateMaintenance"
+        class="trea-btn"
+        (click)="updateMaintenance(editMaintenanceFrm)"
+      >
+        Update
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="cancelEdit()">
+        Cancel
+      </button>
+    </div>
+
+    <div class="button-row clearfix" *ngIf="action != 'editDetails'">
+      <button
+        mat-raised-button
+        class="trea-btn"
+        *ngIf="
+          (util.getRole() == 2 || permissionsSet.createWO) &&
+          selectedMaintenance.status == 'Requested'
+        "
+        (click)="createWO()"
+      >
+        Create Maintenance W/O
+      </button>
+      <button
+        *ngIf="selectedMaintenance.status == 'Requested'"
+        mat-raised-button
+        class="trea-btn"
+        (click)="
+          changeStatusToAvailable(selectedMaintenance.maintenance_request_id)
+        "
+      >
+        Cancel Request
+      </button>
+      <button
+        mat-raised-button
+        class="trea-btn"
+        (click)="showDisposeItemPopup()"
+        *ngIf="
+          (util.getRole() == 2 || permissionsSet.disposeItem) &&
+          selectedMaintenance.status != 'Cancelled'
+        "
+      >
+        Retire Asset
+      </button>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>

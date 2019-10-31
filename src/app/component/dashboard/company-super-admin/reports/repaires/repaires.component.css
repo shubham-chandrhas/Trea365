@@ -1,0 +1,132 @@
+/* 
+.trea-btn {
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+.trea-btn:hover {
+  color: #505050;
+  background: #FFCB36;
+} */
+
+
+
+.costPart, .txtWrap , .costTxt, .avgtimePart, .equipmentPart{ 
+    text-align: center;
+    font-weight:700;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 25px;
+  }
+  .txtWrap{
+    margin-top: 25px;
+  }
+  .costTxt{
+    font-size: 30px;
+  }
+  .costPart span, .avgtimePart span, .equipmentDetails span{
+    text-decoration: underline;
+  }
+  .imgrepairBox{
+      padding:50px;
+      text-align: center;
+  }
+  .imgrepairBox img{
+    margin:auto;
+  }
+  .totalcostWrap, .avgtimeWrap{
+    
+    border-bottom: 1px solid #00A499;
+  }
+  .avgtimeDetails, .equipmentDetails{
+      margin-top: 30px;
+  }
+  .imgrepairBox .fa-hourglass-o{
+    font-size: 73px;
+    color: #00b0b0;
+  }
+  .avgtimeWrap .imgrepairBox img{
+    width: 42px;
+    margin-bottom: 10px;
+  }
+  .equipmentTable .table{
+    width: 22%;
+    text-align: center;
+    margin: 65px auto;
+  }
+  .equipmentTable .table thead tr th:nth-child(1){
+    border-bottom: 1px solid transparent;
+  }
+  .equipmentTable .table thead tr th{
+    text-align: center;
+    border-bottom: 1px solid #00A499;
+
+  }
+  .equipmentTable .table tbody tr td{
+    padding: 27px;
+    border: 1px solid #00A499;
+    font-weight:700;
+    font-size: 22px;
+  }
+  .equipmentTable .table tbody tr th{
+    vertical-align: middle;
+    font-weight:700;
+    font-size: 22px;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    text-align: center;
+  }
+  .assetTable{
+    border-top: 1px solid #00A499;
+    border-bottom: 1px solid #00A499;
+    margin: 0 -15px;
+  }
+  .assetTable .table{
+    margin-bottom: 0px; 
+  }
+  .assetTable .table > thead > tr > th, 
+  .assetTable .table > tbody > tr > th, 
+  .assetTable .table > tbody > tr > td  {
+    border-bottom: 2px solid transparent;
+    border-right: 1px solid #00A499;
+    text-align: center;
+}
+.assetTable .table > thead > tr > th:last-child,
+.assetTable .table > tbody > tr > td:last-child{
+  border-right: 0px;
+}
+.assetTable .table > thead > tr > th:nth-child(1){
+    font-weight:700;
+    font-size: 30px;
+    vertical-align: middle;
+    color: #505050;
+}
+.assetTable .table > thead > tr > th {
+    font-weight:700;
+    font-size: 70px;
+    vertical-align: middle;
+    color:#00A499;
+
+}
+.assetTable .table > thead > tr > th:nth-child(3){
+   opacity: 0.8;
+}
+.assetTable .table > thead > tr > th:nth-child(4){
+    opacity: 0.6;
+ }
+ .assetTable .table > thead > tr > th:nth-child(5){
+    opacity: 0.4;
+ }
+ .assetTable .table > thead > tr > th:nth-child(6){
+    opacity: 0.2;
+ }
+ .assetTable .table tbody tr th{
+    vertical-align: middle;
+ }
+ .assetTable .table tbody tr td{
+    vertical-align: middle;
+    height: 118px;
+ }

@@ -1,0 +1,766 @@
+<div class="timesheetWrap">
+  <div class="inventory-section">
+    <h3 class="pageTitle">Timesheets</h3>
+        <div class="trea-welcome" *ngIf="timesheetList.length == 0 && onBoarding">
+            <h4>There are no recorded work hours yet.</h4>
+            <p class="textJustified">
+                Timesheets are generated from staff’s check-in and check-out times on Work Orders, though these can be modified as needed.
+            </p>
+            <p class="textJustified">
+                Timesheets will be listed here when a Work Order has been created.
+            </p>          
+        </div>
+    <div class="head-row clearfix" *ngIf="timesheetList.length != 0">
+      <div class="search-section">
+        <div class="input-group">
+          <span class="search-icn" id="basic-addon1">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </span>
+          <input
+            autocomplete="nope"
+            [(ngModel)]="searchList"
+            (ngModelChange)="getSearchTxt(searchList)"
+            type="text"
+            class="form-control"
+            placeholder=""
+            aria-label=""
+            aria-describedby="basic-addon1"
+          />
+          <button
+            mat-raised-button
+            class="client-btn"
+            (click)="searchTxt = searchList"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+      <div class="date-section">
+        <mat-datepicker
+          #pickerTimesheet
+          (selectedChanged)="dateChange($event)"
+        ></mat-datepicker>
+        <span class="dateIcon pull-right" (click)="pickerTimesheet.open()"
+          ><img src="assets/icon/date_picker.png"
+        /></span>
+        <input
+          autocomplete="nope"
+          type="text"
+          placeholder=""
+          class="date ptrN pull-right"
+          [matDatepicker]="pickerTimesheet"
+          [(ngModel)]="singleDate"
+        />
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="trea-data-table table-responsive" *ngIf="timesheetList.length != 0">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th width="300">
+              <div class="table-hdr">
+                <div>
+                  <span>Name</span>
+                  <span
+                    (click)="
+                      sortColumn = 'staff_name';
+                      sortColumnType = 'A';
+                      sortOrder =
+                        sortColumn === 'staff_name'
+                          ? sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        sortColumn == 'staff_name' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    [(ngModel)]="employeeNameSearch"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+            <th width="300">
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Employee Type</span>
+                  <span
+                    (click)="
+                      sortColumn = 'employee_type';
+                      sortColumnType = 'A';
+                      sortOrder =
+                        sortColumn === 'employee_type'
+                          ? sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        sortColumn == 'employee_type' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    [(ngModel)]="employeeRoleSearch"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+            <th width="300">
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Starting Hour</span>
+                  <span
+                    (click)="
+                      sortColumn = 'starting_hours';
+                      sortColumnType = 'A';
+                      sortOrder =
+                        sortColumn === 'starting_hours'
+                          ? sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        sortColumn == 'starting_hours' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    [(ngModel)]="expectedHrSearch"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+            <th width="300">
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Ending Hour</span>
+                  <span
+                    (click)="
+                      sortColumn = 'ending_hours';
+                      sortColumnType = 'A';
+                      sortOrder =
+                        sortColumn === 'ending_hours'
+                          ? sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        sortColumn == 'ending_hours' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    type="text"
+                    [(ngModel)]="expectedHrSearch"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+            <th width="300">
+              <div class="bdr-left table-hdr">
+                <div>
+                  <span>Actual Working hours</span>
+                  <span
+                    (click)="
+                      sortColumn = 'actual_working_hours';
+                      sortColumnType = 'A';
+                      sortOrder =
+                        sortColumn === 'actual_working_hours'
+                          ? sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        sortColumn == 'actual_working_hours' &&
+                        sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    [(ngModel)]="recordedHrSearch"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+            <th width="300">
+              <div class="bdr-left table-hdr ">
+                <div>
+                  <span>Discrepancies</span>
+                  <span
+                    (click)="
+                      sortColumn = 'discrepancies';
+                      sortColumnType = 'A';
+                      sortOrder =
+                        sortColumn === 'discrepancies'
+                          ? sortOrder === 'ASC'
+                            ? 'DSC'
+                            : 'ASC'
+                          : 'ASC'
+                    "
+                  >
+                    <i
+                      [ngClass]="
+                        sortColumn == 'discrepancies' && sortOrder == 'ASC'
+                          ? 'fa-rotate-90'
+                          : 'fa-rotate-270'
+                      "
+                      class="fa fa-signal"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div>
+                  <input
+                    autocomplete="nope"
+                    [(ngModel)]="discrepanciesHrSearch"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let indx = index;
+              let timesheet;
+              of: timesheetList
+                | sortBy: sortColumn:sortOrder:sortColumnType
+                | searchfilter: employeeNameSearch:'staff_name'
+                | searchfilter: employeeRoleSearch:'employee_type'
+                | searchfilter: expectedHrSearch:'starting_hours'
+                | searchfilter: recordedHrSearch:'ending_hours'
+                | searchfilter: recordedHrSearch:'actual_working_hours'
+                | searchfilter: discrepanciesHrSearch:'discrepancies'
+                | searchfilter
+                  : searchTxt
+                  : 'staff_name,employee_type,starting_hours,ending_hours,discrepancies'
+                | listLengthfilter
+                | paginate: paginationKey
+            "
+            (click)="getSelectedTimeSheet(timesheet, indx)"
+            [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''"
+          >
+            <td class="leftText">{{ timesheet.staff_name }}</td>
+            <td class="leftText">
+              {{ timesheet.employee_type
+              }}<span class="dn">{{
+                indx == 0 ? updateCount(timesheet.count) : ""
+              }}</span>
+            </td>
+            <td>{{ getTimeInHHMM(timesheet.starting_hours) }}</td>
+            <td>{{ getTimeInHHMM(timesheet.ending_hours) }}</td>
+            <td>{{ getTimeInHHMM(timesheet.actual_working_hours) }}</td>
+            <td class="discrepanciesStatus">
+              {{ getTimeInHHMM(timesheet.discrepancies) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      class="treaPagination"
+      *ngIf="timesheetList.length != 0 && constant.ITEM_COUNT != 0"
+    >
+      <div class="pull-right">
+        <span>
+          {{ 1 + (paginationKey.currentPage - 1) * paginationKey.itemsPerPage }}
+          -
+          {{
+            paginationKey.itemsPerPage <= listCount &&
+            paginationKey.itemsPerPage +
+              (paginationKey.currentPage - 1) * paginationKey.itemsPerPage <=
+              listCount
+              ? paginationKey.itemsPerPage +
+                (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+              : listCount
+          }}</span
+        ><span> of {{ listCount }} items</span>
+      </div>
+      <div class="pull-right">
+        <select
+          [(ngModel)]="paginationKey.itemsPerPage"
+          (change)="util.changeItemPerPage()"
+        >
+          <option
+            *ngFor="let pageNo of constant.PAGINATION_ITEMS"
+            [ngValue]="pageNo"
+          >
+            {{ pageNo }}
+          </option>
+        </select>
+        <span> items per page</span>
+      </div>
+      <div class="pull-right">
+        <pagination-controls
+          (pageChange)="util.changePage($event, paginationKey)"
+          directionLinks="true"
+          autoHide="false"
+          previousLabel="Pre"
+          nextLabel="Next"
+          screenReaderPaginationLabel="Pagination"
+          screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page"
+        >
+        </pagination-controls>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div id="timesheetMark" class="selSection" *ngIf="selectedTimeSheet">
+      <div class="clearfix"></div>
+      <div class="emppayDetails">
+        <div class="timePart">
+          <span>{{ selectedTimeSheet.staff_name }}</span>
+          <div class="add-client exportBtnWrap">
+            <!-- <button *ngIf="util.getRole() == 2 || permissionsSet.viewEmployee"  mat-raised-button class="client-btn pull-left marR10" type="button" data-toggle="dropdown">View Employee </button> -->
+            <div class="dropdown pull-right">
+              <button
+                *ngIf="util.getRole() == 2 || permissionsSet.exportTimesheet"
+                mat-raised-button
+                class="client-btn dropdown-toggle dd-btn"
+                type="button"
+                data-toggle="dropdown"
+              >
+                Export Timesheet
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    (click)="generatepdf()"
+                    class="client-btn"
+                    >Export as pdf</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    (click)="generatecsv()"
+                    class="client-btn"
+                    >Export as CSV</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="col-sm-4">
+                  <div class="row">
+                    <div class="label-col">From</div>
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="dateWrapper">
+                      <input
+                        autocomplete="nope"
+                        type="text"
+                        placeholder=""
+                        class="date ptrN"
+                        [matDatepicker]="pickerStartDate"
+                        [min]="minDate1"
+                        [(ngModel)]="strtDate"
+                      />
+                      <mat-datepicker
+                        #pickerStartDate
+                        (selectedChanged)="startDateChange($event)"
+                      ></mat-datepicker>
+                      <span class="dateIcon" (click)="pickerStartDate.open()"
+                        ><img src="assets/icon/date_picker.png"
+                      /></span>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="col-sm-4">
+                  <div class="row">
+                    <div class="label-col">To</div>
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class="dateWrapper">
+                      <input
+                        autocomplete="nope"
+                        type="text"
+                        placeholder=""
+                        class="date ptrN"
+                        [matDatepicker]="pickerEndDate"
+                        [(ngModel)]="endDate"
+                      />
+                      <mat-datepicker
+                        #pickerEndDate
+                        (selectedChanged)="endDateChange($event)"
+                      ></mat-datepicker>
+                      <span class="dateIcon" (click)="pickerEndDate.open()"
+                        ><img src="assets/icon/date_picker.png"
+                      /></span>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="label-col">Employee Type</div>
+              </div>
+              <div class="col-sm-6">
+                <div class="info-col">
+                  {{ selectedTimeSheet.employee_type }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="label-col">Wage Frequency</div>
+              </div>
+              <div class="col-sm-6">
+                <div class="info-col">
+                  {{ selectedTimeSheet.wage_frequency }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="label-col">Wage</div>
+              </div>
+              <div class="col-sm-6">
+                <div class="info-col">
+                  {{
+                    selectedTimeSheet.wage_amount
+                      ? (selectedTimeSheet.wage_amount
+                        | currency: util.getCurrency():"symbol-narrow")
+                      : 0
+                  }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="label-col">Pay Period</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="Timewrap">
+                                    <div class="form-group payoption">
+                                        [ngClass]="formAction == 'edit' ? 'ptrN' : ''"
+                                        <select class="form-control">
+                                            <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option>
+                                            <option >Latest</option>
+                                            <option >Feb 14-Feb 20, 2018</option>
+                                            <option >Feb 14-Feb 21, 2018</option>
+                                        </select>
+                                        <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+                                            <small *ngIf="roleId.errors.required">Please Select Role.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+        </div>
+      </div>
+      <div class="empworkDetails" *ngIf="selectedTimeSheet.timesheetDetails">
+        <!-- {{selectedTimeSheet.timesheetDetails|json}} -->
+        <div class="table-responsive">
+          <form autocomplete="off" [formGroup]="editEmpFrm">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Work Order</th>
+                  <th>Starting Hour</th>
+                  <th>Ending Hour</th>
+                  <th>Actual Working Hours</th>
+                  <th>Discrepancies</th>
+                  <th>Remark</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let indx = index;
+                    let times;
+                    of: selectedTimeSheet.timesheetDetails
+                  "
+                >
+                  <td>
+                    <div>{{ times.date | date }}</div>
+                  </td>
+                  <td>
+                    <div>
+                      <a
+                        class="email"
+                        href="javascript:void(0)"
+                        [routerLink]="[
+                          '/workflow/wo/csa/work-order-list/',
+                          times.work_order_id
+                        ]"
+                        >#{{ times.work_order_no }}</a
+                      >
+                    </div>
+                  </td>
+                  <td>
+                    <div class="info-col" *ngIf="!times.isEdit">
+                      {{ getTimeInHHMM(times.starting_hours) }}
+                    </div>
+                    <div class="editInfo" *ngIf="times.isEdit">
+                      <input
+                        autocomplete="nope"
+                        type="text"
+                        name="timesheet_starting_hour"
+                        formControlName="starting_hours"
+                        placeholder=""
+                        class="form-control"
+                        [textMask]="{ mask: constant.TIME_MASK }"
+                        placeholder="__:__"
+                      />
+                      <span
+                        class="error-msg"
+                        *ngIf="
+                          starting_hours.invalid &&
+                          (starting_hours.dirty ||
+                            starting_hours.touched ||
+                            submitted)
+                        "
+                      >
+                        <small *ngIf="starting_hours.errors.required"
+                          >Starting hour is required.</small
+                        >
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="info-col" *ngIf="!times.isEdit">
+                      {{ getTimeInHHMM(times.ending_hours) }}
+                    </div>
+                    <div class="editInfo" *ngIf="times.isEdit">
+                      <input
+                        autocomplete="nope"
+                        type="text"
+                        formControlName="ending_hours"
+                        placeholder=""
+                        class="form-control"
+                        [textMask]="{ mask: constant.TIME_MASK }"
+                        placeholder="__:__"
+                      />
+                      <span
+                        class="error-msg"
+                        *ngIf="
+                          ending_hours.invalid &&
+                          (ending_hours.dirty ||
+                            ending_hours.touched ||
+                            submitted)
+                        "
+                      >
+                        <small *ngIf="ending_hours.errors.required"
+                          >Ending hours is required.</small
+                        >
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="info-col">
+                      {{ getTimeInHHMM(times.actual_working_hours) }}
+                    </div>
+                  </td>
+                  <td class="discrepanciesStatus">
+                    <div>{{ getTimeInHHMM(times.discrepancies) }}</div>
+                  </td>
+                  <td>
+                    <div class="info-col" *ngIf="!times.isEdit">
+                      {{ times.remarks }}
+                    </div>
+                    <div class="editInfo" *ngIf="times.isEdit">
+                      <textarea
+                        formControlName="remarks"
+                        placeholder=""
+                        class="form-control"
+                      ></textarea>
+                      <span
+                        class="error-msg"
+                        *ngIf="
+                          remarks.invalid &&
+                          (remarks.dirty || remarks.touched || submitted)
+                        "
+                      >
+                        <small *ngIf="remarks.errors.required"
+                          >Remark is required.</small
+                        >
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      *ngIf="util.getRole() == 2"
+                      mat-raised-button
+                      class="client-btn dropdown-toggle dd-btn"
+                      type="button"
+                      (click)="editTimesheet(times)"
+                      data-toggle="dropdown"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+
+          <div class="errMsgCon" *ngIf="isError">
+            <small>{{ errMsg }}</small>
+          </div>
+
+          <div *ngIf="isEdit" class="button-row clearfix">
+            <button
+              mat-raised-button
+              id="updateTimesheet"
+              class="trea-btn updateBtn"
+              (click)="updateTimesheet(editEmpFrm)"
+            >
+              Save
+            </button>
+            <button
+              mat-raised-button
+              id="cancelTimesheet"
+              class="trea-btn mdcancelBtn"
+              (click)="cancelEditInfo()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table id="timesheet_detail" class="table dn">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Work Order</th>
+      <th>Starting Hour</th>
+      <th>Ending Hour</th>
+      <th>Actual Working Hours</th>
+      <th>Discrepancies</th>
+      <th>Remark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let indx = index;
+        let times;
+        of: selectedTimeSheet.timesheetDetails
+      "
+    >
+      <td>{{ times.date | date }}</td>
+      <td>
+        <a
+          class="email"
+          href="javascript:void(0)"
+          [routerLink]="['/csa/redirection/wo', times.work_order_id]"
+          >#{{ times.work_order_no }}</a
+        >
+      </td>
+      <td>{{ getTimeInHHMM(times.starting_hours) }}</td>
+      <td>{{ getTimeInHHMM(times.ending_hours) }}</td>
+      <td>{{ getTimeInHHMM(times.actual_working_hours) }}</td>
+      <td>{{ getTimeInHHMM(times.discrepancies) }}</td>
+      <td>{{ times.remarks }}</td>
+    </tr>
+  </tbody>
+</table>

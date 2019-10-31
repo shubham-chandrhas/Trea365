@@ -1,0 +1,221 @@
+<div class="rolelistWrap">
+	<div class="role-section">
+		<h1 class="pageTitle">Access Roles</h1>
+    <p class="page-summary">Tailored permission sets for user access to specific features of the TREA365 platform.</p>
+
+    <div class="trea-welcome" *ngIf="roleList.length == 0 && onBoarding">
+            <h4>There are no Access Roles yet.</h4>
+            <p class="textJustified">
+                Access roles specify which permissions you grant to each user within the system, controlling what features they can access or modify.
+            </p>
+            <p class="textJustified">
+                Access Roles will be listed here when an authorized user has created one.
+            </p>
+            <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createPermissionRole">
+              <!-- <p class="remarks">Start defining your service catalog by creating a Business Type:
+                </p>   -->
+              <button 
+                mat-raised-button
+                class="trea-btn"
+                type="button"
+                (click)="newRole()"
+              >
+              Create an Access Role
+              </button>
+              <!-- <button
+                mat-raised-button
+                class="trea-btn"
+                type="button"
+                (click)="addFromCSV()"
+              >
+                Upload Bulk Data
+              </button> -->
+            </div>
+            <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createPermissionRole">
+                <p class="note">Please contact an administrator who can add Access Role</p> 
+            </div>          
+        </div>
+
+		<div class="head-row clearfix" *ngIf="roleList.length != 0">
+			<div class="search-section">
+				<div class="input-group">
+					<span class="search-icn" id="basic-addon1">
+						<i class="fa fa-search" aria-hidden="true"></i>
+					</span>
+					<input autocomplete="nope" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="searchList" (ngModelChange)="getSearchTxt(searchList)">
+					<button mat-raised-button class="client-btn" (click)="searchTxt = searchList" >Search</button>
+				</div>
+			</div>
+			<div class="add-client newPurhaseBtnWrap">
+				<button *ngIf="util.getRole() == 2 || permissionsSet.createPermissionRole" mat-raised-button class="client-btn" type="button" (click)="newRole()">New Role
+				</button>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="roleList" *ngIf="roleList.length != 0">
+			<div class="trea-data-table">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+
+							<th width="400">
+								<div class="table-hdr">
+									<div>
+										<span>Role</span>
+										<span (click)="sortList('role_name', 'A')">
+											<i [ngClass]=" sortColumn == 'role_name' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+										</span>
+									</div>
+									<div>
+										<input autocomplete="nope" [(ngModel)]="roleSearch" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+									</div>
+								</div>
+                            </th>
+
+                            <th width="400">
+								<div class="bdr-left table-hdr">
+									<div>
+										<span>Description</span>
+										<span (click)="sortList('role_desc', 'A')">
+											<i [ngClass]=" sortColumn == 'role_desc' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+										</span>
+									</div>
+									<div>
+										<input autocomplete="nope" [(ngModel)]="descSearch" type="text" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1">
+									</div>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngIf="roleList?.length == 0"><td>No Roles found.</td></tr>
+                        <tr *ngFor="let indx=index; let role of roleList | searchfilter:searchTxt:'role_name' | searchfilter:roleSearch:'role_name' |
+                        searchfilter:descSearch:'role_desc' | sortBy:sortColumn:sortOrder:sortColumnType | listLengthfilter | paginate: paginationKey" (click)="getRoleDetails(role.role_id, indx)" [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''">
+                            <td >{{role.role_name}}<span class="dn">{{ indx == 0 ? updateCount(role.count) : ''}}</span></td>
+
+                            <td >{{role.role_desc}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="treaPagination" *ngIf="roleList.length != 0 && constant.ITEM_COUNT != 0">
+			<div class="pull-right">
+				<span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+			</div>
+			<div class="pull-right">
+				<select [(ngModel)]="paginationKey.itemsPerPage" (change)="changeItemPerPage()">
+					<option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+				</select>
+				<span> items per page</span>
+			</div>
+			<div class="pull-right">
+				<pagination-controls
+					(pageChange)="changePage($event)"
+					directionLinks="true"
+					autoHide="false"
+					previousLabel="Pre"
+					nextLabel="Next"
+					screenReaderPaginationLabel="Pagination"
+					screenReaderPageLabel="page"
+					screenReaderCurrentLabel="You're on page">
+				</pagination-controls>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="clearfix"></div>
+		<div id="roleMark" class="adminWrap" *ngIf="roleObj.role_name">
+			<div class="selPart">
+				<span *ngIf="isEditRole === false">{{roleObj.role_name}}</span>
+				<span class="add-client addEmpBtnWrap" *ngIf="isEditRole === false">
+					<button *ngIf="util.getRole() == 2 || permissionsSet.editPermissionRole" mat-raised-button class="pull-right loc-btn" (click)="editRole(roleObj)">Edit</button>
+				</span>
+            </div>
+
+			<div class="addUserFormBody" *ngIf="!isEditRole">
+
+				<div class="adminDetails">
+					<div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-4">
+                                <div class="label-col">Description</div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="info-col" >
+                                    {{roleObj.role_desc ? roleObj.role_desc : ''}}
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-xs-12">
+
+							<div class="subheaderWrap">
+								<div class="row">
+									<div class="col-xs-8">
+									</div>
+									<div class="col-xs-4">
+										<div class="label-col">
+											<div class="text-left">Access</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboardDetails" *ngFor="let menu of roleObj.permissions">
+								<div class="row" *ngIf="menu.menu_slug == 'dispatch'">
+									<div class="col-xs-12">
+										<hr class="hrMar">
+									</div>
+									<div class="col-xs-8">
+										<div class="label-col">
+											<div class="text-left">{{menu.menu}}</div>
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<i *ngIf="menu.is_access == 1" class="fa fa-check" aria-hidden="true"></i>
+									</div>
+								</div>
+								<div class="row" *ngIf="menu.menu_slug != 'dispatch'">
+									<div class="col-xs-12">
+										<hr class="hrMar">
+									</div>
+									<div class="col-xs-8">
+										<div class="label-col">
+											<div class="text-left">{{menu.menu}}</div>
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<i *ngIf="menu.permission_level_id == 165" class="fa fa-check" aria-hidden="true"></i>
+										<div *ngIf="menu.permission_level_id != 165" class="info-col">{{menu.accessType}}</div>
+									</div>
+								</div>
+								<div class="accessRow" *ngFor="let subMenu of menu.second_level">
+									<div class="row">
+										<div class="col-xs-8">
+											<div class="info-col">{{subMenu.menu}}</div>
+										</div>
+										<div class="col-xs-4">
+											<div class="info-col">{{subMenu.accessType}}</div>
+											<i *ngIf="(subMenu.permission_level_id == 122 || subMenu.permission_level_id == 123 || subMenu.permission_level_id == 124 || subMenu.permission_level_id == 125 ) &&  subMenu.is_access == 1" class="fa fa-check" aria-hidden="true"></i>
+										</div>
+									</div>
+									<div class="row" *ngFor="let actionMenu of subMenu.third_level">
+										<div class="col-xs-8">
+											<div class="info-col actionName">{{actionMenu.menu}}</div>
+										</div>
+										<div class="col-xs-4">
+											<i *ngIf="actionMenu.is_access == 1" class="fa fa-check" aria-hidden="true"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="editRoleSec" *ngIf="isEditRole">
+		<app-add-role></app-add-role>
+	</div>
+</div>
+</div>

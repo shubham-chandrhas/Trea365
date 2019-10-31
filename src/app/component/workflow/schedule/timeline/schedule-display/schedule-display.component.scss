@@ -1,0 +1,247 @@
+@import '../../../../../../assets/scss/variables';
+
+$thead-bg: #243349;
+$thead-color: #fff;
+$row-shade: #F6F6F6;
+$border-color: #D7D3D7;
+
+$event-color: #fff;
+$color-event-client: #FD773E;
+$color-event-internal: #AC00FF;
+$color-event-inspection: #F8C000;
+$color-event-other: #9A9A9A;
+
+
+// TABLE
+// ================================
+
+.ngsc-table-scroll {
+  position:relative;
+  overflow: hidden;
+  border: 2px solid $border-color;
+}
+.ngsc-table-wrapper-outer{
+  /* overflow-y: auto;
+  max-height:500px; */
+}
+.ngsc-table-wrapper {
+  overflow: auto;
+  margin-left: 200px;
+}
+
+.ngsc-table {
+  border-collapse: collapse;
+  width: 100%; 
+
+    th {
+        padding: $base-space;
+    }
+    td {
+        padding: $base-space 0;
+        position: relative;
+    }
+}
+.timeline-td{
+    height: 60px;
+}
+
+.ngsc-head {
+  background-color: $thead-bg;
+  color: $thead-color;
+
+  .corner-cell {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .ngsc-date-cell {
+    padding-left: 0;
+    padding-right: 0;
+    border-right: 1px solid $border-color;
+  }
+}
+
+
+.ngsc-date {
+  height: 1em;
+  min-width: 4em;
+  overflow: hidden;
+  text-align: center;
+}
+
+.time-row {
+  background-color: #B7EBE7;
+  color: $thead-bg;
+  font-size: 0.6em;
+  line-height: 1.5;
+  padding: 0 !important;
+  white-space: nowrap;
+
+  span {
+    display: inline-block;
+    width: 25%;
+    font-variant: small-caps;
+    border-left:1px solid #fff; 
+    min-height: 7px;
+    vertical-align: top;
+  }
+}
+
+
+tbody {
+  background-color: #fff;
+  tr:nth-child(even) {
+    background-color: $row-shade;
+  }
+  tr:nth-child(even)>th {
+    background-color: $row-shade;
+  }
+  tr:nth-child(odd)>th {
+    background-color: #fff;
+  }
+}
+
+.cloned-col {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  & th,
+  & td {
+    visibility: hidden;
+  }
+
+  .ngsc-fixed-col {
+    border-right: 2px solid $border-color;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    text-align: left;
+    visibility: visible;
+  } 
+}
+
+.resource-cell {
+  display: flex;
+  line-height: 45px;
+  cursor: pointer;
+}
+
+.resource-icon {
+  display: inline-block;
+  margin-right: 20px;
+  width: 20px;
+  height: 34px;
+  padding-top: 12px;
+}
+
+.resource-name {
+  display: inline-block;
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+
+
+// EVENTS
+// ================================
+
+.ngsc-resource-events {
+  padding: 0;
+  overflow: hidden;
+}
+
+
+.ngsc-events-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+}
+
+.ngsc-event {
+  // background-color: $event-bg-1;
+  border-radius: 5px;
+  margin: $half-space 0;
+  padding: $half-space 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $event-color;
+  min-width: 125px;
+  position: absolute;
+  top:5px;
+
+  a {
+    margin: $base-space;
+    font-size: 0.8em;
+    color: $event-color;
+    text-decoration: none;
+  }
+}
+
+.event-type-client {
+  background-color: $color-event-client;
+}
+
+.event-type-internal {
+  background-color: $color-event-internal;
+}
+.event-type-site {
+  background-color: $color-event-inspection;
+}
+.event-type-other {
+  background-color: $color-event-other;
+}
+
+.ngsc-noevents {
+  margin: $base-space;
+  font-size: 0.8em;
+  color: #555;
+  font-style: italic; 
+}
+
+
+// LEGEND
+
+.timeline-legend {
+  list-style: none;
+  margin: 1em 0;
+
+  li {
+    display: inline-block;
+    margin-left: 25px;
+  }
+}
+
+.type-client,
+.type-internal,
+.type-inspection,
+.type-other {
+  &::before {
+    display: block;
+    content: '';
+    width: 16px;
+    height: 16px;
+    position: relative;
+    left: -20px;
+    top: 16px;
+  }
+}
+
+.type-client::before {
+  background-color: $color-event-client;
+}
+.type-internal::before {
+  background-color: $color-event-internal;
+}
+.type-inspection::before {
+  background-color: $color-event-inspection;
+}
+.type-other::before {
+  background-color: $color-event-other;
+}

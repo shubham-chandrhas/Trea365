@@ -1,0 +1,116 @@
+
+/*Dialog Start*/
+.dialog{ max-width: 750px; width: 100%; position: relative; }
+.width450{ width: 450px; }
+.add-field-dialog{ width: 400px !important; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+.dialog .top40{ top: -40px; }
+.dialog-hdr{ text-align: center;font-weight: 700;font-size: 16px; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+
+.treaBtn{
+  font-size: 14px;
+  line-height: 14px;
+  padding: 8px;
+  background: #00A99D;
+  border-radius: 0px;
+  border: none;
+  color: #fff;
+}
+.treaBtn:focus{ outline: none; }
+.btn-width150{ width: 150px; }
+.width350{ width: 350px; }
+.width380{ width: 380px; }
+.width750{ width: 750px; }
+.width100{ width: 100%; }
+/*Dialog End*/
+
+.img-center{ margin: 0px auto; }
+
+.previewImg>img{
+  max-height: 350px;
+  max-width: 100%;
+}
+.thumbWrap{
+  text-align: center;
+  margin-top: 20px;
+}
+.thumbWrap .thumbImg{
+  width: 100px;
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  cursor: pointer;
+  height: 90px;
+  border: 2px solid #00A99D;
+}
+.thumbWrap .thumbImg img{
+  max-height: 100%;
+  height: 100%;
+}
+.thumbWrap .thumbImg.active{
+  border: 2px solid #FFCB36;
+}
+.doc-img-view{ padding: 0px; }
+.doc-img-view .inner-wrap a{ color: inherit; text-decoration: none; }
+.img-pre-div{ min-height: 135px;height: 130px; }
+.img-pre-div img{ height: 100%;cursor: pointer; }
+.img-doc-name{ font-weight: 700; }
+.img-doc-name-mar{ margin: 25px 0px 15px 0px; }
+.image-pri-div{ margin: 0 auto; }
+.mar-btm-img{ margin-bottom: 25px; }
+.img-center{ margin: 0px auto; }
+.doc-pre {
+    min-height: 135px;
+    height: 130px;
+    line-height: 160px;
+    text-align: center;
+    color: #3aa69b;
+}
+.doc-img-view .inner-wrap {
+    padding: 10px 0px;
+}
+.doc-preview i, .img-pre-div i {
+    font-size: 50px;
+}
+.schedule-dialog .subheader{ font-weight: 500; }
+.schedule-dialog .btn-wrap{ display: inline-block; }
+.schedule-dialog .btn-both{ margin: 0px 10px; }
+.schedule-dialog .btn-cancel{ margin-left: 10px; }
+
+.doc-preview{
+    border: 1px solid #D1D1D1;
+    min-height: 135px;
+    height: 130px;
+    line-height: 160px;
+    text-align: center;
+    color: #00a99d;
+    margin-top:29px;
+  }
+  .docPdf{
+    font-size:96px;
+    text-align: center;
+    padding : 30px;
+    color: #3aa69b !important;    
+  }
+a { color: inherit; } 

@@ -1,0 +1,277 @@
+<div class="assetsprodWrap">
+    <div class="assetsPart">
+        <span>Total Net Present Value of all Assets</span>
+    </div>
+    <div class="assetsDetails">
+        <div class="col-sm-12 assetsWrap">
+            <div class="col-sm-6">
+                <div class="imgassetsBox">
+                    <img class="img-responsive" src="assets/img/assetsdetails.png">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="paidWrap">
+                    <div class="paidBox"></div>
+                    <div class="paidDetails">
+                        <div class="Padb20"><strong>Paid</strong></div>
+                        <div>Total of <strong>$10,000</strong> of assets were paid through downpayments</div>
+                    </div>
+                </div>
+                <div class="financedWrap">
+                    <div class="financedBox"></div>
+                    <div class="financedDetails">
+                        <div class="Padb20"><strong>Financed</strong></div>
+                        <div>Total of <strong>$40,000</strong> of assets were financed through monthly installments</div>
+                    </div>
+                </div>
+                <div class="depreciationWrap">
+                    <div class="depreciationBox"></div>
+                    <div class="depreciationDetails">
+                        <div class="Padb20"><strong>Depreciation</strong></div>
+                        <div>Total depreciation costs equal to <strong>$6000</strong> averaging to <strong>$600/per month</strong></div>
+                    </div>
+                </div>
+                <div class="valueWrap">
+                    <div class="valueBox"></div>
+                    <div class="valueDetails">
+                        <div class="Padb20"><strong>Net Present Value</strong></div>
+                        <div>Total Value (NPV) of all assets account to <strong>$44,000</strong></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="bottomLine"></div>
+    <div class="breakdownDetails">
+        <div class="breakdownPart">
+            <span>Financing & Yield Breakdown</span>
+        </div>
+        <div class="breakdownWrap">
+            <div class="utilizationDetails">
+                <div class="text-center">
+                    <span>Utilization</span>
+                </div>
+                <div class="imgbreakdBox mb20">
+                    <div class="pieChart pull-left">
+                        <div class="chartWrap">
+                            <canvas id="utilChart" width="100" height="100"></canvas>
+                            <div class="chartStat" [ngStyle]="{'color': chartData.utilData.backgroundColor[0] }">{{chartData.utilData.data[0]}}%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="utilizationTxt">
+                    Maximum Asset Utilization is set at 160 hours/month, of which <strong>120 hours</strong> where used resulting in <strong>75%</strong> utilization of assets monthly
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="yieldDetails">
+                <div class="text-center">
+                    <span>Avg Yield of Assets</span>
+                </div>
+                <div class="yieldWrap">
+                    <div class="col-sm-6 breakTxt">
+                        Optimal Asset Usage is 8000 hours (160*50 Units) of which 6000 hours were used thus resulting in an average yield of  <strong>75%</strong>on all assets
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="imgyieldBox">
+                            <img class="img-responsive" src="assets/img/hours75chart.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="assetTable table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Top Five</th>
+                      <th scope="col">1</th>
+                      <th scope="col">2</th>
+                      <th scope="col">3</th>
+                      <th scope="col">4</th>
+                      <th scope="col">5</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        <tr>
+                            <td class="headingTxt">Most Valuable Assets</td>
+                            <td>
+                                <div class="imgassetBox">
+                                    <img class="img-responsive" src="assets/img/hollandexcavator.png">
+                                </div>
+                                <div class="Mart10">
+                                    New Holland Excavator 1000
+                                </div>
+                            </td>
+                            <td>
+                                <div class="imgassetBox">
+                                    <img class="img-responsive" src="assets/img/franktruck.png">
+                                </div>
+                                <div class="Mart10">
+                                    Frank Zamboni 500
+                                </div>
+                            </td>
+                            <td>
+                                <div class="imgassetBox">
+                                    <img class="img-responsive" src="assets/img/joe'smower.png">
+                                </div>
+                                <div class="Mart10">
+                                    joe's Mower 2020
+                                </div>
+                            </td>
+                            <td>
+                                <div class="imgassetBox">
+                                    <img class="img-responsive" src="assets/img/atcoconstructiontrailer.png">
+                                </div>
+                                <div class="Mart10">
+                                    ATCO Construction Trailer
+                                </div>
+                            </td>
+                            <td>
+                                <div class="imgassetBox">
+                                    <img class="img-responsive" src="assets/img/fordminivan.png">
+                                </div>
+                                <div class="Mart10">
+                                        Ford Mini Van
+                                </div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="headingTxt">Common Assets Type</td>
+                        <td class="commonTxt">Trucks</td>
+                        <td  class="commonTxt">Trailers</td>
+                        <td  class="commonTxt">Vans</td>
+                        <td  class="commonTxt">Lawnmowers'</td>
+                        <td  class="commonTxt">Zamboni's</td>
+                    </tr>
+                    <tr>
+                        <td class="headingTxt">Common Assets</td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/joe'smower.png">
+                            </div>
+                            <div class="Mart10">
+                                joe's Mower 2020
+                            </div>
+                        </td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/hollandexcavator.png">
+                            </div>
+                            <div class="Mart10">
+                                New Holland Excavator 1000
+                            </div>
+                        </td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/atcoconstructiontrailer.png">
+                            </div>
+                            <div class="Mart10">
+                                ATCO Construction Trailer
+                            </div>
+                        </td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/franktruck.png">
+                            </div>
+                            <div class="Mart10">
+                                Frank Zamboni 500
+                            </div>
+                        </td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/fordminivan.png">
+                            </div>
+                            <div class="Mart10">
+                                    Ford Mini Van
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="headingTxt">Most Frequently Repaired Assets</td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/fordminivan.png">
+                            </div>
+                            <div class="Mart10">
+                                    Ford Mini Van
+                            </div>
+                        </td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/hollandexcavator.png">
+                            </div>
+                            <div class=" ">
+                                New Holland Excavator 1000
+                            </div>
+                        </td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/atcoconstructiontrailer.png">
+                            </div>
+                            <div class="Mart10">
+                                ATCO Construction Trailer
+                            </div>
+                        </td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/franktruck.png">
+                            </div>
+                            <div class="Mart10">
+                                Frank Zamboni 500
+                            </div>
+                        </td>
+                        <td>
+                            <div class="imgassetBox">
+                                <img class="img-responsive" src="assets/img/joe'smower.png">
+                            </div>
+                            <div class="Mart10">
+                                joe's Mower 2020
+                            </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="clearfix"></div>
+              <div class="inventoryDetails">
+                    <div class="inventoryPart">
+                        <span>Inventory Discrepancies</span>
+                    </div>
+                    <div class="inventoryTable table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Actual Inventory</th>
+                                <th scope="col">Recovery Inventory
+                                    <div class="updateTxt">
+                                        (Last Updated 6/02/2018)
+                                    </div>
+                                </th>
+                                <th scope="col">Discrepancies</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Units</th>
+                                <td>45</td>
+                                <td>50</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Value</th>
+                                <td>$40,000</td>
+                                <td>$44,000</td>
+                                <td>($4000)</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+              </div>
+    </div>
+</div>

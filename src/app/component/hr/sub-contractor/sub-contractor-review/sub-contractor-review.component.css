@@ -1,0 +1,77 @@
+
+
+.empReviewWrap .empReviewDeatails{
+  max-width: 400px;
+  margin: 30px auto;
+}
+.empReviewWrap h3{
+  text-align: center;
+  font-weight: 700;
+}
+.empReviewWrap .errMsgCon{ text-align: center; }
+.empReviewWrap .errMsgCon small{ 
+  color: #F44336;
+  font-size: smaller;
+}
+.des-heigth{ height: 100px !important; }
+.empReviewDeatails .label-col,
+.empReviewDeatails .info-col{
+    margin-bottom: 15px;
+}
+
+
+/*image/document css*/
+.imgInfoSection{ margin-bottom: 20px; }
+.empReviewWrap .imageSection h3{ margin: 80px auto; }
+.imageSection .drag-over{ border: 5px dashed #a4a4a4; box-shadow: 0 0 30px #cccccc;}
+.empReviewWrap .previewImg{ border: 1px solid #D1D1D1;min-height: 135px; height: 130px; text-align: -webkit-center;}
+.previewImg img{ height: 100%; }
+.previewTxt .txtHead{ font-weight: 700; margin-bottom: 15px; }
+.previewTxt .txtDesc>textarea{
+border: 1px solid #D1D1D1;
+padding: 5px;
+min-height: 100px;
+resize: none;
+width: 100%;
+text-align: left;
+} 
+.empReviewWrap .previewdocTxt{
+margin-top: 28px;
+}
+.doc-preview{
+border: 1px solid #D1D1D1;
+min-height: 135px;
+height: 130px;
+line-height: 160px;
+text-align: center;
+color: #00a99d;
+margin-top:29px;
+}
+.doc-pre{
+min-height: 135px;
+height: 130px;
+line-height: 160px;
+text-align: center;
+color: #00a99d;
+}
+.doc-preview i, .img-pre-div i{ font-size: 50px; }
+.doc-section-wrap{ width: 550px;margin: 30px auto;  }
+.doc-img-view .inner-wrap{ padding: 10px 40px; }
+.empReviewWrap .imageSection{
+max-width: 750px;
+margin: 30px auto;
+}
+.addFormBtnWrap{
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  text-align: center;
+}
+.addFormBtnWrap .mdBtn{
+  margin: 0px 5px;
+}
+.MB30{ margin-bottom: 30px; }
+.empReviewWrap .label-col{
+  font-weight: 500;
+}

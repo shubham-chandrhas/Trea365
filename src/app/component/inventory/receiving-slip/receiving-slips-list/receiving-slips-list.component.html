@@ -1,0 +1,271 @@
+<div class="inventory-section">
+	<h1 class="pageTitle">Receiving Slips</h1>
+  <p class="page-summary">Recording of all inventory received from Purchase Orders.</p>
+
+  <div class="trea-welcome" *ngIf="pageData.receivingSlipList.length == 0 && onBoarding">
+        <h4>There are no Receiving Slips yet.</h4>
+        <p class="textJustified">
+            Receiving Slips are records of inventory received after a Purchase Order has been made to a Supplier. Problems with products received (e.g. damaged or incorrect items) can also be reported.
+        </p>
+        <p class="textJustified">
+            Receiving Slips will be listed here when an authorized user has created one.
+        </p>
+        <p class="textJustified">
+            Purchase Orders must be created before a Receiving Slip can be made.
+        </p>
+        <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createReceivingSlips" >
+           
+          <button 
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            (click)="addNewRS()"
+          >
+          Create a Receiving Slip
+          </button>
+          
+        </div>
+        <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createReceivingSlips" >
+            <p class="note">Please contact an administrator who can add Receiving Slip</p> 
+        </div>          
+    </div>
+  <div class="head-row clearfix" *ngIf="pageData.receivingSlipList.length > 0">
+      <div class="search-section">
+          <div class="input-group">
+              <span class="search-icn" id="basic-addon1">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+              <input autocomplete="nope" [(ngModel)]="searchList" type="text" (ngModelChange)="getSearchTxt(searchList)" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1" >
+              <button mat-raised-button class="client-btn" (click)="searchTxt = searchList">Search</button>
+          </div>
+      </div>
+      <div class="add-client newPurhaseBtnWrap">
+        <button *ngIf="util.getRole() == 2 || permissionsSet.createReceivingSlips" mat-raised-button class="client-btn" type="button" (click)="addNewRS()">New Receiving Slip
+          </button>
+      </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="trea-data-table table-responsive" *ngIf="pageData.receivingSlipList.length > 0">
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th width="300">
+                      <div class="table-hdr">
+                          <div>
+                              <span>R/S No.</span>
+                              <span (click)="sortColumnType='N';sortColumn = 'receiving_slip_no';sortOrder = sortColumn === 'receiving_slip_no' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" sortColumn == 'receiving_slip_no' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                          </div>
+                          <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="rsNoSearch">
+                          </div>
+                      </div>
+                  </th>
+                  <th width="300">
+                      <div class="bdr-left table-hdr">
+                          <div>
+                              <span>P/O No.</span>
+                              <span (click)="sortColumnType='N';sortColumn = 'purchase_order_no';sortOrder = sortColumn === 'purchase_order_no' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" sortColumn == 'purchase_order_no' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                          </div>
+                          <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="poNoSearch">
+                          </div>
+                      </div>
+                  </th>
+                  <th width="300">
+                      <div class="bdr-left table-hdr">
+                          <div>
+                              <span>Date</span>
+                              <span (click)="sortColumnType='N';sortColumn = 'rs_data';sortOrder = sortColumn === 'rs_data' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" sortColumn == 'rs_data' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                          </div>
+                          <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="dateSearch">
+                          </div>
+                      </div>
+                  </th>
+                  <th width="300">
+                      <div class="bdr-left table-hdr">
+                          <div>
+                              <span>Supplier</span>
+                                <span (click)="sortColumnType='A';sortColumn = 'supplier_name';sortOrder = sortColumn === 'supplier_name' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" sortColumn == 'supplier_name' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                          </div>
+                          <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="supplierSearch">
+                          </div>
+                      </div>
+                  </th>
+              </tr>
+          </thead>
+          <tbody *ngIf="pageData.receivingSlipList.length > 0">
+              <tr (click)="getSelectedRS(rslip,indx)" *ngFor="let indx=index ;let rslip of pageData.receivingSlipList | sortBy:sortColumn:sortOrder:sortColumnType | searchfilter:rsNoSearch:'receiving_slip_no' | searchfilter:poNoSearch:'purchase_order_no' | searchfilter:dateSearch:'receiving_slip_date' | searchfilter:supplierSearch:'supplier_name' | searchfilter:searchTxt:'receiving_slip_no,purchase_order_no,receiving_slip_date,supplier_name' | listLengthfilter | paginate: paginationKey" [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''">
+                <td>{{rslip.receiving_slip_no}}<span class="dn">{{ indx == 0 ? updateCount(rslip.count) : ''}}</span></td>
+                <td>{{rslip.purchase_order_no}}</td>
+                <td>{{rslip.receiving_slip_date}}</td>
+                <td>{{rslip.supplier_name}}</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+
+    <div class="treaPagination" *ngIf="(pageData.receivingSlipList.length > 0) && (constant.ITEM_COUNT != 0)">
+    <div class="pull-right">
+        <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+    </div>
+    <div class="pull-right">
+        <select [(ngModel)]="paginationKey.itemsPerPage" (change)="changeItemPerPage()">
+            <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+        </select>
+        <span> items per page</span>
+    </div>
+    <div class="pull-right">
+        <pagination-controls
+            (pageChange)="changePage($event)"
+            directionLinks="true"
+            autoHide="false"
+            previousLabel="Pre"
+            nextLabel="Next"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+    </div>
+    <div class="clearfix"></div>
+    </div>
+
+    <div id="rsMark" class="selSection" *ngIf = "selectedRS">
+        <div class="purchaseorderDetails">
+        <div class="selPartTitle">
+            <span>Receiving Slip No.</span>
+            <span>{{selectedRS.receiving_slip_no}}</span>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                <div class="label-col">Purchase Order No.</div>
+                </div>
+                <div class="col-sm-6">
+                <div class="info-col">{{selectedRS.purchase_order_no}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                <div class="label-col">Date</div>
+                </div>
+                <div class="col-sm-6">
+                <div class="info-col">{{util.getFormatedDate(selectedRS.receiving_slip_date)}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                <div class="label-col">Generated by</div>
+                </div>
+                <div class="col-sm-6">
+                <div class="info-col">{{selectedRS.genrated_by}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                <div class="label-col">Supplier</div>
+                </div>
+                <div class="col-sm-6">
+                <div class="info-col">{{selectedRS.supplier_name}}</div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="orderedItems" *ngIf="selectedRS.ordered_item.length > 0">
+            <div class="tblTitle text-center">
+                <span>Ordered Items</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Manufacturer</th>
+                        <th>Item Definition</th>
+                        <th class="text-right">Qty Expected (Units)</th>
+                        <th class="text-right">Qty Received (Units)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let o_item of selectedRS.ordered_item">
+                        <td>{{o_item.manf_name}}</td>
+                        <td>{{o_item.manf_part_name}}</td>
+                        <td class="text-right">{{o_item.qunt_expected}}</td>
+                        <td class="text-right">{{o_item.quant_received}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="orderedItems unlistedItems" *ngIf="selectedRS.unlisted_item.length > 0">
+            <div class="tblTitle text-center">
+                <span>Unlisted Items</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                <thead>
+                <tr>
+                    <th>Manufacturer</th>
+                    <th>Item Definition</th>
+                    <th class="text-right">Qty Received (Units)</th>
+                    <th class="text-right">Price/Unit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let u_item of selectedRS.unlisted_item">
+                    <td>{{u_item.manf_name}}</td>
+                    <td>{{u_item.short_name}}</td>
+                    <td class="text-right">{{u_item.quantity_received}}</td>
+                    <td class="text-right">{{u_item.price_per_unit}}</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="problemItems" *ngIf="selectedRS.problem_item.length > 0">
+            <div class="tblTitle text-center">
+                <span>Problem Items</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Manufacturer</th>
+                            <th>Item Definition</th>
+                            <th class="text-right">Quantity</th>
+                            <th>Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p_item of selectedRS.problem_item">
+                            <td>{{p_item.manf_name}}</td>
+                            <td>{{p_item.manf_part_name}}</td>
+                            <td class="text-right">{{p_item.quantity}}</td>
+                            <td>{{p_item.comment}}</td>
+                        </tr>
+                    </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+	</div>
+</div>
+
+

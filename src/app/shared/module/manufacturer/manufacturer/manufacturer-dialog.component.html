@@ -1,0 +1,84 @@
+
+<div class="dialog width450" *ngIf="action == 'addManufacturer'">
+    <span class="close-icon" (click)="closeDialog()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
+    <div class="dialog-hdr">
+        <div>New Manufacturer</div>
+    </div>
+    <div class="addLocFormWrap" *ngIf="!isSuccess">
+        <form autocomplete="off" class="form-horizontal addLocForm" role="form" [formGroup]="addManufacturFm">
+            <div class="addLocFormBody">
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="manfName">Full Name</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" id="" name="manfName" placeholder="" formControlName="manfName" class="form-control">
+                        <span class="error-msg" *ngIf="manfName.invalid && (manfName.dirty || manfName.touched || submitted)">
+                            <small *ngIf="manfName.errors.required">Full Name is required.</small>
+                        </span> 
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="manfName">Manufacturer Type</label>
+                    <div class="col-sm-8">
+                        <div class="">
+                            <div class="checkBox">
+                                <label class="typeCheck">
+                                    <input autocomplete="nope" type="checkbox" formControlName="isAsset">
+                                    <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    <span class="chkText">Asset</span>
+                                </label>
+
+                                <label class="typeCheck">
+                                    <input autocomplete="nope" type="checkbox" formControlName="isProduct">
+                                    <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    <span class="chkText">Product</span>
+                                </label>
+
+                                <!-- <label class="typeCheck">
+                                    <input autocomplete="nope" type="checkbox" formControlName="isMaterial">
+                                    <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    <span class="chkText">Material</span>
+                                </label> -->
+                            </div>
+                            <!-- <input autocomplete="nope" type="text" id="" name="manfName" placeholder="" formControlName="manfName" class="form-control">
+                            <span class="error-msg" *ngIf="manfName.invalid && (manfName.dirty || manfName.touched || submitted)">
+                                <small *ngIf="manfName.errors.required">Full Name is required.</small>
+                            </span> --> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label optional" for="comment">Comment</label>
+                    <div class="col-sm-8">
+                        <textarea id="comment" name="comment" placeholder="(optional)" formControlName="comment" class="form-control optional">
+                        </textarea>
+                        <span class="error-msg" *ngIf="comment.invalid && (comment.dirty || comment.touched || submitted)">
+                            <small *ngIf="comment.errors.maxlength">Comment must not greater than {{constant.DEFAULT_COMMENT_MAXLENGTH}} characters.</small>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="errMsgCon" *ngIf="isError"> <br><small>{{errMsg}}</small></div>
+                <div class="button-row clearfix">
+                    <button mat-raised-button id="add-manufacturer-btn" class="trea-btn" (click)="addManufacturer(addManufacturFm)">Submit</button>
+                    <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+                </div> 
+            </div>
+        </form>
+    </div>
+    <div *ngIf="isSuccess">
+        <div class="dialog-txt">{{successMsg}}</div>
+        <!-- <div class="button-row">
+            <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">Done</button>
+        </div> -->   
+        <div class="button-row">
+            <button mat-raised-button class="trea-btn" (click)="continueCreating()">Continue Creating</button>
+            <button mat-raised-button class="trea-btn" (click)="closeDialog()">Done</button>
+        </div> 
+    </div>
+</div>

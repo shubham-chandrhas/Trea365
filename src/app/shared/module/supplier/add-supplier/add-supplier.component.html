@@ -1,0 +1,174 @@
+<div class="supplier-section" [ngClass]="currentPath == 'add-supplier' ? 'MB30' : ''">
+    <h3 class="pageTitle">New Supplier</h3>
+    <div class="addNewSupFormCov clearfix">
+        <div class="col-sm-12">
+            <form autocomplete="off" role="form" [formGroup]="addNewSupFrm" class="form-horizontal">
+                <div class="row">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label" for="supplierType">Supplier Type</label>
+                        <div class="col-sm-8">
+                            <div class="trea-multi-select">
+                                <ss-multiselect-dropdown [options]="supplierTypeList" [settings]="mulSelSettings"  [texts]="selectText" formControlName="supplierType" placeholder="(optional)" ></ss-multiselect-dropdown>
+                            </div>
+                            <!-- <select formControlName="supplierType" class="form-control">
+                                <option value="" selected></option>
+                                <option *ngFor="let indx=index ;let suppliertype of suppliertypeList | sortBy:'status':'ASC':'A'" [value]="suppliertype.type_id">{{suppliertype.status}}</option>
+                            </select> -->
+                            <span class="error-msg" *ngIf="supplierType.invalid && (supplierType.dirty ||     supplierType.touched || submitted)">
+                                <small *ngIf="supplierType.errors.required">Please select supplier type.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label txtColor" for="supplierName">Name</label>
+                        <div class="col-sm-8">
+                            <input autocomplete="nope" type="text" id="supplierName" name="supplierName" placeholder="" formControlName="supplierName" class="form-control">
+                            <span class="error-msg" *ngIf="supplierName.invalid && (supplierName.dirty || supplierName.touched || submitted)">
+                                <small *ngIf="supplierName.errors.required"> Name is required.</small>
+                                <small *ngIf="supplierName.errors.minlength"> Name must be at least 2 characters long.</small>
+                                <small *ngIf="supplierName.errors.maxlength"> Name must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}} characters.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label txtColor optional" for="address1">Address 1</label>
+                        <div class="col-sm-8">
+                            <input autocomplete="nope" type="text" id="address1" name="address1" placeholder="" class="form-control" placeholder="" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search formControlName="address1" (mouseover)="util.disableAutocomplete()">
+                            <!-- <input autocomplete="nope" type="text" id="address1" name="address1" placeholder="" formControlName="address1" class="form-control"> -->
+                            <span class="error-msg" *ngIf="address1.invalid && (address1.dirty || address1.touched || submitted)">
+                                <!-- <small *ngIf="address1.errors.required">Address 1 is required.</small> -->
+                                <small *ngIf="address1.errors.minlength">Address 1 must be at least 2 characters long.</small>
+                                <small *ngIf="address1.errors.maxlength">Address 1 must be less than 120 characters.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label txtColor optional" for="address2">Address 2</label>
+                        <div class="col-sm-8">
+                            <input autocomplete="nope" type="text" id="address2" name="address2" placeholder="" formControlName="address2" class="form-control optional">
+                            <span class="error-msg" *ngIf="address2.invalid && (address2.dirty || address2.touched || submitted)">
+                                <small *ngIf="address2.errors.minlength">Address 2 must be at least 2 characters long.</small>
+                                <small *ngIf="address2.errors.maxlength">Address 2 must be less than 120 characters.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label" for="country">Country</label>
+                        <div class="col-sm-8">
+
+                            <select formControlName="countryId" class="form-control">
+                                <option value="" selected></option>
+								<option [value]="country.country_id" *ngFor="let country of countries | sortBy:'country_name':'ASC':'A'"> {{country.country_name}}</option>
+                            </select>
+                            <span class="error-msg" *ngIf="countryId.invalid && (countryId.dirty || countryId.touched || submitted)">
+                                <small *ngIf="countryId.errors.required">Please select country from the list.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label" for="province">Province</label>
+                        <div class="col-sm-8">
+                            <input autocomplete="nope" type="text" name="provinceId" placeholder="" formControlName="provinceId" class="form-control">
+
+                            <span class="error-msg" *ngIf="provinceId.invalid && (provinceId.dirty || provinceId.touched || submitted)">
+                                <small *ngIf="provinceId.errors.required">Province is required.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="city">City</label>
+                        <div class="col-sm-8">
+                            <input autocomplete="nope" type="text" name="cityId" placeholder="" formControlName="cityId" class="form-control">
+
+
+                            <span class="error-msg" *ngIf="cityId.invalid && (cityId.dirty || cityId.touched || submitted)">
+                                <small *ngIf="cityId.errors.required">City is required.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label txtColor" for="postalCode">Postal Code</label>
+                        <div class="col-sm-8">
+                            <input autocomplete="nope" type="text" id="postalCode"  name="postalCode" formControlName="postalCode" class="form-control" >
+                            <span class="error-msg" *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched || submitted)">
+                                <small *ngIf="postalCode.errors.required">Postal Code is required.</small>
+                                <small *ngIf="postalCode.errors.minlength">Postal Code must be at least 3 characters long.</small>
+                                <small *ngIf="postalCode.errors.maxlength">Postal Code must be less than 10 characters.</small>
+                                <small *ngIf="postalCode.errors.pattern && !postalCode.errors.minlength && !postalCode.errors.maxlength">Enter Valid Postal Code</small>
+                            </span>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="row">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label txtColor optional" for="email">Email</label>
+                        <div class="col-sm-8">
+                            <input autocomplete="nope" type="text" id="email" name="email" placeholder="" formControlName="emailId" class="form-control">
+                            <span class="error-msg" *ngIf="emailId.invalid && (emailId.dirty || emailId.touched || submitted)">
+                                <!-- <small *ngIf="emailId.errors.required">Email is required.</small> -->
+                                <small *ngIf="emailId.errors.pattern">Enter valid email.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group clearfix">
+                        <label class="col-sm-4 control-label txtColor optional" for="phoneNumber">Phone Number</label>
+                        <div class="col-sm-8">
+                            <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" id="phoneNumber" name="phoneNumber" placeholder="" formControlName="phoneNumber" class="form-control " (keypress)="util.keyPress($event)">
+                            <span class="error-msg" *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched || submitted)">
+                                <!-- <small *ngIf="phoneNumber.errors.required">Phone Number is required.</small> -->
+                                <small *ngIf="phoneNumber.errors.pattern">Enter Valid Phone Number.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label txtColor optional" for="comment">Comment</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control " placeholder="" rows="8" id="comment" name="comment" placeholder="" formControlName="comment" class="form-control "></textarea>
+                            <span class="error-msg" *ngIf="comment.invalid && (comment.dirty || comment.touched || submitted)">
+                                <small *ngIf="comment.errors.maxlength">must not greater than {{constant.DEFAULT_COMMENT_MAXLENGTH}} characters.</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="errMsgCon" *ngIf="isError">
+                    <small>{{errMsg}}</small>
+                </div>
+                <div class="clearfix">
+                    <div class="button-row text-center">
+                        <button mat-raised-button class="trea-btn" type="button" (click)="addsupplier(addNewSupFrm)" routerlink="">Next</button>
+                        <button mat-raised-button class="trea-btn" type="button" (click)="cancelSupplier()">Cancel</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

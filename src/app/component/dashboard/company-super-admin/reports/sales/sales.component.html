@@ -1,0 +1,251 @@
+<div class="salesWrap">
+    <div class="salesOptionTabsTop">
+        <div class="tabs">
+            <div class="infoText">Weekly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Bi-weekly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Monthly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Quarterly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Yearly</div>
+        </div>
+        <div class="tabs">
+            <div class="infoText">Bi-yearly</div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="salesOptionTabsBottom">
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group1" checked>
+                <label for="radio-group1"></label>
+            </div>
+        </div>
+        <div class="tabs" id="myid">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group2">
+                <label for="radio-group2"></label>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group3">
+                <label for="radio-group3"></label>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group4">
+                <label for="radio-group4"></label>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group5">
+                <label for="radio-group5"></label>
+            </div>
+        </div>
+        <div class="tabs">
+            <div class="vertLine"></div>
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" id="radio-group6">
+                <label for="radio-group6"></label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="leadDetails">
+        <div class="leadPart">
+            <span>New Leads</span>
+        </div>
+        <div class="leadTable table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Social Media</th>
+                        <th>Friends & Family</th>
+                        <th>Print</th>
+                        <th>XYZ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span>15</span>  <span>New Leads</span></td>
+                        <td><span>3</span>  <span>New Leads</span></td>
+                        <td><span>2</span>  <span>New Leads</span></td>
+                        <td><span>0</span>  <span>New Leads</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="leadBot"></div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="closureDetails">
+        <div class="closurePart">
+            <span>Closures/Leads</span>
+        </div>
+        <div class="imgclosureBox">
+            <div class="pieChart cloPieT">
+                <div class="chartWrap">
+                    <canvas id="clo1Chart" width="100" height="100"></canvas>
+                    <div class="chartStat" [ngStyle]="{'color': chartData.clo1Data.backgroundColor[0] }">{{chartData.clo1Data.data[0]}}%</div>
+                    <div class="chartStatP"><b>12 out of 15</b> Leads were closed leading to a  <b>75%</b> Clouser Rate</div>
+                </div>
+            </div>
+            <img class="img-responsive closure1Img" src="assets/img/closure1.png">
+            <div class="pieChart cloPieL">
+                <div class="chartWrap">
+                    <canvas id="clo2Chart" width="100" height="100"></canvas>
+                    <div class="chartStat" [ngStyle]="{'color': chartData.clo2Data.backgroundColor[0] }">{{chartData.clo2Data.data[0]}}%</div>
+                </div>
+                <div class="chartStatP"><b>6 out of 12</b> of leads were closed following <b>On Site Inspections</b> leading to a <b>50% close rate</b></div>
+            </div>
+            <div class="pieChart cloPieR">
+                <div class="chartWrap">
+                    <canvas id="clo3Chart" width="100" height="100"></canvas>
+                    <div class="chartStat" [ngStyle]="{'color': chartData.clo3Data.backgroundColor[0] }">{{chartData.clo3Data.data[0]}}%</div>
+                </div>
+                <div class="chartStatP"><b>6 out of 12</b> of leads were closed following <b>Phone Calls</b> leading to a <b>50% close rate</b></div>
+            </div>
+            <!-- <img class="img-responsive" src="assets/img/closure.png"> -->
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="performanceDetails">
+        <div class="performancePart">
+            <span>Top performing Sales Rep</span>
+        </div>
+        <div class="performanceTable table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rankBox1">1</td>
+                        <td>
+                            <div class="performerTxt">
+                                John Smith
+                            </div>
+                            <div class="rateTxt">
+                                90% Closing Rate
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rankBox2">2</td>
+                        <td>
+                            <div class="performerTxt">
+                                Adam Wang
+                            </div>
+                            <div class="rateTxt">
+                                85% Closing Rate
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rankBox3">3</td>
+                        <td>
+                            <div class="performerTxt">
+                                Jeanette Herrera
+                            </div>
+                            <div class="rateTxt">
+                                80% Closing Rate
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="performanceBot"></div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="generationDetails">
+        <div class="generationPart">
+            <span>Lead Generation Turnover</span>
+        </div>
+        <div class="generationWrap">
+            <div class="col-sm-3">
+                An Average of <span>48 hours</span> is taken to achive a <strong>Closure</strong> from a potential lead.
+            </div>
+            <div class="col-sm-3">
+                <div class="imgclosureBox">
+                    <img class="img-responsive" src="assets/img/aleart.png">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="imggenBox">
+                    <img class="img-responsive" src="assets/img/hours.png">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="imgclosureBox">
+                    <img class="img-responsive" src="assets/img/meet.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="generationBot"></div>
+    <div class="disputeDetails">
+        <div class="disputePart">
+            <span>Disputes</span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="disputeWrap">
+            <div class="col-sm-5">
+                <div class="disputeParant">
+                    <div class="disputeChild">
+                        <span>Total Number of Disputes from all closures</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="disputeParant">
+                    <div class="disputeChild">
+                        <span class="totalDisp">3</span><span class="totalClosure">/12</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="imggenBox">
+                    <!-- <img class="img-responsive" src="assets/img/dispute.png"> -->
+                    <div class="pieChart">
+                        <div class="chartWrap">
+                            <canvas id="disChart" width="100" height="100"></canvas>
+                            <div class="chartStat" [ngStyle]="{'color': chartData.disData.backgroundColor[0] }">{{chartData.disData.data[0]}}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div> 
+        <!-- <div class="disputeTable table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div> -->
+    </div>
+</div>

@@ -1,0 +1,163 @@
+
+.assetTabContent{
+    max-width: 700px;
+    margin-bottom: 40px;
+}
+.assetTabContent .title{
+    margin-bottom: 30px;
+}
+.dateWrapper .date{
+    display: inline-block;
+    width: 110px;
+    outline: 0;
+}
+.dateWrapper .dateIcon{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    vertical-align: top;
+    margin-left: 5px;
+}
+.dateWrapper .treaRadioBtn{
+    display: inline-block;
+    
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:before, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:before{
+    top: -12px;
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:after, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:after{
+    top: -9px;
+}
+.dateWrap{
+    margin-top: 20px;
+}
+.timeWrap .hours,
+.timeWrap select{
+    vertical-align:middle;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+   box-shadow: none;
+   border: 1px solid #D1D1D1;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 1px 7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 25px;
+    width: 70px;
+    outline: 0;
+}
+.closeIcon{
+    margin-left: -15px;
+    cursor: pointer;
+}
+
+.addIcon>img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+/**************Accordian CSS Start****************/
+.treaAccordian .subItem, 
+ .treaAccordian>ul>li i:before, 
+ .treaAccordian>ul>li i:after {
+    transition: all 0.25s ease-in-out;
+  }
+ .treaAccordian > ul>li {
+    animation: flipdown 0.5s ease both;
+  }
+  .treaAccordian>ul {
+    list-style: none;
+    perspective: 900;
+    padding: 0;
+    margin: 0;
+  }
+  .treaAccordian ul>li {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 4px;
+  }
+  .treaAccordian>ul>li:last-of-type {
+    padding-bottom: 0;
+  }
+  .treaAccordian>ul>li i {
+    position: absolute;
+    transform: translate(-6px, 0);
+    margin-top: 7px;
+    left: 12px;
+  }
+  .treaAccordian>ul>li i:before, 
+  .treaAccordian>ul>li i:after {
+    content: "";
+    position: absolute;
+    background-color: #00A99D;
+    width: 3px;
+    height: 9px;
+  }
+  .treaAccordian>ul>li i:before {
+    transform: translate(-2px, 0) rotate(45deg);
+  }
+  .treaAccordian>ul>li i:after {
+    transform: translate(2px, 0) rotate(-45deg);
+  }
+  .treaAccordian>ul>li input[type=checkbox] {
+    position: absolute;
+    cursor: pointer;
+    width: 15px;
+    height: 20px;
+    z-index: 1;
+    opacity: 0;
+  }
+  .treaAccordian>ul>li input[type=checkbox]:checked ~ .subItem {
+    margin-top: 0;
+    max-height: 0;
+    opacity: 0;
+    transform: translate(0, 50%);
+  }
+  .treaAccordian>ul>li input[type=checkbox]:checked ~ i:before {
+    transform: translate(2px, 0) rotate(45deg);
+  }
+  .treaAccordian>ul>li input[type=checkbox]:checked ~ i:after {
+    transform: translate(-2px, 0) rotate(-45deg);
+  }
+  
+  @keyframes flipdown {
+    0% {
+      opacity: 0;
+      transform-origin: top center;
+      transform: rotateX(-90deg);
+    }
+    5% {
+      opacity: 1;
+    }
+    80% {
+      transform: rotateX(8deg);
+    }
+    83% {
+      transform: rotateX(6deg);
+    }
+    92% {
+      transform: rotateX(-3deg);
+    }
+    100% {
+      transform-origin: top center;
+      transform: rotateX(0deg);
+    }
+  }
+  .treaAccordian .head{
+    margin-left: 20px;
+    font-size: 18px;
+  }
+  .treaAccordian .subItem{
+    padding-left: 50px;
+  }
+  .treaAccordian .subItem{
+    list-style-type: disc;
+  }
+  
+  /**************Accordian CSS Start****************/

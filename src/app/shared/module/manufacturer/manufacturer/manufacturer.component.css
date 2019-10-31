@@ -1,0 +1,317 @@
+.add-manu{ float: right; margin-bottom: 10px;}
+.add-manu .dropdown-menu{
+    padding: 0;
+    border-radius: 0px;
+}
+
+.addMFG.dropdown-menu{
+  right: 0;
+  left: inherit;
+  margin: 0;
+  padding: 0px !important;
+  font-weight: 400;
+  border-radius: 0px !important;
+  /* border-color: transparent; */
+}
+.addMFG .open > .client-btn {
+  background: #FFCB36 !important;
+  min-width: 156px;
+}
+.addMFG .dropdown-menu .client-btn:hover {
+  color: #505050;
+  background: #FFCB36 !important;
+  
+}
+.addMFG .dropdown-menu>li>a{ padding: 3px 10px; font-weight: 400;}
+/*Dialog Start*/
+.dialog{ width: 350px; position: relative; }
+.add-field-dialog{ width: 400px !important; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+.dialog .loc-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+}
+.dialog-hdr{ text-align: center;font-weight: 700;font-size: 16px; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+.width450{ width: 450px; }
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+.treaBtn{
+  font-size: 14px;
+  line-height: 14px;
+  padding: 8px;
+  background: #3aa69b;
+  border-radius: 0px;
+  border: none;
+  color: #fff;
+}
+.treaBtn:focus{
+  outline: none;
+}
+.addLocFormWrap .form-horizontal .control-label { 
+    font-size: 16px;
+    font-weight: normal;
+    padding:0px;
+    margin: 0px;
+  }
+  .addLocFormWrap .addLocFormBody{
+    padding: 25px 0px 0px 0px;
+  }
+  .addLocFormWrap .addEmpFormBtnWrap{
+    margin-top: 15px;
+  }
+  .addLocFormWrap .addEmpFormBtnWrap .lgBtn{
+    width: 152px;
+    padding: 8px;
+  }
+  /* .addEmpFormWrap .addEmpFormBtnWrap .lgBtn{
+    width: 152px;
+  } */
+  .addLocFormWrap form .form-group{
+    margin-bottom: 25px;
+    margin-left: 0px;
+  }
+  .addLocFormWrap form .form-group input,
+  .addLocFormWrap form .form-group select{
+    border-radius: 0px;
+    height: 25px;
+    padding: 1px 10px;
+    box-shadow: none;
+    border: 1px solid #D1D1D1;
+  }
+  .addLocFormWrap form .form-group textarea{
+    border-radius: 0px;
+    height: 90px;
+    padding: 1px 10px;
+    box-shadow: none;
+    border: 1px solid #D1D1D1;
+    resize: none;
+  }
+  .addLocFormWrap form .form-group textarea:focus{
+    outline: 0;
+  }
+  .addLocFormWrap .errMsgCon{ text-align: center; }
+  .addLocFormWrap .errMsgCon small{ 
+    color: #F44336;
+      font-size: smaller;
+  }
+.edit-loc-btn{ width: 160px !important; }
+/*Dialog End*/
+
+.manufacturerWrap{
+    margin: 20px 0px 30px 20px;
+ }
+ .loc-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    /* min-width: 120px; */
+    width: 100%;
+  }
+.loc-btn:hover {
+    color: #505050;
+    background: #FFCB36;
+}
+.mar-btn-30{ margin-bottom: 30px; }
+.manufactererTbl{
+    border: 1px solid #d1d1d1;
+}
+.manufactererTbl thead{
+    background-color: #7E7E7E;
+    color: #FFFFFF;
+}
+.manufactererTbl thead th{
+    text-align: center;
+    /*line-height: 35px;*/
+}
+.manufactererTbl tbody td{
+    text-align: left;
+    line-height: 25px;
+    padding-left: 20px;
+}
+.manufactererTbl>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.manufactererList .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+.manufactererTbl tbody{
+    max-height: 600px;
+    overflow: auto;
+}
+
+.selDivSection{ 
+  max-width: 1070px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+ }
+.selDiv{ 
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 30px;
+  margin-bottom: 25px;
+}
+.selDivSection .label-col{font-size: 14px; font-weight: 600; line-height: 25px; }
+.selDivSection .info-col{ font-size: 14px; line-height: 25px; }
+
+.select-btn .dropdown-menu {
+    /* min-width: 120px; */
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+}
+.select-btn .open>.loc-btn{
+background-color: #FFCB36;;
+}
+.select-btn .dropdown-menu>li>a{
+    padding: 3px 10px;
+    line-height: 24px;
+}
+.addEmpFormBtnWrap{
+  margin-bottom: 50px;
+  margin-top: 25px;
+}
+
+.errMsgCon{ text-align: center; }
+.errMsgCon small{ color: #F44336;font-size: smaller; }
+
+.client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+
+.head-row{
+  margin-bottom: 10px;
+}
+.search-section{ float: left; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 150px; height: 30px; padding-left: 0px; }
+.search-section .form-control:hover, .search-section .form-control:focus{ outline: 0px; }
+
+.addMFG{
+  float: right;
+}
+@media screen and (max-width:550px){
+  .search-section{ margin-bottom: 10px; }
+  .addMFG{ margin-bottom: 10px; }
+}
+/*Active Inactive Dropdown CSS Start*/
+.activeInAct{
+    min-width: 90px;
+    margin-right: 15px;
+  }
+.activeInAct .dropdown-menu {
+    min-width: 90px;
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+}
+.activeInAct .open>.loc-btn{
+background-color: #FFCB36;;
+}
+.activeInAct .dropdown-menu>li>a{
+    padding: 3px 10px;
+    line-height: 24px;
+}
+.trea-data-table .table-hdr .fa-signal { cursor: pointer; }
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ 
+  font-weight: 600; 
+  font-size: 14px; 
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+.locationsWrap .head-row{
+  margin-bottom: 20px;
+}
+.marT30{ margin-top: 30px; }
+/*.w100{ width: 33%; }*/
+.typeCheck{ width: 33%; float: left; max-width: 120px; }
+.mobilelocationWrap {
+    margin-top: 20px;
+    margin-left: 15px;
+}
+.comment:focus{
+    border-color: #D1D1D1;
+    box-shadow: none;
+}
+.checkBox label{
+    line-height: 20px;
+}
+.checkBox .chkText{
+    display: inline-block;
+    /*width: 80%;*/
+}
+.checkBox .iconChk{
+    vertical-align: top;
+}
+   /*Active Inactive Dropdown CSS End*/
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.manufacturerWrap .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}   

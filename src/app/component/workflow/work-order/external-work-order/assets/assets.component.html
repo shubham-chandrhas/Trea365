@@ -1,0 +1,137 @@
+<form autocomplete="off" role="form" [formGroup]="assetForm" >
+    
+    <div class="teamTabWrap" *ngFor="let item of assets.controls; let indx=index" [formGroup]="item">
+        <div class="scheduleWrap">
+            <div class="title bold" style="margin-bottom: 10px;">
+                 <!-- *ngIf="indx != 0" -->
+                 <!-- @Shubham - 10/05/2019 (Asset list middle one remove issue) -->
+                <span class="closeIcon" (click)="util.focusHiddenInput('hiddenInput');removeAsset(indx, item)"> <img src="assets/icon/close_icon.png" /> </span>
+                <span>Asset</span>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="autoCompleteList">
+                            <div class="searchList">
+                                <mat-form-field class="product">
+                                <input autocomplete="nope" id=asset_{{indx}} matInput placeholder="" [formControl]="item.get('name')" [matAutocomplete]="TeamAutoComp" (keyup)="validateAsset($event, item, indx)">
+                                <i *ngIf="item.get('name').value!=''" (click)="util.clearAutoComplete('asset_', [item.get('name'), item.get('asset_id')],indx); clearSelAssetList(indx);" class="clearAutoComplete fa fa-times-circle" aria-hidden="false"></i>
+                                <mat-autocomplete #TeamAutoComp="matAutocomplete">
+                                <mat-option *ngFor="let optionIndx=index; let item of item.get('filteredAsset').value | async" [value]="item.short_tag" (onSelectionChange)="getSelectedAsset(item, $event, indx)">
+                                <span>{{ item.short_tag }}</span>
+                                </mat-option>
+                                </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <span class="error-msg" *ngIf="(item.get('asset_id').invalid) && (item.get('asset_id').dirty || item.get('asset_id').touched || submitted)">
+                            <small *ngIf="item.get('asset_id').errors.required">Please select Asset from the list.</small>
+                        </span>
+                    </div>
+                    <div class="col-sm-6 col-sm-offset-1">
+                        <div class="treaAccordian" *ngIf="item.get('selectedAssetList').value.length>0">
+                            <ul>
+                              <li>
+                                <input autocomplete="nope" type="checkbox" >
+                                <i></i>
+                               <div class="info-col head">{{item.get('name').value}}</div>
+                                  <ul class="subItem">
+                                    <li *ngFor="let item of item.get('selectedAssetList').value">{{item.assetName}}</li>
+                                  </ul>
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="label-col">Start Date</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="dateWrapper">
+                            <input autocomplete="nope" type="text" placeholder="" formControlName="start_date" class="date ptrN" [matDatepicker]="picker" >
+                            <!--  Edited by Shubham [min]="minDate" [max]="maxDate" -->
+                            <mat-datepicker #picker (selectedChanged)="assetsStartDateChange($event,indx)"></mat-datepicker>
+                            <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span>
+                            <div class="clearfix"></div>
+                            <span class="error-msg" *ngIf="item.get('start_date').invalid && (item.get('start_date').dirty || item.get('start_date').touched || submitted)">
+                                <small *ngIf="item.get('start_date').errors.required">Start Date is required.</small>
+                            </span>
+                        </div> 
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="label-col">End Date</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="dateWrapper">
+                            <input autocomplete="nope" type="text" placeholder="" formControlName="end_date"  class="date ptrN" [matDatepicker]="pickerEnd">
+                            <!--  Edited by Shubham [max]="maxDate" [min]="item.get('start_date').value" -->
+                            <mat-datepicker #pickerEnd (selectedChanged)="assetsEndDateChange($event,indx)"></mat-datepicker>
+                            <span class="dateIcon" (click)="pickerEnd.open()"><img src="assets/icon/date_picker.png"></span>
+                            <div class="clearfix"></div>
+                            <span class="error-msg" *ngIf="item.get('end_date').invalid && (item.get('end_date').dirty || item.get('end_date').touched || submitted)">
+                                <small *ngIf="item.get('end_date').errors.required">End Date is required.</small>
+                            </span>
+                        </div> 
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="form-group timeWrap">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="label-col">Start Time</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="time">
+                            <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" formControlName="start_time" class="hours" placeholder="__:__" type="text" (keyup)="getAssetListOnChange($event, indx)">
+                            <!--
+                                TO DO :- Need to check this method 
+                                (change)="woService.changeFormat($event,item.get('start_time_format'))" -->
+                            <select class="" formControlName="start_time_format" (change)="getAssetListOnChange($event, indx)">
+                                <option [ngValue]="item" *ngFor="let item of woService.timeFormats">{{item}}</option>
+                            </select>
+                            <div class="clearfix"></div>
+                            <span class="error-msg" *ngIf="item.get('start_time').invalid && (item.get('start_time').dirty || item.get('start_time').touched || submitted)">
+                                <small *ngIf="item.get('start_time').errors.required">Start Time is required.</small>
+                                <small *ngIf="item.get('start_time').errors.pattern">Enter valid Start Time.</small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="label-col">End Time</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="time">
+                            <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" formControlName="end_time" class="hours" placeholder="__:__" type="text" (keyup)="getAssetListOnChange($event, indx)">
+                            <select class="" formControlName="end_time_format" (change)="getAssetListOnChange($event, indx)">
+                                <option [ngValue]="item" *ngFor="let item of woService.timeFormats">{{item}}</option>
+                            </select>
+                            <div class="clearfix"></div>
+                            <span class="error-msg" *ngIf="item.get('end_time').invalid && (item.get('end_time').dirty || item.get('end_time').touched || submitted)">
+                                <small *ngIf="item.get('end_time').errors.required">End Time is required.</small>
+                                <small *ngIf="item.get('end_time').errors.pattern">Enter valid End Time.</small>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="form-group timeWrap" *ngIf="item.get('associatedMember').value && item.get('associatedMember').value != ''">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="label-col">Assign To <!-- Associated Member --></div>
+                    </div>
+                    <div class="col-sm-4">{{item.get('associatedMember').value.first_name}} {{item.get('associatedMember').value.last_name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="addIcon MB20 cursorPtr" (click)="addAssets('0')">
+        <img src="assets/icon/icon-add.png"><span>Add Asset</span>
+    </span>
+    <input type="hidden" id="hiddenInput"  placeholder="" >
+</form>

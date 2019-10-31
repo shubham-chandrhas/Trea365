@@ -1,0 +1,320 @@
+.add-fields{ margin-left: 50%; float: left;}
+.addEmpBtnWrap{ margin: 0px!important;}
+.client-section{ padding: 0px 20px; }
+.client-section .search-section{ float: left; margin-bottom: 10px; }
+.client-section .add-client{ float: right; }
+.client-section .client-btn, .dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+.client-section .additional-field{ font-weight:  600; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 170px; height: 30px; padding-left: 0px; }
+.client-section .filter-search{ float: left; }
+.client-section .filter-label{ line-height: 30px; padding: 0px 10px 0px 20px; font-size: 14px; }
+.client-section .added-filter{ line-height: 30px; padding: 0px 10px;margin: 0px 5px; background-color: #F1BC4E;font-size: 14px; }
+.client-section .added-filter .fa-times{ color: #CD5023;cursor: pointer; }
+.search-section .form-control:hover, .search-section .form-control:focus, .client-section .client-btn:hover, .client-section .client-btn:focus{ outline: 0px; }
+.client-section .fa-signal{ cursor: pointer; }
+.client-section .top-tbl-filter{ width: 20%;margin: 0px auto; }
+.client-section .top-address-tbl-filter{ width: 30%;margin: 0px auto; }
+.client-section .email-color{ color: #00A499; font-weight:  600; }
+.trea-data-table{
+  margin-bottom: 20px;
+}
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{
+  font-weight:  600;
+  font-size: 14px;
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+  min-width: 160px;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px;}
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+
+/* .trea-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  min-width: 80px;
+  padding: 0 8px;
+}
+.trea-btn:hover,
+.client-btn:hover {
+  color: #505050!important;
+  background-color: #FFCB36!important;
+} */
+.act-option{ color: #505050!important;background-color: #FFCB36!important; }
+
+.clientListBtnWrap{
+  margin-bottom: 10px;
+}
+.clientListBtnWrap .trea-btn{
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+.selSection{ margin-bottom: 20px; }
+.selPart{
+  position: relative;
+}
+.selClient{
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+.selClient .heading{
+  width: calc(100% - 160px);
+}
+.selClient .heading .title{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.select-btn .dropdown-menu {
+  /* min-width: 120px; */
+  width: 100%;
+  padding: 0px;
+  text-align: center;
+}
+.select-btn .open>.loc-btn{
+background-color: #FFCB36;;
+}
+.select-btn .dropdown-menu>li>a{
+  padding: 3px 10px;
+  line-height: 24px;
+}
+.edit-loc-btn{ width: 160px !important; }
+
+.compName{ margin-bottom: 25px; }
+.selSection .label-col{font-size: 14px; font-weight:  600; line-height: 30px; }
+.selSection .info-col{ font-size: 14px; line-height: 30px; }
+.auditorDetails {margin-bottom: 15px;}
+.sectionDetails { padding: 10px 10px 30px 10px;}
+.qtyTxtIn{
+    text-align: center;
+}
+.qtyTxtIn>input {
+    width: 60px;
+    background-color: #fff!important;
+    border: 1px solid #ccc!important;
+    color: #505050;
+    margin-top: 2px;
+    padding: 3px;
+}
+
+.proQtyTbl {margin-top: 15px;}
+.addDataBtnWrap,
+.exportReportBtnWrap{
+  margin: 50px auto;
+  text-align: center;
+}
+.addDataBtnWrap .lgBtn {
+  width: 140px;
+  margin-left: 10px;
+}
+.exportReportBtnWrap .lgBtn {
+  width: 170px;
+  margin-left: 20px;
+}
+.loc-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    /* min-width: 120px; */
+    width: 100%;
+  }
+.loc-btn:hover {
+    color: #505050;
+    background: #FFCB36;
+}
+.expandedNav{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 40%;
+    margin-bottom: 25px;
+}
+.expandedNav .tabs{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */
+    flex: 1;
+    margin-left: 3px;
+}
+.tabs .dropdown-menu {
+    /* min-width: 120px; */
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+}
+.tabs .open>.loc-btn{
+background-color: #FFCB36;
+}
+.tabs .dropdown-menu>li>a{
+    padding: 3px 10px;
+    line-height: 24px;
+}
+h3, h4 {
+    text-align: center;
+    font-weight: 700;
+}
+.addContBox h4 {margin-bottom: 20px;}
+.addContBox {
+    background: #f6f6f6;
+    margin-top: 25px;
+    padding: 20px 0px;
+    margin-bottom: 25px;
+}
+
+@media screen and (max-width:767px){
+
+ .addDataBtnWrap .lgBtn{
+      margin-left: 5px;
+      width: 110px;
+      padding: 5px;
+  }
+}
+
+@media screen and (max-width:420px) {
+  .addDataBtnWrap .lgBtn {
+    width: 75px;
+    margin-left: 5px;
+    padding: 5px;
+  }
+  .search-section .form-control{
+    width: 140px;
+   }
+  .search-section .client-btn{
+    min-width: 77px;
+   }
+}
+
+/* Auto Complete Drop down list Css Start */
+.autoCompleteList{
+  width: 200px;
+}
+.autoCompleteList .searchList{
+  padding: 0px;
+}
+.autoCompleteList .searchList .search-icn{
+  left: -2px;
+  top: -2px;
+}
+.autoCompleteList .searchList .mat-input-element {
+  padding-left: 30px;
+  /* padding-left: 5px; */
+}
+.searchList .mat-form-field-infix {
+  border: 1px solid #d1d1d1;
+  padding: 5px 0px!important;
+}
+.mat-input-infix{
+  padding: 5px 0px!important;
+}
+.selectBoxIcon{
+  vertical-align: middle;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 32px;
+}
+.marRgt{ margin-right: 10px; }
+/* Auto Complete Drop down list Css End */
+
+h3.detailsHeading{
+  text-align: left !important;
+}
+
+h4.detailsSubHeading{
+  text-align: left !important;
+  padding-left : 12px;
+}
+.Pad1 {
+  padding-bottom: 25px !important;
+}
+
+.quotesDetailsTbl {
+  margin: 40px auto;
+}
+.quotesDetailsTbl .table {
+  margin-bottom: 20px;
+}
+.quotesDetailsTbl .table tbody tr td a,
+.trea-data-table .table tbody tr td a {
+  color: #00a499;
+  text-decoration: underline;
+}
+
+.quotesDetailsTbl .table > thead > tr > th,
+.quotesDetailsTbl .table > tbody > tr > td {
+  vertical-align: middle;
+  /* text-align: center; */
+}
+.quotesDetailsTbl .table > tbody > tr > td {
+  border-bottom: 1px solid #7e7e7e;
+}
+
+.quotesDetailsTbl .table > thead > tr > th {
+  border-top: 1px solid #7e7e7e;
+  border-bottom: 1px solid #7e7e7e;
+  min-width: 100px;
+}
+.quotesDetailsTbl .table > tfoot > tr > td {
+  border-top: 1px solid;
+  min-width: 100px;
+}
+
+.quotesDetailsTbl table tr td .inputQty {
+  max-width: 100px;
+}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.client-section .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

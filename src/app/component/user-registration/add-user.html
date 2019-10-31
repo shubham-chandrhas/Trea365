@@ -1,0 +1,125 @@
+
+
+
+
+<div class="" *ngIf="userSection == 'add'">
+	<mat-card style="width:50%;margin: 1% auto">
+		<h4 class="txtC mb10" style="margin-bottom: 15px;">New User Registration</h4>
+			<form autocomplete="off" [formGroup]="userFm" (ngSubmit)="addUser(userFm)" (keydown)="keyDownFunction($event, addUserFm)" class="add-comp">
+				
+					<mat-grid-list cols="4" rowHeight="60px">
+					  	<mat-grid-tile [colspan]="2">
+					  		<div style="width:100%;">
+					  			<div style="width:90%;">
+					  				<mat-form-field style="width:100%;">
+									  	<mat-select id="roleId" name="roleId" placeholder="User Role" formControlName='roleId' required>
+									  	<!-- [(ngModel)]="roleValue" (ngModelChange)="getSelectedRole($event)" -->
+									    	<mat-option *ngFor="let role of roleList" [value]="role.role_id">
+									      		{{ role.role_name }}
+									    	</mat-option>
+									  	</mat-select>
+									  	<mat-error *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+							    			<small *ngIf="roleId.errors.required">User Role is required.</small>
+							    		</mat-error>
+									</mat-form-field>
+					  			</div>
+					  		</div>
+					  	</mat-grid-tile>
+					  	<mat-grid-tile [colspan]="2" *ngIf="userFm.value.roleId == 15">
+					  		<div style="width:100%;">
+					  			<div style="width:90%; float: right;">
+							  		<mat-form-field style="width:100%;">
+									  	<mat-select id="loginType" name="loginType" placeholder="Social Login Type" formControlName='loginType' required>
+									    	<mat-option [value]="'Google'">Google</mat-option>
+									    	<mat-option [value]="'Facebook'">Facebook</mat-option>
+									  	</mat-select>
+									</mat-form-field>
+								</div>
+							</div>
+					  	</mat-grid-tile>
+					</mat-grid-list>
+
+					<mat-form-field class="fullW" >
+			    		<input autocomplete="nope" id="name" name="name" placeholder="Name" matInput (keypress)="util.noFirstSpace($event, userNm)" formControlName='name' required>
+			    		<mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+			    			<small *ngIf="name.errors.required">Name is required.</small>
+			                <small *ngIf="name.errors.minlength">Name must be at least 4 characters long.</small>
+			    		</mat-error>
+			  		</mat-form-field>
+
+			  		<mat-form-field class="fullW" *ngIf="userFm.value.roleId != 15">
+			    		<input autocomplete="nope" id="userName" name="userName" placeholder="Username" matInput (keypress)="util.noFirstSpace($event, userNm)" formControlName='userName' required>
+			    		<mat-error *ngIf="userName.invalid && (userName.dirty || userName.touched)">
+			    			<small *ngIf="userName.errors.required">Username is required.</small>
+			                <small *ngIf="userName.errors.minlength">Username must be at least 8 characters long.</small>
+			    		</mat-error>
+			  		</mat-form-field>
+
+			  		<mat-form-field class="fullW">
+			    		<input autocomplete="nope" type="email" id="userEmail" name="userEmail" placeholder="User Email" email matInput (keypress)="util.noSpace($event)" formControlName='userEmail' pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+
+			    		<mat-error *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched)">
+			    			<small *ngIf="userEmail.errors.required">User Email is required.</small>
+			                <small *ngIf="userEmail.errors.pattern">Enter valid email.</small>
+			    		</mat-error>
+			  		</mat-form-field>
+
+			  		<mat-grid-list cols="4" rowHeight="60px">
+					  	<mat-grid-tile [colspan]="1">
+
+					  		<div style="width:100%;">
+					  			<div style="width:90%;">
+
+							  		<mat-form-field style="width:100%;">
+									  	<mat-select id="countryCode" name="countryCode" placeholder="Country Code*" formControlName='countryCode'>
+									    	<mat-option [value]="'+91'">+91 (India)</mat-option>
+									    	<mat-option [value]="'+1'">+1 (Canada)</mat-option>
+									  	</mat-select>
+									</mat-form-field>
+
+								</div>
+							</div>
+
+					  	</mat-grid-tile>
+					  	<mat-grid-tile [colspan]="3">
+					  		<div style="width:100%;">
+					  			<div style="width:90%;float: right;">
+
+							  		<mat-form-field class="fullW">
+							    		<input autocomplete="nope" type="text" id="userMobile" name="userMobile" placeholder="Mobile No." matInput (keypress)="util.keyPress($event)" formControlName='userMobile' required>
+
+							    		<mat-error *ngIf="userMobile.invalid && (userMobile.dirty || userMobile.touched)">
+							    			<small *ngIf="userMobile.errors.required">Mobile No is required.</small>
+							                <small *ngIf="userMobile.errors.minlength || userMobile.errors.maxlength">Mobile No must be 10 digit long.</small>
+							    		</mat-error>
+							  		</mat-form-field>
+
+							  	</div>
+							</div>
+
+					  	</mat-grid-tile>
+					</mat-grid-list>
+
+				<div class="errMsgCon mb10" *ngIf="isError">
+		            <div class="loginErrMsg"><i class="material-icons">&#xE000;</i></div>
+		            <small>{{errMsg}}</small>
+		        </div>
+
+				<div class="txtC mt10" style="margin-top: 20px;"><button id="login-fm-btn" mat-raised-button class="">Register</button></div>
+				
+			</form>
+	</mat-card>
+</div>
+
+
+<div *ngIf="userSection == 'success'" class="login-box">
+    <div id="loginBox" class="login-box-body">
+        <div class="errMsg txtC">
+        	<b>"{{regUserName}}" </b> user registered successfully .
+        </div>    
+        
+    </div>
+</div>
+
+
+

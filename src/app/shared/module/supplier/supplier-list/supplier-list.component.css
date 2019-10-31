@@ -1,0 +1,228 @@
+.add-client{ float: right; margin-bottom: 10px;}
+.add-client .dropdown-menu{
+    padding: 0;
+    border-radius: 0px;
+}
+
+.supplier-section{ padding: 0px 20px; }
+.supplier-section .search-section{ float: left; }
+.supplier-section .add-client{ float: right; }
+.supplier-section .client-btn, .dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+
+.supplier-section .dd-btn{ min-width: 156px; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 186px; height: 30px; }
+.search-section .form-control:hover, .search-section .form-control:focus, .supplier-section .client-btn:hover, .supplier-section .client-btn:focus{ outline: 0px; }
+.tabs .dropdown-menu {/* min-width: 120px; */width: 100%;padding: 0px;text-align: center; }
+.tabs .open>.loc-btn{ background-color: #FFCB36; }
+.tabs .dropdown-menu>li>a{ padding: 3px 10px;line-height: 24px; }
+
+
+/*Dialog Start*/
+.dialog{ width: 350px; position: relative; }
+.add-field-dialog{ width: 400px !important; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+.dialog .loc-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+}
+.dialog-hdr{ text-align: center;font-weight: 700;font-size: 16px; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+.width450{ width: 450px; }
+.width700{ width: 700px; }
+.errMsgCon{ text-align: center; margin-bottom: 20px;}
+.errMsgCon small{ color: #F44336; font-size: smaller; }
+
+.treaBtn{
+  font-size: 14px;
+  line-height: 14px;
+  padding: 8px;
+  background: #3aa69b;
+  border-radius: 0px;
+  border: none;
+  color: #fff;
+}
+.treaBtn:hover {
+  color: #505050;
+  background: #FFCB36;
+}
+
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ 
+  font-weight: 600; 
+  font-size: 14px; 
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table .fa-signal{cursor: pointer;}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+
+/* .trea-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  min-width: 80px;
+  padding: 0 8px;
+  width: 100%;
+}
+.trea-btn:hover,
+.client-btn:hover {
+  color: #505050!important;
+  background-color: #FFCB36!important;
+} */
+
+.suppEmail {text-decoration: none; color: #00a99d;}
+
+.selPart .loc-btn{
+    width: 160px;
+}
+.loc-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  /* min-width: 120px; */
+  width: 100%;
+}
+.loc-btn:hover {
+  color: #505050;
+  background: #FFCB36;
+}
+
+.edit-loc-btn {
+  width: 158px;
+}
+.select-btn .dropdown-menu {
+  /* min-width: 120px; */
+  font-weight: 400px;
+  width: 100%;
+  padding: 0px;
+  text-align: center;
+}
+
+.select-btn .open>.loc-btn {
+  color: #505050;
+  background: #FFCB36;
+}
+
+.act-option{ color: #505050;background: #FFCB36; }
+.suppDetails,
+.supplierbtnWrap,
+.suppDocuments{
+  max-width: 1070px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+.supplierbtnWrap .loc-btn{
+  width:160px;
+  margin-bottom: 10px;
+}
+.suppDocuments .searchDecList{
+  margin-bottom: 30px;
+  margin-top: 20px;
+  width: 300px;
+}
+.purOrdNo{
+  text-decoration: underline; color: #00a99d;
+}
+.selPart .dropdown-menu{
+  padding: 0px;
+  margin: 0px;
+}
+.editInfo{
+  margin-bottom: 25px;
+}
+.editInfo > select,
+.editInfo > input{
+  margin-bottom: 3px;
+  outline: 0;
+}
+.editInfo > textarea{
+  outline: 0;
+  margin-bottom: 3px;
+}
+.editInfo > select:focus,
+.editInfo > input:focus,
+.editInfo > textarea:focus{
+  border-color: #d1d1d1;
+  outline: 0;
+}
+.formBtnWrap{
+  max-width: 500px;
+  margin: 30px auto;
+}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.supplier-section .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

@@ -1,0 +1,468 @@
+
+<!--
+    TO DO : 1. Selected row highlight while adding payment
+            2. Invoice No clickable and redirect to invoice list
+ -->
+
+
+<div class="clearfix"></div>
+<div class="receivableSection">
+    <h3 class="pageTitle">Receivables</h3>
+
+    <div class="trea-welcome" *ngIf="receivablesList.length == 0 && onBoarding">
+        <h4>There are no Receivables yet.</h4>
+        <p class="textJustified">
+            Receivables comprise every payment expected from Clients, as outlined in Invoices.
+        </p>
+        <p class="textJustified">
+            Receivables will be listed here when an authorized user has created an Invoice.
+        </p>          
+    </div>
+
+    <div class="financials-overview" *ngIf="receivablesList.length != 0">
+        <div class="timeLineWrap">
+            <div class="reportOptionTabsTop">
+                <div class="tabs">
+                    <div class="infoText">30 Days</div>
+                </div>
+                <div class="tabs">
+                    <div class="infoText">60 Days</div>
+                </div>
+                <div class="tabs">
+                    <div class="infoText">90 Days</div>
+                </div>
+                <div class="tabs">
+                    <div class="infoText">180 Days</div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="reportOptionTabsBottom">
+                <div class="tabs">
+                    <div class="vertLine"></div>
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt1" value="30" (change)="timeLineChange($event,'thirty')" [checked]="timeLineData.thirty">
+                        <label for="workflowOpt1"></label>
+                    </div>
+                </div>
+                <div class="tabs" id="myid">
+                    <div class="vertLine"></div>
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt2" value="60" (change)="timeLineChange($event,'sixty')" [checked]="timeLineData.sixty">
+                        <label for="workflowOpt2"></label>
+                    </div>
+                </div>
+                <div class="tabs">
+                    <div class="vertLine"></div>
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt3" value="90" (change)="timeLineChange($event,'ninty')" [checked]="timeLineData.ninty">
+                        <label for="workflowOpt3"></label>
+                    </div>
+                </div>
+                <div class="tabs">
+                    <div class="vertLine"></div>
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt4" value="180" (change)="timeLineChange($event,'oneEighty')" [checked]="timeLineData.oneEighty">
+                        <label for="workflowOpt4"></label>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="widgetWrap">
+            <div class="col-sm-6">
+                <div class="contentBox">
+                    <div class="midText">Total Amount Receivable</div>
+                    <div class="amtTxt txt-green">{{pageData.totalAmount | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="contentBox">
+                    <div class="midText">Total Amount Remaining</div>
+                    <div class="amtTxt txt-red">{{pageData.amountRemaining | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="head-row clearfix" *ngIf="receivablesList.length != 0">
+        <div class="search-section">
+            <div class="input-group">
+                <span class="search-icn" id="basic-addon1">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+                <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="searchList" (ngModelChange)="getSearchTxt(searchList)" >
+                <button mat-raised-button class="client-btn" (click)="searchTxt = searchList">Search</button>
+            </div>
+        </div>
+        <div class="pull-right">
+            <div class="add-client addEmpBtnWrap">
+                <div class="dropdown">
+                    <button *ngIf="util.getRole() == 2 || permissionsSet.exportReceivables" mat-raised-button class="client-btn dropdown-toggle" type="button" data-toggle="dropdown">Export
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)" (click)="generatepdf()" class="client-btn">Export as pdf</a></li>
+                        <li><a href="javascript:void(0)" (click)="generatecsv()" class="client-btn">Export as CSV</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+
+    <div class="trea-data-table table-responsive" *ngIf="receivablesList.length != 0">
+        <!-- twoTblTop -->
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th width="450">
+                        <div class="table-hdr">
+                            <div>
+                                <span>Due Date</span>
+                                <span (click)="columnType = 'A';sortColumn = 'due_date';sortOrder = sortColumn === 'due_date' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'" class="cursorPtr">
+                                    <i [ngClass]=" sortColumn == 'due_date' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" [(ngModel)]="searchData.invoiceDate" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="450">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Client</span>
+                                <span (click)="columnType = 'A';sortColumn = 'name';sortOrder = sortColumn === 'name' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'" class="cursorPtr">
+                                    <i [ngClass]=" sortColumn == 'name' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" [(ngModel)]="searchData.name" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="450">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Invoice No.</span>
+                                <span (click)="columnType = 'N';sortColumn = 'invoice_no';sortOrder = sortColumn === 'invoice_no' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'" class="cursorPtr">
+                                    <i [ngClass]=" sortColumn == 'invoice_no' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" [(ngModel)]="searchData.invoiceNo" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="450">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Total Amount</span>
+                                <span (click)="columnType = 'N';sortColumn = 'total_amount';sortOrder = sortColumn === 'total_amount' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'" class="cursorPtr">
+                                    <i [ngClass]=" sortColumn == 'total_amount' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" [(ngModel)]="searchData.totalAmt" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="450">
+                        <div class="bdr-left table-hdr">
+                            <div>
+                                <span>Amount Remaining</span>
+                                <span (click)="columnType = 'N';sortColumn = 'remaining_amount';sortOrder = sortColumn === 'remaining_amount' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'" class="cursorPtr">
+                                    <i [ngClass]=" sortColumn == 'remaining_amount' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" [(ngModel)]="searchData.remainingAmt" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''" -->
+                <!-- name,invoice_no,total_payment_amount,remaining_amount,due_date -->
+                <tr *ngFor="let indx=index; let receivable of receivablesList | sortBy:sortColumn:sortOrder:columnType | searchfilter:searchData.name:'name' | searchfilter:searchData.invoiceDate:'due_date' | searchfilter:searchData.invoiceNo:'invoice_no' | searchfilter:searchData.totalAmt:'total_payment_amount' | searchfilter:searchData.remainingAmt:'remaining_amount' | searchfilter:searchTxt:'name,invoice_no,total_payment_amount,remaining_amount,due_date' | listLengthfilter | paginate: paginationKey" (click)="selectedIndex = indx; getSelectedInvoice(receivable, indx);" [ngClass]="{'sel-row-highlight':selectedIndex == indx, 'sel-row-red': receivable.dateInMS < today }">
+                    <!-- 0 == indx -->
+                    <td>{{receivable.due_date}}</td>
+                    <td>{{receivable.name}}<span class="dn">{{ indx == 0 ? updateCount(receivable.count) : ''}}</span></td>
+                    <!-- <td><a href="javascript:void(0)" [routerLink]="['/workflow/quote/csa/quotation-list/', receivable.project_estimate_id]">{{receivable.project_estimate_no}}</a></td> -->
+                    <td>{{receivable.invoice_no}}</td>
+                    <td class="qty-cost">{{receivable.total_amount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                    <td class="qty-cost">{{receivable.remaining_amount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <table class="twoTblBottom">
+            <tbody>
+                <tr>
+                    <td width="450">&nbsp;</td>
+                    <td width="450">&nbsp;</td>
+                    <td width="450">{{pageData.totalAmount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                    <td width="450">{{pageData.amountRemaining | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                    <td width="450">&nbsp;</td>
+                </tr>
+            </tbody>
+        </table> -->
+    </div>
+
+    <div class="treaPagination" *ngIf="receivablesList.length != 0 && constant.ITEM_COUNT != 0">
+        <div class="pull-right">
+            <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+        </div>
+        <div class="pull-right">
+            <select [(ngModel)]="paginationKey.itemsPerPage" (change)="util.changeItemPerPage()">
+                <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+            </select>
+            <span> items per page</span>
+        </div>
+        <div class="pull-right">
+            <pagination-controls
+                (pageChange)="util.changePage($event, paginationKey)"
+                directionLinks="true"
+                autoHide="false"
+                previousLabel="Pre"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="selSection" *ngIf="selectedReceivable" id="receivableMark">
+        <div class="receivableDetails">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Client</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="info-col txtActive">
+                        <a [routerLink]="['/crm/csa/client-list/', selectedReceivable.client_id]">{{selectedReceivable.name}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Invoice No</div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="info-col txtActive">
+                        <a [routerLink]="['/account/csa/invoice-list/', selectedReceivable.invoice_id]">#{{selectedReceivable.invoice_no}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Due Date</div>
+                </div>
+                <div class="col-sm-2">
+                    <span >
+                        {{util.getFormatedDate(selectedReceivable.due_date)}}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Total Amount</div>
+                </div>
+                <div class="col-sm-2" >
+                 <span class="pull-right">{{selectedReceivable.total_payment_amount | currency: util.getCurrency() :'symbol-narrow'}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Amount Paid</div>
+                </div>
+                <div class="col-sm-2">
+                    <span class="pull-right">{{selectedReceivable.amount_paid | currency: util.getCurrency() :'symbol-narrow'}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Amount Remaining</div>
+                </div>
+                <div class="col-sm-2">
+                   <span class="pull-right">{{selectedReceivable.remaining_amount | currency: util.getCurrency() :'symbol-narrow'}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="receivableDetTbl" *ngIf="selectedReceivable.received_payments.length > 0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="300">Payment Date</th>
+                            <th width="300" class="text-right">Amount Paid</th>
+                            <th width="300">Invoice</th>
+                            <th width="300">Invoice Amount</th>
+                            <th width="300">Reference</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let schedule of selectedReceivable.received_payments">
+                            <td>{{util.getFormatedDate(schedule.payment_date)}}</td>
+                            <td class="text-right">{{schedule.payment_amount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                            <td>
+                                <!-- *ngIf="schedule.invoice_number" -->
+                                <a href="javascript:void(0)" [routerLink]="['/account/csa/invoice-list/', selectedReceivable.invoice_id]">#{{selectedReceivable.invoice_no}}</a>
+                                <!-- <button *ngIf="!schedule.invoice_number" (click)="createInvoice(schedule)" mat-raised-button class="client-btn" type="button">Create</button> -->
+                            </td>
+                            <td  class="text-right">
+                                <!-- *ngIf="schedule.invoice_number" -->
+                                <span>{{selectedReceivable.total_payment_amount | currency: util.getCurrency() :'symbol-narrow'}}</span>
+                            </td>
+                            <td>
+                                <!-- *ngIf="schedule.invoice_number" -->
+                                <span>{{schedule.payment_reference}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+  <div *ngIf="selectedReceivable.remaining_amount != 0">
+        <div class="invoicepayDetTbl" *ngIf="util.getRole() == 2 || permissionsSet.recordPayments">
+            <div class="pageTitle">Payment Details</div>
+            <form autocomplete="off" role="form" [formGroup]="recordPayForm">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width=""></th>
+                                <th width="">Payment Date</th>
+                                <th width="">Payment Amount</th>
+                                <th width="">Payment Method</th>
+                                <th width="">Reference</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr *ngFor="let r_payment of selectedInvoice.received_payments">
+                                <td></td>
+                                <td>{{r_payment.payment_date | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{r_payment.payment_amount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                                <td>{{r_payment.payment_method ? r_payment.payment_method : 'N/A'}}</td>
+                                <td>{{r_payment.payment_reference ? r_payment.payment_reference : 'N/A'}}</td>
+                            </tr> -->
+
+                            <tr *ngFor="let item of items.controls; let indxP=index" [formGroup]="item">
+                                <td><a href="javascript:void(0)" (click)="removeItem(indxP)"><img *ngIf="indxP != 0" src="assets/icon/close_icon.png"></a></td>
+                                <td>
+                                    <div class="form-group clearfix">
+                                        <div class="dateWrapper">
+                                            <!-- [min]="minDate"> -->
+                                            <input autocomplete="nope" type="text"  formControlName="payment_date" class="date" [matDatepicker]="picker" style="pointer-events: none;" readonly="true">
+                                            <!-- (selectedChanged)="updatePaymentDate($event,indx)" -->
+                                            <mat-datepicker #picker ></mat-datepicker>
+                                            <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span>
+                                            <div class="clearfix"></div>
+                                            <span class="error-msg" *ngIf="item.get('payment_date').invalid && (item.get('payment_date').dirty || item.get('payment_date').touched || submittedPay)">
+                                                <small *ngIf="item.get('payment_date').errors.required">Payment Date is required.</small>
+                                                <small *ngIf="item.get('payment_date').errors.min">Please enter upcoming date.</small>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div class="form-group clearfix">
+                                        <input autocomplete="nope" type="text" formControlName="payment_amount" (keyup)="util.removeCommas(item.get('payment_amount'))"/>
+                                        <div class="clearfix"></div>
+                                        <span class="error-msg" *ngIf="item.get('payment_amount').invalid && (item.get('payment_amount').dirty || item.get('payment_amount').touched || submittedPay)">
+                                            <small *ngIf="item.get('payment_amount').errors.required">Payment Amount is required.</small>
+                                            <small *ngIf="item.get('payment_amount').errors.pattern">Invalid Payment Amount.</small>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group clearfix">
+                                        <input autocomplete="nope" type="text" formControlName="payment_method">
+                                        <div class="clearfix"></div>
+                                        <span class="error-msg" *ngIf="item.get('payment_method').invalid && (item.get('payment_method').dirty || item.get('payment_method').touched || submittedPay)">
+                                            <small *ngIf="item.get('payment_method').errors.required">Payment Method is required.</small>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group clearfix">
+                                        <input autocomplete="nope" type="text" formControlName="payment_reference">
+                                        <div class="clearfix"></div>
+                                        <span class="error-msg" *ngIf="item.get('payment_reference').invalid && (item.get('payment_reference').dirty || item.get('payment_reference').touched || submittedPay)">
+                                            <small *ngIf="item.get('payment_reference').errors.required">Payment Reference is required.</small>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="clearfix"></div>
+                    <span class="addIcon cursorPtr" (click)="addItem('0')">
+                        <img src="assets/icon/icon-add.png"><span>Add Payment</span>
+                    </span>
+                </div>
+                <div class="errMsgCon" *ngIf="isError">
+                    <small>{{errMsg}}</small>
+                </div>
+                <div class="button-row clearfix">
+                    <button mat-raised-button class="trea-btn" (click)="saveRecordPay(recordPayForm)" id="savePay">Save</button>
+                    <!-- <button mat-raised-button class="trea-btn" (click)="recordPay()">Cancel</button> -->
+                </div>
+            </form>
+        </div>
+</div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+
+
+<table id="receivable-tbl" class="dn">
+    <thead>
+        <tr>
+            <th>Date Due</th>
+            <th>Client</th>
+            <th>Invoice No.</th>
+            <th>Total Amount</th>
+            <th>Amount Remaining</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let indx=index; let receivable of receivablesList | sortBy:sortColumn:sortOrder:columnType | searchfilter:searchData.name:'name' | searchfilter:searchData.invoiceDate:'invoice_date' | searchfilter:searchData.invoiceNo:'invoice_no' | searchfilter:searchData.totalAmt:'total_payment_amount' | searchfilter:searchData.remainingAmt:'remaining_amount' | searchfilter:searchTxt:'name,invoice_no,total_payment_amount,remaining_amount,invoice_date'">
+            <td>{{util.getFormatedDate(receivable.invoice_date)}}</td>
+            <td>{{receivable.name}}</td>
+            <td>{{receivable.invoice_no}}</td>
+            <td >{{receivable.total_amount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+            <td >{{receivable.remaining_amount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table id="receivable-csv-tbl" class="dn">
+    <thead>
+        <tr>
+            <th>Date Due</th>
+            <th>Client</th>
+            <th>Invoice No.</th>
+            <th>Total Amount</th>
+            <th>Amount Remaining</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let indx=index; let receivable of receivablesList | sortBy:sortColumn:sortOrder:columnType | searchfilter:searchData.name:'name' | searchfilter:searchData.invoiceDate:'invoice_date' | searchfilter:searchData.invoiceNo:'invoice_no' | searchfilter:searchData.totalAmt:'total_payment_amount' | searchfilter:searchData.remainingAmt:'remaining_amount' | searchfilter:searchTxt:'name,invoice_no,total_payment_amount,remaining_amount,invoice_date'">
+            <td>{{util.getFormatedDate(receivable.invoice_date)}}</td>
+            <td>{{receivable.name}}</td>
+            <td>{{receivable.invoice_no}}</td>
+            <td>{{receivable.total_amount}}</td>
+            <td>{{receivable.remaining_amount}}</td>
+        </tr>
+    </tbody>
+</table>

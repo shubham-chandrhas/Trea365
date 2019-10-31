@@ -1,0 +1,54 @@
+<div class="dialog" *ngIf="dialog.action == 'DELETE_CONFIRMATION'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>{{ dialog.header }}</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <div class="dialog-txt">
+      <div>{{ dialog.message }}</div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="remove-btn"
+        mat-raised-button
+        class="trea-btn"
+        (click)="deleteAPICall()"
+      >
+        Delete
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="dialog width450" *ngIf="dialog.action == 'image'">
+    <span class="close-icon" (click)="closeDialog()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
+
+    <div class="previewImg">
+        <img [src]="dialog.url" alt="" class="img-responsive img-center">
+    </div>
+    <div class="thumbWrap" *ngIf="dialog.images">
+        <div class="thumbImg" *ngFor="let img of dialog.images; let indx = index;" [ngClass]="isActive == indx ? 'active' : ''">
+            <img [src]="img.image_path" alt="" (click)="dialog.url = img.image_path; isActive = indx;" class="img-responsive img-center">
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,307 @@
+
+<div id="quote-email" class="data-loading" [ngClass]="loading ? '' : 'dn'">
+    <div class="loading-spinner">
+        <mat-spinner [diameter]="60" [color]="'primary'"></mat-spinner>
+    </div>
+</div>
+
+<div class="container detailsContainer" >
+  <!-- <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="logosWrap">
+            <div class="logo1 col-sm-3">
+              <img class="img-responsive" src="https://www.trea365.com/steam/assets-login/images/default_image.svg">
+            </div>
+            <div class="col-sm-3 powered">
+                <span>Powered by</span>
+            </div>
+            <div class="logo2 col-sm-6">
+              <img class="img-responsive" src="https://www.trea365.com/steam/assets-login/images/trea-logo.png">
+            </div>
+          </div>
+    </div>
+  </div> -->
+
+  <hr>
+    <div id="Content" *ngIf="pe_details">
+      <div class="row" style="padding: 10px;">
+          <div class="col-sm-6 col-sm-offset-4">
+            <h3>Quote No.{{pe_details.project_estimate_no}} ({{pe_details.status_details.status}})</h3>
+          </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+            <table class="table table-borderless spec_table">
+              <tr>
+                <td> <strong>Date</strong></td>
+                <td class="data-right">{{util.getFormatedDate(pe_details.project_estimate_date)}}</td>
+              </tr>
+              <tr>
+                <td> <strong>Genrated By</strong></td>
+                <td class="data-right">{{pe_details.generated_by.first_name}}</td>
+              </tr>
+              <tr>
+                <td> <strong>Contact</strong></td>
+                <td class="data-right">{{pe_details.client_contact_details ? pe_details.client_contact_details.name : 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td> <strong>Email</strong></td>
+                <td class="data-right">{{pe_details.client_contact_details ? pe_details.client_contact_details.email_id : 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td> <strong>Phone</strong></td>
+                <td class="data-right">{{pe_details.client_contact_details ? pe_details.client_contact_details.phone_no : 'N/A'}}</td>
+              </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+          <table class="table table-borderless spec_table">
+            <tr>
+              <td> <strong>Client</strong></td>
+              <td class="data-right">{{pe_details.client_details.company_name ? pe_details.client_details.company_name : pe_details.client_details.first_name +' '+ pe_details.client_details.last_name }}</td>
+            </tr>
+            <tr>
+              <td> <strong>Work Location</strong></td>
+              <!-- <td class="data-right">{{pe_details.client_work_location.address_line_1 ? pe_details.client_work_location.address_line_1 + ',' : '' }} {{pe_details.client_work_location.address_line_2 ? pe_details.client_work_location.address_line_2 + ',' : '' }}
+								{{pe_details.client_work_location.city_details.city_name ? pe_details.client_work_location.city_details.city_name + ',' : '' }}
+								{{pe_details.client_work_location.province_details.province_name ? pe_details.client_work_location.province_details.province_name + ',' : '' }}
+								{{pe_details.client_work_location.country_details.country_name ? pe_details.client_work_location.country_details.country_name + ',' : '' }}
+                                {{pe_details.client_work_location.postal_code}}</td> -->
+                <td class="data-right">{{pe_details.workLocation}}</td>
+            </tr>
+
+            <tr>
+              <td> <strong>Billing Location</strong></td>
+              <!-- <td class="data-right" *ngIf="pe_details.client_billing_location">{{pe_details.client_billing_location.address_line_1 ? pe_details.client_billing_location.address_line_1 + ',' : '' }} {{pe_details.client_billing_location.address_line_2 ? pe_details.client_billing_location.address_line_2 + ',' : '' }}
+								{{pe_details.client_billing_location.city_details.city_name ? pe_details.client_billing_location.city_details.city_name + ',' : '' }}
+								{{pe_details.client_billing_location.province_details.province_name ? pe_details.client_billing_location.province_details.province_name + ',' : '' }}
+								{{pe_details.client_billing_location.country_details.country_name ? pe_details.client_billing_location.country_details.country_name + ',' : '' }}
+                                {{pe_details.client_billing_location.postal_code}}</td> -->
+                <td class="data-right" *ngIf="pe_details.client_billing_location">{{pe_details.billingLocation}}</td>                
+            </tr>
+          </table>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row" style="padding: 10px;">
+        <div class="col-sm-7 col-sm-offset-5">
+          <h4>Requirement Description</h4>
+          <br>
+        </div>
+        <p> {{pe_details.requirements ? pe_details.requirements : ''}}</p>
+      </div>
+
+      <div class="row" style="padding: 10px;">
+        <div class="col-sm-7 col-sm-offset-5">
+          <h4>Services</h4>
+          <br>
+        </div>
+        <table class="table table-borderless service_table" *ngIf="pe_details.services">
+          <thead>
+            <th class="text-center" >Service</th>
+            <th class="text-right">Cost</th>
+            <th class="text-right">Quantity</th>
+            <th class="text-right">Amount</th>
+            <th class="text-center">Details</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let service of pe_details.services">
+              <td class="text-center">{{service.service_defination ? service.service_defination.service_definition :service.ad_hoc_service}}</td>
+              <td class="text-right">{{service.cost | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              <td class="text-right"> {{service.quantity}}</td>
+              <td class="text-right">{{service.total_amount | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              <td class="text-center">{{service.details ? service.details : 'N/A' }}</td>
+            </tr>
+
+            <tr>
+              <td colspan="3" style="width: 80%;text-align: right;font-weight: bold;">Total Amount Of Services</td>
+              <td class="text-right" >{{pe_details.costs[0].cost_of_services | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="row" style="padding: 10px;">
+        <div class="col-sm-7 col-sm-offset-5">
+          <h4>Product And Materials</h4>
+          <br>
+        </div>
+        <table class="table table-borderless service_table">
+          <thead>
+            <th class="text-center">Product/Material Type</th>
+            <th class="text-right">Cost</th>
+            <th class="text-right">Quantity</th>
+            <th class="text-right">Amount</th>
+            <th class="text-center">Details</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let material of pe_details.product_materials">
+              <td class="text-center">{{material.manf_part ? material.manf_part.short_name :'N/A'}}</td>
+              <td class="text-right">{{material.cost | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              <td class="text-right">{{material.quantity}}</td>
+              <td class="text-right">{{material.total_amount | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              <td class="text-center">{{material.details ? material.details : 'N/A'}}</td>
+            </tr>
+
+            <tr>
+              <td colspan="3" style="width: 80%;text-align: right;font-weight: bold;">Total Amount Of Material And Product</td>
+              <td class="text-right" >{{pe_details.costs[0].cost_of_materials | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row" style="padding: 10px;">
+        <div class="col-sm-7 col-sm-offset-5">
+          <h4>Schedule</h4>
+          <br>
+        </div>
+        <table class="table table-borderless service_table">
+          <thead>
+            <th style="width: 20%;">Start Date</th>
+            <th style="width: 20%;">Start Time</th>
+            <th style="width: 20%;">End Date</th>
+            <th style="width: 20%;">End Time</th>
+            <!-- <th style="width: 20%;">Repeat On</th> -->
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 20%;">{{util.getFormatedDate(pe_details.schedules.start_date)}}</td>
+              <td style="width: 20%;">{{pe_details.schedules.start_time}} {{pe_details.schedules.start_time_format}}</td>
+              <td style="width: 20%;">{{util.getFormatedDate(pe_details.schedules.end_date)}}</td>
+              <td style="width: 20%;">{{pe_details.schedules.end_time}} {{pe_details.schedules.end_time_format}}</td>
+              <!-- <td style="width: 20%;">{{pe_details.schedules.schedule_repeat == 1 ? 'YES' : 'NO'}}</td> -->
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- <table class="table table-borderless service_table">
+          <thead>
+            <th style="width: 20%;">Reapeat</th>
+            <th style="width: 20%;">Reapeat On</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 20%;">{{pe_details.schedules.schedule_repeat == 1 ? pe_details.schedules.schedule_repeat_details.status : 'N/A'}}</td>
+              <td style="width: 20%;">{{pe_details.schedules.schedule_repeat == 1 ? 'YES' : 'NO'}}</td>
+            </tr>
+          </tbody>
+        </table> -->
+      </div>
+
+      <div class="row" style="padding: 10px;">
+        <div class="col-sm-7 col-sm-offset-5">
+          <h4> Payment Schedule</h4>
+          <br>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+              <table class="table table-borderless spec_table">
+                <tr>
+                  <td> Cost Of Service</td>
+                  <td class="data-right">{{pe_details.costs[0].cost_of_services | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+                </tr>
+                <tr>
+                  <td> Cost Of Materials</td>
+                  <td class="data-right">{{pe_details.costs[0].cost_of_materials | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+                </tr>
+                <tr>
+                  <td> <strong>SubTotal</strong></td>
+                  <td class="data-right">{{pe_details.costs[0].subtotal | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+                </tr>
+              </table>
+          </div>
+          <div class="col-md-6">
+            <table class="table table-borderless spec_table">
+              <tr>
+                <td> Shipping and Handling</td>
+                <td class="text-right">{{pe_details.costs[0].shipping_and_handling | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              </tr>
+              <tr>
+                <td> Adjustment</td>
+                <td class="text-right">{{pe_details.costs[0].adjustment | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              </tr>
+              <tr>
+                <td> Taxes {{pe_details.costs[0].taxes}} %</td>
+                <td class="text-right">{{pe_details.costs[0].tax_amount | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              </tr>
+
+              <tr>
+                <td> <strong>Total Cost</strong></td>
+                <td class="text-right">{{pe_details.costs[0].total_cost | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-sm-7 col-sm-offset-5">
+          <table class="table table-borderless service_table">
+            <thead>
+              <th >Date</th>
+              <th class="text-right">Amount</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payment_schedule of pe_details.payment_schedules">
+                <td >{{util.getFormatedDate(payment_schedule.payment_date)}}</td>
+                <td class="text-right">{{payment_schedule.amount_due | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              </tr>
+              <tr>
+                <td style="width: 80%;text-align: right;font-weight: bold;">Total Payment Amount</td>
+                <td style="width: 20%; text-align: right;font-weight: bold;" >{{pe_details.costs[0].total_cost | currency: pe_details.company_detail.currency :'symbol-narrow'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row" style="padding: 10px;" *ngIf="pe_details.site_inspection">
+        <div class="col-sm-7 col-sm-offset-5">
+          <h4>Site Inspection</h4>
+          <br>
+        </div>
+        
+        <div class="col-sm-6">
+          <table class="table table-borderless spec_table" *ngIf="!pe_details.site_inspection">
+             <tr style="display:none">
+                <td> Site Inspection</td>
+                <td class="data-right">NO</td>
+            </tr>
+          </table>       
+          <table class="table table-borderless spec_table" *ngIf="pe_details.site_inspection" >
+            <tr>
+              <td> Site Inspection</td>
+              <!-- <td class="data-right">{{pe_details.site_inspection ? 'YES' : 'NO'}}</td> -->
+            <td class="data-right">YES</td>
+            </tr>
+            <tr>
+              <td> Date</td>
+              <td class="data-right" *ngIf="pe_details.site_inspection">{{ util.getFormatedDate(pe_details.site_inspection.inspection_date)}}</td>
+            </tr>
+            <tr>
+              <td> Time</td>
+              <td class="data-right">{{pe_details.site_inspection ? pe_details.site_inspection.start_time : 'N/A'}} {{pe_details.site_inspection ? pe_details.site_inspection.start_time_format : ''}}-{{pe_details.site_inspection? pe_details.site_inspection.end_time : ''}} {{pe_details.site_inspection ? pe_details.site_inspection.end_time_format : ''}}</td>
+            </tr>
+            <tr>
+              <td> Inspector</td>
+              <td class="data-right">{{pe_details.site_inspection ? pe_details.site_inspection.inspector_details.first_name : 'N/A'}} {{pe_details.site_inspection ? pe_details.site_inspection.inspector_details.last_name : ''}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="row" style="padding: 10px;">
+        <div class="col-sm-7 col-sm-offset-5">
+          <p *ngIf="pe_details.status == 5" class="label label-success">Project Estimate Approved</p>
+          <p *ngIf="pe_details.status == 6" class="label label-danger">Project Estimate Rejected</p>
+          <p *ngIf="pe_details.status == 7" class="label label-danger">Project Estimate Expired</p>
+          <button *ngIf="pe_details.status != 5 && pe_details.status != 6 && pe_details.status != 7" class="btn btn-md lgbtn" (click)="approvePE(pe_details.project_estimate_id)">Approve</button>
+          <button *ngIf="pe_details.status != 5 && pe_details.status != 6 && pe_details.status != 7" class="btn btn-md lgbtn" (click)="rejectPE(pe_details.project_estimate_id)">Reject</button>
+        </div>
+      </div>
+    </div>
+</div>

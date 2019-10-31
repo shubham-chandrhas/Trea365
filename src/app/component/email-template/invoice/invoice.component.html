@@ -1,0 +1,231 @@
+
+<div class="container detailsContainer" >
+<div id="Content"   *ngIf="invoice_details">
+    <div class="row" style="padding: 10px;">
+        <div class="col-sm-6 col-sm-offset-4">
+          <h3>Invoice No. {{invoice_details.invoice_no}} ({{invoice_details.status_detail.status}})</h3>
+        </div>
+    </div>
+    <hr>
+<div class="headInfoWrap">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Date</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{util.getFormatedDate(invoice_details.invoice_date)}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Client</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{invoice_details.client.company_name ? invoice_details.client.company_name : invoice_details.client.first_name + ' ' + invoice_details.client.last_name  }}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Quotation No.</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col"><a href="javascript:void(0)" class="email" [routerLink]="['/workflow/quote/csa/quotation-list/', invoice_details.project_estimate.project_estimate_id]">{{invoice_details.project_estimate ?  invoice_details.project_estimate.project_estimate_no : 'N/A'}}</a></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Work Order No.</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col"><a href="javascript:void(0)" class="email">{{invoice_details.work_order ? invoice_details.work_order.work_order_no : 'N/A' }}</a></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="invoice_details.project_estimate.work_orders?invoice_details.project_estimate.work_orders.length > 0 : ''">
+                <div class="col-sm-4">
+                    <div class="label-col">Work Order No.</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col" *ngFor="let workorder of invoice_details.project_estimate.work_orders"><a href="javascript:void(0)" class="email" [routerLink]="['/workflow/wo/csa/work-order-list/', workorder.work_order_id]">{{workorder.work_order_no}}</a></div>
+                </div>
+            </div>
+            <div class="row" *ngIf="invoice_details.project_estimate.work_orders?invoice_details.project_estimate.work_orders.length == 0 : ''">
+                    <div class="col-sm-4">
+                        <div class="label-col">Work Order No.</div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="info-col">N/A</div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Billing Address</div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="info-col">
+                        {{invoice_details.client_billing_details ? invoice_details.client_billing_details.address_line_1 + ' ' + invoice_details.client_billing_details.city_details.city_name + ' ' + invoice_details.client_billing_details.province_details.province_name + ' ' +  invoice_details.client_billing_details.country_details.country_name : 'N/A'}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="invoiceDetTbl">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Services and Materials</th>
+                    <th class="text-right">Cost</th>
+                    <th class="text-right">Quantity</th>
+                    <th class="text-right">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tbody>
+                <tr *ngFor="let indx=index ;let service of invoice_details.services ">
+                    <td>{{service.ad_hoc_service ? service.ad_hoc_service : service.service_definition.service_definition}}</td>
+                    <td><div class="text-right">{{service.cost | currency: util.getCurrency() :'symbol-narrow'}}</div></td>
+                    <td><div class="text-right">{{service.quantity}}</div></td>
+                    <td><div class="text-right">{{service.total_amount | currency: util.getCurrency() :'symbol-narrow'}}
+                    </div></td>
+                </tr>
+
+                <tr *ngFor="let indx=index ;let pro_mat of invoice_details.product_materials ">
+                    <td>{{pro_mat.manf_part ? pro_mat.manf_part.short_name : pro_mat.details}}</td>
+                    <td><div class="text-right">{{pro_mat.cost | currency: util.getCurrency() :'symbol-narrow'}}</div></td>
+                    <td><div class="text-right">{{pro_mat.quantity}}</div></td>
+                    <td><div class="text-right">{{pro_mat.total_amount | currency: util.getCurrency() :'symbol-narrow'}}</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="payScheduleWrap">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="label-col align">Payment Schedule</div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="font-pay">Date Due</th>
+                            <th class="text-right font-pay">Amount Due</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let payment of invoice_details.payment_schedules ">
+                            <td>{{util.getFormatedDate(payment.payment_date)}}</td>
+                            <td class="text-right">{{payment.amount_due | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="label-col no-padding">Subtotal</div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="label-col no-padding">{{invoice_details.subtotal | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="label-col">Shipping and Handling</div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="label-col">{{invoice_details.shipping_and_handling | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="label-col">Adjustment</div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="label-col">{{invoice_details.adjustment | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="label-col">
+                        <span>Taxes</span> <span>{{invoice_details.taxes}}</span> <span> %</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="label-col">{{invoice_details.subtotal *(invoice_details.taxes / 100) | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="label-col">Total Payment Amount </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="label-col">{{invoice_details.total_payment_amount | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                </div>
+            </div>
+            <div class="row" style="color: #d0021B;">
+                <div class="col-sm-8">
+                    <div class="label-col">Remaining Payment Amount </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="label-col">{{invoice_details.remaining_amount | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="label-col">Due Date</div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="label-col">{{util.getFormatedDate(invoice_details.due_date)}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="commentSection ">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="label-col align">Notes</div>
+            <div class="info-col">
+                {{invoice_details.notes}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Content" *ngIf="invoice_details.received_payments">
+    <div class="pageTitle">Payment Details</div>
+    <form autocomplete="off" role="form" >
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center" width="">Payment Date</th>
+                        <th class="text-right" width="">Payment Amount</th>
+                        <th  class="text-center"width="">Payment Method</th>
+                        <th  class="text-center"  width="">Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let r_payment of invoice_details.received_payments">
+                        <td class="text-center" >{{util.getFormatedDate(r_payment.payment_date)}}</td>
+                        <td class="text-right">{{r_payment.payment_amount | currency: util.getCurrency() :'symbol-narrow'}}</td>
+                        <td class="text-center">{{r_payment.payment_method ? r_payment.payment_method : 'N/A'}}</td>
+                        <td class="text-center">{{r_payment.payment_reference ? r_payment.payment_reference : 'N/A'}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+</div>
+</div>
+</div>

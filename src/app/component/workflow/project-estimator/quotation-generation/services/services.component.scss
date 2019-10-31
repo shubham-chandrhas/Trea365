@@ -1,0 +1,67 @@
+
+/* Auto Complete Drop down list Css Start */
+
+.autoCompleteList .searchList{
+    padding: 0px;
+  }
+  .autoCompleteList .searchList .search-icn{
+    left: 0px;
+  }
+  .autoCompleteList .searchList .mat-input-element {
+    /* padding-left: 30px; */
+    padding-left: 5px;
+  }
+  .searchList .mat-form-field-infix {
+    border: 1px solid #d1d1d1;
+    padding: 0px !important;
+    width: 160px;
+  }
+  .mat-input-infix{
+    padding: 5px 0px!important;
+  }
+  .selectBoxIcon{
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 25px;
+  }
+  .autoCompleteList .searchList .mat-form-field-wrapper{ padding-bottom: 0px; }
+.vs{visibility: hidden}
+
+/*ON THE FLY ADD PRODUCT ADDING*/
+.OTFClass form .MARB5{ margin-bottom: 5px !important; }
+.OTFClass .addUserFormBody{ padding: 10px; }
+.OTFClass form{ margin: 0px auto; }
+.OTFClass form .prodInfo, .OTFClass form .storageDetailCover h4{ margin-bottom: 0px; }
+.OTFClass form .storageDetailCover{ margin: 15px 0px 20px 0px; }
+.OTFClass form .addFormBtnWrap{ margin: 5px 0px; }
+.OTFClass .errMsgCon{ margin-bottom: 15px; }
+.OTFClass .price{max-width: 100px;}
+/*END ON THE FLY ADD PRODUCT ADDING*/
+
+@media screen and (max-width:767px) {
+.table-responsive {
+    border: none;
+}
+}
+.servicesForm .error-msg {
+  color: #F44336;
+  font-size: smaller;
+  font-weight: normal;
+  line-height: 14px;
+  /* position: absolute; */
+  display: block;
+}
+
+.currencyWrap{
+    position: relative;
+}
+.currencyWrap .currencySign{
+    position: absolute;
+    top: 3px;
+    left: 5px;
+}
+.currencyWrap .currInput{
+    padding-left: 20px;
+}

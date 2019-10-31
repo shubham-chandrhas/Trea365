@@ -1,0 +1,297 @@
+.financials-overview {
+    margin-bottom: 3em;
+}
+
+.qty-cost{
+    text-align: right;
+}
+.payableSection{ padding: 0px 20px; }
+.payableSection .search-section{ float: left; }
+.payableSection .add-client{ float: right; }
+.payableSection .client-btn, .dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+.payableSection .pageTitle{
+    margin-bottom: 0px;
+}
+/* .trea-btn {
+    background-color: #00a99d;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+} */
+
+.trea-btn:hover, .act-option, .payableSection .client-btn.act-option, .fileUpload .uploadBtn:hover{
+    color: #505050;
+    background-color: #FFCB36;
+}
+.payableSection .uploadBtnHt{ max-width: 100px; margin: 0px auto; }
+.paymentBtnWrap .trea-btn{
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+.search-section .form-control:hover, .search-section .form-control:focus, .payableSection .client-btn:hover, .payableSection .client-btn:focus{ outline: 0px; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 186px; height: 30px; }
+
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ 
+  font-weight: 600; 
+  font-size: 14px; 
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px;}
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+.trea-data-table .table tbody tr td a {
+    color: #00A499;
+    text-decoration: underline;
+}
+.txtActive{
+    color: #00A499;
+    text-decoration: underline;
+}
+.searchTbl{
+    position: relative;
+}
+.searchTbl .searchIcon{
+    position: absolute;
+    top: 5px;
+    left: 0px;
+}
+
+.payableDetHead {
+    text-align: center;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 20px;
+    margin: 20px 0 69px 0;
+}
+
+/* period details table */
+
+.payableDetTbl {
+    margin: 40px auto;
+}
+.payableDetTbl .table{
+    margin-bottom: 20px;
+}
+.payableDetTbl .table tbody tr td a {
+    color: #00A499;
+    text-decoration: underline;
+}
+
+.payableDetTbl .table > thead > tr > th,
+.payableDetTbl .table > tbody > tr > td {
+    vertical-align: top;
+    text-align: center;
+    padding-top: 12px;
+}
+
+.payableDetTbl .table > thead > tr > th,
+.payableDetTbl .table > tbody > tr > td {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+}
+.MarTop4{margin-top: 4px;}
+.dateWrapper{
+    width: 125px;
+    display: inline-block;
+    position: relative;
+}
+.dateWrapper .date{
+    display: inline-block;
+    width: 90px;
+    height: 20px;
+    outline: 0;
+    padding: 0 5px;
+}
+.dateWrapper .dateIcon{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+    margin-left: 3px;
+}
+
+.addIcon{
+    margin-left: 10px;
+    text-align: left;
+}
+.addIcon>img,
+.closeIcon>img{
+    max-width: 100%;
+    cursor: pointer;
+}
+.addIcon>img{
+    vertical-align: text-top;
+}
+.addIcon>span,
+.closeIcon>span{
+    /* cursor: pointer; */
+    padding-left: 10px;
+}
+
+.payAmount{
+    width: 98px; 
+}
+.addFields>img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+.addFields>span{
+    /* cursor: pointer; */
+    padding-left: 5px;
+}
+.addFields{
+    margin-left: 35px;
+    margin-bottom: 20px;
+}
+.updatecancelpayBtnWrap .mdcancelBtn{
+    margin-left: 25%;
+}
+.payableSection .MarTop4 span{
+    margin-top: 2px;
+}
+@media only screen and (max-width: 991px) and (min-width: 768px)  {
+    .payAmount{
+        width: 62px; 
+    }
+}
+
+.currencyWrap{
+    position: relative;
+    display: inline-block;
+}
+.currencyWrap .currencySign{
+    position: absolute;
+    top: -2px;
+    left: 5px;
+}
+.currencyWrap .currInput{
+    padding-left: 20px;
+}
+
+.definitionHead{
+    display: inline-block;
+}
+.priceHead{
+    float: right;
+    margin-right: 20%;
+}
+.payableDetTbl .table {
+    /* border-bottom: 1px solid #7E7E7E; */
+    margin-bottom: 15px;
+}
+
+.payableDetTbl .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    vertical-align: top;
+}
+
+.payableDetTbl .table>tbody>tr>td,
+.payableDetTbl .table>thead>tr>td,
+.payableDetTbl .table>thead>tr>th{
+    border-color: #7E7E7E;
+    font-size: 14px;
+    line-height: 25px;
+    /* min-width: 190px; */
+}
+
+.payableDetTbl .table > tbody > tr > td {
+    color: #7E7E7E;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 0px;
+    border-bottom: 1px solid #ddd;
+}
+
+.payableDetTbl .table > tbody > tr > td .form-group input {
+    min-width: 110px;
+    width: 110px;
+    height: 20px;
+    font-weight: 500;
+    display: inline-block;
+ }
+ .payableDetTbl .table tbody tr td a {
+    color: #00A499;
+    text-decoration: underline;
+}
+ 
+ @media screen and (max-width: 767px){
+    .payableDetTbl .table-responsive{
+        border: none;
+    }
+}
+.paidPayment{
+    width: 1000px;
+}
+.paidPayment .heading{
+    display: table-cell;
+    vertical-align: top;
+    padding: 0 10px;
+    width: 250px;
+    position: relative;
+}
+.error-msg{
+    left: 2px;
+    top: 22px;
+}
+.paidPayment .heading .form-group {
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+.removePaidPayment{
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.payableSection .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}

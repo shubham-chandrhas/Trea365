@@ -1,0 +1,91 @@
+.hrDetails .hrPart, .workersPart, .totalsalaryPart, .hirePart, .contractPart{
+    text-align: center;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 30px;
+}
+.workersPart, .totalsalaryPart,.hirePart, .contractDetails{
+    margin: 30px 0 75px;
+}
+.hrDetails .hrPart span, .workersPart span, .totalsalaryPart span,.hirePart span,.contractPart span{
+    text-decoration: underline;
+}
+.hrTable{
+    border-bottom: 2px solid #00A499;
+    margin: 0 -15px;
+}
+.hrTable .table{
+    margin-bottom: 0px;
+}
+.hrDetails .table thead tr th,
+.hrDetails .table tbody tr td{
+    text-align: center;
+    font-size:28px;
+    vertical-align: middle;
+    border-bottom: 2px solid #00A499;
+    border-right: 2px solid #00A499;
+}
+.hrDetails .table tbody tr td{
+    border-bottom: 2px solid transparent; 
+    font-weight:600;
+}
+.hrDetails .table tbody tr td:first-child{
+    font-size:20px;
+}
+.hrDetails .table tbody tr td:last-child,
+.hrDetails .table thead tr th:last-child{
+    border-right:1px solid transparent;
+}
+.hrDetails img, .salaryDetails img, .hireDetails img, .contractDetails img{
+    margin:0 auto;
+    width: 100%;
+}
+.workerspieChart .subTxt{
+    font-weight: 700;
+}
+.hrDetails .imgBox, .salaryDetails .imgBox, .hireDetails .imgBox, .contractDetails .imgBox{
+    margin: 50px auto;
+}
+.servicetypeWrap{
+    margin-bottom:100px;
+}
+.hrWrap .borBottom{
+    border-bottom: 2px solid #00A499;
+}
+.new .inline{
+    display: inline-block;
+    margin-right: 20%;
+  }
+  .totalrdbtnWrap
+  {
+    width: 19%;
+    display: inline-block;
+  }
+  .constrdbtnWrap{
+    width:29%;
+    display: inline-block;
+  }
+  .mainrdbtnWrap{
+    width:29%;
+    display: inline-block;
+  }
+  .servicerdbtnWrap{
+      width:20%;
+      display: inline-block;
+  }
+  .Wid32{
+      width:32%
+  }
+  .Wid34{
+    width:34%
+}
+ 
+.pieChart .chartWrap .chartStat2-2{
+    top: 15px;
+    left: 50px;
+}
+.pieChart .chartWrap .chartStat2-1{
+    bottom: 2px;
+    left: 68px;
+}

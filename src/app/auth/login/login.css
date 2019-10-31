@@ -1,0 +1,190 @@
+
+.login-section{ height: 100vh; }
+.login-section .left {
+  height: 100vh;
+  background-color: #FFFFFF; 
+}
+
+.login-section .login-main{
+  width: 90%;
+  margin: 0 auto;
+  padding: 8% 0;
+  max-width: 320px;
+  height: 100%;
+  position: relative;
+}
+/*assets/img/login_bg.png*/
+/* .noBg > *{
+  display: none;
+} */
+/* .login-section .right,.login-section .bg-img {
+  background: url(../../../assets/img/login_bg.png) no-repeat 100% center fixed; 
+  -webkit-background-size: 60%;
+  -moz-background-size: 60%;
+  -o-background-size: 60%;
+  background-size: 60%;
+} */
+.login-section .logo{ text-align: center; margin-bottom: 20px; }
+.login-section .logo img{ width: 200px; }
+.login-section .login-field { width: 100%; }
+.login-section .login-btn { 
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 50px;
+  color: #FFFFFF;
+  font-size: 16px;
+  /*font-family: 'Montserrat-Bold';*/
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.login-section .login-btn {
+  background: #00A99D; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #7AD4CE , #29B6CC); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #7AD4CE, #29B6CC); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #7AD4CE, #29B6CC); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #7AD4CE , #29B6CC); /* Standard syntax */
+}
+.login-section .forgot-id{ 
+  width: 100%;
+  color: #3BC2BB;
+  font-size: 14px;
+  cursor: pointer;
+}
+.login-section .forgot-id>a,
+.login-section .forgot-pass>a{
+  color: #3BC2BB;
+  text-decoration: none;
+  font-weight: 600;
+}
+.login-section .forgot-pass{ 
+  width: 100%;
+  text-align: right;
+  color: #3BC2BB;
+  font-size: 14px;
+  cursor: pointer;
+}
+.login-section .check-con{ position: relative; }
+.login-section .rem-lbl{
+  position: absolute;
+  top: 5px;
+  left: 25px;
+  font-size: 14px;
+  color: #848284;
+}
+.login-section .or-lbl{ 
+  text-align: center;
+  padding: 10px 0px;
+}
+.login-section .fb-btn{
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  height: 50px;
+  color: #FFFFFF;
+  background-color: #8B9DC1;
+  font-size: 16px;
+  /* font-family: 'Montserrat-Bold'; */
+  font-weight: 700;
+  line-height: 20px;
+}
+.login-section .fb-btn:hover, .login-section .fb-btn:focus, .login-section .google-btn:hover, .login-section .google-btn:focus, .login-section .login-btn:hover, .login-section .login-btn:focus{
+  outline: 0px;
+}
+.login-section .regular-checkbox:focus,.login-section .regular-checkbox :hover{
+  outline: 0px;
+}
+.login-section .regular-checkbox{
+  cursor: pointer;
+}
+.login-section .google-btn{
+  width: 100%;
+  margin-bottom: 20px;
+  height: 50px;
+  color: #FFFFFF;
+  background-color: #D8463D;
+  font-size: 16px;
+  font-family: 'Montserrat-Bold';
+  line-height: 20px;
+}
+.login-section .google-pluse{ padding-left: 20px; }
+.login-section .google-con .fb-btn, .login-section .fb-con .google-btn{
+  position: relative;
+}
+.login-section .google-con .google-icon , .login-section .fb-con .fb-icon{
+  position: absolute;
+  left: 15px;
+  font-size: 25px;
+}
+.login-section .google-con .google-icon i, .login-section .fb-con .fb-icon i{
+  font-size: 25px;
+}
+.login-section .regular-checkbox {
+  -webkit-appearance: none;
+  background-color: #FFFFFF;
+  border: 1px solid #2cb8cd;
+  box-shadow: none;
+   padding: 9px;
+  /*border-radius: 3px;*/
+  display: inline-block;
+  position: relative;
+}
+.login-section .regular-checkbox:active, .regular-checkbox:checked:active {
+  box-shadow: none;
+}
+
+.login-section .regular-checkbox:checked {
+  background-color: #77d4ce;;
+  border: 1px solid #2cb8cd;
+  box-shadow: none;
+  color: #FFFFFF;
+}
+.login-section .regular-checkbox:checked:after {
+  content: '\2714';
+  font-size: 14px;
+  position: absolute;
+  top: 0px;
+  left: 3px;
+  color: #FFFFFF;
+}
+.login-section .login-bottom-footer{
+  color: #888;
+  font-size: 12px;
+  padding: 8px 0;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+}
+.login-section .errMsgCon{ text-align: center; }
+.login-section .errMsgCon small{ 
+  color: #F44336;
+    font-size: smaller;
+}
+.login-section .login-field{
+  font-weight: 700;
+}
+.login-section .login-field input{
+  font-weight: 400;
+  padding-right: 40px;
+} 
+.login-section .checkBox label {
+  color: #7e7e7e;
+  font-weight: 600;
+}
+
+.showPassIcon{ position: absolute;top: 7px;right: 7px; }
+.sup-msg{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  width: 100%;
+}
+
+@media (min-width: 767px) {
+  .login-section .left {
+    width: 42%;
+  }
+}

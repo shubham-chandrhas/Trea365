@@ -1,0 +1,154 @@
+<!-- 
+	View:- login.html
+	Component:- LoginComponent => login.component.ts
+	Route:- '/login'  
+
+	Note:- This component used to login TSA, CSA and Employee.
+-->
+
+<!-- Loading Mask -->
+
+<!--@shahebaz (Start : Removed the loader) -->
+<!-- <div id="loadingMask" class="loader" *ngIf="util.loader">Loading...</div> -->
+<!--@shahebaz (End : Removed the loader) -->
+
+<!-- Alert tost message container -->
+<div class="sup-msg" *ngIf="util.userAlertData.isShow">
+  <div class="alertWrap">
+    <div class="alert alert-dismissible" [ngClass]="util.userAlertData.class">
+      <a
+        href="#"
+        class="close"
+        data-dismiss="alert"
+        aria-label="close"
+        title="close"
+        (click)="util.removeWarningFlage()"
+        >×</a
+      >
+      <i class="fa" [ngClass]="util.userAlertData.iconClass"></i>
+      {{ util.userAlertData.msg }}
+    </div>
+  </div>
+</div>
+
+<!-- Login section -->
+<div class="login-section">
+  <div class="left">
+    <div class="login-main">
+      <div class="logo">
+        <img src="assets/logo/trea-logo.png" />
+      </div>
+
+      <form
+        autocomplete="off"
+        [formGroup]="loginFm"
+        (ngSubmit)="onSubmit(loginFm)"
+        novalidate
+      >
+        <div class="">
+          <mat-form-field class="login-field">
+            <input
+              autocomplete="off"
+              id="Username"
+              matInput
+              placeholder="User ID"
+              formControlName="Username"
+              (keypress)="util.noSpace($event)"
+            />
+
+            <mat-error
+              *ngIf="Username.invalid && (Username.dirty || Username.touched)"
+            >
+              <small *ngIf="Username.errors.required"
+                >User ID is required.</small
+              >
+              <small *ngIf="Username.errors.minlength"
+                >User ID must be at least 8 characters long.</small
+              >
+              <small *ngIf="Username.errors.maxlength"
+                >User ID should be maximum 30 character.</small
+              >
+              <!-- <small *ngIf="Username.errors.pattern && !Username.errors.maxlength && !Username.errors.minlength">Enter valid Username.</small> -->
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="login-field">
+            <input
+              autocomplete="nope"
+              matInput
+              placeholder="Password"
+              formControlName="Password"
+              [type]="hide ? 'password' : 'text'"
+            />
+            <!-- <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon> -->
+            <div class="showPassIcon" (click)="hide = !hide">
+              <div *ngIf="hide">
+                <img src="assets/icon/hide_pass.png" />
+              </div>
+              <div *ngIf="!hide">
+                <img src="assets/icon/show_pass.png" />
+              </div>
+            </div>
+            <mat-error
+              *ngIf="Password.invalid && (Password.dirty || Password.touched)"
+            >
+              <small *ngIf="Password.errors.required"
+                >Password is required.</small
+              >
+              <small *ngIf="Password.errors.minlength"
+                >Password must be at least 8 characters long.</small
+              >
+              <small *ngIf="Password.errors.maxlength"
+                >Password should be maximum 30 character.</small
+              >
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="checkBox">
+          <label>
+            <input
+              autocomplete="nope"
+              checked=""
+              type="checkbox"
+              formControlName="rememberMe"
+            />
+            <span class="iconChk"><i class="fa fa-check"></i> </span>
+            Remember Me
+          </label>
+        </div>
+        <div class="errMsgCon" *ngIf="isError">
+          <small>{{ errMsg }}</small>
+        </div>
+        <div class="">
+          <button id="login-fm-btn" mat-raised-button class="login-btn">
+            Login
+          </button>
+        </div>
+      </form>
+
+      <mat-grid-list cols="2" rowHeight="30px">
+        <mat-grid-tile>
+          <div class="forgot-id">
+            <a href="javascript:void(0)" (click)="findCredential('loginId')"
+              >Forgot User ID</a
+            >
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="forgot-pass">
+            <a
+              href="javascript:void(0)"
+              class="cp forgot-pass-link"
+              (click)="findCredential('Password')"
+              >Forgot Password</a
+            >
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div class="login-bottom-footer">
+        <div class="">Copyright &copy; 2019 Trea365</div>
+      </div>
+    </div>
+  </div>
+</div>

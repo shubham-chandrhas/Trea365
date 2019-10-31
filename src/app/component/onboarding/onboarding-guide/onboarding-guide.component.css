@@ -1,0 +1,256 @@
+
+/***************Onboarding Quide Start*************/
+
+.onboardingquideFrmWrap .onboardingquideBody {
+  max-width: 600px;
+  margin: 0px auto;
+}
+
+.onboardingquideFrmWrap h3 {
+  text-align: center;
+}
+
+.onboardingquideFrmWrap .form-group input,
+.onboardingquideFrmWrap .form-group select {
+  border-radius: 0px;
+  height: 25px;
+  padding: 1px 10px;
+}
+
+.onboardingquideFrmWrap .errMsgCon {
+  text-align: center;
+}
+
+.onboardingquideFrmWrap .errMsgCon small {
+  color: #F44336;
+  font-size: smaller;
+}
+
+.des-heigth {
+  height: 100px !important;
+}
+
+.onboardingquideWrap .pageTitle {
+  font-size: 20px;
+}
+
+.onboardingquideWrap.label-col {
+  font-size: 20px;
+}
+
+.onboardingquideWrap .label-col {
+  font-size: 20px;
+}
+
+.onboardingquideWrap .addMoreBtn {
+  background-image: url("/assets/icon/icon-16.png");
+  display: inline-block;
+  padding: 9px;
+  vertical-align: middle;
+  border: 1px solid transparent;
+}
+.dataCount{
+  padding: 10px;
+}
+
+.onboardingquideWrap .simpleBtn {
+  display: inline-block;
+  padding: 9px;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  width:170px !important;
+}
+
+.onboardingquideWrap .headTitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.onboardingquideWrap .add-client {
+  float: right;
+}
+
+.onboardingquideWrap .client-btn {
+  background-color: #3aa69b;
+  color: #FFFFFF;
+  border-radius: 0px;
+  padding: 2px;
+  line-height: 30px;
+  text-decoration: none;
+  text-align: center;
+  width: 150px;
+  outline: 0;
+}
+
+.onboardingquideWrap .mdBtn {
+  width: 100px;
+  margin-right: 15px;
+}
+
+.onboardingquideWrap .inactiveBtn {
+  background: #7e7e7e;
+  pointer-events: none;
+}
+
+.platformBtnWrap {
+  margin: 50px auto 80px;
+}
+.onboardingquideWrap .viewbtn{
+  width: 150px;
+}
+.onboardingquideWrap .info-col {
+  margin-right: 15px;
+  padding: 0 20px;
+  line-height: 33px;
+  font-weight: 500;
+}
+
+.onboardingquideWrap .topLogo img {
+  width: 230px;
+  margin: 30px auto;
+}
+
+.onboardingquideWrap .addViewBtn{ max-width: 98px; }
+
+@media only screen and (min-width: 768px) and (max-width: 819px) {
+  .onboardingquideWrap .mdBtn {
+      width: 90px;
+  }
+  .onboardingquideWrap .client-btn {
+      width: 134px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 822px) {
+  .onboardingquideWrap .info-col {
+    margin-right: 0px;
+}
+  .onboardingquideWrap .viewbtn {
+      width: 134px;
+  }
+}
+
+
+/***************Onboarding Quide End*************/
+
+/*Dialog Start*/
+.width450{ width: 450px; }
+.width750{ width: 750px; }
+.width100{
+  width: 100%;
+}
+.dialog{
+  max-width: 750px;
+  width: 100%;
+  position: relative;
+ }
+.add-field-dialog{ width: 400px !important; }
+.dialog .close-icon{
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+
+.dialog-hdr{ text-align: center;font-weight: 700;font-size: 16px; margin-bottom: 20px; }
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; line-height: 25px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+.dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+  outline: 0;
+}
+.dialog .fa-question-circle{
+  color: #F47E48;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 50px;
+  line-height: 30px;
+}
+/*Dialog End*/
+.onboardingquideFrmWrap .treaBtn{
+  padding: 8px 35px;
+}
+.feildsTable>.table {
+  margin-bottom: 15px;
+}
+.feildsTable td .form-group{
+  margin-bottom: 0px;
+}
+.feildsTable td .form-control{
+  width: 180px;
+}
+.feildsTable .w100{ width: 100px !important; }
+.feildsTable .table>tbody>tr>td{
+  border-top: 0px;
+  font-weight: 400;
+}
+.addFieldsBtnWrap{
+  text-align: center;
+}
+.addFieldsBtnWrap .mdBtn{
+  margin: 10px;
+}
+.dialog .successText{
+  margin: 20px auto;
+  text-align: center;
+}
+.businessTypeCreated .close-icon{
+  top: -30px;
+}
+.addFields>img{
+  max-width: 100%;
+  vertical-align: text-top;
+  cursor: pointer;
+}
+.addFields>span{
+  /* cursor: pointer; */
+  padding-left: 5px;
+}
+.addFields{
+  margin-left: 35px;
+  margin-bottom: 20px;
+}
+.onboardingquideBody .lgBtn{ margin-bottom: 0px; }
+.left35{ left: 35px !important; }
+.treaBtn{
+    font-size: 14px;
+    line-height: 14px;
+    padding: 8px;
+    background: #3aa69b;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+  }
+  .treaBtn:focus{
+    outline: none;
+  }
+  .top35{ top: -35px !important; }
+  .invalid-row {
+    color: red;
+  }
+
+.scrolable {
+    height: 300px;
+    overflow-y: auto;
+}  

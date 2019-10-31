@@ -1,0 +1,283 @@
+<div class="assetReviewCover" [ngClass]="currentPath == 'asset-review' ? '' : 'OTFClass'">
+    <div class="pageTitle">New Asset Information Review<span *ngIf="currentPath != 'asset-review'"> ({{assetObj.quantity_status}} Items)</span></div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Manufacturer</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.manf_part.manf_name}}</div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Item Definition</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.manf_part.full_name}}</div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Name</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.manf_part.short_name}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Category</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.manf_part.class_name.item_class_name}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">UPC</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.manf_part.upc}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Serial No</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.serial_no}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Short Tag</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.short_tag}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Scan Code</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.scan_code}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Location</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.location}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Location Tag</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.location_tag}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Assign To</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.assign_name}}</div>
+                </div>
+            </div>
+            <div class="row MB30">
+                <div class="col-sm-3">
+                    <div class="label-col">Comment</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col">{{assetObj.comment}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="financialSection">
+        <div class="row">
+            <div class="bold MB30 ML15">Financials</div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Ownership Type</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">{{assetObj.financials[0].ownership_type}}</div>
+                    </div>
+                </div>
+                <div *ngIf="assetObj.isOwned || assetObj.isFinanced">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">Purchase Price</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">
+                                {{assetObj.financials[0].purchase_price | currency: util.getCurrency() :'symbol-narrow'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">Purchase Date</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">{{assetObj.financials[0].purchase_date}}</div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="assetObj.isOwned">
+                        <div class="col-sm-6">
+                            <div class="label-col">Supplier</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">{{assetObj.financials[0].supplier}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">Estimated Useful Life</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">{{assetObj.financials[0].esti_useful_life}} months</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">Residual Value</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">
+                                {{assetObj.financials[0].residual_value | currency: util.getCurrency() :'symbol-narrow'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">Age of Equipment</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">{{assetObj.financials[0].age_of_equipment}} Months</div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="assetObj.isLeased">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">Leased From</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">{{assetObj.financials[0].leased_from}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="assetObj.isFinanced">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">Financed From</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">{{assetObj.financials[0].financed_from}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="assetObj.isLeased || assetObj.isFinanced">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">Start Date</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">{{assetObj.financials[0].start_date}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">End Date</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">{{assetObj.financials[0].end_date}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="label-col">Term</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-col">{{assetObj.financials[0].term}} Months</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Acct Ref no.</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">{{assetObj.financials[0].acc_ref_no}}</div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="assetObj.isLeased || assetObj.isFinanced">
+                    <div class="col-sm-6">
+                        <div class="label-col">Monthly Payment</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">{{assetObj.financials[0].monthly_payment | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="assetObj.isOwned">
+                    <div class="col-sm-6">
+                        <div class="label-col">Monthly Depreciation</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">{{assetObj.financials[0].montly_depreciation | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="assetObj.isOwned">
+                    <div class="col-sm-6">
+                        <div class="label-col">Present value</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">
+                            {{assetObj.financials[0].present_value | currency: util.getCurrency() :'symbol-narrow'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="assetObj.isFinanced">
+                    <div class="col-sm-6">
+                        <div class="label-col">Paid Capital</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">
+                            {{assetObj.financials[0].paid_capital | currency: util.getCurrency() :'symbol-narrow'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Warranty End Date</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">{{assetObj.financials[0].warranty_end_date}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="errMsgCon" *ngIf="isError">
+        <small>{{errMsg}}</small>
+    </div>
+    <div class="button-row clearfix">
+        <button mat-raised-button class="trea-btn" (click)="editAsset()">Edit</button>
+        <button mat-raised-button class="trea-btn" id="submit-asset" (click)="addAsset()">Submit</button>
+        <button mat-raised-button class="trea-btn" (click)="cancelAsset()">Cancel</button>
+    </div>
+</div>

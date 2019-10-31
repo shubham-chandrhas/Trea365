@@ -1,0 +1,137 @@
+<div class="newLocationinformationreviewWrap">
+	<h1 class="pageTitle"> New Location Information Review</h1>
+
+	<div class="addUserFormBody">
+		<form autocomplete="off" class="form-horizontal" role="form">
+				<div class="newLocationinformationreviewDetails">
+					<div class="row MB30">
+						<div class="col-sm-12">
+							<h3 class="detailsHeading">Main Location</h3>
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="label-col">Name</div>
+								</div>
+								<div class="col-sm-9">
+									<div class="info-col">{{locationObj.locationName}}</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="label-col">Tag Form</div>
+								</div>
+								<div class="col-sm-9">
+									<div class="info-col">{{locationObj.shortForm}}</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="label-col">Location Type</div>
+								</div>
+								<div class="col-sm-9">
+									<div class="info-col">{{locationObj.locationType}}</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="label-col">
+										<span *ngIf="locationObj.locationType == 'Fixed'">Address</span>
+										<span *ngIf="locationObj.locationType == 'Mobile'">Asset</span>
+									</div>
+								</div>
+								<div class="col-sm-9">
+									<div class="info-col">
+										<span *ngIf="locationObj.locationType == 'Fixed'">{{util.concatenateStrings(locationObj.address2,locationObj.address)}}</span>
+										<span *ngIf="locationObj.locationType == 'Mobile'">{{locationObj.assetName}}</span>
+									</div>
+								</div>
+								<!-- <div class="col-sm-3" *ngIf="locationObj.locationType == 'Mobile'">
+									<div class="label-col">Short Name</div>
+								</div>
+								<div class="col-sm-9" *ngIf="locationObj.locationType == 'Mobile'">
+									<div class="info-col">{{locationObj.selectedAsset.short_name}}</div>
+								</div>
+								<div class="col-sm-3" *ngIf="locationObj.locationType == 'Mobile'">
+									<div class="label-col">Full Name</div>
+								</div>
+								<div class="col-sm-9" *ngIf="locationObj.locationType == 'Mobile'">
+									<div class="info-col">{{locationObj.selectedAsset.full_name}}</div>
+								</div> -->
+							</div>
+						</div>
+					</div>
+
+					<div class="financialslblWrap" *ngIf="locationObj.divisions.length > 0">
+						<h3 class="detailsHeading">Subdivisions</h3>
+
+						<!-- <div class="row" *ngFor="let indxOut = index; let divRow of locationObj.divListReview">
+							<div class="col-sm-6" *ngFor="let indxIn = index; let div of divRow.row"> -->
+						<div class="row" *ngFor="let i = index; let div of locationObj.divisions">
+								<div class="col-sm-12">
+										<h4  class="detailsHeading MT20">Level {{i + 1}}</h4>
+										<div class="row">
+											<div class="col-sm-3">
+													<div class="label-col">Division Name</div>
+											</div>
+											<div class="col-sm-9">
+													<div class="info-col">{{div.divisionName}}</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-3">
+													<div class="label-col">Division Type</div>
+											</div>
+											<div class="col-sm-9">
+													<div class="info-col">{{div.divisionType}}</div>
+											</div>
+										</div>
+										<div class="row" *ngIf="div.divisionType == 'Named'">
+											<div class="col-sm-3">
+													<div class="label-col">Values</div>
+											</div>
+											<div class="col-sm-9">
+													<div class="info-col">
+														<ul class="divValuesList">
+																<li *ngFor="let val of div.values">{{val.value}}</li>
+														</ul>
+													</div>
+											</div>
+										</div>
+										<div class="row" *ngIf="div.divisionType == 'Numbered'">
+											<div class="col-sm-3">
+													<div class="label-col">Min</div>
+											</div>
+											<div class="col-sm-9">
+													<div class="info-col">{{div.values[0].min}}</div>
+											</div>
+										</div>
+										<div class="row" *ngIf="div.divisionType == 'Numbered'">
+											<div class="col-sm-3">
+													<div class="label-col">Max</div>
+											</div>
+											<div class="col-sm-9">
+													<div class="info-col">{{div.values[0].max}}</div>
+											</div>
+										</div>
+								</div>
+							</div>
+					</div>
+
+					<div class="locWrap">
+						<div class="row">
+							<div class="col-sm-3">
+									<div class="label-col">Location Tag Sample</div>
+							</div>
+							<div class="col-sm-9">
+									<div class="info-col">{{locationObj.tagSample}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+
+			<div class="errMsgCon" *ngIf="isError">
+				<small>{{errMsg}}</small>
+			</div>
+
+			<div class="button-row clearfix">
+				<button mat-raised-button id="submit-btn" class="trea-btn" type="button" (click)="saveLocation()">Submit</button>
+				<button mat-raised-button class="trea-btn" type="button" (click)="editLocation()">Edit</button>
+				<button mat-raised-button class="trea-btn" type="button" (click)="cancelReviewLoc()">Cancel</button>
+			</div>
+		</form>
+	</div>
+</div>

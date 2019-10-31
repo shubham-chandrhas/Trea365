@@ -1,0 +1,251 @@
+<div class="supplier-section account">
+   
+    <h1 class="pageTitle">Settings</h1>
+
+    <div class="addNewSupFormCov clearfix">
+        <div class="accountDetailWrap">
+            <div class="updateaccountDetails">
+
+                <form autocomplete="off" class="" role="form" [formGroup]="editSettingsFrm">
+                    <div class="promaryAccountFormBody">
+                      <div *ngIf="util.getRole() == 2">
+
+                        
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col" for="date_format">Date Format</label>
+                            <div class="col-sm-2">
+                                <select id="date_format" name="date_format" class="form-control" formControlName="date_format">
+                                    <option [value]="fo.format" *ngFor="let fo of dateFormat"> {{fo.format}}</option>
+                                </select>
+                                <span class="error-msg" *ngIf="date_format.invalid && (date_format.dirty || date_format.touched || submitted)">
+                                    <small *ngIf="date_format.errors.required">Date Format is required.</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col" for="tax_rate">Tax Rate</label>
+                            <div class="col-sm-2">
+                                <input autocomplete="nope" type="text"  name="tax_rate" placeholder="" formControlName="tax_rate" class="form-control">
+                                <span class="error-msg" *ngIf="tax_rate.invalid && (tax_rate.dirty || tax_rate.touched || submitted)">
+                                    <small *ngIf="tax_rate.errors.required">Tax Rate is required.</small>
+                                </span>
+                            </div>
+                            <div class="pull-left padd0">%</div>
+                        </div>
+
+                        <div class="form-group clearfix" [ngClass]="geofencing_radius != '' ? 'displayNone' : '' ">
+                            <label class="col-sm-6 label-col" for="geofencing_radius" [ngClass]="geofencing_radius != '' ? 'displayNone' : '' ">Geofencing Radius</label>
+                            <div class="col-sm-2">
+                                <input autocomplete="nope" type="text"  name="geofencing_radius" placeholder="" formControlName="geofencing_radius" class="form-control" [ngClass]="geofencing_radius != '' ? 'displayNone' : '' ">
+                                <span class="error-msg" *ngIf="geofencing_radius.invalid && (geofencing_radius.dirty || geofencing_radius.touched || submitted)">
+                                    <small *ngIf="geofencing_radius.errors.required">Geofencing Radius is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col" for="po_starting_no">Purchase Order Starting No</label>
+                            <div class="col-sm-2">
+                                <input autocomplete="nope" type="number"  name="po_starting_no" placeholder="" formControlName="po_starting_no" class="form-control" >
+                                <span class="error-msg" *ngIf="po_starting_no.invalid && (po_starting_no.dirty || po_starting_no.touched || submitted)">
+                                    <small *ngIf="po_starting_no.errors.required">Purchase Order Starting No is required.</small>
+                                    <small *ngIf="po_starting_no.errors.pattern">Should be integer.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col" for="pe_starting_no">Quotation Starting No</label>
+                            <div class="col-sm-2">
+                                <input autocomplete="nope" type="number"  name="pe_starting_no" placeholder="" formControlName="pe_starting_no" class="form-control">
+                                <span class="error-msg" *ngIf="pe_starting_no.invalid && (pe_starting_no.dirty || pe_starting_no.touched || submitted)">
+                                    <small *ngIf="pe_starting_no.errors.required">Quotation Starting No is required.</small>
+                                    <small *ngIf="pe_starting_no.errors.pattern">Should be integer.</small>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col" for="rs_starting_no">Receiving Slip Starting No</label>
+                            <div class="col-sm-2">
+                                <input autocomplete="nope" type="number"  name="rs_starting_no" placeholder="" formControlName="rs_starting_no" class="form-control">
+                                <span class="error-msg" *ngIf="rs_starting_no.invalid && (rs_starting_no.dirty || rs_starting_no.touched || submitted)">
+                                    <small *ngIf="rs_starting_no.errors.required">Receiving Slip Starting No is required.</small>
+                                    <small *ngIf="rs_starting_no.errors.pattern">Should be integer.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col" for="wo_starting_no">Workorder Starting No</label>
+                            <div class="col-sm-2">
+                                <input autocomplete="nope" type="number"  name="wo_starting_no" placeholder="" formControlName="wo_starting_no" class="form-control"
+                                >
+                                <span class="error-msg" *ngIf="wo_starting_no.invalid && (wo_starting_no.dirty || wo_starting_no.touched || submitted)">
+                                    <small *ngIf="wo_starting_no.errors.required">Workorder Starting No.</small>
+                                    <small *ngIf="wo_starting_no.errors.pattern">Should be integer.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col" for="invoice_starting_no">Invoice Starting No</label>
+                            <div class="col-sm-2">
+                                <input autocomplete="nope" type="number"  name="invoice_starting_no" placeholder="" formControlName="invoice_starting_no" class="form-control"
+                                >
+                                <span class="error-msg" *ngIf="invoice_starting_no.invalid && (invoice_starting_no.dirty || invoice_starting_no.touched || submitted)">
+                                    <small *ngIf="invoice_starting_no.errors.required">Invoice Starting No is required.</small>
+                                    <small *ngIf="invoice_starting_no.errors.pattern">Should be integer.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col" for="maintenance_starting_no">Maintenance Starting No</label>
+                            <div class="col-sm-2">
+                                <input autocomplete="nope" type="number"  name="maintenance_starting_no" placeholder="" formControlName="maintenance_starting_no" class="form-control" >
+                                <span class="error-msg" *ngIf="maintenance_starting_no.invalid && (maintenance_starting_no.dirty || maintenance_starting_no.touched || submitted)">
+                                    <small *ngIf="maintenance_starting_no.errors.required">Maintenance Starting No is required.</small>
+                                    <small *ngIf="maintenance_starting_no.errors.pattern">Should be integer.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col" for="pagination_count">Record Per Page</label>
+                            <div class="col-sm-2">
+                                <!-- <input autocomplete="nope" type="text"  name="pagination_count" placeholder="" formControlName="pagination_count" class="form-control"> -->
+
+                                <select id="pagination_count" name="pagination_count" class="form-control" formControlName="pagination_count">
+                                    <option value="5" selected>5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="150">150</option>
+                                    <option value="200">200</option>
+                                </select>
+                                <span class="error-msg" *ngIf="pagination_count.invalid && (pagination_count.dirty || pagination_count.touched || submitted)">
+                                    <small *ngIf="pagination_count.errors.required">Record Per Page is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-6 label-col optional" for="invoice_terms_condition">Invoice Terms and Conditions</label>
+                            <div class="col-sm-6">
+                                <!-- <input autocomplete="nope" type="text"  name="invoice_terms_condition" placeholder="" formControlName="invoice_terms_condition" class="form-control"> -->
+                                <textarea [formControl]="invoice_terms_condition" placeholder="(optional)"   class="form-control requirements-desc optional" rows="5"></textarea>
+                                <span class="error-msg" *ngIf="invoice_terms_condition.invalid && (invoice_terms_condition.dirty || invoice_terms_condition.touched || submitted)">
+                                    <small *ngIf="invoice_terms_condition.errors.required">Invoice Terms and Conditions is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                            <div class="form-group clearfix">
+                                <label class="col-sm-6 label-col optional" for="quotation_terms_condition">Quotation Terms and Conditions</label>
+                                <div class="col-sm-6">
+                                    <!-- <input autocomplete="nope" type="text"  name="quotation_terms_condition" placeholder="" formControlName="quotation_terms_condition" class="form-control"> -->
+                                    <textarea [formControl]="quotation_terms_condition" placeholder="(optional)"  class="form-control requirements-desc optional" rows="5"></textarea>
+                                    <span class="error-msg" *ngIf="quotation_terms_condition.invalid && (quotation_terms_condition.dirty || quotation_terms_condition.touched || submitted)">
+                                        <small *ngIf="quotation_terms_condition.errors.required">Quotation Terms and Conditions.</small>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group clearfix">
+                                <label class="col-sm-6 label-col optional" for="work_order_condition">Workorder Terms and Conditions</label>
+                                <div class="col-sm-6">
+                                    <!-- <input autocomplete="nope" type="text"  name="work_order_condition" placeholder="" formControlName="work_order_condition" class="form-control"> -->
+                                    <textarea [formControl]="work_order_condition"  placeholder="(optional)"  class="form-control requirements-desc optional" rows="5"></textarea>
+                                    <span class="error-msg" *ngIf="work_order_condition.invalid && (work_order_condition.dirty || work_order_condition.touched || submitted)">
+                                        <small *ngIf="work_order_condition.errors.required">Workorder Terms and Conditions.</small>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group clearfix">
+                                <label class="col-sm-6 label-col" for="company_email">Company Email</label>
+                                <div class="col-sm-6">
+                                    <input autocomplete="nope" type="text"  name="company_email" placeholder="" formControlName="company_email" class="form-control">
+                                    <span class="error-msg" *ngIf="company_email.invalid && (company_email.dirty || company_email.touched || submitted)">
+                                            <small *ngIf="company_email.errors.required">Company Email is required.</small>
+                                        <small *ngIf="company_email.errors.pattern">Enter valid email.</small>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group clearfix">
+                                <label class="col-sm-6 label-col optional" for="company_website">Company Website</label>
+                                <div class="col-sm-6">
+                                    <input autocomplete="nope" type="text"  name="company_website" placeholder="(optional)" formControlName="company_website" class="form-control optional">
+                                    <span class="error-msg" *ngIf="company_website.invalid && (company_website.dirty || company_website.touched || submitted)">
+                                            <small *ngIf="company_website.errors.pattern">Enter valid website.</small>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- <div class="form-group " >
+                                <label class="col-sm-4 label-col" for="pagination_count">Units of Measure</label>
+                                <div class="col-sm-6" >   
+                                    <ng-container *ngFor="let uom of uom_lists.controls; let indx=index" [formGroup]="uom_lists">
+
+                                        <div class="col-sm-4 custom-padding">
+                                            <div class="info-col">
+                                                <span class="closeIcon"> <img *ngIf="indx != 0" (click)="removeService(indx, uom)" src="assets/icon/close_icon.png" /></span> 
+                                                Unit Name</div>
+                                        
+                                            <div class="form-group">
+                                                <input autocomplete="nope" type="text" class="inputQty PadR0" [formControl]="uom.get('unit_name')" >
+                                                <span class="error-msg" *ngIf="(uom.get('unit_name').invalid) && (uom.get('unit_name').dirty || uom.get('unit_name').touched || submitted)">
+                                                    <small *ngIf="uom.get('unit_name').errors.required">Unit Name is Required.</small>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 custom-padding">
+                                            <div class="info-col">Unit Symbol</div>
+                                    
+                                            <div class="form-group">
+                                            <input autocomplete="nope" type="text" class="inputCost" [formControl]="uom.get('unit_symbol')" >
+                                            <span class="error-msg" *ngIf="(uom.get('unit_symbol').invalid) && (uom.get('unit_symbol').dirty || uom.get('unit_symbol').touched || submitted)">
+                                                <small *ngIf="uom.get('unit_symbol').errors.required">Unit Symbol is Required.</small>
+                                            </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 custom-padding">
+                                            <div class="info-col">Unit Plural Symbol</div>
+                                        
+                                            <div class="form-group">
+                                            <input autocomplete="nope" type="text" class="inputCost" [formControl]="uom.get('unit_plural_symbol')" >
+                                            <span class="error-msg" *ngIf="(uom.get('unit_plural_symbol').invalid) && (uom.get('unit_plural_symbol').dirty || uom.get('unit_plural_symbol').touched || submitted)">
+                                                <small *ngIf="uom.get('unit_plural_symbol').errors.required">Unit Plural Symbol is Required.</small>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-6">
+                                    <div class="addIcon MB20 cursorPtr" (click)="addUom('0')">
+                                            <img src="assets/icon/icon-add.png"><span>Add Unit</span>
+                                    </div>              
+                                </div>
+                            </div> -->
+
+                      </div>
+                        <div class="clearfix"></div>
+                        <div class="errMsgCon" *ngIf="isError">
+                            <small>{{errMsg}}</small>
+                        </div>
+                        <div class="button-row clearfix">
+                            <button mat-raised-button id="edit-acc-btn" class="trea-btn" (click)="updateSettingDetails(editSettingsFrm)">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

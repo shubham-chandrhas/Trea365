@@ -1,0 +1,555 @@
+<div class="clearfix"></div>
+<div class="tsa-section">
+    <div>
+        <div class="search-client">
+            <div class="input-group">
+                <span class="search-icn" id="basic-addon1">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+                <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="pageData.searchList" (ngModelChange)="getSearchTxt(pageData.searchList)" (keyup)="pageData.searchTxt = util.searchInList($event, pageData.searchList)">
+                <button mat-raised-button class="client-btn" (click)="pageData.searchTxt = pageData.searchList">Search</button>
+            </div>
+        </div>
+        <div class="filter-search"></div>
+        <div class="add-client">
+            <button mat-raised-button class="client-btn" routerLink="/su/tsa/company-registration">New Company</button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="trea-data-table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="220">
+                        <div class="table-hdr text-center">
+                            <div>
+                                <span>Date</span>
+                                <span (click)="pageData.sortColumnType='N';pageData.sortColumn = 'created_at';pageData.sortOrder = pageData.sortColumn === 'created_at' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'created_at' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.createdSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="400">
+                        <div class="bdr-left table-hdr text-center">
+                            <div>
+                                <span>Company</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'organization';pageData.sortOrder = pageData.sortColumn === 'organization' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'organization' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.compSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <!-- <th width="220">
+                        <div class="bdr-left table-hdr text-center">
+                            <div>
+                                <span>State</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'province';pageData.sortOrder = pageData.sortColumn === 'province' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'province' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.stateSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th> -->
+                    <th width="200">
+                        <div class="bdr-left table-hdr text-center">
+                            <div>
+                                <span>Country</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'country';pageData.sortOrder = pageData.sortColumn === 'country' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'country' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.countrySearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="140">
+                        <div class="bdr-left table-hdr text-center">
+                            <div>
+                                <span>Currency</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'currency';pageData.sortOrder = pageData.sortColumn === 'currency' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'currency' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.currencySearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="260">
+                        <div class="bdr-left table-hdr text-center">
+                            <div>
+                                <span>Payment Status</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'paymentStatus';pageData.sortOrder = pageData.sortColumn === 'paymentStatus' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'paymentStatus' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.paymentSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="260">
+                        <div class="bdr-left table-hdr text-center">
+                            <div>
+                                <span>Account Status</span>
+                                <span (click)="pageData.sortColumnType='A';pageData.sortColumn = 'accountStatus';pageData.sortOrder = pageData.sortColumn === 'accountStatus' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" pageData.sortColumn == 'accountStatus' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.accountSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </th>
+                    <th width="100">
+                        <div class="bdr-left table-hdr text-center">
+                            <div>
+                                <span>Price Per User</span>
+                            </div>
+                        </div>
+                    </th>
+                    <th width="100">
+                        <div class="bdr-left table-hdr text-center">
+                            <div>
+                                <span>Users</span>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let indx=index ;let company of companyList | sortBy:pageData.sortColumn:pageData.sortOrder:pageData.sortColumnType | searchfilter:pageData.createdSearch:'created_at' |  searchfilter:pageData.compSearch:'organization' |  searchfilter:pageData.countrySearch:'country' | searchfilter:pageData.currencySearch:'currency' | searchfilter:pageData.paymentSearch:'paymentStatus' | searchfilter:pageData.accountSearch:'accountStatus' | searchfilter:pageData.searchTxt:'created_at,organization,country,currency,paymentStatus,accountStatus' | listLengthfilter | paginate: paginationKey" (click)="getSelectedCompany(company, indx);" [ngClass]="[selectedIndex == indx ? 'sel-row-highlight' : '',company.paymentStatus == 'Past Due 90' ? 'pastDue-90' : company.paymentStatus == 'Past Due' ? 'pastDue' : company.paymentStatus == 'Due' ? 'Due' :'']">
+                    <td>{{util.getFormatedDate(company.created_at)}}<span class="dn">{{ indx == 0 ? updateCount(companyList.length) : ''}}</span></td>
+                    <td>{{company.organization}}</td>
+                    <!-- <td>{{company.provinence_name.province_name}}</td> -->
+                    <td>{{company.country_name.country_name}}</td>
+                    <td>{{company.currency}}</td>
+                    <td>{{company.payment_status_details ? company.payment_status_details.status : ''}}</td>
+                    <td>{{company.account_status_details ? company.account_status_details.status : ''}}</td>
+                    <td>{{company.price_per_user}}</td>
+                    <td class="text-center"><a href="javascrip:void(0)" class="link-clr" [routerLink]="['/su/tsa/users-list/', company.company_id, '0']">{{company.employee_list_count}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="treaPagination" *ngIf="companyList.length != 0 && constant.ITEM_COUNT != 0">
+        <div class="pull-right">
+            <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+        </div>
+        <div class="pull-right">
+            <select [(ngModel)]="paginationKey.itemsPerPage">
+                <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+            </select>
+            <span> items per page</span>
+        </div>
+        <!-- (pageChange)="paginationKey.currentPage = $event" -->
+        <div class="pull-right">
+            <pagination-controls
+                (pageChange)="paginationKey.currentPage = $event"
+                directionLinks="true"
+                autoHide="false"
+                previousLabel="Pre"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<div id="compMark" class="selDivSection" *ngIf="selCompany">
+    <div class="selDiv">
+        <span>{{selCompany.organization}}</span>
+        <div class="pull-right select-btn">
+            <div class="dropdown">
+                <button mat-raised-button (click)="editCompany()" class="loc-btn dropdown-toggle edit-loc-btn" type="button">Edit
+                </button>
+                <!-- data-toggle="dropdown" -->
+                <!-- <ul class="dropdown-menu" style="right: 0px !important;left: auto;">
+                    <li><a (click)="editCompany()" href="javascript:void(0)" class="loc-btn">Edit Information</a></li>
+                    <li><a (click)="showDeleteClassPopup()" href="javascript:void(0)" class="loc-btn" >Delete</a></li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <form autocomplete="off" [formGroup]="editAccDetailsFrm">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Company</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{selCompany.organization}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Address </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{util.concatenateStrings(selCompany.address_line2,selCompany.address_line1)}}</div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Address Line 2</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{selCompany.address_line2}}</div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Price Per User</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{selCompany.price_per_user}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Currency</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{selCompany.currency}}</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Main Phone</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{util.maskPhoneNumber(selCompany.main_phone)}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Payment Status</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col" *ngIf="!isEdit">{{selCompany.payment_status_details.status}}</div>
+                    <div class="info-col form-group" *ngIf="isEdit">
+                        <!-- formControlName="UOM" -->
+                        <select formControlName="payment_status" class="form-control">
+                            <!-- <option [value]='' selected>Please Select UOM</option> -->
+                            <option *ngFor="let item of pageData.paymentStatusList" [value]="item.type_id">{{item.status}}</option>
+                        </select>
+                        <!-- <span class="error-msg" *ngIf="UOM.invalid && (UOM.dirty || UOM.touched || pageData.submitted)">
+                            <small *ngIf="UOM.errors.required">Please Select UOM.</small>
+                        </span> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Business Structure</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{selCompany.business_structure}}</div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">City</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{selCompany.city_name.city_name}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Province</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{selCompany.provinence_name ? selCompany.provinence_name.province_name : ''}}</div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Country</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{selCompany.country_name.country_name}}</div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Postal Code</div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="info-col">{{selCompany.postal_code}}</div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="label-col">Account Status</div>
+                </div>
+                <div class="col-sm-8">
+                    <!-- *ngIf="pageData.isEdit" -->
+                    <div *ngIf="!isEdit" class="info-col">{{selCompany.account_status_details.status}}</div>
+                    <div *ngIf="isEdit" class="info-col form-group">
+                        <!-- formControlName="UOM" -->
+                        <select formControlName="account_status" class="form-control">
+                            <!-- <option [value]='' selected>Please Select UOM</option> -->
+                            <option *ngFor="let item of pageData.accountStatusList" [value]="item.type_id">{{item.status}}</option>
+                        </select>
+                        <!-- <span class="error-msg" *ngIf="UOM.invalid && (UOM.dirty || UOM.touched || pageData.submitted)">
+                            <small *ngIf="UOM.errors.required">Please Select UOM.</small>
+                        </span> -->
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- <div class="row">
+                <div class="col-sm-3">
+                    <div class="label-col">Comment</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="info-col" *ngIf="!isEdit">{{selItemClass.comment}}</div>
+                    <div *ngIf="isEdit" class="addEmpFormBtnWrap clearfix">
+                        <button id="updateItemClass" class=" mdBtn updateBtn" (click)="updateItmeClass(editItemClassFrm)">Update</button>
+                        <button (click)="cancelDisplayInfo()" class="mdBtn ML15 mdcancelBtn">Cancel</button>
+                    </div>
+                </div>
+            </div> -->
+
+        </div>
+        <div class="clearfix"></div>
+
+
+
+        <div class="col-sm-6" *ngIf="!isEdit">
+            <div class="row MT20" *ngFor="let indx = index; let user of selCompany.users">
+                <div class="clearfix">
+                  <label class="col-md-6 control-label pageSubTitle" for="supplierType">
+                    <span class="selDiv" *ngIf="indx == 0">Primary User</span>
+                    <span *ngIf="indx != 0">User {{indx+1}}</span>
+                  </label>
+                </div>
+                <div class="clearfix">
+                  <label class="col-sm-4 label-col" for="comment">Name</label>
+                  <div class="col-md-8 info-col">
+                    {{user.employee_info.first_name}}
+                  </div>
+                </div>
+                <div class="clearfix">
+                  <label class="col-sm-4 label-col" for="comment">Username</label>
+                  <div class="col-sm-8 info-col">
+                    {{user.employee_info.username}}
+                  </div>
+                </div>
+                <div class="clearfix">
+                  <label class="col-sm-4 label-col" for="comment">Designation</label>
+                  <div class="col-sm-8 info-col">
+                     {{user.employee_info.designation}}
+                  </div>
+                </div>
+                <div class="clearfix">
+                  <label class="col-sm-4 label-col" for="comment">Email</label>
+                  <div class="col-sm-8 info-col">
+                     {{user.employee_info.email_id}}
+                  </div>
+                </div>
+                <div class="clearfix">
+                  <label class="col-sm-4 label-col" for="comment">Phone Number</label>
+                  <div class="col-sm-8 info-col">
+                     {{util.maskPhoneNumber(user.employee_info.mobile_no)}}
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 userSection" *ngIf="isEdit">
+        <div class="row" *ngFor="let user of users.controls; let indx=index" [formGroup]="user" >
+            <div *ngIf="user.get('isUserDelete').value == '0'">
+                <div class="col-md-6 selPart control-label pageSubTitle" *ngIf="indx == 0">
+                    <span>Primary User</span>
+                </div>
+                <div class="col-md-6 selPart control-label pageSubTitle" *ngIf="indx != 0">
+                    <span class="closeBtnWrap">
+                        <img class="cursorPtr" (click)="removeUser(indx, user)" src="assets/icon/close_icon.png">
+                    </span>
+                    <span>User {{indx + 1}}</span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label" for="name">Name</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" name="name" placeholder="" formControlName="name" class="form-control">
+                        <span class="error-msg" *ngIf="user.get('name').invalid && (user.get('name').dirty || user.get('name').touched || submitted)">
+                            <small *ngIf="user.get('name').errors.required">Name is required.</small>
+                            <small *ngIf="user.get('name').errors.minlength">Name must be at least 2 characters long.</small>
+                            <small *ngIf="user.get('name').errors.maxlength">Name must be less than 30 characters.</small>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label" for="userName">Username</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" id="userName" name="userName" formControlName="userName" class="form-control optional" (keypress)="util.noSpace($event)" [ngClass]="user.get('userId').value != '' ? 'ptrN' : ''" (mouseleave)="validateUsername(user)">
+                        <span class="error-msg"> <small *ngIf="user.get('isValidUserName').value">Username already exists.</small></span>
+                        <span class="error-msg" *ngIf="user.get('userName').invalid && (user.get('userName').dirty || user.get('userName').touched || submitted)">
+                            <small *ngIf="user.get('userName').errors.required">Username is required.</small>
+                            <small *ngIf="user.get('userName').errors.minlength">Username must be at least 8 characters long.</small>
+                            <small *ngIf="user.get('userName').errors.maxlength">Username must be less than 30 characters.</small>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label" for="designation">Designation</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" name="designation" placeholder="" formControlName="designation" class="form-control">
+                        <span class="error-msg" *ngIf="user.get('designation').invalid && (user.get('designation').dirty || user.get('designation').touched || submitted)">
+                            <small *ngIf="user.get('designation').errors.required">Designation is required.</small>
+                            <small *ngIf="user.get('designation').errors.minlength">Designation must be at least 2 characters long.</small>
+                            <small *ngIf="user.get('designation').errors.maxlength">Designation must be less than 30 characters.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label" for="email">Email</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" name="email" placeholder="" formControlName="email" class="form-control" (mouseleave)="validateEmail(user)">
+                        <span class="error-msg"> <small *ngIf="user.get('isValidEmail').value">Email already exists.</small></span>
+                        <span class="error-msg" *ngIf="user.get('email').invalid && (user.get('email').dirty || user.get('email').touched || submitted)">
+                            <small *ngIf="user.get('email').errors.required">Email is required.</small>
+                            <small *ngIf="user.get('email').errors.pattern">Enter valid email.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-4 control-label" for="phoneNumber">Phone Number</label>
+                    <div class="col-sm-8">
+                        <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" name="phoneNumber" placeholder="" formControlName="phoneNumber" class="form-control">
+                        <span class="error-msg" *ngIf="user.get('phoneNumber').invalid && (user.get('phoneNumber').dirty || user.get('phoneNumber').touched || submitted)">
+                            <small *ngIf="user.get('phoneNumber').errors.required">Phone Number is required.</small>
+                            <small *ngIf="user.get('phoneNumber').errors.pattern">Enter valid Phone Number.</small>
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="form-group clearfix" *ngIf="user.get('userId').value != ''">
+                    <label class="col-sm-4 control-label" for="phoneNumber">&nbsp;</label>
+                    <!-- @ Shahebaz (Start)-->
+                    <div class="button-row clearfix col-sm-8">
+                        <button
+                        mat-raised-button
+                        class="trea-btn"
+                        type="button" (click)="resetPassword(user.get('userName').value)">Reset Password</button>
+                    </div>
+                    <!-- @ Shahebaz (End)-->
+                </div>
+
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div class="newUserbtnwrap" *ngIf="isEdit && userCount < 3">
+            <div class="addIcon">
+                <span class="cursorPtr" (click)="addUser('0', {})">
+                    <img src="assets/icon/icon-add.png"/><span>New User</span>
+                </span>
+            </div>
+        </div>
+        </div>
+
+
+    </form>
+    </div>
+    <div class="errMsgCon" *ngIf="isError">
+        <small>{{errMsg}}</small>
+    </div>
+    <div *ngIf="isEdit" class="button-row clearfix">
+        <button mat-raised-button id="updateComp" class="trea-btn" (click)="updateCompanyDetails(editAccDetailsFrm)">Update</button>
+        <button mat-raised-button (click)="cancelEdit()" class="trea-btn">Cancel</button>
+    </div>
+</div>
+<!-- <div class="clearfix"></div>
+<div class="client-section">
+    <div>
+        <div class="search-client">
+            <div class="input-group">
+                <span class="search-icn" id="basic-addon1">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+                <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="searchTxt" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                <button mat-raised-button class="client-btn" (click)="applyFilter(searchTxt)">Search</button>
+            </div>
+        </div>
+        <div class="add-client">
+            <button mat-raised-button class="client-btn" routerLink="/su/tsa/company-registration">New Company</button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="client-table">
+        <div class="example-container mat-elevation-z8">
+            <mat-table #table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="company_legal_name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div class="client-tbl-hdr">
+                <div class="client-tbl-hdr-txt-first">Company</div>
+                <div class="tbl-btm-bdr"></div>
+            </div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.company_legal_name}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="states">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div class="client-tbl-hdr">
+                <div class="client-tbl-hdr-txt">State</div>
+                <div class="tbl-btm-bdr"></div>
+            </div>
+
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.states}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="country">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div class="client-tbl-hdr">
+                <div class="client-tbl-hdr-txt">Country</div>
+                <div class="tbl-btm-bdr"></div>
+            </div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="currency">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+            <div class="client-tbl-hdr">
+                <div class="client-tbl-hdr-txt">Currency</div>
+                <div class="tbl-btm-bdr"></div>
+            </div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.currency}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+    </div>
+
+</div> -->

@@ -1,0 +1,302 @@
+.qty-cost{
+    text-align: right;
+}
+.add-business{ float: right; margin-bottom: 10px;}
+.add-business .dropdown-menu {
+    padding: 0;
+    border-radius: 0px;
+    min-width: 156px;
+}
+/* .addTreaBtnWrap {
+    margin-left: 10px;
+}
+.addTreaBtnWrap.dropdown-menu{
+    right: 0;
+    left: inherit;
+    margin: 0;
+    padding: 0px !important;
+    min-width: 140px;
+    width: 100%;
+    font-weight: 400;
+    border-radius: 0px !important;
+} */
+.addTreaBtnWrap .open > .client-btn {
+    color: #505050  !important;
+    background: #FFCB36 !important;
+}
+.addTreaBtnWrap .dropdown-menu .client-btn:hover {
+    color: #505050  !important;
+    background: #FFCB36 !important;
+}
+.addTreaBtnWrap .dropdown-menu>li>a{ padding: 3px 10px; font-weight: 400;}
+
+/* exp dbdown css */
+
+.search-section .input-group {
+    border: 1px solid #CCCCCC;
+}
+
+
+.search-section .form-control {
+    border: none;
+    width: 186px;
+    height: 30px;
+}
+.search-section .form-control:hover,
+.search-section .form-control:focus,
+.trea-btn:hover,
+.trea-btn:focus {
+    outline: 0px;
+}
+.client-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+/* .trea-btn {
+    background-color: #00a99d;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+    font-weight: 400;
+} */
+
+.trea-data-table table .fa-signal{
+   cursor: pointer;
+}
+.trea-data-table table>thead {
+    background-color: #7E7E7E;
+    color: #FFFFFF;
+}
+.trea-data-table table>thead>tr>th {
+    font-size: 14px;
+    height: 80px;
+    vertical-align: top;
+    text-align: center;
+}
+.trea-data-table table>tbody>tr>td {
+    font-size: 14px;
+    padding-left: 24px;
+}
+.trea-data-table .bdr-left {
+    border-left: 1px solid #FFFFFF;
+}
+.trea-data-table .table-hdr {
+    height: 100%;
+    padding-left: 14px;
+}
+.trea-data-table input {
+    background-color: #7e7e7e;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-bottom: 2px solid #FFFFFF;
+    border-radius: 0px;
+    box-shadow: none;
+    color: #FFFFFF;
+    margin-top: 8px;
+    cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover {
+    cursor: pointer;
+    color: #505050;
+    background-color: #FFCB36;
+}
+.trea-data-table .sel-row-highlight {
+    color: #505050;
+    background-color: #FFCB36;
+}
+
+.selBusinessSection {
+    margin-bottom: 20px;
+}
+.selBusiness {
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 25px;
+}
+.loc-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    /* min-width: 120px; */
+    width: 100%;
+}
+
+.loc-btn:hover {
+    color: #505050;
+    background: #FFCB36;
+}
+.edit-loc-btn {
+    width: 158px;
+}
+.select-btn .dropdown-menu {
+    /* min-width: 120px; */
+    /* font-family: 'Montserrat-Regular'; */
+    font-weight: 400;
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.select-btn .open>.loc-btn {
+    color: #505050;
+    background: #FFCB36;
+}
+
+.select-btn .dropdown-menu>li>a {
+    padding: 3px 10px;
+    line-height: 24px;
+}
+.businessDetails{
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.businessDetails .table {
+    border-bottom: 1px solid #7E7E7E;
+    margin-bottom: 15px;
+}
+
+.businessDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    vertical-align: top;
+   font-weight: 600;
+}
+
+.businessDetails .table>tbody>tr>td,
+.businessDetails .table>thead>tr>td,
+.businessDetails .table>thead>tr>th{
+    border-color: #7E7E7E;
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.businessDetails .table > tbody > tr > td {
+    /* color: #7E7E7E; */
+    overflow-wrap: break-word;
+    /* max-width: 250px; */
+}
+/* .businessDetails .table > tbody > tr > td>div {
+    padding: 5px 0px;
+} */
+
+@media screen and (max-width: 767px){
+    .businessDetails .table-responsive{
+        border: none;
+    }
+}
+
+.editBusinessDetails{
+    max-width: 80%;
+    margin: 0 auto;
+}
+.editBusinessDetails .table {
+    /* border-bottom: 1px solid #7E7E7E; */
+    margin-bottom: 15px;
+}
+
+.editBusinessDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+    vertical-align: top;
+   font-weight: 600;
+}
+
+.editBusinessDetails .table>tbody>tr>td,
+.editBusinessDetails .table>thead>tr>td,
+.editBusinessDetails .table>thead>tr>th{
+    border-color: #7E7E7E;
+    font-size: 14px;
+    line-height: 25px;
+    min-width: 190px;
+}
+
+.editBusinessDetails .table > tbody > tr > td {
+    color: #7E7E7E;
+}
+.editBusinessDetails .table > tbody > tr > td>div {
+    padding: 5px 0px;
+}
+.editBusinessDetails .table > thead > tr > th:last-child,
+.editBusinessDetails .table > tbody > tr > td:last-child {
+    min-width: 150px;
+    width: 150px;
+    padding-right: 0px;
+ }
+/* .editBusinessDetails .table > tbody > tr > td>.form-group>input {
+   width: 150px;
+} */
+.editBusinessDetails .table > tbody > tr > td:first-child,
+.editBusinessDetails .table > thead > tr > th:first-child {
+    border: 0px;
+    min-width: 40px;
+    width: 40px;
+}
+.editBusinessDetails .table-responsive{
+    margin-left: -40px;
+}
+.addIcon{
+    margin-left: 20px;
+}
+.addIcon>img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+.addIcon>span,
+.closeIcon>span{
+    /* cursor: pointer; */
+    padding-left: 10px;
+}
+.editBusinessBtnWrap{
+    text-align: center;
+}
+.editBusinessBtnWrap .mdBtn{
+    margin: 20px;
+}
+@media screen and (max-width: 767px){
+    .editBusinessDetails .table-responsive{
+        border: none;
+    }
+}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.businessNature .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

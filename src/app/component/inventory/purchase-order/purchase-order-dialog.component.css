@@ -1,0 +1,226 @@
+.dialog{ width: 100%; max-width:750px; position: relative; }
+.dialog .close-icon{ 
+  position: absolute;
+  color: #CD5023;
+  right: -10px;
+  top: -15px;
+  cursor: pointer;
+}
+.dialog .loc-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+}
+.dialog-hdr{ text-align: center;font-weight: 700;font-size: 16px; color: #505050;}
+.dialog-txt{ text-align: center;margin: 25px 0px;font-size: 16px; }
+.dialog .action-btn .left, .dialog .action-btn .right{ width: 50%; }
+.dialog .action-btn .left{ text-align: right; }
+.dialog .action-btn .yes{ margin-right: 10px; }
+.dialog .action-btn .cancel{ margin-left: 10px; }
+
+.dialog label{ text-align: left; font-weight: 500; font-size: 16px; margin-bottom: 15px; }
+.dialog .input-txt{ margin-bottom: 30px; position: relative; }
+.dialog .input-err-msg{  left: 15px; }
+
+.dialog .trea-logo{ height: 40px;width: 200px;margin: 0px auto 30px auto; }
+.dialog .trea-logo img{ width: 130px;margin: 0px auto; }
+.dialog .errMsgCon{ text-align: center; margin-bottom: 20px;}
+.dialog .errMsgCon small{ color: #F44336; font-size: smaller; }
+/*.dialog .control-label{color:#505050;}*/
+/*css New Manufacturer start*/
+
+.newManufacturerFormWrap, .newSupplierWrap, .newmanufacturerPartWrap,.informationreviewFormWrap{
+  margin-top: 40px;
+  padding: 0 30px;
+}
+
+.newmanufacturerPartWrap{
+  margin-top: 25px;
+  padding: 0 30px;
+}
+
+.newManufacturerFormWrap form h3{
+  text-align: center;
+  font-weight: 700;
+}
+.newManufacturerFormWrap .form-horizontal .control-label {
+  text-align: left;
+  font-size: 16px;
+  font-weight: normal;
+}
+.newManufacturerFormWrap .addUserFormBody{
+  padding: 0px;
+  margin-bottom: 50px;
+}
+
+.newManufacturerFormWrap form .form-group input,
+.newManufacturerFormWrap form .form-group select{
+  border-radius: 0px;
+  height: 25px;
+  padding: 1px 10px;
+}
+.newManufacturerFormWrap .errMsgCon{ text-align: center; }
+.newManufacturerFormWrap .errMsgCon small{ 
+  color: #F44336;
+  font-size: smaller;
+}
+.newManufacturerFormWrap.lgBtn{
+  width: 150px;
+}
+/*css New Manufacturer end*/
+
+/*css New Supplier*/
+ .txtColor{
+  color: #D1D1D1;
+}
+
+.newSupplierFormBody .marginTop10
+{
+  margin-top: 10px;
+}
+.newManufacturerFormWrap .addEmpFormBtnWrap .mdBtn,.newSupplierWrap .clientFormBtnWrap .mdBtn{
+  margin: 20px;
+}
+.newManufacturerFormWrap .addEmpFormBtnWrap,.newSupplierWrap .clientFormBtnWrap{
+  text-align: center;
+}
+.newmanufacturerPartWrap .newmanufacturerPartFormBtnWrap{
+  margin-top: 48px;
+}
+/*css New Supplier end*/
+/*css Product Irem Infromation Review start*/
+.productReviewFormWrap{
+  margin-top: 40px;
+  padding: 0 36px;
+}
+.productReviewFormWrap .label-col {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 25px;
+}
+.productReviewFormWrap .info-col {
+    font-size: 16px;
+    line-height: 25px;
+}
+.productReviewFormWrap .addUserFormBody{
+  padding: 0px;
+  margin-bottom: 50px;
+}
+.productReviewFormWrap .mdBtn{
+  margin-left: 15px;
+  width: 140px;
+}
+
+.informationreviewFormWrap .addEmpFormBtnWrap{
+  margin: 60px 0 15px 0;
+}
+.informationreviewFormWrap .addEmpFormBtnWrap .mdBtn{
+  margin-left: 20px;
+}
+.informationreviewFormWrap .label-col, .informationreviewFormWrap .info-col{
+  font-size:16px;
+  color: #505050;
+}
+.informationreviewFormWrap .txtColor{
+  color: #D1D1D1;
+}
+/*end*/
+
+/*css New Asset Information Review start*/
+.assetinformationreviewFormWrap{
+  margin-top: 40px;
+  padding: 0 30px;
+}
+.assetiteminformationDetails .label-col{
+  color:#505050;
+}
+.financialslblWrap{
+  margin: 28px auto;
+  color: #505050;
+}
+.assetinformationreviewFormWrap .addEmpFormBtnWrap{
+  margin:40px;
+}
+.newSupplierWrap .queimgWrap{
+  margin-top: 4px;
+}
+/*css New Asset Information Review end*/
+
+/*css Add New Asset  start*/
+.addnewAssetWrap .addnewAssetFormBody i{
+  position: absolute;
+    right: -20px;
+    top: 4px;
+}
+.addnewAssetWrap .editcancelnewAssetbtnWrap{
+  margin:60px auto;
+}
+.addnewAssetWrap{
+  margin-top: 40px;
+  padding: 0 30px;
+}
+.addnewAssetWrap .addnewAssetFormBody .label-col, .addnewAssetWrap .addnewAssetFormBody .info-col{
+  font-size:16px; 
+  color: #505050;
+}
+.addnewAssetWrap .addnewAssetFormBody  .txtColor{
+  color: #D1D1D1;
+}
+.addnewAssetWrap .addnewAssetFormBody .form-group {
+    margin-right: 0;
+    margin-left: 0;
+}
+/*css Add New Asset  end*/
+/*css Add New Product start*/
+.addnewProductWrap .addnewAssetMiddle .form-group {
+    margin-right: 0;
+    margin-left: 0;
+}
+.addnewProductWrap  .addnewAssetUpper, .addnewProductWrap  .addnewAssetLower{
+    width: 80%;
+    margin: 0 auto;
+}
+.addnewProductWrap .addnewAssetMiddle .table > thead  tr  th{
+  border-bottom: 2px solid transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #505050;
+}
+.addnewProductWrap .addnewAssetMiddle .table thead tr  th:nth-child(1){
+  width:10px;
+}
+.addnewProductWrap .addnewAssetMiddle .table thead tr  th:nth-child(2){
+  width: 120px;
+}
+.addnewProductWrap .addnewAssetMiddle .table thead  tr  th:nth-child(3){
+  width: 200px;
+}
+.addnewProductWrap .addnewAssetMiddle .table thead tr  th:nth-child(4){
+  width: 45px;
+}
+.addnewProductWrap .addnewAssetMiddle .table > thead > tr > th, .table > tbody > tr > th, .table > thead > tr > td, .table > tbody > tr > td {
+    border-top: 1px solid transparent;
+}
+.addnewProductWrap .addnewAssetMiddle{
+  margin: 25px auto;
+}
+.addnewProductWrap{
+  margin-top: 40px;
+  padding: 0 30px;
+}
+.addnewProductWrap .addnewProductFormBody  .txtColor{
+  color: #D1D1D1;
+}
+.addnewProductWrap .addnewProductFormBody .label-col, .addnewAssetWrap .addnewProductFormBody .info-col{
+  font-size:16px; 
+  color: #505050;
+}
+.editcancelnewProductbtnWrap{
+  margin: 50px auto 80px;
+}
+.noteLbl{ text-align: left;padding-bottom: 5px;
+    padding-left: 5px; }
+    .minW360{ min-width: 360px; }
+.minW360 textarea{ width: 100%; }    

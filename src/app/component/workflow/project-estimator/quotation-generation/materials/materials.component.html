@@ -1,0 +1,88 @@
+<form autocomplete="off" role="form" [formGroup]="materialsForm" class="materialsForm">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><!-- Leave empty for alignment --></th>
+                    <th>Product / Material</th>
+                    <th>Cost</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                    <!-- <th>Details</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let material of materials.controls; let indx=index" [formGroup]="material">
+                    <td> <span class="closeIcon"><img  (click)="removeMaterial(indx, material)" src="assets/icon/close_icon.png" /></span> </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="autoCompleteList">
+                                <div class="searchList">
+                                    <mat-form-field class="product">
+                                    <input autocomplete="nope" id=material_{{indx}} matInput placeholder="" [formControl]="material.get('short_name')" [matAutocomplete]="materialsAutoComp" (keyup)="validateMaterial($event, material, indx)">
+                                    <i *ngIf="material.get('short_name').value!=''" (click)="util.clearAutoComplete('material_', [material.get('short_name'), material.get('item_id'), material.get('cost'), material.get('quantity'), material.get('total_amount'), material.get('details')],indx); clearMaterial(material, material.get('total_amount').value);" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <!-- <img *ngIf="material.get('short_name').value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" /> -->
+                                    <mat-autocomplete #materialsAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let optionIndx=index; let item of material.get('filteredMaterial').value | async | sortBy:'short_name':'ASC':'A'" [value]="item.short_name" (onSelectionChange)="getSelectedMaterial(item, $event, indx)">
+                                    <span>{{ item.short_name }}</span>
+                                    </mat-option>
+                                    </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <span class="error-msg" *ngIf="(material.get('item_id').invalid) && (material.get('item_id').dirty || material.get('item_id').touched || submitted)">
+                                <small *ngIf="material.get('item_id').errors.required">Please select Product from the list.</small>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group currencyWrap">
+                                <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                                <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                            <input autocomplete="nope" [attr.id]="'ser'+indx+'price'+optionIndx" type="text" class="inputCost currInput" formControlName="cost" (keyup)="calculateTotal($event, material, indx)">
+                            <span class="error-msg" *ngIf="(material.get('cost').invalid) && (material.get('cost').dirty || material.get('cost').touched || submitted)">
+                                <small *ngIf="material.get('cost').errors.required">Price is Required.</small>
+                                <small *ngIf="material.get('cost').errors.pattern">Invalid Price.</small>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group pull-left">
+                            <input autocomplete="nope" type="number" class="inputQty PadR0" formControlName="quantity" (change)="calculateTotal($event, material, indx)">
+                            <span class="error-msg" *ngIf="(material.get('quantity').invalid) && (material.get('quantity').dirty || material.get('quantity').touched || submitted)">
+                                <small *ngIf="material.get('quantity').errors.required">Quantity is Required.</small>
+                                <small *ngIf="material.get('quantity').errors.pattern">Invalid Quantity.</small>
+                            </span>
+                        </div>
+                        <div class=" pull-left">&nbsp;{{material.get('uom').value}}</div>
+                    </td>
+                    <td>
+                        <span>{{material.get('total_amount').value | currency: util.getCurrency() :'symbol-narrow'}}</span>
+                    </td>
+                    <!-- <td>
+                        <div class="form-group">
+                            <textarea class="inputDetail" rows="4" formControlName="details"></textarea>
+                        </div>
+                    </td> -->
+                </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td><!-- Leave empty for alignment --></td>
+                <td>
+                    <span class="addIcon MB20 cursorPtr" (click)="addMaterials('0')">
+                        <img src="assets/icon/icon-add.png">
+                        <span>Add Product / Material</span>
+                    </span>
+                </td>
+                <td colspan=2>
+                    <div class="label-col">Products and Materials Total</div>
+                </td>
+                <td>
+                    <strong>{{materialsForm.get('materials_amount').value | currency: util.getCurrency() :'symbol-narrow'}}</strong>
+                </td>
+              </tr>
+          </tfoot>
+        </table>
+    </div>
+</form>  

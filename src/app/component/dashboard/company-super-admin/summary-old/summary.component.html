@@ -1,0 +1,812 @@
+<div class="summarySection">
+    <div class="pageTitle">Summary</div>
+
+    <div class="treaAccord summaryAccord">
+        <div class="accordRow">
+            <input autocomplete="nope" type="checkbox" >
+            <div class="info-col head">
+                <i></i>
+                Asset & Inventory
+            </div>
+            <div class="subItem">
+                <div class="panelBody">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="contentBox">
+                                <div class="midText">Net Present Value 2017</div>
+                                <div class="amtTxt txt-green">$44,000</div>
+                            </div>
+                            <div class="contentBox">
+                                <div class="midText">Inventory Discrepancies 2017</div>
+                                <div class="amtTxt txt-red">$4,000</div>
+                            </div>
+                            <div class="contentBox">
+                                <div class="midText">Asset Utilization 2017</div>
+                                <div class="pieChart">
+                                    <!-- <img src="assets/img/chart75.png" class="img-responsive"> -->
+                                    <div class="chartWrap">
+                                        <canvas id="auChart" width="100" height="100"></canvas>
+                                        <div class="chartStat" [ngStyle]="{'color': chartData.auData.backgroundColor[0] }">{{chartData.auData.data[0]}}%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="contentBox">
+                                <div class="midText">Most Valuable Asset 2017</div>
+                                <div class="assetImg">
+                                    <img src="assets/img/mfgPart1.jpeg" class="img-responsive">
+                                </div>
+                                <div class="smallTxt">New Holland Excavator 1000</div>
+                            </div> 
+                            <div class="contentBox">
+                                <div class="midText">Most Common Asset 2017</div>
+                                <div class="assetImg">
+                                    <img src="assets/img/mfgPart3.jpeg" class="img-responsive">
+                                </div>
+                                <div class="smallTxt">Joe's Mower 2020</div>
+                            </div> 
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="contentBox">
+                                <div class="midText">Most Common Asset Type 2017</div>
+                                <div class="amtTxt txt-green MB30 MT30">Trucks</div>
+                            </div> 
+                            <div class="contentBox">
+                                <div class="midText">Most Frequently Repaired Asset 2017</div>
+                                <div class="assetImg">
+                                    <img src="assets/img/mfgPart3.jpeg" class="img-responsive">
+                                </div>
+                                <div class="smallTxt">Ford Mini Van</div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordRow">
+            <input autocomplete="nope" type="checkbox" >
+            <div class="info-col head">
+                <i></i>
+                Workflow
+            </div>
+            <div class="subItem">
+                <div class="workflowWrap">
+                    <div class="panelBody">
+                        <div class="reportOptionTabsTop">
+                            <div class="tabs">
+                                <div class="infoText">Weekly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Bi-weekly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Monthly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Quarterly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Yearly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Bi-yearly</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="reportOptionTabsBottom">
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt1">
+                                    <label for="workflowOpt1"></label>
+                                </div>
+                            </div>
+                            <div class="tabs" id="myid">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt2">
+                                    <label for="workflowOpt2"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt3">
+                                    <label for="workflowOpt3"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt4">
+                                    <label for="workflowOpt4"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt5">
+                                    <label for="workflowOpt5"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt6">
+                                    <label for="workflowOpt6"></label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="clearfix"></div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="contentBox">
+                                    <div class="midText">Work Orders Generated</div>
+                                    <div class="amtTxt">10</div>
+                                </div>
+                                <div class="contentBox">
+                                    <div class="midText">Average Cost Of Work Order </div>
+                                    <div class="amtTxt">$14,400</div>
+                                </div>
+                                <div class="contentBox">
+                                    <div class="midText">Average Cost Of Work Order/Hour</div>
+                                    <div class="amtTxt">$360/hr</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="contentBox">
+                                    <div class="midText">Work Orders Schedule</div>
+                                    <div class="amtTxt">8</div>
+                                    <!-- <div class="assetImg">
+                                        <img src="assets/img/schedulingrate.png" class="img-responsive">
+                                    </div> -->
+                                    <div class="pieChart w120">
+                                        <div class="chartWrap">
+                                            <canvas id="wosChart" width="100" height="100"></canvas>
+                                            <div class="chartStat" [ngStyle]="{'color': chartData.wosData.backgroundColor[0] }">{{chartData.wosData.data[0]}}%</div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="contentBox">
+                                    <div class="midText">Work Order Hours Estimated/Actual</div>
+                                    <div class="amtTxt">
+                                        <span>960</span>
+                                        <span>/</span>
+                                        <span class="txt-red">1020</span>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="contentBox">
+                                    <div class="midText">Work Orders Completed</div>
+                                    <div class="amtTxt">8</div>
+                                    <!-- <div class="assetImg">
+                                        <img src="assets/img/completionrate.png" class="img-responsive">
+                                    </div> -->
+                                    <div class="pieChart w120">
+                                        <div class="chartWrap">
+                                            <canvas id="wocChart" width="100" height="100"></canvas>
+                                            <div class="chartStat" [ngStyle]="{'color': chartData.wocData.backgroundColor[0] }">{{chartData.wocData.data[0]}}%</div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="contentBox">
+                                    <div class="midText">
+                                        <span>Cost Saved</span><span>/</span>
+                                        <span class="txt-red">Extra Cost</span><span>From Work Orders</span>
+                                    </div>
+                                    <div class="amtTxt txt-red">$21,600</div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordRow">
+            <input autocomplete="nope" type="checkbox" >
+            <div class="info-col head">
+                <i></i>
+                Sales/CRM
+            </div>
+            <div class="subItem">
+                <div class="salesCRMWrap">
+                    <div class="panelBody">
+                        <div class="reportOptionTabsTop">
+                            <div class="tabs">
+                                <div class="infoText">Weekly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Bi-weekly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Monthly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Quarterly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Yearly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Bi-yearly</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="reportOptionTabsBottom">
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="salesOpt" type="radio" id="salesOpt1">
+                                    <label for="salesOpt1"></label>
+                                </div>
+                            </div>
+                            <div class="tabs" id="myid">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="salesOpt" type="radio" id="salesOpt2">
+                                    <label for="salesOpt2"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="salesOpt" type="radio" id="salesOpt3">
+                                    <label for="salesOpt3"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="salesOpt" type="radio" id="salesOpt4">
+                                    <label for="salesOpt4"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="salesOpt" type="radio" id="salesOpt5">
+                                    <label for="salesOpt5"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="salesOpt" type="radio" id="salesOpt6">
+                                    <label for="salesOpt6"></label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="clearfix"></div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="contentBox">
+                                    <div class="midText">Leads/Closures</div>
+                                    <div class="amtTxt MB20 MT20">12/15</div>
+                                    <div class="pieChart w120">
+                                        <div class="chartWrap">
+                                            <canvas id="lcChart" width="100" height="100"></canvas>
+                                            <div class="chartStat" [ngStyle]="{'color': chartData.lcData.backgroundColor[0] }">{{chartData.lcData.data[0]}}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="contentBox">
+                                    <div class="midText">Most Succesful Compaigns</div>
+                                    <div class="campaignsWrap">
+                                        <ul>
+                                            <li>
+                                                <div class="campaign"> 
+                                                    <div class="number">1</div>
+                                                    <div class="campTxt">Facebook Ads via Social Media 8/12 Closures</div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="campaign"> 
+                                                    <div class="number">2</div>
+                                                    <div class="campTxt">Google Ads via Social Media 2/12 Closures</div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="campaign"> 
+                                                    <div class="number">3</div>
+                                                    <div class="campTxt">Employee Referrals via F&F 2/12 Closures</div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+
+                        <div class="salesInfoWrap">
+                            <div class="contentBox">
+                                <div class="midText MB20">Top Performing Sales Rep</div>
+                                <div class="row clearfix">
+                                    <div class="col-sm-4">
+                                        <div class="profilePic">
+                                            <img src="assets/img/profile_pic.JPG" class="img-circle img-responsive"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="profInfo">
+                                            <div class="name">John Smith</div>
+                                            <p class="txtDesc">Lorem ipsum dolor sit ameeserunt mollit anim id est laborum. Lorem ipsum dolor sit ameeserunt mollit anim mollit anim laborum. Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.</p>
+                                            <div class="amtRateInfo midText">
+                                                <div class="pull-left">90% Closing Rate</div>
+                                                <div class="pull-right">$2000 Generated</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="contentBox">
+                                    <div class="midText MB20">Lead Generation Turnover</div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p>An average of <b>48 hours </b> is taken to achieve a Closure from a potential lead.</p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="leadTurnoverChart">
+                                                <img src="assets/img/turner.png" class="img-responsive"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="contentBox">
+                                    <div class="midText MB30">Disputes From Closures</div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="amtTxt"><span class="txt-red">3</span><span>/</span><span>12</span></div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="pieChart w120">
+                                                <div class="chartWrap">
+                                                    <canvas id="dfcChart" width="100" height="100"></canvas>
+                                                    <div class="chartStat" [ngStyle]="{'color': chartData.dfcData.backgroundColor[0] }">{{chartData.dfcData.data[0]}}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="accordRow">
+            <input autocomplete="nope" type="checkbox" >
+            <div class="info-col head">
+                <i></i>
+                Financials
+            </div>
+            <div class="subItem">
+                <div class="financialWrap">
+                    <div class="panelBody">
+                        <div class="reportOptionTabsTop">
+                            <div class="tabs">
+                                <div class="infoText">Weekly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Bi-weekly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Monthly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Quarterly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Yearly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Bi-yearly</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="reportOptionTabsBottom">
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt1">
+                                    <label for="financialOpt1"></label>
+                                </div>
+                            </div>
+                            <div class="tabs" id="myid">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt2">
+                                    <label for="financialOpt2"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt3">
+                                    <label for="financialOpt3"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt4">
+                                    <label for="financialOpt4"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt5">
+                                    <label for="financialOpt5"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt6">
+                                    <label for="financialOpt6"></label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="clearfix"></div>
+
+                        <div class="financeSummeryWrap">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="contentBox">
+                                        <div class="midText">Net Profit Margin 2017</div>
+                                        <div class="amtTxt txt-green">10%</div>
+                                        <div class="smallTxt bold"><span class="txt-green">10% increase </span><span>from 2016</span></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="contentBox">
+                                        <div class="midText">Total Revenue 2017</div>
+                                        <div class="amtTxt">$1,800,000</div>
+                                        <div class="smallTxt bold"><span class="txt-green">16.6% growth </span><span>from 2016</span></div>
+                                    </div> 
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="contentBox">
+                                        <div class="midText">Operating Cash Flow 2017</div>
+                                        <div class="amtTxt txt-green">$150,000</div>
+                                        <div class="smallTxt bold"><span class="txt-green">$50,000 more </span><span>than projected</span></div>
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="contentBox">
+                                        <div class="midText">Current Ratio 2017</div>
+                                        <div class="amtTxt">1.6</div>
+                                        <div class="smallTxt bold"><span>6.6% increase </span><span>from 2016</span></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="contentBox">
+                                        <div class="midText">Accounts Receivable Turnover Ratio 2017</div>
+                                        <div class="amtTxt">3.75</div>
+                                        <div class="smallTxt bold"><span class="txt-red">6.25% slower </span><span>than 2016</span></div>
+                                    </div> 
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="contentBox">
+                                        <div class="midText">Accounts Payable Turnover Ratio 2017</div>
+                                        <div class="amtTxt">5</div>
+                                        <div class="smallTxt bold"><span class="txt-green">25% faster </span><span>than 2016</span></div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contentBox">
+                            <div class="midText MB30"><u>Profitability % Per Business Unit</u></div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="midText MB20">Construction</div>
+                                    <div class="assetImg MB20">
+                                        <div class="pieChart w120">
+                                            <div class="chartWrap">
+                                                <canvas id="conChart" width="100" height="100"></canvas>
+                                                <div class="chartStat" [ngStyle]="{'color': chartData.conData.backgroundColor[0] }">{{chartData.conData.data[0]}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profitFooter">
+                                        <div class="title MB20">Profitability Per Job</div>
+                                        <ul class="jobList">
+                                            <li><span class="bold">1) </span>Landscaping</li>
+                                            <li><span class="bold">2) </span>Gardening</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="midText MB20">Maintenance</div>
+                                    <div class="assetImg MB20">
+                                        <div class="pieChart w120">
+                                            <div class="chartWrap">
+                                                <canvas id="mainChart" width="100" height="100"></canvas>
+                                                <div class="chartStat" [ngStyle]="{'color': chartData.mainData.backgroundColor[0] }">{{chartData.mainData.data[0]}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profitFooter">
+                                        <div class="title MB20">Profitability Per Job</div>
+                                        <ul class="jobList">
+                                            <li><span class="bold">1) </span>Property Maintenance</li>
+                                            <li><span class="bold">2) </span>Snow Shovelling </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 MB20">
+                                    <div class="midText">Servicing</div>
+                                    <div class="assetImg MB20">
+                                        <div class="pieChart w120">
+                                            <div class="chartWrap">
+                                                <canvas id="servChart" width="100" height="100"></canvas>
+                                                <div class="chartStat" [ngStyle]="{'color': chartData.servData.backgroundColor[0] }">{{chartData.servData.data[0]}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profitFooter">
+                                        <div class="title MB20">Profitability Per Job</div>
+                                        <ul class="jobList">
+                                            <li><span class="bold">1) </span>Plumbing</li>
+                                            <li><span class="bold">2) </span>Electrical Work</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordRow">
+            <input autocomplete="nope" type="checkbox" >
+            <div class="info-col head">
+                <i></i>
+                Repairs
+            </div>
+            <div class="subItem">
+                <div class="repairsWrap">
+                    <div class="panelBody">
+                        <div class="reportOptionTabsTop">
+                            <div class="tabs">
+                                <div class="infoText">Weekly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Bi-weekly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Monthly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Quarterly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Yearly</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Bi-yearly</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="reportOptionTabsBottom">
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="repairsOpt" type="radio" id="repairsOpt1">
+                                    <label for="repairsOpt1"></label>
+                                </div>
+                            </div>
+                            <div class="tabs" id="myid">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="repairsOpt" type="radio" id="repairsOpt2">
+                                    <label for="repairsOpt2"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="repairsOpt" type="radio" id="repairsOpt3">
+                                    <label for="repairsOpt3"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="repairsOpt" type="radio" id="repairsOpt4">
+                                    <label for="repairsOpt4"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="repairsOpt" type="radio" id="repairsOpt5">
+                                    <label for="repairsOpt5"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="repairsOpt" type="radio" id="repairsOpt6">
+                                    <label for="repairsOpt6"></label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> 
+                        <div class="clearfix"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="contentBox">
+                                    <div class="midText">Cost Of Repair</div>
+                                    <div class="amtTxt">$1500</div>
+                                </div>
+                                <div class="contentBox">
+                                    <div class="midText">Average Time For Repairs </div>
+                                    <div class="amtTxt">4 Days, 5 Hours</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="contentBox">
+                                    <div class="midText">Cost Of Services</div>
+                                    <div class="amtTxt">$500</div>
+                                </div>
+                                <div class="contentBox">
+                                    <div class="midText">Average Time For Services </div>
+                                    <div class="amtTxt">2 Days, 2 Hours</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="contentBox">
+                                    <div class="equipmentDetails">
+                                        <div class="midText">
+                                            <span>Number Of Enquipments Under Repair/Servicing</span>
+                                        </div>
+                                        <div class="equipmentTable table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col"></th>
+                                                        <th scope="col">Under Warranty</th>
+                                                        <th scope="col">Outside Warranty</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Repairs</th>
+                                                        <td>5</td>
+                                                        <td>5</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Servicing</th>
+                                                        <td>2</td>
+                                                        <td>1</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="contentBox">
+                                    <div class="midText">Most Under Repair Asset Class </div>
+                                    <div class="amtTxt">Trucks</div>
+                                </div>
+                                <div class="contentBox">
+                                    <div class="midText">Most Under Service Asset Class </div>
+                                    <div class="amtTxt">Trucks</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordRow">
+            <input autocomplete="nope" type="checkbox" >
+            <div class="info-col head">
+                <i></i>
+                Human Resources
+            </div>
+            <div class="subItem">
+                <div class="hrWrap">
+                    <div class="panelBody">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="contentBox">
+                                    <div class="midText">Monthly Average Salary 2017</div>
+                                    <div class="amtTxt">$2,350</div>
+                                </div>
+                                <div class="contentBox">
+                                    <div class="midText">Monthly Average Turnover Rate 2017 </div>
+                                    <div class="amtTxt">1.2%</div>
+                                </div>
+                                <div class="contentBox">
+                                    <div class="midText">Monthly Average Absenteeism Rate 2017</div>
+                                    <div class="amtTxt">1.7%</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="contentBox">
+                                    <div class="midText">Average Number Of Employees 2017</div>
+                                    <div class="amtTxt">52</div>
+                                </div> 
+                                <div class="contentBox">
+                                    <div class="midText">Average Number Of Subcontractors 2017</div>
+                                    <div class="amtTxt">12</div>
+                                </div> 
+                                <div class="contentBox">
+                                    <div class="midText">Workers Hired 2017</div>
+                                    <div class="amtTxt">17</div>
+                                </div> 
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="contentBox">
+                                    <div class="midText MB20">Employment Contact Type</div>
+                                    <div class="assetImg MB20">
+                                        <div class="pieChart w120">
+                                            <div class="chartWrap">
+                                                <canvas id="ectChart" width="100" height="100"></canvas>
+                                                <!-- [ngStyle]="{'color': chartData.ectData.backgroundColor[0] }" -->
+                                                <div class="chartStat2 chartStat2-1" >{{chartData.ectData.data[0]}}%</div>
+                                                <div class="chartStat2 chartStat2-2" >{{chartData.ectData.data[1]}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chartIndicator">
+                                        <span class="indicate bgBlue"></span>
+                                        <span class="txt">Subcontractors</span>
+                                    </div>
+                                    <div class="chartIndicator">
+                                        <span class="indicate bgGreen"></span>
+                                        <span class="txt">Subcontractors</span>
+                                    </div>
+                                </div> 
+                                <div class="contentBox">
+                                    <div class="midText">Workers Left 2017</div>
+                                    <div class="amtTxt">9</div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>

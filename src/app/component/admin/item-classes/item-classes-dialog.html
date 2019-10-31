@@ -1,0 +1,76 @@
+<div class="dialog width450" *ngIf="action == 'addNewItemClass'">
+    <span class="close-icon" (click)="closeDialog()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </span>
+    <div class="dialog-hdr">
+        <div>New Item Category</div>
+    </div>
+	<div class="addnewitemclassFormWrap" *ngIf="!isSuccess">
+	    <form autocomplete="off" class="form-horizontal addEmpForm" role="form" [formGroup]="addItemClassFrm">
+	        <div class="addUserFormBody">
+	            <div class="form-group">
+	                <label class="col-sm-4 control-label" for="itemClassName">Category Name</label>
+	                <div class="col-sm-8">
+	                    <input autocomplete="nope" type="text" name="itemClassName" formControlName="itemClassName" placeholder="" class="form-control">
+	                    <span class="error-msg" *ngIf="itemClassName.invalid && (itemClassName.dirty || itemClassName.touched || submitted)">
+	                        <small *ngIf="itemClassName.errors.required">Category Name is required.</small>
+	                        <small *ngIf="itemClassName.errors.minlength">Category name must be at least 2 characters long.</small>
+	                        <small *ngIf="itemClassName.errors.maxlength">Category name must be less than 30 characters.</small>
+	                    </span> 
+	                </div>
+	            </div>
+	            <div class="form-group">
+				    <label class="col-sm-4 control-label" for="itemClassType">Item Type</label>
+				    <div class="col-sm-8">
+				        <select class="form-control" formControlName="itemClassType">
+							<option>Asset</option>
+							<option>Material</option>
+				            <option>Product</option>
+				        </select>
+				        <span class="error-msg" *ngIf="itemClassType.invalid && (itemClassType.dirty || itemClassType.touched)">
+							<small *ngIf="itemClassType.errors.required">Please Select Item Type.</small>
+						</span>
+				        <div class="mobilelocationWrap" *ngIf="addItemClassFrm.get('itemClassType').value == 'Asset'">
+							<div class="checkBox">
+								<label>
+									<input autocomplete="nope" type="checkbox" checked="" formControlName="availForMobile">
+									<span class="iconChk"><i class="fa fa-check"></i> </span>
+									<span class="chkText">This Item Category can be used for mobile locations.</span>
+								</label>
+							</div>
+				        </div>
+				    </div>
+				</div>
+	            <div class="form-group clearfix">
+	                <label class="col-md-4 control-label txtColor optional" for="comment">Comments</label>
+	                <div class="col-md-8">
+						<textarea formControlName="comment" class="form-control comment" placeholder="" rows="4"></textarea>
+						<span class="error-msg" *ngIf="comment.invalid && (comment.dirty || comment.touched || submitted)">
+	                        <small *ngIf="comment.errors.maxlength">Comments must not greater than {{constant.DEFAULT_COMMENT_MAXLENGTH}} characters.</small>
+	                    </span>
+	                </div>
+	            </div>
+	            <div class="clearfix"></div>
+	        </div>
+
+	        <div class="errMsgCon" *ngIf="isError"> 
+	            <small>{{errMsg}}</small>
+	        </div>
+
+	        <div class="button-row">
+	            <button mat-raised-button id="addItemClass" class="trea-btn" (click)="addItemClass(addItemClassFrm)">Submit</button>
+	            <button mat-raised-button class="trea-btn" (click)="closeDialog()">Cancel</button>
+	        </div>
+	    </form>
+	</div>
+	<div *ngIf="isSuccess">
+        <div class="dialog-txt">{{successMsg}}.</div>
+        <!-- <div class="action-btn text-center">
+            <button id="" mat-raised-button class="trea-btn yes" (click)="closeDialog()">Done</button>
+        </div> -->
+        <div class="button-row">
+            <button mat-raised-button class="trea-btn yes btn-width150" (click)="continueCreating()">Continue Creating</button>
+            <button mat-raised-button class="trea-btn yes btn-width150" (click)="closeDialog()">Done</button>
+        </div>    
+    </div>
+</div>

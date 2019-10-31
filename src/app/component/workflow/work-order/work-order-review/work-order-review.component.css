@@ -1,0 +1,13 @@
+.workOrderReviewWrap {margin-top: 10px;}
+.workOrderReviewWrap .titletxt {font-weight: 700; font-size: 18px; margin:40px 0px 25px 0px;}
+.workServiceTbl, .workMaterialTbl {border-bottom: 1px solid #444;}
+.workOrderReviewWrap table tr th {
+    border-top: 1px solid #444;
+    border-bottom: 1px solid #444;
+ }
+ .workMaterialTbl table tr th, .workMaterialTbl table tr td {
+    border-top: 1px solid #444;
+ }
+ .servTimeTbl {margin-top: 35px;}
+ .workRevBtnCov {margin-top: 60px;}
+.locNum{ display: inline-block;width: 15px; } 

@@ -1,0 +1,16 @@
+
+
+<div class="dialog" *ngIf="action == 'submit'">
+    <span class="close-icon" (click)="closeDialog()">
+        <!-- <i class="fa fa-times" aria-hidden="true"></i> -->
+        <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+        <div>The following items haven't been audited</div>
+    </div>
+    <div class="dialog-txt">Toro Power Max HD OXE (38805)</div>
+    <div class="button-row">
+        <button mat-raised-button class="trea-btn">Edit</button>
+        <button mat-raised-button class="trea-btn">Audit as O and Submit</button>
+    </div>
+</div>

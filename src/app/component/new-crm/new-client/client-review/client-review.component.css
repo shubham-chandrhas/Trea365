@@ -1,0 +1,50 @@
+.clientReviewCover{
+    margin: 0 auto;
+}
+.clientReviewCover .reviewBtnWrap{
+    margin: 50px 0px;
+}
+.clientReviewCover .reviewBtnWrap .mdBtn{
+   margin-left: 15px;
+}
+.contactDetails .contacts,
+.contactDetails .addresses{
+    background: #f6f6f6;
+    margin-top: 25px;
+    padding: 20px 0px;
+    margin-bottom: 25px;
+}
+.contactDetails .subTittle{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.errMsgCon{ text-align: center;margin-bottom: 20px; }
+.errMsgCon small{
+    color: #F44336;
+    font-size: smaller;
+  }
+
+@media screen and (max-width:767px){
+    .clientReviewCover .reviewBtnWrap .mdBtn{
+        margin-left: 8px;
+        width: 120px;
+        padding: 5px;
+    }
+}
+@media screen and (max-width:480px){
+    .clientReviewCover .pageTitle{
+        font-size: 16px;
+        }
+}
+@media screen and (max-width:420px){
+    .clientReviewCover .reviewBtnWrap .mdBtn{
+        margin-left: 5px;
+        width: 85px;
+    }
+}
+
+h4.detailsSubHeading{
+  text-align: left !important;
+  padding-left : 12px;
+}

@@ -1,0 +1,563 @@
+/*Dialog Start*/
+
+
+/*.dialog{ width: 350px; position: relative; }*/
+
+.dialog {
+    width: 100%;
+    max-width: 750px;
+    position: relative;
+}
+
+.add-field-dialog {
+    width: 400px !important;
+}
+
+.dialog .close-icon {
+    position: absolute;
+    color: #CD5023;
+    right: -10px;
+    top: -15px;
+    cursor: pointer;
+}
+
+.dialog .loc-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.dialog-hdr {
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    color:#505050;
+}
+
+.dialog-txt {
+    text-align: center;
+    margin: 25px 0px;
+    font-size: 16px;
+}
+
+.dialog .action-btn .left,
+.dialog .action-btn .right {
+    width: 50%;
+}
+
+.dialog .action-btn .left {
+    text-align: right;
+}
+
+.dialog .action-btn .yes {
+    margin-right: 10px;
+}
+
+.dialog .action-btn .cancel {
+    margin-left: 10px;
+}
+
+.dialog label {
+    text-align: left;
+    line-height: 25px;
+    margin: 5px 0;
+}
+
+.dialog .input-txt {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.dialog .input-err-msg {
+    left: 15px;
+}
+
+.dialog .trea-logo {
+    height: 40px;
+    width: 200px;
+    margin: 0px auto 30px auto;
+}
+
+.dialog .trea-logo img {
+    width: 130px;
+    margin: 0px auto;
+}
+
+.width450 {
+    width: 450px;
+}
+
+.width700 {
+    width: 700px;
+}
+
+/* .dialog .errMsgCon {
+    text-align: center;
+    margin-bottom: 20px;
+} */
+
+.dialog .errMsgCon {
+    text-align: center;
+    margin:20px auto;
+}
+
+.dialog .errMsgCon small {
+    color: #F44336;
+    font-size: smaller;
+}
+
+.loc-text-area {
+    height: 140px;
+}
+.treaBtn{
+    font-size: 14px;
+    line-height: 14px;
+    padding: 8px;
+    background: #3aa69b;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+  }
+  .treaBtn:focus{
+    outline: none;
+  }
+.addLocFormWrap .form-horizontal .control-label {
+    font-size: 16px;
+    font-weight: normal;
+    padding: 0px;
+    margin: 0px;
+}
+
+.addLocFormWrap .addLocFormBody {
+    padding: 25px 0px 0px 0px;
+}
+
+.addLocFormWrap .addEmpFormBtnWrap {
+    margin-top: 15px;
+}
+
+.addLocFormWrap .addEmpFormBtnWrap .lgBtn {
+    width: 152px;
+    padding: 8px;
+}
+
+.locationlabelWrap{ width: 700px; }
+/* .addEmpFormWrap .addEmpFormBtnWrap .lgBtn{
+    width: 152px;
+  } */
+
+.addLocFormWrap form .form-group {
+    margin-bottom: 25px;
+    margin-left: 0px;
+}
+
+.addLocFormWrap form .form-group input,
+.addLocFormWrap form .form-group select {
+    border-radius: 0px;
+    height: 25px;
+    padding: 1px 10px;
+    box-shadow: none;
+    border: 1px solid #D1D1D1;
+}
+
+.addLocFormWrap form .form-group textarea {
+    border-radius: 0px;
+    height: 90px;
+    padding: 1px 10px;
+    box-shadow: none;
+    border: 1px solid #D1D1D1;
+    resize: none;
+}
+
+.addLocFormWrap form .form-group textarea:focus {
+    outline: 0;
+}
+
+.addLocFormWrap .errMsgCon {
+    text-align: center;
+}
+
+.addLocFormWrap .errMsgCon small {
+    color: #F44336;
+    font-size: smaller;
+}
+
+.edit-loc-btn {
+    width: 160px !important;
+}
+.marT10{
+    margin-top: 10px;
+}
+
+/*Dialog End*/
+
+.term-tbl th,
+.term-tbl td {
+    width: 50%;
+}
+
+.locationWrap {
+    margin: 20px 0px 30px 20px;
+}
+
+.loc-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    /* min-width: 120px; */
+    width: 100%;
+}
+
+.loc-btn:hover {
+    color: #505050;
+    background: #FFCB36;
+}
+
+.locNav {
+    display: -webkit-flex;
+    /* Safari */
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.locNav .locTabs {
+    -webkit-flex: 1;
+    /* Safari 6.1+ */
+    -ms-flex: 1;
+    /* IE 10 */
+    flex: 1;
+    margin-left: 20px;
+}
+
+.locTabs .dropdown-menu {
+    /* min-width: 120px; */
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+}
+
+.locTabs .open>.loc-btn {
+    background-color: #FFCB36;
+    ;
+}
+
+.locTabs .dropdown-menu>li>a {
+    padding: 3px 10px;
+    line-height: 24px;
+}
+
+.searchLocation {
+    margin: 30px 0px 20px;
+}
+
+.addNewLocBtn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    min-width: 195px;
+}
+
+.addNewLocBtn:hover {
+    color: #505050;
+    background: #FFCB36;
+}
+
+.locTbl {
+    border: 1px solid #d1d1d1;
+}
+
+.locTbl thead {
+    background-color: #7E7E7E;
+    color: #FFFFFF;
+}
+
+.locTbl thead th {
+    text-align: center;
+    line-height: 35px;
+}
+
+.locTbl tbody td {
+    text-align: left;
+    line-height: 25px;
+    padding-left: 20px;
+}
+
+.locTbl>tbody>tr:hover {
+    cursor: pointer;
+    color: #505050;
+    background-color: #FFCB36;
+}
+
+.locationList .sel-row-highlight {
+    color: #505050;
+    background-color: #FFCB36;
+}
+
+.locTbl tbody {
+    max-height: 600px;
+    overflow: auto;
+}
+
+.selLocSection {
+    margin-bottom: 20px;
+}
+
+.selLoc {
+    text-align: center;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 25px;
+}
+
+.selLocSection .label-col {
+    font-size: 14px;
+     font-weight: 600;
+    line-height: 25px;
+}
+
+.selLocSection .info-col {
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.emp-section .email-color {
+    color: #00A499;
+     font-weight: 600;
+}
+
+.select-btn .dropdown-menu {
+    /* min-width: 120px; */
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+}
+
+.select-btn .open>.loc-btn {
+    background-color: #FFCB36;
+    ;
+}
+
+.select-btn .dropdown-menu>li>a {
+    padding: 3px 10px;
+    line-height: 24px;
+}
+
+.addEmpFormBtnWrap {
+    margin-bottom: 50px;
+    margin-top: 25px;
+}
+
+.errMsgCon {
+    text-align: center;
+}
+
+.errMsgCon small {
+    color: #F44336;
+    font-size: smaller;
+}
+
+.client-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.add-icon {
+    color: #3aa69b;
+    cursor: pointer;
+    border-radius: 0px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+
+
+/*Active Inactive Dropdown CSS Start*/
+
+.activeInAct {
+    min-width: 90px;
+    margin-right: 15px;
+}
+
+.activeInAct .dropdown-menu {
+    min-width: 90px;
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+}
+
+.activeInAct .open>.loc-btn {
+    background-color: #FFCB36;
+    ;
+}
+
+.activeInAct .dropdown-menu>li>a {
+    padding: 3px 10px;
+    line-height: 24px;
+}
+
+
+/*Active Inactive Dropdown CSS End*/
+
+
+/*css for Print Location Labels from Warehouse Annex popup start*/
+
+.WarehouseannexWrap .serPart {
+   font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    text-align: center;
+    color: #505050;
+}
+
+.WarehouseannexWrap .searchItems {
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.WarehouseannexWrap .searchModalFoot {
+    margin-top: 38px;
+    margin-bottom: 20px;
+}
+
+.WarehouseannexWrap .input-group .input-group-addon {
+    border-right: 1px solid white;
+}
+
+.WarehouseannexWrap .input-group .form-control {
+    border-left: 1px solid white;
+}
+
+.WarehouseannexWrap .searchWrap .checkBox .iconChk {
+    background: #fff;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0 .1em;
+    height: 25px;
+    width: 25px;
+    background-image: url('../../../../assets/icon/icon-19.png');
+}
+
+.WarehouseannexWrap .checkBox .iconChk .fa {
+    visibility: hidden;
+}
+
+.WarehouseannexWrap .checkBox input:checked + .iconChk .fa {
+    visibility: hidden;
+}
+
+.WarehouseannexWrap .searchallWrap .checkBox .iconChk {
+    background: #fff;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0 .1em;
+    height: 21px;
+    width: 21px;
+    background-image: url('../../../../assets/icon/icon-16.png');
+}
+
+.WarehouseannexWrap .searchModalFoot .mdBtn {
+    margin: 10px 10px;
+    width: 140px;
+}
+.searchTxt input{
+    outline: 0;
+}
+.labelsQty .fa-minus,
+.labelsQty .fa-plus{
+    display: inline-block;
+    width: 20px;
+    color: #00a99d;
+    text-align: center;
+}
+.labelsQty{
+    text-align: center!important;
+    width: 120px;
+    min-width: 120px;
+    padding: 15px 0px 10px 0px;
+}
+.labelsQty input{
+    display: inline-block;
+    width: 50px;
+    vertical-align:middle;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+   box-shadow: none;
+   border: 1px solid #D1D1D1;
+    outline: none;
+    padding: 0px 3px;
+    text-align: center;
+}
+.labelsQty .fa-minus,
+.labelsQty .fa-plus{
+    display: inline-block;
+    width: 20px;
+    color: #00a99d;
+    text-align: center;
+}
+.dragTbl{
+     height: 100% ; 
+}
+
+.scanbtnWrap{
+    margin-top: 35px;
+}
+.locationlabelWrap .searchItems .checkBox{
+    text-align: left;
+}
+
+.searchItems tbody tr td{
+    /*padding-top: 10px;*/
+    text-align:center;
+}
+.searchItems thead tr th{
+    text-align:center;
+}
+.searchItems tbody tr td input {
+
+    width: 50%;
+
+}
+.locationdigWrap{
+    padding: 34px 0;
+    border: 1px solid #d1d1d1;
+}
+.locationdigWrap .close-icon {
+    position: absolute;
+    color: #CD5023;
+    right: 12px;
+    top: 7px;
+    cursor: pointer;
+}
+.diaW50P{ width: 40%; }
+.diaW30P{ width: 30%; }
+.diaW20P{ width: 30%; }
+.headerScanCode{     margin-bottom: 0px;
+    border-top: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+    border-right: 1px solid #ccc; }
+.headerScanCode thead tr th{
+    color:#505050;
+}
+.searchItems .table tbody tr td{
+    color:#848284;
+}
+
+
+/*css for Print Location Labels from Warehouse Annex popup end*/

@@ -1,0 +1,1019 @@
+<div class="summarySection">
+    <div class="pageTitle">Summary</div>
+    <div class="treaAccord summaryAccord">
+    <div class="accordRow" *ngIf="util.getRole() == 2 || (this.util.checkModuleAccess(8) || this.util.checkModuleAccess(13) || this.util.checkModuleAccess(39))" >
+        <input autocomplete="nope" type="checkbox">
+        <div class="info-col head">
+            <i></i>
+            Admin
+        </div>
+        
+        <div class="subItem">
+            <div class="workflowWrap">
+                <div class="panelBody">
+                    <div class="reportOptionTabsTop">
+                        <div class="tabs">
+                            <div class="infoText">Week</div>
+                        </div>
+                        <div class="tabs">
+                            <div class="infoText">Two-week</div>
+                        </div>
+                        <div class="tabs">
+                            <div class="infoText">30 days</div>
+                        </div>
+                        <div class="tabs">
+                            <div class="infoText">90 days</div>
+                        </div>
+                        <div class="tabs">
+                            <div class="infoText">Last 365 days</div>
+                        </div>
+                        <div class="tabs">
+                            <div class="infoText">Till now</div>
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                        
+                    </div>
+                
+                    <div class="reportOptionTabsBottom ">
+                        <div class="tabs">
+                            <div class="col-sm-0 last">Last : </div>
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="adminOpta1" type="radio" id="adminOpt1" value="7" (change)="timeLineChangeSummary($event,'seven','admin',adminTimeLineData)"
+                                    [checked]="adminTimeLineData.seven">
+                                <label for="adminOpt1"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="adminOpta2" type="radio" id="adminOpt2" value="14" (change)="timeLineChangeSummary($event,'fourteen','admin',adminTimeLineData)"
+                                    [checked]="adminTimeLineData.fourteen">
+                                <label for="adminOpt2"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine" id="myid"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="adminOpta3" type="radio" id="adminOpt3" value="30" (change)="timeLineChangeSummary($event,'thirty','admin',adminTimeLineData)"
+                                    [checked]="adminTimeLineData.thirty">
+                                <label for="adminOpt3"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="adminOpta4" type="radio" id="adminOpt4" value="90" (change)="timeLineChangeSummary($event,'ninty','admin',adminTimeLineData)"
+                                    [checked]="adminTimeLineData.ninty">
+                                <label for="adminOpt4"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="adminOpta5" type="radio" id="adminOpt5" value="365" (change)="timeLineChangeSummary($event,'threesixtyfive','admin',adminTimeLineData)"
+                                    [checked]="adminTimeLineData.threesixtyfive">
+                                <label for="adminOpt5"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="adminOpta6" type="radio" id="adminOpt6" value="730" (change)="timeLineChangeSummary($event,'seventhirty','admin',adminTimeLineData)"
+                                    [checked]="adminTimeLineData.seventhirty">
+                                <label for="adminOpt6"></label>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+    
+                    <div class="row">
+                        <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(8)">
+                            <div class="contentBox" >
+                                <div class="midText">Most Used Business Type</div>
+                                <div class="campaignsWrap">
+                                    <ul *ngIf="pageData.dashboard">
+                                        <li *ngFor="let indx = index; let admin_most_used of pageData.dashboard?pageData.dashboard.admin.most_used_business_type:''">
+                                            <div class="campaign">
+                                                <div class="number">{{indx+1}}</div>
+                                                <div class="campTxt text-left ">
+                                                    {{pageData.dashboard?admin_most_used.business_type:'0'}}
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+    
+                                        <li *ngIf="pageData.dashboard && pageData.dashboard.admin.most_used_business_type.length == 0">
+                                            <div class="campaign">
+                                                <div class="campTxt" style="text-align: center">
+                                                    N/A
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(13)">
+                            <div class="contentBox" >
+                                <div class="midText">Total Main Locations</div>
+                                <div *ngFor="let total_location of pageData.dashboard?pageData.dashboard.admin.total_locations:''">
+                                    <div class="amtTxt" *ngIf="total_location.location_type == 'Fixed' ">{{total_location.location_type == 'Fixed' ? total_location.count:'N/A'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(39)">
+                            <div class="contentBox" >
+                                <div class="midText">Most Used Supplier</div>
+                                <div class="campaignsWrap">
+                                    <ul *ngIf="pageData.dashboard">
+                                        <li *ngFor="let indx = index; let admin_most_used_supp of pageData.dashboard?pageData.dashboard.admin.most_used_suppliers:''">
+                                            <div class="campaign">
+                                                <div class="number">{{indx+1}}</div>
+                                                <div class="campTxt text-left ">
+                                                    {{ admin_most_used_supp.supplier_name}}
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li *ngIf="pageData.dashboard.admin.most_used_suppliers.length == 0">
+                                            <div class="campaign">
+                                                <div class="campTxt" style="text-align: center">
+                                                    N/A
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>                       
+                        </div>
+                        <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(13)">
+                            <div class="contentBox" >
+                                <div class="midText">Total Mobile Locations</div>
+                                <div *ngIf="pageData.dashboard">
+                                    <div *ngFor="let total_location of pageData.dashboard?pageData.dashboard.admin.total_locations:''">
+                                        <div class="amtTxt" *ngIf="total_location.location_type == 'Mobile'">{{total_location.location_type
+                                            == 'Mobile' ? total_location.count:'0'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(39)">
+                            <div class="contentBox" >
+                                <div class="midText">Most Products/Materials From Supplier</div>
+                                <div *ngIf="pageData.dashboard && pageData.dashboard.admin.most_product_material_from_supplier.length > 0">
+                                    <div>
+                                        <div class="amtTxt">{{pageData.dashboard ?
+                                            pageData.dashboard.admin.most_product_material_from_supplier[0].count:''}}</div>
+                                        <div class="midText MB30 MT30">{{pageData.dashboard?pageData.dashboard.admin.most_product_material_from_supplier[0].supplier_name:''}}</div>
+                                    </div>
+                                </div>
+                                <div *ngIf="pageData.dashboard && pageData.dashboard.admin.most_product_material_from_supplier.length == 0">
+                                    <div class="amtTxt">0</div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(39)">
+                                <div class="contentBox" >
+                                    <div class="midText">
+                                        Total Item Categories</div>
+                                        <div *ngIf="pageData.dashboard">
+                                            <div *ngFor="let total_item of pageData.dashboard?pageData.dashboard.admin.total_item_categories:''">
+                                                <div class="amtTxt" *ngIf="total_item.item_class_type == 'All' ">{{total_item.item_class_type=='All'
+                                                    ? total_item.count:'N/A'}}</div>
+                                            </div>
+                                            <div *ngIf="pageData.dashboard.admin.total_item_categories.length == 0">
+                                                <div class="amtTxt" style="text-align:center" *ngIf="total_item.item_class_type == 'All' ">0</div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="accordRow" *ngIf="util.getRole() == 2 || (this.util.checkModuleAccess(52) || this.util.checkModuleAccess(62) || this.util.checkModuleAccess(39) || this.util.checkModuleAccess(76)|| this.util.checkModuleAccess(93) || this.util.checkModuleAccess(101))">
+                    <input autocomplete="nope" type="checkbox">
+                    <div class="info-col head">
+                        <i></i>
+                        Inventory
+                    </div>
+                    <div class="subItem">
+                        <div class="panelBody">
+                                <div class="reportOptionTabsTop">
+                                    <div class="tabs">
+                                        <div class="infoText">Week</div>
+                                    </div>
+                                    <div class="tabs">
+                                        <div class="infoText">Two-week</div>
+                                    </div>
+                                    <div class="tabs">
+                                        <div class="infoText">30 days</div>
+                                    </div>
+                                    <div class="tabs">
+                                        <div class="infoText">90 days</div>
+                                    </div>
+                                    <div class="tabs">
+                                        <div class="infoText">Last 365 days</div>
+                                    </div>
+                                    <div class="tabs">
+                                        <div class="infoText">Till now</div>
+                                    </div>
+                                
+                                    <div class="clearfix"></div>
+                                
+                                </div>
+                                
+                            <div class="reportOptionTabsBottom">
+                                <div class="tabs">
+                                    <div class="col-sm-0 last">Last : </div>
+                                    <div class="vertLine"></div>
+                                    <div class="treaRadioBtn">
+                                        <input autocomplete="nope" name="invOptI1" type="radio" id="invOptI1" value="7" (change)="timeLineChangeSummary($event,'seven','inventory',inventoryTimeLineData)"
+                                            [checked]="inventoryTimeLineData.seven">
+                                        <label for="invOptI1"></label>
+                                    </div>
+                                </div>
+                                <div class="tabs" id="myid">
+                                    <div class="vertLine"></div>
+                                    <div class="treaRadioBtn">
+                                        <input autocomplete="nope" name="invOptI2" type="radio" id="invOptI2" value="14" (change)="timeLineChangeSummary($event,'fourteen','inventory',inventoryTimeLineData)"
+                                            [checked]="inventoryTimeLineData.fourteen">
+                                        <label for="invOptI2"></label>
+                                    </div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="vertLine"></div>
+                                    <div class="treaRadioBtn">
+                                        <input autocomplete="nope" name="invOptI3" type="radio" id="invOptI3" value="30" (change)="timeLineChangeSummary($event,'thirty','inventory',inventoryTimeLineData)"
+                                            [checked]="inventoryTimeLineData.thirty">
+                                        <label for="invOptI3"></label>
+                                    </div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="vertLine"></div>
+                                    <div class="treaRadioBtn">
+                                        <input autocomplete="nope" name="invOptI4" type="radio" id="invOptI4" value="90" (change)="timeLineChangeSummary($event,'ninty','inventory',inventoryTimeLineData)"
+                                            [checked]="inventoryTimeLineData.ninty">
+                                        <label for="invOptI4"></label>
+                                    </div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="vertLine"></div>
+                                    <div class="treaRadioBtn">
+                                        <input autocomplete="nope" name="invOptI5" type="radio" id="invOptI5" value="365" (change)="timeLineChangeSummary($event,'threesixtyfive','inventory',inventoryTimeLineData)"
+                                            [checked]="inventoryTimeLineData.threesixtyfive">
+                                        <label for="invOptI5"></label>
+                                    </div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="vertLine"></div>
+                                    <div class="treaRadioBtn">
+                                        <input autocomplete="nope" name="invOptI6" type="radio" id="invOptI6" value="730" (change)="timeLineChangeSummary($event,'seventhirty','inventory',inventoryTimeLineData)"
+                                            [checked]="inventoryTimeLineData.seventhirty">
+                                        <label for="invOptI6"></label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(52)">
+                                    <div class="contentBox" >
+                                        <div class="midText">Average Profit Margin on Products </div>
+                
+                                        <div class="amtTxt txt-green">{{pageData.dashboard?pageData.dashboard.inventory.product_profit_margin:''}}
+                                            <span>%</span></div>
+                                    </div>
+                                </div>   
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(62)">
+                                    <div class="contentBox" >
+                                        <div class="midText">No. of Assets Under Repair</div>
+                                        <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.inventory.asset_under_repair:''}}</div>
+                                    </div>
+                                </div> 
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(62)">
+                                    <div class="contentBox" >
+                                        <div class="midText">No. of Unused Assets</div>
+                                        <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.inventory.unused_asset:''}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(62)">
+                                    <div class="contentBox">
+                                        <div class="midText">Most Used/Busy Assets</div>
+                                        <div class="assetImg" *ngIf="pageData.dashboard && pageData.dashboard.inventory && pageData.dashboard.inventory.most_busy_asset && pageData.dashboard.inventory.most_busy_asset.image != ''">
+                                            <img [src]="pageData.dashboard.inventory.most_busy_asset.image" class="img-responsive">
+                                        </div>
+                                        
+                                        <div class="smallTxt" *ngIf="pageData.dashboard && pageData.dashboard.inventory && pageData.dashboard.inventory.most_busy_asset;else NATxt">{{ pageData.dashboard && pageData.dashboard.inventory.most_busy_asset ?
+                                            pageData.dashboard.inventory.most_busy_asset.asset_name : ''}}</div>
+
+                                        <ng-template #NATxt>
+                                            <div class="amtTxt">
+                                                N/A
+                                            </div>
+                                        </ng-template>
+
+                                            
+                                    </div>
+                                </div>  
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(62)">
+                                    <div class="contentBox">
+                                        <div class="midText">Total Leased Assets</div>
+                                        <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.inventory.leased_asset.total_leased_asset:''}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">    
+                                    <div class="contentBox" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(62)">
+                                        <div class="midText">Payment Value/Time of Leased Assets</div>
+                                        <div class="amtTxt">{{(pageData.dashboard)?(pageData.dashboard.inventory.leased_asset.leased_assets_monthly_payment | currency: util.getCurrency():'symbol-narrow'):''}}<div
+                                                style="font-size:20px;">/month</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(62)">
+                                    <div class="contentBox" >
+                                        <div class="midText">Total Present Value of Assets</div>
+                                        <div class="amtTxt txt-green">{{(pageData.dashboard)?(pageData.dashboard.inventory.present_asset_value | currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(62)">
+                                    <div class="contentBox" >
+                                        <div class="midText">Total Inventory Value</div>
+                                        <div *ngIf="pageData.dashboard">
+                                            <div *ngFor="let total_inventory of pageData.dashboard?pageData.dashboard.inventory.total_inventory_value:''">
+                                                <div class="amtTxt txt-green">{{(pageData.dashboard)?(total_inventory.total_inventory_value| currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(76)">
+                                    <div class="contentBox" >
+                                        <div class="midText">Average Profit Margin on Material</div>
+                                        <div class="pieChart">
+                                            <div class="chartWrap">
+                                                <canvas id="auChart" width="100" height="100"></canvas>
+                                                <div class="chartStat" [ngStyle]="{'color': chartData.auData.backgroundColor[0] }">{{pageData.dashboard?pageData.dashboard.inventory.material_profit_margin:''}}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(39)">    
+                                    <div class="contentBox">
+                                        <div class="midText">Total Purchase Orders Created</div>
+                                        <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.inventory.total_purchase_order_created :''}}</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(39)">    
+                                    <div class="contentBox" >
+                                        <div class="midText">Most Purchase Orders Against a Supplier</div>
+                                        <div class="campaignsWrap">
+                                            <ul *ngIf="pageData.dashboard">
+                                                <li *ngFor="let indx = index; let admin_most_po of pageData.dashboard?pageData.dashboard.inventory.most_po_against_supplier:[]">
+                                                    <div class="campaign">
+                                                        <div class="number">{{indx+1}}</div>
+                                                        <div class="campTxt text-left ">
+                                                            {{pageData.dashboard?admin_most_po.supplier_name:''}}
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </li>
+                                                <li *ngIf="pageData.dashboard.inventory.most_po_against_supplier.length ==0">
+                                                    <div class="campaign">
+                                                        <div class="amtTxt text-left" style="text-align:center">
+                                                            0
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>                                          
+                                        </div>             
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-4">
+                                    <div class="contentBox" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(93)">
+                                        <div class="midText">Average Cost of Purchase Order</div>
+                                        <div class="amtTxt">{{(pageData.dashboard)?(pageData.dashboard.inventory.avg_po_cost | currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(101)">
+                                    <div class="contentBox" >
+                                        <div class="midText">Total Audits Created/Completed</div>
+                                        <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.inventory.audits.audit_created:''}}<span>/</span>{{pageData.dashboard?pageData.dashboard.inventory.audits.completed_audit:''}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(101)">
+                                    <div class="contentBox">
+                                        <div class="midText">Total Discrepancies Found</div>
+                                        <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.inventory.discrepencies_in_audits:''}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(62)">
+                                    <div class="contentBox" >
+                                        <div class="midText">Total No. of Assets Missing</div>
+                                        <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.inventory.missing_assets:''}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+    <div class="accordRow" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(115)">
+            <input autocomplete="nope" type="checkbox">
+            <div class="info-col head">
+                <i></i>
+                Workflow
+            </div>
+            <div class="subItem">
+                <div class="workflowWrap">
+                    <div class="panelBody">
+                            <div class="reportOptionTabsTop">
+                                <div class="tabs">
+                                    <div class="infoText">Week</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">Two-week</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">30 days</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">90 days</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">Last 365 days</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">Till now</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            
+                        <div class="reportOptionTabsBottom">
+                            <div class="tabs">
+                                <div class="col-sm-0 last">Last : </div>
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt1" value="7" (change)="timeLineChangeSummary($event,'seven','workflow',workflowTimeLineData)"
+                                        [checked]="workflowTimeLineData.seven">
+                                    <label for="workflowOpt1"></label>
+                                </div>
+                            </div>
+                            <div class="tabs" id="myid">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt2" value="14" (change)="timeLineChangeSummary($event,'fourteen','workflow',workflowTimeLineData)"
+                                        [checked]="workflowTimeLineData.fourteen">
+                                    <label for="workflowOpt2"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt3" value="30" (change)="timeLineChangeSummary($event,'thirty','workflow',workflowTimeLineData)"
+                                        [checked]="workflowTimeLineData.thirty">
+                                    <label for="workflowOpt3"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt4" value="90" (change)="timeLineChangeSummary($event,'ninty','workflow',workflowTimeLineData)"
+                                        [checked]="workflowTimeLineData.ninty">
+                                    <label for="workflowOpt4"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt5" value="365" (change)="timeLineChangeSummary($event,'threesixtyfive','workflow',workflowTimeLineData)"
+                                        [checked]="workflowTimeLineData.threesixtyfive">
+                                    <label for="workflowOpt5"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="workflowOpt" type="radio" id="workflowOpt6" value="730" (change)="timeLineChangeSummary($event,'seventhirty','workflow',workflowTimeLineData)"
+                                        [checked]="workflowTimeLineData.seventhirty">
+                                    <label for="workflowOpt6"></label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+        
+                        <div class="row">
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(115)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Work Orders Scheduled</div>
+                                    <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.workflow.total_work_order_scheduled:''}}</div>
+                                    <div class="pieChart w120">
+                                        <div class="chartWrap">
+                                            <canvas id="wosChart" width="100" height="100"></canvas>
+                                            <div class="chartStat" [ngStyle]="{'color': chartData.wosData.backgroundColor[0] }">{{pageData.dashboard?pageData.dashboard.workflow.total_work_order_scheduled:''}}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(107)">
+                                <div class="contentBox">
+                                    <div class="midText">Average Cost of Project Estimate </div>
+                                    <div class="amtTxt">{{(pageData.dashboard)?(pageData.dashboard.workflow.quotation_avg_cost| currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                </div>
+                            
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(115)">
+                                <div class="contentBox" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(115)">
+                                    <div class="midText">Average Cost of Work Order</div>
+                                    <div class="amtTxt">{{(pageData.dashboard)?(pageData.dashboard.workflow.avg_work_order_cost | currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(115)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Internal/Client Work Orders Created </div>
+                                    <div class="amtTxt">{{pageData.dashboard &&
+                                        pageData.dashboard.workflow.total_work_order_type.length > 0
+                                        ?pageData.dashboard.workflow.total_work_order_type[0].count:'0'}}<span>/</span>{{pageData.dashboard
+                                        &&
+                                        pageData.dashboard.workflow.total_work_order_type.length> 1 ?pageData.dashboard.workflow.total_work_order_type[1].count:'0'}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(115)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Staff/Contractor Work Orders Created</div>
+                                    <div class="amtTxt">
+                                        <span>{{pageData.dashboard &&
+                                            pageData.dashboard.workflow.total_work_order_assign_to.length >
+                                            0?pageData.dashboard.workflow.total_work_order_assign_to[0].count:'0'}}<span>/</span>{{pageData.dashboard
+                                            && pageData.dashboard.workflow.total_work_order_assign_to.length > 1
+                                            ?pageData.dashboard.workflow.total_work_order_assign_to[1].count:'0'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(115)">
+                                <div class="contentBox" >
+                                    <div class="midText">Total Work Orders Completed</div>
+                                    <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.workflow.total_work_order_complete:''}}</div>
+                                    <div class="pieChart w120">
+                                        <div class="chartWrap">
+                                            <canvas id="wocChart" width="100" height="100"></canvas>
+                                            <div class="chartStat" [ngStyle]="{'color': chartData.wocData.backgroundColor[0] }">{{pageData.dashboard?pageData.dashboard.workflow.total_work_order_completed:''}}%</div>
+                                        </div>
+                                    </div>
+                                </div>                               
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(115)">
+                                <div class="contentBox">
+                                    <div class="midText">
+                                        <span>Total Work Orders Generated</span>
+                                        <div class="amtTxt">{{pageData.dashboard?pageData.dashboard.workflow.total_work_order_generated:''}}</div>
+                                    </div>                           
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="accordRow" *ngIf="util.getRole() == 2 || (this.util.checkModuleAccess(122))">
+        <input autocomplete="nope" type="checkbox">
+        <div class="info-col head">
+            <i></i>
+            CRM
+        </div>
+        <div class="subItem">
+            <div class="salesCRMWrap">
+                <div class="panelBody">
+                        <div class="reportOptionTabsTop">
+                            <div class="tabs">
+                                <div class="infoText">Week</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Two-week</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">30 days</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">90 days</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Last 365 days</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Till now</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        
+                    <div class="reportOptionTabsBottom">
+                        <div class="tabs">
+                            <div class="col-sm-0 last">Last : </div>
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="crmOpt" type="radio" id="crmOpt1" value="7" (change)="timeLineChangeSummary($event,'seven','crm',crmTimeLineData)"
+                                    [checked]="crmTimeLineData.seven">
+                                <label for="crmOpt1"></label>
+                            </div>
+                        </div>
+                        <div class="tabs" id="myid">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="crmOpt" type="radio" id="crmOpt2" value="14" (change)="timeLineChangeSummary($event,'fourteen','crm',crmTimeLineData)"
+                                    [checked]="crmTimeLineData.fourteen">
+                                <label for="crmOpt2"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="crmOpt" type="radio" id="crmOpt3" value="30" (change)="timeLineChangeSummary($event,'thirty','crm',crmTimeLineData)"
+                                    [checked]="crmTimeLineData.thirty">
+                                <label for="crmOpt3"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="crmOpt" type="radio" id="crmOpt4" value="90" (change)="timeLineChangeSummary($event,'ninty','crm',crmTimeLineData)"
+                                    [checked]="crmTimeLineData.ninty">
+                                <label for="crmOpt4"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="crmOpt" type="radio" id="crmOpt5" value="365" (change)="timeLineChangeSummary($event,'threesixtyfive','crm',crmTimeLineData)"
+                                    [checked]="crmTimeLineData.threesixtyfive">
+                                <label for="crmOpt5"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="crmOpt" type="radio" id="crmOpt6" value="730" (change)="timeLineChangeSummary($event,'seventhirty','crm',crmTimeLineData)"
+                                    [checked]="crmTimeLineData.seventhirty">
+                                <label for="crmOpt6"></label>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-sm-4"  *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(122)">
+                            <div class="contentBox">
+                                <div class="midText">Total Clients</div>
+                                <div class="amtTxt MB20 MT20">{{
+                                    pageData.dashboard?pageData.dashboard.crm.total_client:''}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(122)">
+                            <div class="contentBox" >
+                                <div class="midText">Top 3 Clients Based on Revenue</div>
+                                <div class="campaignsWrap">
+                                    <ul *ngIf="pageData.dashboard">
+                                        <li *ngFor="let indx = index; let client_based of  pageData.dashboard?pageData.dashboard.crm.top_three_clients:''">
+                                            <div class="campaign">
+                                                <div class="number">{{indx+1}}</div>
+                                                <div class="campTxt text-left ">
+                                                    {{ client_based.client_name}}
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li *ngIf="pageData.dashboard.crm.top_three_clients.length == 0">
+                                            <div class="campaign">
+                                                <div class="campTxt text-left" style="text-align:center;">
+                                                    N/A
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(122)">
+                            <div class="contentBox" >
+                                <div class="midText">Most Common Client in Project Estimator/Work Order</div>
+                                <div class="midText MB30 MT30">{{
+                                    pageData.dashboard?pageData.dashboard.crm.most_common_client_quotation.client_name:'0'}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordRow" *ngIf="util.getRole() == 2 || (this.util.checkModuleAccess(127) || this.util.checkModuleAccess(136) || this.util.checkModuleAccess(144))">
+            <input autocomplete="nope" type="checkbox">
+            <div class="info-col head">
+                <i></i>
+                Human Resources
+            </div>
+            <div class="subItem">
+                <div class="hrWrap">
+                    <div class="panelBody">
+                            <div class="reportOptionTabsTop">
+                                <div class="tabs">
+                                    <div class="infoText">Week</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">Two-week</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">30 days</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">90 days</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">Last 365 days</div>
+                                </div>
+                                <div class="tabs">
+                                    <div class="infoText">Till now</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            
+                        <div class="reportOptionTabsBottom">
+                            <div class="tabs">
+                                <div class="col-sm-0 last">Last : </div>
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="treahr" type="radio" id="treahra" value="7" (change)="timeLineChangeSummary($event,'seven','hr',hrTimeLineData)"
+                                        [checked]="hrTimeLineData.seven">
+                                    <label for="treahra"></label>
+                                </div>
+                            </div>
+                            <div class="tabs" id="myid">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="treahr" type="radio" id="treahrb" value="14" (change)="timeLineChangeSummary($event,'fourteen','hr',hrTimeLineData)"
+                                        [checked]="hrTimeLineData.fourteen">
+                                    <label for="treahrb"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="treahr" type="radio" id="treahrc" value="30" (change)="timeLineChangeSummary($event,'thirty','hr',hrTimeLineData)"
+                                        [checked]="hrTimeLineData.thirty">
+                                    <label for="treahrc"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="treahr" type="radio" id="treahrd" value="90" (change)="timeLineChangeSummary($event,'ninty','hr',hrTimeLineData)"
+                                        [checked]="hrTimeLineData.ninty">
+                                    <label for="treahrd"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="treahr" type="radio" id="treahrde" value="365" (change)="timeLineChangeSummary($event,'threesixtyfive','hr',hrTimeLineData)"
+                                        [checked]="hrTimeLineData.threesixtyfive">
+                                    <label for="treahrde"></label>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="vertLine"></div>
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="treahr" type="radio" id="treahrf" value="730" (change)="timeLineChangeSummary($event,'seventhirty','hr',hrTimeLineData)"
+                                        [checked]="hrTimeLineData.seventhirty">
+                                    <label for="treahrf"></label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(127)">
+                                <div class="contentBox" >
+                                    <div class="midText">Total Employees</div>
+                                    <div class="amtTxt">{{ pageData.dashboard?pageData.dashboard.hr.total_employees:''}}</div>
+                                </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(136)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Subcontractors </div>
+                                    <div class="amtTxt">{{ pageData.dashboard?pageData.dashboard.hr.total_subcontractors:''}}</div>
+                                </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(144)">
+                                <div class="contentBox">
+                                    <div class="midText">Total No. of Hours Expected</div>
+                                    <div class="amtTxt">{{ pageData.dashboard?pageData.dashboard.hr.total_no_of_hours_expected:'0'}}</div>
+                                </div>
+                                </div>
+                           
+                        
+                           
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(127)">
+                                <div class="contentBox" >
+                                    <div class="midText">Average Monthly Salary</div>
+                                    <div class="amtTxt">{{
+                                        (pageData.dashboard)?(pageData.dashboard.hr.avg_employee_monthly_salary | currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(127)">
+                                <div class="contentBox" >
+                                    <div class="midText">Average Hourly Cost</div>
+                                    <div class="amtTxt">{{
+                                        (pageData.dashboard)?(pageData.dashboard.hr.avg_subcontractor_hourly_cost| currency: util.getCurrency():'symbol-narrow'):''}}<span>/hr</span></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(127)">
+                                <div class="contentBox">
+                                    <div class="midText">Total No. of Hours Recorded</div>
+                                    <div class="amtTxt">{{ pageData.dashboard?pageData.dashboard.hr.total_no_of_hours_recorded:'0'}}</div>
+                                </div>
+                            </div>
+                               
+                            
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(127)">
+                                <div class="contentBox" >
+                                    <div class="midText MB20">Most Used Employee </div>
+                                    <div class="midText MB30 MT30">{{ pageData.dashboard &&
+                                        pageData.dashboard.hr.most_used_employee_in_wo?pageData.dashboard.hr.most_used_employee_in_wo.first_name:'N'}}
+                                        {{ pageData.dashboard &&
+                                        pageData.dashboard.hr.most_used_employee_in_wo?pageData.dashboard.hr.most_used_employee_in_wo.last_name:'/A'}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(127)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Discrepancy</div>
+                                    <div class="amtTxt txt-red">{{ pageData.dashboard?pageData.dashboard.hr.discrepancies:'0'}}</div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <div class="accordRow" *ngIf="util.getRole() == 2 || (this.util.checkModuleAccess(148))">
+        <input autocomplete="nope" type="checkbox">
+        <div class="info-col head">
+            <i></i>
+            Financials
+        </div>
+        <div class="subItem">
+            <div class="financialWrap">
+                <div class="panelBody">
+                        <div class="reportOptionTabsTop">
+                            <div class="tabs">
+                                <div class="infoText">Week</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Two-week</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">30 days</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">90 days</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Last 365 days</div>
+                            </div>
+                            <div class="tabs">
+                                <div class="infoText">Till now</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    <div class="reportOptionTabsBottom">
+                        <div class="tabs">
+                            <div class="col-sm-0 last">Last : </div>
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt1" value="7" (change)="timeLineChangeSummary($event,'seven','financials',financialsTimeLineData)"
+                                    [checked]="financialsTimeLineData.seven">
+                                <label for="financialOpt1"></label>
+                            </div>
+                        </div>
+                        <div class="tabs" id="myid">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt2" value="14" (change)="timeLineChangeSummary($event,'fourteen','financials',financialsTimeLineData)"
+                                    [checked]="financialsTimeLineData.fourteen">
+                                <label for="financialOpt2"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt3" value="30" (change)="timeLineChangeSummary($event,'thirty','financials',financialsTimeLineData)"
+                                    [checked]="financialsTimeLineData.thirty">
+                                <label for="financialOpt3"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt4" value="90" (change)="timeLineChangeSummary($event,'ninty','financials',financialsTimeLineData)"
+                                    [checked]="financialsTimeLineData.ninty">
+                                <label for="financialOpt4"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt5" value="365" (change)="timeLineChangeSummary($event,'threesixtyfive','financials',financialsTimeLineData)"
+                                    [checked]="financialsTimeLineData.threesixtyfive">
+                                <label for="financialOpt5"></label>
+                            </div>
+                        </div>
+                        <div class="tabs">
+                            <div class="vertLine"></div>
+                            <div class="treaRadioBtn">
+                                <input autocomplete="nope" name="financialOpt" type="radio" id="financialOpt6" value="730" (change)="timeLineChangeSummary($event,'seventhirty','financials',financialsTimeLineData)"
+                                    [checked]="financialsTimeLineData.seventhirty">
+                                <label for="financialOpt6"></label>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+    
+                    <div class="financeSummeryWrap">
+                        <div class="row">
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(148)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Receivable</div>
+                                    <div class="amtTxt">{{
+                                        (pageData.dashboard)?(pageData.dashboard.financials.receivable_remaining_amount| currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(148)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Payable</div>
+                                    <div class="amtTxt">{{
+                                        (pageData.dashboard)?(pageData.dashboard.financials.total_payable_amount_paid| currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(148)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Invoices Generated</div>
+                                    <div class="amtTxt">{{
+                                        pageData.dashboard?pageData.dashboard.financials.total_invoices:''}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(148)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Amount Collected</div>
+                                    <div class="amtTxt">{{
+                                        (pageData.dashboard)?(pageData.dashboard.financials.total_amount_collected_this_year| currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(148)">
+                                <div class="contentBox">
+                                    <div class="midText">Total Amount Paid</div>
+                                    <div class="amtTxt">{{
+                                        (pageData.dashboard)?(pageData.dashboard.financials.total_amount_paid_this_year| currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" *ngIf="util.getRole() == 2 || this.util.checkModuleAccess(148)">
+                                <div class="contentBox">
+                                    <div class="midText">Profit/Loss</div>
+                                    <div class="amtTxt">{{
+                                        (pageData.dashboard)?(pageData.dashboard.financials.profit_loss| currency: util.getCurrency():'symbol-narrow'):''}}</div>
+                                </div>
+                            </div>
+                            <div class="bottomLine"></div>
+                            <div class="clearfix"></div>
+                            <!-- <div class="col-sm-12">
+                                <div class="contentBox">
+                                    <div class="midText">Revenue Graph</div>
+                                    <div class="growthDetails">
+                                        <div class="barChart">
+                                            <div class="chartWrap">
+                                                <canvas id="cgrChart" width="100" height="100"></canvas>
+                                                <div class="titleAxis titleY">Revenue $</div>
+                                                <div class="titleAxis titleX">Year</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

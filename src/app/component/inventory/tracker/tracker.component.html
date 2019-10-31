@@ -1,0 +1,413 @@
+<div class="tracker-section purchaseWrap">
+  <h1 class="pageTitle">Stocked Inventory Tracking</h1>
+  <p class="page-summary">
+    Real-time overview of scheduled Product and Material consumption.
+  </p>
+
+  <div class="trea-welcome" *ngIf="pageData.productMaterialList.length == 0 && onBoarding">
+        <h4>There is no inventory yet.</h4>
+        <p class="textJustified">
+            Real-time quantities of Products and Materials can be tracked here, to facilitate inventory management and timely re-ordering. Add a Product or Material to begin tracking your inventory.
+        </p>      
+    </div>
+  <div class="head-row clearfix" *ngIf="pageData.productMaterialList.length > 0">
+    <div class="search-section">
+      <div class="input-group">
+        <span class="search-icn" id="basic-addon1">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+        <input
+          autocomplete="nope"
+          [(ngModel)]="searchList"
+          (ngModelChange)="getSearchTxt(searchList)"
+          type="text"
+          class="form-control"
+        />
+        <button
+          mat-raised-button
+          class="client-btn"
+          (click)="searchTxt = searchList"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div
+    class="trea-data-table table-responsive"
+    *ngIf="pageData.productMaterialList.length > 0"
+  >
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="300">
+            <div class="table-hdr">
+              <div>
+                <span>Product / Material</span>
+                <span
+                  (click)="
+                    sortColumnType = 'A';
+                    sortColumn = 'short_name';
+                    sortOrder =
+                      sortColumn === 'short_name'
+                        ? sortOrder === 'ASC'
+                          ? 'DSC'
+                          : 'ASC'
+                        : 'ASC'
+                  "
+                >
+                  <i
+                    [ngClass]="
+                      sortColumn == 'short_name' && sortOrder == 'ASC'
+                        ? 'fa-rotate-90'
+                        : 'fa-rotate-270'
+                    "
+                    class="fa fa-signal"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </div>
+              <div>
+                <input
+                  autocomplete="nope"
+                  [(ngModel)]="pageData.invSearch"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </th>
+          <th width="300">
+            <div class="bdr-left table-hdr">
+              <div>
+                <span>Min. Stock Qty</span>
+                <span
+                  (click)="
+                    sortColumnType = 'N';
+                    sortColumn = 'minimum_stock';
+                    sortOrder =
+                      sortColumn === 'minimum_stock'
+                        ? sortOrder === 'ASC'
+                          ? 'DSC'
+                          : 'ASC'
+                        : 'ASC'
+                  "
+                >
+                  <i
+                    [ngClass]="
+                      sortColumn == 'minimum_stock' && sortOrder == 'ASC'
+                        ? 'fa-rotate-90'
+                        : 'fa-rotate-270'
+                    "
+                    class="fa fa-signal"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </div>
+              <div>
+                <input
+                  autocomplete="nope"
+                  [(ngModel)]="pageData.minStockSearch"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </th>
+          <th width="300">
+            <div class="bdr-left table-hdr">
+              <div>
+                <span>Current Qty</span>
+                <span
+                  (click)="
+                    sortColumnType = 'N';
+                    sortColumn = 'current_stock';
+                    sortOrder =
+                      sortColumn === 'current_stock'
+                        ? sortOrder === 'ASC'
+                          ? 'DSC'
+                          : 'ASC'
+                        : 'ASC'
+                  "
+                >
+                  <i
+                    [ngClass]="
+                      sortColumn == 'current_stock' && sortOrder == 'ASC'
+                        ? 'fa-rotate-90'
+                        : 'fa-rotate-270'
+                    "
+                    class="fa fa-signal"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </div>
+              <div>
+                <input
+                  autocomplete="nope"
+                  [(ngModel)]="pageData.currentStockSearch"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </th>
+          <th width="300">
+            <div class="bdr-left table-hdr">
+              <div>
+                <span>Runout Date</span>
+                <span
+                  (click)="
+                    sortColumnType = 'A';
+                    sortColumn = 'min_stock_date';
+                    sortOrder =
+                      sortColumn === 'min_stock_date'
+                        ? sortOrder === 'ASC'
+                          ? 'DSC'
+                          : 'ASC'
+                        : 'ASC'
+                  "
+                >
+                  <i
+                    [ngClass]="
+                      sortColumn == 'min_stock_date' && sortOrder == 'ASC'
+                        ? 'fa-rotate-90'
+                        : 'fa-rotate-270'
+                    "
+                    class="fa fa-signal"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </div>
+              <div>
+                <input
+                  autocomplete="nope"
+                  [(ngModel)]="pageData.dateSearch"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngIf="pageData.productMaterialList.length > 0">
+        <tr
+          (click)="getSelectedProductMaterial(prodMat, indx)"
+          *ngFor="
+            let indx = index;
+            let prodMat;
+            of: pageData.productMaterialList
+              | sortBy: sortColumn:sortOrder:sortColumnType
+              | searchfilter: pageData.invSearch:'short_name'
+              | searchfilter: pageData.minStockSearch:'minimumStock'
+              | searchfilter: pageData.currentStockSearch:'currentStock'
+              | searchfilter: pageData.dateSearch:'minStockDate'
+              | searchfilter
+                : searchTxt
+                : 'short_name,minimumStock,currentStock,minStockDate'
+              | listLengthfilter
+              | paginate: paginationKey
+          "
+          [ngClass]="{
+            'sel-row-highlight': selectedIndex == indx,
+            'sel-row-red': prodMat.isHighlight == 1
+          }"
+        >
+          <td>
+            {{ prodMat.short_name
+            }}<span class="dn">{{
+              indx == 0 ? updateCount(prodMat.count) : ""
+            }}</span>
+          </td>
+          <td>
+            <div class="col-sm-6 qty-cost no-padding">
+              {{ prodMat.minimum_stock | number: "1.2-2" }}
+            </div>
+            <div class="col-sm-6 no-padding">
+              {{ prodMat.minimum_stock_uom }}
+            </div>
+          </td>
+          <td>
+            <div class="col-sm-6 qty-cost no-padding">
+              {{ prodMat.current_stock | number: "1.2-2" }}
+            </div>
+            <div class="col-sm-6 no-padding">{{ prodMat.uom_name }}</div>
+          </td>
+
+          <!--  | date : 'dd/MM/yyyy' -->
+          <td>
+            {{
+              prodMat.min_stock_date
+                ? util.getFormatedDate(prodMat.min_stock_date)
+                : ""
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="treaPagination"
+    *ngIf="pageData.productMaterialList.length != 0 && constant.ITEM_COUNT != 0"
+  >
+    <div class="pull-right">
+      <span>
+        {{ 1 + (paginationKey.currentPage - 1) * paginationKey.itemsPerPage }} -
+        {{
+          paginationKey.itemsPerPage <= listCount &&
+          paginationKey.itemsPerPage +
+            (paginationKey.currentPage - 1) * paginationKey.itemsPerPage <=
+            listCount
+            ? paginationKey.itemsPerPage +
+              (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+            : listCount
+        }}</span
+      ><span> of {{ listCount }} items</span>
+    </div>
+    <div class="pull-right">
+      <select
+        [(ngModel)]="paginationKey.itemsPerPage"
+        (change)="changeItemPerPage()"
+      >
+        <option
+          *ngFor="let pageNo of constant.PAGINATION_ITEMS"
+          [ngValue]="pageNo"
+        >
+          {{ pageNo }}
+        </option>
+      </select>
+      <span> items per page</span>
+    </div>
+    <div class="pull-right">
+      <pagination-controls
+        (pageChange)="changePage($event)"
+        directionLinks="true"
+        autoHide="false"
+        previousLabel="Pre"
+        nextLabel="Next"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page"
+      >
+      </pagination-controls>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+
+  <!-- Selected Item -->
+  <div id="trackMark" *ngIf="selectedProMat">
+    <div class="newPOBtnWrap">
+      <!-- <button *ngIf="util.getRole() == 2 || permissionsSet.viewInventory" (click)="viewInventory(selectedProMat)" mat-raised-button class="client-btn pull-left" type="button">View Inventory</button> -->
+      <h2 class="selectedTitle">{{ selectedProMat.short_name }}</h2>
+      <a
+        href="javascript:void(0)"
+        (click)="viewInventory(selectedProMat)"
+        class="email"
+        >View Item Details</a
+      >
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row subsection">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="label-col">Current Quantity</div>
+          </div>
+          <div class="col-sm-6">
+            <div
+              class="info-col"
+              [ngClass]="{ sQty: selectedProMat.isHighlight == 1 }"
+            >
+              {{ selectedProMat.currentStock }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="label-col">Min. Desired Quantity</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-col">{{ selectedProMat.minimumStock }}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="label-col">Runout Date</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-col">
+              <div *ngIf="selectedProMat.minStockDate != ''">
+                {{ selectedProMat.minStockDate | date: "dd/MM/yyyy" }}
+              </div>
+              <div *ngIf="selectedProMat.minStockDate == ''">N/A</div>
+              <button
+                *ngIf="
+                  util.getRole() == 2 || permissionsSet.createPurchaseOrder
+                "
+                (click)="newPO(selectedProMat)"
+                mat-raised-button
+                class="client-btn"
+                type="button"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trackerDetails">
+      <h4 class="detailsHeading">Expected Stock Consumption</h4>
+      <div
+        class="table-responsive"
+        *ngIf="selectedProMat.work_orders.length > 0"
+      >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>W/O</th>
+              <th>Qty on W/O</th>
+              <th>Stock remaining after W/O</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let indx = index; let wo; of: selectedProMat.work_orders"
+            >
+              <td>{{ util.getFormatedDate(wo.start_date) }}</td>
+              <td>
+                <a
+                  href="javascript:void(0)"
+                  [routerLink]="[
+                    '/workflow/wo/csa/work-order-list/',
+                    wo.work_order_id
+                  ]"
+                  class="email"
+                  >{{ wo.work_order_no }}</a
+                >
+              </td>
+              <td>{{ wo.quantity | number: "1.2-2" }} {{ wo.uom_name }}</td>
+              <td>
+                {{ wo.stock_qty_remaining | number: "1.2-2" }}
+                {{ wo.stock_qty_uom_name }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        *ngIf="selectedProMat.work_orders.length == 0"
+        style="font-size:14px"
+      >
+        This {{ selectedProMat.item_class_type | lowercase }} is not on any
+        upcoming work orders.
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>

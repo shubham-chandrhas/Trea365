@@ -1,0 +1,194 @@
+<div class="supplier-section account">
+  <!-- Only show on first visit -->
+  <div class="trea-welcome" *ngIf="isPlatform != 1">
+    <h1>Welcome to TREA365!</h1>
+    <p>
+      You're just a few steps away from getting your business on board with a
+      complete field services solution!
+    </p>
+    <p>
+      Before you begin, you should review your account details below, and add
+      any account users if necessary. Next, you can proceed to the Onboarding
+      Guide to help you get started entering some information into the system.
+    </p>
+    <div class="button-row clearfix">
+      <button
+        mat-raised-button
+        class="trea-btn"
+        type="button"
+        (click)="editAccountDetails()"
+      >
+        Edit Account Details
+      </button>
+      <!-- <button
+        *ngIf="isPlatform != 1"
+        mat-raised-button
+        class="trea-btn"
+        type="button"
+        routerLink="/csa-onboarding/guide"
+      >
+        Start Onboarding
+      </button> -->
+      <button
+        *ngIf="isPlatform != 1"
+        mat-raised-button
+        class="trea-btn"
+        type="button"
+        routerLink="/c-dashboard/csa/summary"
+      >
+        Start Onboarding
+      </button>
+    </div>
+  </div>
+
+  <div class="accountDetailsWrap">
+    <h1 class="pageTitle">Account Details</h1>
+    <p class="help-text">
+      Your TREA365 Account details. Please ensure you keep this information up
+      to date for billing and account management purposes.
+    </p>
+
+    <div class="promaryAccountFormBody MT20" *ngIf="accountDetails">
+      <div class="clearfix">
+        <label class="col-sm-6 label-col">Company</label>
+        <div class="col-sm-6 info-col">
+          <div>{{ accountDetails.organization }}</div>
+          <div class="compLogo" *ngIf="accountDetails.logo != ''">
+            <img src="{{ accountDetails.logo }}" class="img-responsive" />
+          </div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <label class="col-sm-6 label-col">Address</label>
+        <div class="col-sm-6 info-col">
+          {{
+            util.concatenateStrings(
+              accountDetails.address_line2,
+              accountDetails.address_line1
+            )
+          }}
+        </div>
+      </div>
+      <!-- <div class="clearfix">
+            <label class="col-sm-6 label-col">City</label>
+            <div class="col-sm-6 info-col">{{accountDetails.city_name.city_name}}</div>
+          </div>
+          <div class="clearfix">
+            <label class="col-sm-6 label-col">Province</label>
+            <div class="col-sm-6 info-col">{{accountDetails.provinence_name.province_name}}</div>
+          </div>
+          <div class="clearfix">
+            <label class="col-sm-6 label-col">Postal Code</label>
+            <div class="col-sm-6 info-col">{{accountDetails.postal_code}}</div>
+          </div> -->
+      <div class="clearfix">
+        <label class="col-sm-6 label-col">Country</label>
+        <div class="col-sm-6 info-col">
+          {{ accountDetails.country_name.country_name }}
+        </div>
+      </div>
+      <div class="clearfix">
+        <label class="col-sm-6 label-col">Main Office Phone No.</label>
+        <div class="col-sm-6 info-col" *ngIf="accountDetails">
+          {{ util.maskPhoneNumber(accountDetails.main_phone) }}
+        </div>
+      </div>
+      <div class="clearfix">
+        <label class="col-sm-6 label-col">Currency</label>
+        <div class="col-sm-6 info-col">{{ accountDetails.currency }}</div>
+      </div>
+      <div class="clearfix">
+        <label class="col-sm-6 label-col">Business Structure</label>
+        <div class="col-sm-6 info-col">
+          {{ accountDetails.business_structure }}
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="accountDetails">
+      <h3 class="detailsHeading">Account Users</h3>
+      <p class="help-text">
+        Account users are persons authorized to use the entire TREA365 Platform
+        <em>without restriction</em>, as well as manage the Account on behalf of
+        the company.
+      </p>
+
+      <div *ngFor="let indx = index; let user; of: accountDetails.user_list">
+        <h4 class="detailsHeading">
+          <span *ngIf="indx == 0 && util.getRole() == 2">Primary User</span>
+          <!-- <span *ngIf="indx == 0 && util.getRole() == 3">Profile Information</span> -->
+          <span *ngIf="indx != 0">User {{ indx + 1 }}</span>
+        </h4>
+        <div class="clearfix">
+          <label class="col-sm-6 label-col">Name</label>
+          <div class="col-sm-6 info-col">
+            {{ user.first_name }} {{ user.last_name }}
+          </div>
+        </div>
+        <div class="clearfix">
+          <label class="col-sm-6 label-col">Username</label>
+          <div class="col-sm-6 info-col">
+            {{ user.username }}
+          </div>
+        </div>
+        <div class="clearfix">
+          <label class="col-sm-6 label-col">{{
+            util.getRole() == 2 ? "Designation" : "Title"
+          }}</label>
+          <div class="col-sm-6 info-col">
+            {{ util.getRole() == 2 ? user.designation : user.title }}
+          </div>
+        </div>
+        <div class="clearfix">
+          <label class="col-sm-6 label-col">Email</label>
+          <div class="col-sm-6 info-col">
+            {{ user.email_id }}
+          </div>
+        </div>
+        <div class="clearfix">
+          <label class="col-sm-6 label-col">Phone Number</label>
+          <div class="col-sm-6 info-col">
+            {{ util.maskPhoneNumber(user.mobile_no) }}
+          </div>
+        </div>
+
+        <div class="form-group clearfix" *ngIf="util.getRole() == 2">
+          <label class="col-sm-4 control-label" for="phoneNumber">&nbsp;</label>
+          <!--  @ Shahebaz - Start -->
+          <div class="button-row clearfix col-sm-8">
+            <button
+              mat-raised-button
+              class="trea-btn"
+              type="button"
+              (click)="resetPassword(user.username)"
+            >
+              Reset Password
+            </button>
+          </div>
+          <!--  @ Shahebaz - End -->
+        </div>
+      </div>
+    </div>
+
+    <div class="button-row clearfix">
+      <button
+        mat-raised-button
+        class="trea-btn"
+        type="button"
+        (click)="editAccountDetails()"
+      >
+        Edit
+      </button>
+      <!-- <a *ngIf="isPlatform!=1" href="javascript:void(0);"  routerLink="/csa-onboarding/guide"><button mat-raised-button class="trea-btn" type="button" >Start Onboarding</button></a>
+              <a *ngIf="isPlatform==1" (click)="goToAdminDashboard()" href="javascript:void(0);"><button mat-raised-button class="trea-btn" type="button" >Platform</button></a> -->
+      <a
+        href="javascript:void(0)"
+        *ngIf="util.getRole() != 2"
+        (click)="resetPassword()"
+        ><button mat-raised-button class="trea-btn" type="button">
+          Change Password
+        </button></a
+      >
+    </div>
+  </div>
+</div>

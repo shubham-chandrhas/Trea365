@@ -1,0 +1,61 @@
+.treaActionBtn{ background-color: #00A499;color: #FFFFFF;border-radius: 0px;height: 30px;line-height: 30px;text-decoration: none; }
+
+.newLocationWrap .mapWeap{ margin: 60px auto; }
+.newLocationWrap label{ font-weight: 100; }
+.newLocationWrap .mar40{ margin:40px; }
+.newLocationWrap .subheadWrap{font-family: 'Montserrat-Bold';font-size: 22px;color:#505050;margin-bottom:30px; }
+.mainlocationDetails .marB15, .divisionDetails .marB15{ margin-bottom: 15px; }
+.newLocationWrap .addUserFormBody{ max-width: 684px; margin: 30px auto; }
+.divisionDetails .btn{
+    background-image: url("/assets/icon/icon-16.png");
+    display: inline-block;
+    padding: 9px;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    margin-right: 10px;
+}
+.divisionDetails .marL15{ margin-left: 15px; }
+.divisionDetails .marB20{ margin-bottom:20px; }
+.divisionDetails .divClose{ position: absolute; right: 4px; top: 4px; }
+.newLocationWrap .width95{ width:95%; }
+.divisionDetails .Division1{ margin-bottom: 20px; }
+.addUserFormBody .ML15{ margin-left: 15px !important; }
+.addUserFormBody .addLocationFormBtnWrap{ margin: 54px 50px 80px 50px; text-align: center; }
+.addUserFormBody .treaActionBtn{ width: 200px; }
+.newDivision{ margin-bottom: 30px; }
+.newLocationWrap .form-group{ margin-bottom: 30px; }
+
+.searchList{ padding: 0px; }
+.clientSearch .mat-form-field .mat-form-field-infix{ padding-bottom: 0px !important; }
+.searchList .clientSearch .mat-input-element{ padding-bottom: 0px !important; }
+.mat-form-field-infix{ padding: 0px !important; } 
+.searchList .search-icn{ top: 3px; }
+
+.errMsgCon{ text-align: center; }
+.errMsgCon small{ 
+	color: #F44336;
+    font-size: smaller;
+}
+.newLocationWrap .labelHead{
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 25px;
+}
+/* .newLocationWrap .label-col{
+    font-weight: 500;
+} */
+.ML20{ margin-left: -20px !important; }
+.ML10{ margin-left: -10px !important; }
+
+.addIcon img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+
+.red-font{ border-color: #d0021B; }
+.closeIcon>span{
+    /* cursor: pointer; */
+    /* padding-left: 10px; */
+}

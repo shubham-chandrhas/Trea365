@@ -1,0 +1,109 @@
+.woListSection{ padding: 0px 20px; }
+.woListSection .search-section{ float: left; }
+.woListSection .add-client{ float: right; }
+.woListSection .client-btn, .dialog .client-btn{
+	background-color: #00A499;
+	color: #FFFFFF;
+	border-radius: 0px;
+	height: 30px;
+	line-height: 30px;
+	text-decoration: none; }
+
+.woListSection .additional-field{ font-weight: 600; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 186px; height: 30px; }
+.woListSection .filter-search{ float: left; }
+.woListSection .filter-label{ line-height: 30px; padding: 0px 10px 0px 20px; font-size: 14px; }
+.woListSection  .added-filter{ line-height: 30px; padding: 0px 10px;margin: 0px 5px; background-color: #F1BC4E;font-size: 14px; }
+.woListSection  .added-filter .fa-times{ color: #CD5023;cursor: pointer; }
+.search-section .form-control:hover, .search-section .form-control:focus, .woListSection .client-btn:hover, .woListSection .client-btn:focus{ outline: 0px; }
+.woListSection .fa-signal{ cursor: pointer; }
+.woListSection .pageHeader{ 
+  text-align: center;
+  font-weight:700; 
+  font-size: 22px;
+  line-height: 30px;
+  margin-bottom: 25px }
+
+/* .trea-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    min-width: 80px;
+    padding: 0 8px;
+}
+.trea-btn:focus{
+    outline: none;
+}
+.trea-btn:hover{
+    color: #505050!important;
+    background-color: #FFCB36!important;
+} */
+
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ font-weight: 600; font-size: 14px; height: 80px;vertical-align: top;text-align: center; }
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+	background-color: #7e7e7e;
+	border-right: 0px;
+	border-top: 0px;
+	border-left: 0px;
+	border-bottom: 2px solid #FFFFFF;
+	border-radius: 0px;
+	box-shadow: none;
+	color: #FFFFFF;
+	margin-top: 8px;
+	cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+.woListSection .filterOption{ margin-right: 10px; margin-top: 15px; }
+
+.selSection{ margin-bottom: 20px; }
+.serPart{ font-weight:700; font-size: 16px;line-height: 30px;margin-bottom: 25px;margin-top: 50px; }
+.selPart .loc-btn{ width: 160px; }
+.selSection .label-col{font-size: 14px; font-weight: 600; line-height: 25px; }
+.selSection .info-col{ font-size: 14px; line-height: 25px; }
+
+.servicesDetails .table tr th{ width: 10%;}
+.servicesDetails .table  tr th:nth-child(1) { width: 20%; }
+.servicesDetails .table  tr th:nth-child(5) { width: 50%; }
+.servicesDetails .table > thead > tr > th, .scheduleDetails .table > thead > tr > th,.paymentsDetails .table > thead > tr > th{ border-top: 1px solid #ddd;border-bottom: 1px solid #ccc; }
+.servicesDetails .table>tfoot{border-bottom: 1px solid #ccc;border-top: 1px solid #ccc;}
+.servicesDetails .tfooter{ border-bottom:1px solid #ccc;text-align:center;border-top:1px solid #ccc;padding: 20px;color:#000; }
+.scheduleDetailsnext .table{ width: 40%;margin-top: 30px; }
+.payLabel{ font-size: 16px;font-weight: 600; }
+.editquoteBtnWrap{ text-align: center;margin: 30px 0px; }
+.unavailableResource{ color: red;}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.woListSection .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

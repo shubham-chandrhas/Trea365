@@ -1,0 +1,77 @@
+<div class="dialog width450" *ngIf="action == 'deleteRecord'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>Delete Confirmation ?</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <div class="dialog-txt">Are you sure you want to delete?</div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <br /><small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="delete-record-btn"
+        mat-raised-button
+        class="trea-btn"
+        (click)="deleteRecord()"
+      >
+        Yes
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        No
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog width450" *ngIf="action == 'cancelAddManufacturerPart'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>Cancel Confirmation</div>
+  </div>
+  <div class="dialog-txt">
+    <p>
+      This information has not been saved. If you cancel now, this information
+      will be lost.
+    </p>
+    <br />
+    <p>Do you want to cancel anyway?</p>
+  </div>
+  <div class="action-btn button-row">
+    <button
+      id="reset-pass-btn"
+      mat-raised-button
+      class="trea-btn"
+      (click)="cancelAddManufacturerPart()"
+    >
+      Yes
+    </button>
+    <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+      No
+    </button>
+  </div>
+</div>
+
+<div class="dialog width450" *ngIf="action == 'image'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+
+  <div class="previewImg">
+    <img [src]="dataObj.url" alt="" class="img-responsive img-center" />
+  </div>
+</div>

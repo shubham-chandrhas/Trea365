@@ -1,0 +1,271 @@
+<div class="newAuditWrap">
+    <h3 class="pageTitle">New Audit</h3>
+    <form autocomplete="off" role="form" [formGroup]="updateLocFrm">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="label-col">Auditor</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="form-group MB25">
+                    <div class="autoCompleteList">
+                        <div class="searchList">
+                            <mat-form-field class="product">
+                                <input autocomplete="nope" id="auditor_id" matInput placeholder="" [formControl]="auditor" [matAutocomplete]="auditorAutoComp" (keyup)="validateAuditor($event)">
+                                <i *ngIf="auditor.value!=''" (click)="util.clearAutoComplete('auditor_id', [auditor, auditor_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                <img *ngIf="auditor.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                <mat-autocomplete #auditorAutoComp="matAutocomplete">
+                                    <mat-option *ngFor="let indx=index; let item of filteredAuditor | async" [value]="item.auditor_name" (onSelectionChange)="getSelectedAuditor(item,$event)">
+                                    <span>{{ item.auditor_name }}</span>
+                                    </mat-option>
+
+                                    <!-- <mat-option (click)="showAddSupplierPopup()">
+                                    <img aria-hidden src="assets/icon/icon-add.png" />
+                                    <span>New</span>
+                                    </mat-option> -->
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <select class="form-control auditorList" formControlName="auditor_id">
+                        <option value=""></option>
+                        <option *ngFor="let item of empList" [value]="item.id">{{item.first_name+" "+item.last_name}}</option>
+                    </select> -->
+                    <span class="error-msg" *ngIf="auditor_id.invalid && (auditor_id.dirty || auditor_id.touched || submitted)">
+                        <small *ngIf="auditor_id.errors.required">Please select Auditor from the list.</small>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row" [hidden]="!isEditLocation">
+            <div class="col-sm-2">
+                <div class="label-col">Location</div>
+            </div>
+            <div class="col-sm-10">
+                <div class="info-col">
+                    <span>{{updateLocFrm.get('location_tag').value}}</span>
+                    <button  mat-raised-button class="editBtn" (click)="editLocation()">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div class="locationSection" [hidden]="isEditLocation">
+            <!--<div class="row MB20">
+                <div class="col-sm-2">
+                    <div class="label-col">Location Type</div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="radio-group" type="radio" id="locByBarcode" checked>
+                        <label for="locByBarcode" (click)="locationTypeFilter = 'Fixed'">Fixed Location</label>
+                    </div>
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="radio-group" type="radio" id="locByMannually">
+                        <label for="locByMannually" (click)="locationTypeFilter = 'Mobile'">Mobile Location</label>
+                    </div>
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="label-col">Main Location</div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="form-group">
+                        <div class="autoCompleteList">
+                            <div class="searchList">
+                                <mat-form-field class="product">
+                                    <input autocomplete="nope" matInput placeholder="" id="location" [formControl]="location" [matAutocomplete]="locationAutoComp" (keyup)="validateLocation($event)">
+                                    <i *ngIf="location.value!=''" (click)="util.clearAutoComplete('location_id', [location, location_id])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <img *ngIf="location.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                    <mat-autocomplete #locationAutoComp="matAutocomplete">
+                                        <mat-option *ngFor="let indx=index; let item of filteredLocation | async | searchfilter:locationTypeFilter:'location_type'" [value]="item.location_name" (onSelectionChange)="getSelectedLocation(item,$event)">
+                                        <span>{{ item.location_name }}</span>
+                                        </mat-option>
+
+                                        <!-- <mat-option (click)="showAddSupplierPopup()">
+                                        <img aria-hidden src="assets/icon/icon-add.png" />
+                                        <span>New</span>
+                                        </mat-option> -->
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!-- <select class="form-control auditorList" formControlName="location_id" (change)="selLocation()">
+                            <option value=""></option>
+                            <option *ngFor="let item of locationList | searchfilter:locationTypeFilter:'location_type'" [value]="item.location_id">{{item.location_name}}</option>
+                        </select> -->
+                        <span class="error-msg" *ngIf="location_id.invalid && (location_id.dirty || location_id.touched || submitted)">
+                            <small *ngIf="location_id.errors.required">Please select Location from the list.</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="updateLocFrm.get('location_id').value">
+                <div class="col-sm-6" *ngFor="let division of divisions.controls; let indxOut=index" [formGroup]="division">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col optional">{{getDivisionAt(indxOut).get('division_name').value}}
+                               <span *ngIf="getDivisionAt(indxOut).get('max').value">({{getDivisionAt(indxOut).get('min').value+"-"+getDivisionAt(indxOut).get('max').value}})</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-8">
+                            <div class="form-group" *ngIf="getDivisionAt(indxOut).get('division_type').value=='Numbered'">
+                                <input autocomplete="nope" type="text" formControlName="division_value" class="optional" placeholder="Optional"/>
+                                <span class="error-msg" *ngIf="getDivisionAt(indxOut).get('division_value').invalid && (getDivisionAt(indxOut).get('division_value').dirty || getDivisionAt(indxOut).get('division_value').touched || submitted)">
+                                    <small *ngIf="getDivisionAt(indxOut).get('division_value').errors.min || getDivisionAt(indxOut).get('division_value').errors.max">Please Enter Range Between ({{getDivisionAt(indxOut).get('min').value+"-"+getDivisionAt(indxOut).get('max').value}}).</small>
+                                </span>
+                            </div>
+                            <div class="form-group" *ngIf="getDivisionAt(indxOut).get('division_type').value=='Named'">
+                                <select class="form-control optional auditorList" formControlName="division_value" placeholder="Optional">
+                                    <option *ngFor="let item of getDivisionAt(indxOut).get('named_div_arr').value" [value]="item">{{item}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row">
+                <button mat-raised-button id="updateLocation" class="trea-btn" (click)="updateLocation(updateLocFrm)">View Item List</button>
+                <button mat-raised-button class="trea-btn" (click)="cancelEditLocation()">Cancel</button>
+            </div>
+        </div>
+    </form>
+    <div class="errMsgCon" *ngIf="isError">
+        <small>{{errMsgN}}</small>
+    </div>
+    <div *ngIf="isViewItemList">
+        <div class="head-row clearfix">
+            <div class="search-section">
+                <div class="input-group">
+                    <span class="search-icn" id="basic-addon1">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </span>
+                    <input autocomplete="nope" type="text" class="form-control"  placeholder=""  [(ngModel)]="searchList" (ngModelChange)="getSearchTxt(searchList)">
+                    <button mat-raised-button class="treaBtn" (click)="searchTxt = searchList">Search</button>
+                </div>
+            </div>
+        </div>
+        <div class="trea-data-table table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                          <th>
+                              <div class="table-hdr">
+                                <div>
+                                  <span>Location Tag</span>
+                                  <span
+                                    (click)="sortColumnType='A';sortColumn = 'location_tag';sortOrder = sortColumn === 'location_tag' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                    <i [ngClass]=" sortColumn == 'location_tag' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' "
+                                      class="fa fa-signal" aria-hidden="true"></i>
+                                  </span>
+                                </div>
+                                <div>
+                                  <input autocomplete="nope" type="text" class="form-control" placeholder=""
+                                    [(ngModel)]="tagSearch">
+                                </div>
+                              </div>
+                            </th>
+                        <th>
+                            <div class="table-hdr bdr-left">
+                                <div>
+                                    <span>Manufacturer</span>
+                                    <span (click)="sortColumnType='A';sortColumn = 'manf_name';sortOrder = sortColumn === 'manf_name' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                        <i [ngClass]=" sortColumn == 'manf_name' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="mfgSearch">
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="bdr-left table-hdr">
+                                <div>
+                                    <span>Item Definition</span>
+                                    <span (click)="sortColumnType='A';sortColumn = 'full_name';sortOrder = sortColumn === 'full_name' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                        <i [ngClass]=" sortColumn == 'full_name' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="mfgPartSearch">
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="bdr-left table-hdr">
+                                <div>
+                                    <span>Scan Code</span>
+                                    <span (click)="sortColumnType='A';sortColumn = 'scan_code';sortOrder = sortColumn === 'scan_code' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                        <i [ngClass]=" sortColumn == 'scan_code' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="scanCodeSearch">
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="bdr-left table-hdr">
+                                <div>
+                                    <span>UPC</span>
+                                    <span (click)="sortColumnType='N';sortColumn = 'upc';sortOrder = sortColumn === 'upc' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                        <i [ngClass]=" sortColumn == 'upc' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <input autocomplete="nope" type="text" class="form-control" placeholder="" [(ngModel)]="upcSearch">
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="auditLocationList.length < 1">
+                    <tr>
+                        <td colspan="4" class="text-center">Data Not Found...</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="auditLocationList.length > 0">
+                    <tr *ngFor="let indx=index; let item of auditLocationList | sortBy:sortColumn:sortOrder:sortColumnType |
+                    searchfilter:tagSearch:'location_tag' |  searchfilter:mfgSearch:'manf_name' | searchfilter:mfgPartSearch:'full_name' | searchfilter:scanCodeSearch:'scan_code' | searchfilter:upcSearch:'upc' | searchfilter:searchTxt:'manf_name,full_name,scan_code,upc' | listLengthfilter | paginate: paginationKey">
+                        <td>{{item.location_tag}}</td>
+                        <td>{{item.manf_name}}<span class="dn">{{ indx == 0 ? updateCount(item.count) : ''}}</span></td>
+                        <td>{{item.short_name}}</td>
+                        <td >{{item.item_class_type == 'Asset' ? item.scan_code : ''}}</td>
+                        <td>{{item.item_class_type == 'Product' ? item.upc : ''}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="auditLocationList.length > 0">
+            <div class="treaPagination" *ngIf="constant.ITEM_COUNT != 0">
+                <div class="pull-right">
+                    <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+                </div>
+                <div class="pull-right">
+                    <select [(ngModel)]="paginationKey.itemsPerPage" (change)="changeItemPerPage()">
+                        <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+                    </select>
+                    <span> items per page</span>
+                </div>
+                <div class="pull-right">
+                    <pagination-controls
+                        (pageChange)="changePage($event)"
+                        directionLinks="true"
+                        autoHide="false"
+                        previousLabel="Pre"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+                    </pagination-controls>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="errMsgCon" *ngIf="isError">
+            <small>{{errMsg}}</small>
+        </div>
+        <div class="button-row" *ngIf="auditLocationList.length">
+            <button mat-raised-button id="createAudit" class="trea-btn" (click)="submitAudit(updateLocFrm)">Create</button>
+            <button mat-raised-button class="trea-btn" (click)="cancelAudit()">Cancel</button>
+        </div>
+    </div>
+</div>

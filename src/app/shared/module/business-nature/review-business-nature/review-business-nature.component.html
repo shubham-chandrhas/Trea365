@@ -1,0 +1,46 @@
+<div class="businessDetails">
+    <div class="pageTitle">Nature of Business Review</div>
+    <div class="row MB20">
+        <div class="col-sm-3">
+            <div class="label-col">Business Type</div>
+        </div>
+        <div class="col-sm-9">
+            <div class="info-col">{{businessNatureObj.businessType}}</div>
+        </div>
+    </div>
+    <div class="table-responsive MB30">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Service Type</th>
+                    <th>Service Definition</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let service of businessNatureObj.services">
+                    <td>{{service.serviceType}}</td>
+                    <td>
+                        <div *ngFor = "let definition of service.serviceDefinition">
+                            <div *ngIf="definition.is_deleted == 0">{{definition.name}}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngFor = "let defPrice of service.serviceDefinition">
+                            <div *ngIf="defPrice.is_deleted == 0">{{defPrice.price | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="errMsgCon" *ngIf="isError">
+        <small>{{errMsg}}</small>
+    </div>
+    <div class="button-row">
+        <button mat-raised-button class="trea-btn" (click)="goToEditDetails()">Edit</button>
+        <button mat-raised-button *ngIf="action == 'add'" id="addBusiNature" class="trea-btn" (click)="submitDetails()">Submit</button>
+        <button mat-raised-button *ngIf="action == 'edit'" id="addBusiNature" class="trea-btn" (click)="submitDetails()">Update</button>
+        <button mat-raised-button class="trea-btn" (click)="cancelSubmitAction()">Cancel</button>
+    </div>
+</div>

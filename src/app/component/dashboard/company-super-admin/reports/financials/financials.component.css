@@ -1,0 +1,188 @@
+.financialsOptionTabsTop,
+.financialsOptionTabsBottom{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.financialsOptionTabsTop{
+  margin-bottom: 0px;
+}
+.financialsOptionTabsTop .tabs{
+  -webkit-flex: 1;  /* Safari 6.1+ */
+  -ms-flex: 1;  /* IE 10 */    
+  flex: 1;
+  margin: 0px;
+  border-bottom: 4px solid #00A499;
+  padding: 5px 0px;
+}
+.financialsOptionTabsTop .tabs .infoText{
+  font-size: 12px;
+  text-align: center;
+}
+.financialsOptionTabsBottom .tabs{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin: 0px;
+    padding: 0px;
+  }
+  .financialsOptionTabsBottom{
+    margin-bottom: 50px;
+  }
+  .financialsOptionTabsBottom .tabs .vertLine{
+    width: 4px;
+    height: 15px;
+    margin: 0 auto;
+    background-color: #00A499;
+  }
+  .financialsOptionTabsBottom .treaRadioBtn{
+    position: relative;
+  }
+  .financialsOptionTabsBottom .treaRadioBtn [type="radio"]:checked + label, .treaRadioBtn [type="radio"]:not(:checked) + label {
+    /* position: relative; */
+    position: absolute;  
+    left: 41%;
+  }
+  .payablePart, .receivablePart, .currentPart, .profitabilityPart, .constructionPart, .badbadDebtsPart, .costPart, .cashflowPart, .goodPart, .growthPart{
+    text-align: center;
+    font-weight:700;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 25px;
+  }
+  .payablePart span, .receivablePart span, .currentPart span, .profitabilityPart span, .badbadDebtsPart span, .costPart span, .cashflowPart span, .goodPart span, .growthPart span {
+    text-decoration: underline;
+  }
+  .financialsWrap .marbottom{
+    border-bottom: 1px solid;
+    margin: 12px auto;
+  }
+  .financialsWrap  .totalTxt{
+      width:236px;
+      display: inline-block;
+  }
+  .equationWrap{
+    display: table;
+    margin: 72px auto;
+  }
+  .financialsWrap  .equalTxt{
+    width:80px;
+    display: inline-block;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-weight:700;
+    font-size: 54px;
+  }
+  .financialsWrap  .equal2Txt{
+    width: 33px;
+    display: inline-block;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-weight:700;
+    font-size: 29px;
+  }
+  .financialsWrap  .valueTxt{
+    width: 200px;
+    display: inline-block;
+    font-weight:700;
+    font-size: 30px;
+  }
+  .imgturnoverBox img{
+    margin: auto;
+  }
+  .Mar20 span{
+    color: #00A99D;
+    font-weight: 700;
+  }
+  .financialsWrap .Mar20{
+    margin: 20px auto;
+  }
+  .financialsWrap .bottomLine{
+    border-bottom: 1px solid #00A99D;
+    margin: 60px -15px;
+  }
+  .financialsWrap .receivableTxt{
+    color: #8f2112;
+   }
+   .financialsWrap .currentTxt{
+       color:#000000;
+   }
+   .financialsWrap .imgProfitBox img{
+       margin: 30px auto;
+   }
+   .financialsWrap .jobTxt{
+    margin: 55px 0 25px 0;
+    text-align: center;
+   }
+   .constructionWrap, .maintenanceWrap{
+       border-right: 2px solid; 
+   }
+   .financialsWrap .Mar66{
+    margin: 66px 0 47px 0;
+   }
+   .financialsWrap .debetTxt{
+    color: #8f2112;
+    font-weight: 700;
+   }
+   .badDebtsTable .table, .goodTable .table{
+       text-align: center;
+   }
+   .badDebtsTable .table tbody tr td, .goodTable .table tbody tr td{
+       border: 1px solid #00A99D;
+       vertical-align: middle;
+   }
+   .badDebtsDetails, .costDetails,.goodDetails{
+    width: 87%;
+    margin: auto;
+   }
+   .lcostTxt, .fcostTxt{
+    font-weight:700;
+    font-size: 27px;
+   }
+   .costDetails .Mar30, .cashflowDetails .Mar30, .goodDetails .Mar30, .growthDetails .Mar30{
+    margin: 30px auto;
+   }
+   .cashflowDetails{
+    width: 80%;
+    margin: auto;
+   }
+   .ofcostTxt{
+    font-weight:700;
+    font-size: 27px;
+    color: #00A99D;
+   }
+   .cashflowTxt, .growthTxt{
+    margin: 58px 30px 0 30px;
+   }
+   .cashflowTxt span, .growthTxt span{
+    color: #00A99D;
+    font-weight:700;
+   }
+   /* .costWrap, .goodWrap,.growthWrap{
+       text-align: center;
+   } */
+   .costWrap, .goodWrap,.growthWrap{
+    padding:20px;
+}
+   .goodWrap,.growthWrap{
+    margin-bottom: 60px;
+}
+   .headTxt{
+       font-weight: 600;
+   }
+   .Padl40{
+    padding-left: 40px;
+   }
+   .Padl30{
+    padding-left: 30px;
+   }
+   
+
+   
+

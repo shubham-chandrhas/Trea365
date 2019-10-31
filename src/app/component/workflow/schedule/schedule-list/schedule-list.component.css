@@ -1,0 +1,130 @@
+/*.schedule-section{ padding: 0px 20px; }*/
+.schedule-section .search-section{ float: left; }
+.schedule-section .add-client{ width: 100%; }
+.schedule-section .client-btn, .dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+
+.addEmpBtnWrap{ width: 150px;margin: 0px; }
+.schedule-section .additional-field{ font-weight:600; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 186px; height: 30px; }
+.schedule-section .filter-search{ float: left; }
+.schedule-section .filter-label{ line-height: 30px; padding: 0px 10px 0px 20px; font-size: 14px; }
+.schedule-section  .added-filter{ line-height: 30px; padding: 0px 10px;margin: 0px 5px; background-color: #F1BC4E;font-size: 14px; }
+.schedule-section  .added-filter .fa-times{ color: #CD5023;cursor: pointer; }
+.search-section .form-control:hover, .search-section .form-control:focus, .schedule-section .client-btn:hover, .schedule-section .client-btn:focus{ outline: 0px; }
+.schedule-section .fa-signal{ cursor: pointer; }
+
+.trea-data-table {
+  margin: 0;
+}
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ 
+  font-weight:600; 
+  font-size: 14px; 
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+
+.expand-summary button{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+.loc-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    /* min-width: 120px; */
+    width: 100%;
+  }
+.loc-btn:hover {
+    color: #505050;
+    background: #FFCB36;
+}
+.loc-btn-selected {
+    color: #505050;
+    background: #FFCB36 !important;
+}
+
+.expandedNav{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    margin-bottom: 25px;
+}
+.expandedNav .tabs{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin-left: 1px;
+}
+.tabs .dropdown-menu {
+    /* min-width: 120px; */
+    width: 100%;
+    padding: 0px;
+    text-align: center;
+}
+.tabs .open>.loc-btn{
+background-color: #FFCB36;;
+}
+.tabs .dropdown-menu>li>a{
+    padding: 3px 10px;
+    line-height: 24px;
+}
+.add-client .dropdown-menu{ margin: 0px; min-width: 125px; }
+
+.selSection{ margin-bottom: 20px; }
+.serPart{ font-weight:700; font-size: 16px;line-height: 30px;margin-bottom: 25px;margin-top: 50px; }
+.selPart .loc-btn{ width: 160px; }
+.selSection .label-col{font-size: 14px; font-weight:600; line-height: 25px; }
+.selSection .info-col{ font-size: 14px; line-height: 25px; }
+
+.servicesDetails .table tr th{ width: 10%;}
+.paymentsDetails .table  tr th:nth-child(1) { width: 20%; }
+.servicesDetails .table  tr th:nth-child(5) { width: 50%; }
+.servicesDetails .table > thead > tr > th, .scheduleDetails .table > thead > tr > th,.paymentsDetails .table > thead > tr > th{ border-top: 1px solid #ddd;border-bottom: 1px solid #ccc; }
+.servicesDetails .table>tfoot{border-bottom: 1px solid #ccc;border-top: 1px solid #ccc;}
+.servicesDetails .tfooter{ border-bottom:1px solid #ccc;text-align:center;border-top:1px solid #ccc;padding: 20px;color:#000; }
+.scheduleDetailsnext .table{ width: 40%;margin-top: 30px; }
+.payLabel{ font-size: 16px;font-weight:600; }
+.editquoteBtnWrap{ text-align: center;margin: 30px 0px; }
+.email{ color: #00A499; font-weight:600; text-decoration: none;}
+
+.paymentsDetails .table > tbody > tr > td {
+    font-weight: normal;
+}
+.dropDownCon{ width: 140px;margin-top: 10px; }

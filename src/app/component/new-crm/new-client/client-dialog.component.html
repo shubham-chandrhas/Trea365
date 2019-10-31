@@ -1,0 +1,425 @@
+<div class="dialog width450" *ngIf="action == 'addReferalType'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr MB30">
+    <!-- <div>&nbsp;</div> -->
+    <div>New Referral Type</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <form autocomplete="off" role="form" [formGroup]="ReferalTypeFrm">
+      <div class="form-group clearfix">
+        <div class="referalType MB30">
+          <input
+            autocomplete="nope"
+            class="form-control"
+            formControlName="referral_type"
+            placeholder=""
+            type="text"
+          />
+          <span
+            class="error-msg"
+            *ngIf="
+              referral_type.invalid &&
+              (referral_type.dirty || referral_type.touched || submitted)
+            "
+          >
+            <small *ngIf="referral_type.errors.required"
+              >Referral type is required.</small
+            >
+            <small *ngIf="referral_type.errors.minlength"
+              >Referral type must be at least 2 characters long.</small
+            >
+            <small *ngIf="referral_type.errors.maxlength"
+              >Referral type must be less than 30 characters.</small
+            >
+          </span>
+        </div>
+      </div>
+
+      <div class="errMsgCon MB20" *ngIf="isError">
+        <small>{{ errMsg }}</small>
+      </div>
+      <div class="button-row">
+        <button
+          id="addRefType"
+          mat-raised-button
+          class="trea-btn"
+          (click)="addReferalType(ReferalTypeFrm)"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog" *ngIf="action == 'deleteRecord'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>Delete Confirmation ?</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <div class="dialog-txt">
+      <div>Are you sure you want to delete ?</div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="removeClient"
+        mat-raised-button
+        class="trea-btn"
+        (click)="removeClient()"
+      >
+        Delete
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog dailogContainer" *ngIf="action == 'quotationList'">
+    <span class="close-icon" (click)="closeDialog()">
+      <img src="assets/icon/close_icon.png" />
+    </span>
+    <div class="dialog-hdr">
+      <div>Quotations</div>
+    </div>
+    <div class="">
+      <div class="trea-data-table table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>
+                <div class="table-hdr">
+                  <div>
+                    <span>Quote No</span>
+                    <span
+                      (click)="
+                        pageData.sortColumn = 'project_estimate_no';
+                        pageData.sortColumnType = 'N';
+                        pageData.sortOrder =
+                          pageData.sortColumn === 'project_estimate_no'
+                            ? pageData.sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          pageData.sortColumn == 'project_estimate_no' &&
+                          pageData.sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="quoteNoSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Date</span>
+                    <span
+                      (click)="
+                        pageData.sortColumn = 'project_estimate_date';
+                        pageData.sortColumnType = 'A';
+                        pageData.sortOrder =
+                          pageData.sortColumn === 'project_estimate_date'
+                            ? pageData.sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          pageData.sortColumn == 'project_estimate_date' &&
+                          pageData.sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="dateSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Client</span>
+                    <span
+                      (click)="
+                        pageData.sortColumn = 'company_name';
+                        pageData.sortColumnType = 'A';
+                        pageData.sortOrder =
+                          pageData.sortColumn === 'company_name'
+                            ? pageData.sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          pageData.sortColumn == 'company_name' &&
+                          pageData.sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="clientSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Followed by</span>
+                    <span
+                      (click)="
+                        pageData.sortColumn = 'first_name';
+                        pageData.sortColumnType = 'A';
+                        pageData.sortOrder =
+                          pageData.sortColumn === 'first_name'
+                            ? pageData.sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          pageData.sortColumn == 'first_name' &&
+                          pageData.sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="followedBySearch"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Status</span>
+                    <span
+                      (click)="
+                        pageData.sortColumn = 'status_text';
+                        pageData.sortColumnType = 'A';
+                        pageData.sortOrder =
+                          pageData.sortColumn === 'status_text'
+                            ? pageData.sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          pageData.sortColumn == 'status_text' &&
+                          pageData.sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="statusSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let indx = index;
+                let quote;
+                of: pageData.quotationList
+                  | sortBy
+                    : pageData.sortColumn
+                    : pageData.sortOrder
+                    : pageData.sortColumnType
+                  | searchfilter: statusSearch:'status_text'
+                  | searchfilter: dateSearch:'project_estimate_date'
+                  | searchfilter: clientSearch:'company_name'
+                  | searchfilter: quoteNoSearch:'project_estimate_no'
+                  | searchfilter: followedBySearch:'first_name'
+                  | listLengthfilter
+                  | paginate: paginationKey
+              "
+              (click)="getSelectedQuotation(quote, indx)"
+              [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''"
+            >
+              <td>{{ quote.project_estimate_no }}</td>
+              <td>{{ util.getFormatedDate(quote.project_estimate_date) }}</td>
+              <td>{{ quote.company_name }}</td>
+              <td>{{ quote.first_name }}</td>
+              <td>
+                <span class="dn">{{
+                  indx == 0 ? updateCount(quote.count) : ""
+                }}</span
+                >{{ quote.status_text }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div
+        class="treaPagination"
+        *ngIf="pageData.quotationList.length != 0 && constant.ITEM_COUNT != 0"
+      >
+        <div class="pull-right">
+          <span>
+            {{
+              1 + (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+            }}
+            -
+            {{
+              paginationKey.itemsPerPage <= listCount &&
+              paginationKey.itemsPerPage +
+                (paginationKey.currentPage - 1) * paginationKey.itemsPerPage <=
+                listCount
+                ? paginationKey.itemsPerPage +
+                  (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+                : listCount
+            }}</span
+          ><span> of {{ listCount }} items</span>
+        </div>
+        <div class="pull-right">
+          <select
+            [(ngModel)]="paginationKey.itemsPerPage"
+            (change)="util.changeItemPerPage()"
+          >
+            <option
+              *ngFor="let pageNo of constant.PAGINATION_ITEMS"
+              [ngValue]="pageNo"
+            >
+              {{ pageNo }}
+            </option>
+          </select>
+          <span> items per page</span>
+        </div>
+        <div class="pull-right">
+          <pagination-controls
+            (pageChange)="changePage($event)"
+            directionLinks="true"
+            autoHide="false"
+            previousLabel="Pre"
+            nextLabel="Next"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page"
+          >
+          </pagination-controls>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="errMsgCon" *ngIf="pageData.isError">
+      <small>{{ pageData.errMsg }}</small>
+    </div>
+    <div class="button-row">
+      <button mat-raised-button class="trea-btn" (click)="goToWoSetup()">
+        Select
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="goToNewWOReview()">
+        Review
+      </button>
+    </div>
+    <div class="clearfix"></div>
+  </div>

@@ -1,0 +1,40 @@
+
+
+/* .trea-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+  }
+  .trea-btn:hover {
+    color: #505050;
+    background: #FFCB36;
+  } */
+  .reportsNav{
+      display: -webkit-flex; /* Safari */
+      display: flex;
+      width: 100%;
+      max-width: 650px;
+      margin: 0 auto;
+      margin-bottom: 30px;
+  }
+  .reportsNav .tabs{
+      -webkit-flex: 1;  /* Safari 6.1+ */
+      -ms-flex: 1;  /* IE 10 */    
+      flex: 1;
+      margin-left: 1px;
+  }
+  .reportsNav .trea-btn{
+    padding: 0 12px;
+    width: 100%;
+  }
+
+
+@media screen and (min-width:991px){
+    .reportsNav .tabs{
+      margin-left: 10px;
+    }
+  }
+  

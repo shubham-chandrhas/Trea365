@@ -1,0 +1,111 @@
+<!-- 
+    View:- schedule-timeline.html
+    Component:- ScheduleTimelineComponent => schedule-timeline.component.ts
+    Route:- '/workflow/schedule/csa/schedule-timeline'  
+
+    Note:- 
+ -->
+
+<h3 class="pageTitle">Timeline</h3>
+
+    <div class="trea-welcome" *ngIf="schedule && schedule.resources && schedule.resources.length == 0">
+        <h4>There are no Scheduled Blocks yet.</h4>
+        <p class="textJustified">
+            Staff and Assets may be unavailable from your pool of resources from time to time, due to vacations, training, and other events. Scheduled blocks can be specified her to ensure that these resources do not get booked inappropriately.
+        </p>
+        <p class="textJustified">
+            Scheduled Blocks will be listed here when an authorized user has created one.
+        </p>
+        <p class="textJustified">
+            At least one Employee, Subcontractor, or Asset must be created before a Scheduled block can be made.
+        </p>          
+    </div>
+<div class="head-row" *ngIf="schedule && schedule.resources && schedule.resources.length > 0">
+  <div class="schedule-controls">
+    <div class="search-section">
+      <div class="input-group">
+        <span class="search-icn" id="basic-addon1">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+        <input type="text"
+        class="form-control"
+        [(ngModel)]="searchList"
+        (ngModelChange)="getSearchTxt(searchList)"
+        (keyup)="searchTxt = util.searchInList($event, searchList)">
+        <button mat-raised-button class="client-btn"
+        (click)="getSearchResult()">
+        Search
+        </button>
+      </div>
+    </div>
+    
+    <div class="form-group schedule-view-select">
+      <select class="form-control" (change)="setDisplayDays($event.target.value)">
+        <option value="1">1 Day View</option>
+        <option value="3" selected>3 Day View</option>
+      </select>
+    </div>
+  </div>
+  
+  <form [formGroup]="scheduleFilters" (ngSubmit)="updateSchedule()">
+    <div class="type-filters pull-left">
+      <div class="checkBox type-filter">
+        <label>
+          <input checked="" type="checkbox" (change)="checkAsset($event)">
+          <span class="iconChk"><i class="fa fa-check"></i></span>
+          Assets
+        </label>
+      </div>
+      <div class="checkBox type-filter">
+        <label>
+          <input checked="" type="checkbox" (change)="checkEmployees($event)">
+          <span class="iconChk"><i class="fa fa-check"></i></span>
+          Employees
+        </label>
+      </div>
+      <div class="checkBox type-filter">
+        <label>
+          <input checked="" type="checkbox" (change)="checkSubcontractors($event)">
+          <span class="iconChk"><i class="fa fa-check"></i></span>
+          Subcontractors
+        </label>
+      </div>
+    </div>
+    <!--    value="{{formatForDateInput(schedule.start)}}"
+    value="{{formatForDateInput(schedule.end)}}"     -->
+    <div class="date-filters pull-right">
+      <div class="dateWrapper">
+        <input type="text"
+        id="start-date"
+        class="date"
+        formControlName="startDate"
+        [matDatepicker]="start">
+        <mat-datepicker #start (selectedChanged)="startDateChange($event)"></mat-datepicker>
+        <span class="dateIcon" (click)="start.open()"><img src="assets/icon/date_picker.png"></span>
+      </div>
+      
+      <label for="end-date">to</label>
+      <div class="dateWrapper">
+        <input type="text"
+        id="end-date"
+        class="date"
+        formControlName="endDate"
+        [matDatepicker]="end">
+        <mat-datepicker #end (selectedChanged)="endDateChange($event)"></mat-datepicker>
+        <span class="dateIcon" (click)="end.open()"><img src="assets/icon/date_picker.png"></span>
+      </div>
+    </div>
+    
+    <!-- <button mat-raised-button
+    type="submit"
+    class="client-btn">
+    Filter
+    </button> -->
+    
+  </form>
+</div>
+<app-schedule-display *ngIf="schedule && schedule.resources && schedule.resources.length > 0"
+  [schedule]="schedule"
+  [displayDays]="displayDays" 
+  (childEvent)="sortListEvent($event)">
+</app-schedule-display>

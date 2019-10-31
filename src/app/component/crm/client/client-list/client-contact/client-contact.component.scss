@@ -1,0 +1,23 @@
+
+.ML30{margin-left: 30px;}
+.search-section{ float: left; margin-bottom: 10px; }
+.client-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+  }
+.errMsgCon{ margin-bottom: 15px; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 170px; height: 30px; padding-left: 0px; }
+.search-section .form-control:hover, .search-section .form-control:focus{ outline: 0px; }
+@media screen and (max-width:420px) {
+    .search-section .form-control{ 
+      width: 140px;
+     }
+    .search-section .client-btn{
+      min-width: 77px;
+     }
+  }

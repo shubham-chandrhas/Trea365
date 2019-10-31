@@ -1,0 +1,176 @@
+<div class="businessSetupWrap">
+    <div class="pageTitle" *ngIf="formAction == 'add'">New Business Type</div>
+    <div class="pageTitle" *ngIf="formAction != 'add'">Edit Business Type</div>
+    
+    <div class="editBusinessDetails">
+        <form autocomplete="off" role="form" [formGroup]="addBusinessNatureFrm">
+            <div class="row MB15">
+                <div class="col-sm-3">
+                    <div class="label-col">Business Type</div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="info-col">
+                    <div class="form-group">
+                        <input autocomplete="nope" type="text" formControlName="businessType" class="form-control"/>
+                        <span class="error-msg" *ngIf="businessType.invalid && (businessType.dirty || businessType.touched || submitted)">
+                            <small *ngIf="businessType.errors.required">Business Type is required.</small>
+                            <small *ngIf="businessType.errors.minlength">Business Type must be at least 2 characters long.</small>
+                            <small *ngIf="businessType.errors.maxlength">Business Type must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}} characters.</small>
+                        </span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="">
+                <!-- <div class="row">
+                    <div class="col-sm-3">Service Type</div>
+                    <div class="col-sm-6">Service Definition</div>
+                    <div class="col-sm-3">Price</div>
+                </div> -->
+
+                <div class="row service-type-wrap" *ngFor="let service of services.controls; let indxOut=index" [formGroup]="service">
+                    <div class="col-sm-3">
+                        <div class="service-label">
+                            <span *ngIf="indxOut!=0" (click)="removeServiceType(indxOut)" class="closeIcon">
+                                <img src="assets/icon/close_icon.png" />
+                            </span>
+                            Service Type
+                        </div>
+                        <div class="form-group">
+                            <input type="text" [attr.id]="'serType'+indxOut" formControlName="serviceType" class="form-control" placeholder=""/>
+                            <span class="error-msg" *ngIf="getServiceTypeAt(indxOut).get('serviceType').invalid && (getServiceTypeAt(indxOut).get('serviceType').dirty || getServiceTypeAt(indxOut).get('serviceType').touched || submitted)">
+                                <small *ngIf="getServiceTypeAt(indxOut).get('serviceType').errors.required">Service Type is required.</small>
+                                <small *ngIf="getServiceTypeAt(indxOut).get('serviceType').errors.maxlength">Service Type must not greater than 200 characters.</small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-sm-9 service-label">Service Definition</div>
+                            <div class="col-sm-3 service-label">Price</div>
+                        </div>
+                        <div class="row serviceDefWrap" *ngFor="let indxIn = index; let definition of serviceDefinition(indxOut).controls" [formGroup]="definition">
+                            <div *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('is_deleted').value==0">
+                                <div class="col-sm-9">
+                                    <div class="form-group serviceDefTxt">
+                                        <span *ngIf="indxIn!=0 || formAction=='edit'" class="closeIcon">
+                                            <img (click)="removeServiceDefinition(indxOut, indxIn)" src="assets/icon/close_icon.png" />
+                                        </span>
+                                        <input type="text" [attr.id]="'ser'+indxOut+'def'+indxIn" formControlName="name" class="form-control" placeholder=""/>
+                                        <span class="error-msg" *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('name').invalid && (getServiceDefinitionAt(indxOut, indxIn).get('name').dirty || getServiceDefinitionAt(indxOut, indxIn).get('name').touched || submitted)">
+                                            <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('name').errors.required">Service Definition is required.</small>
+                                            <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('name').errors.maxlength">Service Definition must not greater than 200 characters.</small>
+                                        </span> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group serviceDefTxt currencyWrap">
+                                        <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                                        <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                                        <input type="text" [attr.id]="'ser'+indxOut+'price'+indxIn" formControlName="price" class="form-control currInput"/>
+                                        <!-- <input type="text" [attr.id]="'ser'+indxOut+'price'+indxIn" formControlName="price" class="form-control currInput" (keyup)="checkPrice(getServiceDefinitionAt(indxOut, indxIn).get('price'))"/> -->
+                                        <span class="error-msg" *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('price').invalid && (getServiceDefinitionAt(indxOut, indxIn).get('price').dirty || getServiceDefinitionAt(indxOut, indxIn).get('price').touched || submitted)">
+                                            <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('price').errors.required">Price is required.</small>
+                                            <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('price').errors.maxlength">Price must be less than 30 characters.</small>
+                                            <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('price').errors.pattern && !getServiceDefinitionAt(indxOut, indxIn).get('price').errors.maxlength">Enter Valid Price (e.g 54, 78.25).</small>
+                                        </span> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <span class="addIcon cursorPtr" (click)="addServiceDefinition(indxOut, 0)">
+                            <img src="assets/icon/icon-add.png"/><span>Add Service Definition</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row  MT20">
+                    <span class="addIcon Mar0 cursorPtr" (click)="addServiceType(services.controls.length, 0)">
+                        <img src="assets/icon/icon-add.png"/><span>Add Service Type</span>
+                    </span>
+                </div>
+            </div>
+           
+            <!-- <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50"></th>
+                            <th width="250" class="PadL0">Service Type</th>
+                            <th>
+                                <div class="definitionHead">Service Definition</div>
+                                <div class="priceHead">Price</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let service of services.controls; let indxOut=index" [formGroup]="service">
+                        <td>
+                            <span *ngIf="indxOut!=0" (click)="removeServiceType(indxOut)"><img src="assets/icon/close_icon.png" /></span>
+                        </td>
+                        <td class="PadL0">
+                            <div class="form-group">
+                                <input autocomplete="nope" type="text" [attr.id]="'serType'+indxOut" formControlName="serviceType" class="form-control" placeholder=""/>
+                                <span class="error-msg" *ngIf="getServiceTypeAt(indxOut).get('serviceType').invalid && (getServiceTypeAt(indxOut).get('serviceType').dirty || getServiceTypeAt(indxOut).get('serviceType').touched || submitted)">
+                                    <small *ngIf="getServiceTypeAt(indxOut).get('serviceType').errors.required">Service Type is required.</small>
+                                    <small *ngIf="getServiceTypeAt(indxOut).get('serviceType').errors.maxlength">Service Type must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}} characters.</small>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="serviceDefWrap" *ngFor="let indxIn = index; let definition of serviceDefinition(indxOut).controls" [formGroup]="definition">
+                                    <div *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('is_deleted').value==0">
+                                        <div *ngIf="indxIn!=0 || formAction=='edit'" class="closeIcon">
+                                            <img (click)="removeServiceDefinition(indxOut, indxIn)" src="assets/icon/close_icon.png" />
+                                        </div>
+                                        <div class="form-group serviceDefTxt">
+                                            <input autocomplete="nope" type="text" [attr.id]="'ser'+indxOut+'def'+indxIn" formControlName="name" class="form-control" placeholder=""/>
+                                            <span class="error-msg" *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('name').invalid && (getServiceDefinitionAt(indxOut, indxIn).get('name').dirty || getServiceDefinitionAt(indxOut, indxIn).get('name').touched || submitted)">
+                                                <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('name').errors.required">Service Definition is required.</small>
+                                                <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('name').errors.maxlength">Service Definition must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}} characters.</small>
+                                            </span> 
+                                        </div>
+                                        <div class="form-group serviceDefTxt currencyWrap">
+                                            <span class="currencySign" *ngIf="util.getCurrency()=='INR'">&#8377;</span>
+                                            <span class="currencySign" *ngIf="util.getCurrency()!='INR'">{{util.getCurrencySign()}}</span>
+                                            <input autocomplete="nope" type="text" [attr.id]="'ser'+indxOut+'price'+indxIn" formControlName="price" class="form-control currInput" (keyup)="checkPrice(getServiceDefinitionAt(indxOut, indxIn).get('price'))"/>
+                                            <span class="error-msg" *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('price').invalid && (getServiceDefinitionAt(indxOut, indxIn).get('price').dirty || getServiceDefinitionAt(indxOut, indxIn).get('price').touched || submitted)">
+                                                <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('price').errors.required">Price is required.</small>
+                                                <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('price').errors.maxlength">Price must be less than 30 characters.</small>
+                                                <small *ngIf="getServiceDefinitionAt(indxOut, indxIn).get('price').errors.pattern && !getServiceDefinitionAt(indxOut, indxIn).get('price').errors.maxlength">Enter Valid Price (e.g 54, 78.25).</small>
+                                            </span> 
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <span class="addIcon cursorPtr" (click)="addServiceDefinition(indxOut, 0)">
+                                <img src="assets/icon/icon-add.png"/><span>Service Definition</span>
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td class="PadL0">
+                            <span class="addIcon Mar0 cursorPtr" (click)="addServiceType(services.controls.length, 0)">
+                                <img src="assets/icon/icon-add.png"/><span>Service Type</span>
+                            </span>
+                        </td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div> -->
+
+            <div class="button-row">
+                <button mat-raised-button class="trea-btn" (click)="reviewBusiNature(addBusinessNatureFrm)">Next</button>
+                <button mat-raised-button class="trea-btn" (click)="cancelBusiNature()">Cancel</button>
+            </div>
+        </form>
+    </div>
+    
+</div>

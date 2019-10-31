@@ -1,0 +1,185 @@
+
+.emp-section{ padding: 0px 20px; }
+.emp-section .add-client{ float: right; margin-bottom: 10px;}
+.emp-section .client-btn, .dialog .client-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+.emp-section .additional-field{ font-weight: 600; }
+
+/* SEARCH */
+.emp-section .search-section{ float: left; margin-bottom: 10px; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 186px; height: 28px; margin-top: 1px; }
+.emp-section .filter-search{ float: left; }
+.emp-section .filter-label{ line-height: 30px; padding: 0px 10px 0px 20px; font-size: 14px; }
+.emp-section  .added-filter{ line-height: 30px; padding: 0px 10px;margin: 0px 5px; background-color: #F1BC4E;font-size: 14px; }
+.emp-section  .added-filter .fa-times{ color: #CD5023;cursor: pointer; }
+.search-section .form-control:hover, 
+.search-section .form-control:focus, 
+.emp-section .client-btn:hover, 
+.emp-section .client-btn:focus{ 
+  outline: 0px; 
+  box-shadow: none; 
+}
+
+
+.emp-section .fa-signal{ cursor: pointer; }
+.act-option{ color: #505050!important;background-color: #FFCB36!important; }
+.trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+.trea-data-table table>thead>tr>th{ 
+  font-weight: 600; 
+  font-size: 14px; 
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+.trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+.trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+.trea-data-table input{
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #FFFFFF;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+.trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+
+/* .trea-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  min-width: 80px;
+  padding: 0 8px;
+}
+.trea-btn:focus{
+  outline: none;
+}
+.trea-btn:hover{
+  color: #505050!important;
+  background-color: #FFCB36!important;
+} */
+
+.emp-section .change-pass-btn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 36px;
+  padding-right: 36px;
+  margin-bottom: 20px;
+  width: 186px;
+}
+.emp-section .sel-emp-con{ 
+  max-width: 1024px;
+  margin: 0 auto;
+  margin-bottom: 20px; 
+}
+.emp-section .sel-emp{ 
+  text-align: center;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 30px;
+}
+.emp-section .add-field{ margin-left: 10px; margin-bottom: 10px; }
+.add-field .dropdown-menu>li>a{ padding: 3px 10px; }
+.add-field .open>.client-btn{ background-color: #FFCB36; }
+.emp-section .sel-emp-con .label-col{font-size: 14px; font-weight: 600; line-height: 25px; }
+.emp-section .sel-emp-con .info-col{ font-size: 14px; line-height: 25px; }
+.emp-section .email-color{ color: #00A499; font-weight: 600; }
+/* .dropdown .client-btn{min-width: 140px;} */
+.sel-emp .mdBtn{
+  background-color: #00A499;
+  color: #FFFFFF;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 10px;
+}
+.sel-emp{
+  margin-bottom: 40px;
+}
+.documentWrap{
+  margin: 40px auto;
+}
+.documentWrap .documents{
+  text-align: center;
+  font-size: 14px; 
+  font-weight: 600; 
+  line-height: 25px;
+}
+.documentWrap .documents>img{
+  max-width: 100%;
+  margin: 0 auto;
+}
+.documentWrap .documents a{
+  text-decoration: none;
+  color: inherit;
+}
+.buttonsWrap .clientBtn{ margin: 0 0 0 10px; }
+
+/*.buttonsWrap .dropdown-menu>li>a{
+  padding: 3px 16px;
+}*/
+.addNewEmp { display: inline-block; }
+.width100{ width: auto !important; }
+.inactiveBtn {
+  background: #7e7e7e;
+  pointer-events: none;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+  width: 100%;
+  color: #d2d6de;
+}
+
+.docPdf{
+    font-size:96px;
+    text-align: center;
+    padding : 30px;
+    color: #3aa69b !important;    
+  }
+a { color: inherit; }   
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.emp-section .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.remarks {
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

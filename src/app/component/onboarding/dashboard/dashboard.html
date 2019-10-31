@@ -1,0 +1,369 @@
+<div class="supplier-section account">
+	<!-- <div class="topLogo">
+		<img src="assets/logo/trea-logo.png" class="img-responsive">
+	</div> -->
+	<h3 class="pageTitle">Account Details</h3>
+	<div class="addNewSupFormCov clearfix">
+		<div class="clearfix"></div>
+		<div class="accountDetailWrap">
+			<div class="accountDetailsWrap"> 
+				<div class="promaryAccountFormBody">
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label pageSubTitle" for="supplierType">Primary Account</label>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label" for="supplierType">Organization</label>
+						<div class="col-md-6 info-col">
+							<div>XYZ Company</div>
+							<div class="compLogo"><img src="assets/img/parking.png" class="img-responsive"></div>
+						</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="address1">Address</label>
+						<div class="col-md-6 info-col">350 Adelatide St</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label" for="country">Country</label>
+						<div class="col-md-6 info-col">Canada</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label" for="province">Province</label>
+						<div class="col-md-6 info-col">Ontario</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="city">City</label>
+						<div class="col-md-6 info-col">Toronto</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="postalCode">Postal Code</label>
+						<div class="col-md-6 info-col">M7R 3T3</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="mainOfficePhoneNo">Main Office Phone No</label>
+						<div class="col-md-6 info-col">416-570-0000</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="email">Currency</label>
+						<div class="col-md-6 info-col">Canadian Dollars (CAD)</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="phoneNumber">Business Structure</label>
+						<div class="col-md-6 info-col">Enterprise</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label pageSubTitle" for="supplierType">Primary User</label>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="comment">Name</label>
+						<div class="col-md-6 info-col">
+							Yogesh Mane
+						</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="comment">Designation</label>
+						<div class="col-md-6 info-col">
+							Operations Manager
+						</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="comment">Email</label>
+						<div class="col-md-6 info-col">
+							email@gmail.com
+						</div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-md-6 control-label txtColor" for="comment">Phone Number</label>
+						<div class="col-md-6 info-col">
+								416-570-0000
+						</div>
+					</div>
+					<div class="button-row clearfix">
+            <button mat-raised-button class="trea-btn" type="button">Edit</button>
+            <button mat-raised-button class="trea-btn" type="button">Next</button>
+					</div>
+				</div>
+			</div>
+			<div class="updateaccountDetails"> 
+				<form autocomplete="off" class="" role="form">
+					<div class="promaryAccountFormBody">
+						<div class="selPart">
+							<span>Primary Account</span>
+						</div>
+						<div class="form-group clearfix">
+							
+							<label class="col-sm-6 control-label" for="organization">Organization</label>
+							
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="organization" name="organization" placeholder="" class="form-control">
+								<!-- <span class="error-msg" *ngIf="organization.invalid && (organization.dirty || organization.touched || submitted)">
+									<small *ngIf="organization.errors.required">First Name is required.</small>
+									<small *ngIf="organization.errors.minlength">First name must be at least 2 characters long.</small>
+									<small *ngIf="organization.errors.maxlength">First name must be less than 30 characters.</small>
+								</span> -->
+								<div class="compLogoWrap">
+									<span><img src="assets/img/organization.png" class="compOrg "></span>
+								<img src="assets/icon/close_icon.png" class="closeBtn">
+								<div class="lgBtn logo-upload">
+									<span>Update a Logo</span>
+									<!-- <input autocomplete="nope" type="file" class="file-upload" id="companyLogo" name="companyLogo" (change)="onFileChange($event)" #fileInput> -->
+									<input autocomplete="nope" type="file" class="file-upload" id="" name="companyLogo">
+								</div>
+								<!-- <div class="pull-right preview" *ngIf="imgPath">
+									<img matTooltip="Preview" [src]='imgPath' />
+								</div> -->
+								</div>
+							</div>
+						</div>
+								<!-- <div class="form-group">
+										<label class="col-sm-6 control-label" for="">Organization</label>
+										<div class="col-sm-6">
+
+												<span class="compLogo"><img src="assets/img/organization.png" class="img-responsive">
+												</span>
+												<span class="">
+														<img src="assets/icon/close_icon.png">
+													</span>
+
+											<div>
+												<div class="lgBtn logo-upload pull-left">
+													<span>Update a Logo</span>
+													<input autocomplete="nope" type="file" class="file-upload" id="companyLogo" name="companyLogo" (change)="onFileChange($event)" #fileInput>
+												</div>
+												<div class="pull-right preview" *ngIf="imgPath">
+													<img matTooltip="Preview" [src]='imgPath'/>
+												</div>
+											</div>
+											<div class="clearfix"></div>
+											<span class="error-msg" *ngIf="companyLogo.invalid && (companyLogo.dirty || companyLogo.touched || submitted)">
+												<small *ngIf="companyLogo.errors.required">Company Logo is required.</small>
+											</span>
+										</div>
+									</div> -->
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="address">Address</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="address" name="address" placeholder="" class="form-control">
+								<!-- <span class="error-msg" *ngIf="address.invalid && (address.dirty || address.touched || submitted)">
+													<small *ngIf="address.errors.required">First Name is required.</small>
+													<small *ngIf="address.errors.minlength">First name must be at least 2 characters long.</small>
+													<small *ngIf="address.errors.maxlength">First name must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="country">Country</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="country" name="country" placeholder="" class="form-control">
+								<!-- <span class="error-msg" *ngIf="country.invalid && (country.dirty || country.touched || submitted)">
+													<small *ngIf="country.errors.required">First Name is required.</small>
+													<small *ngIf="country.errors.minlength">First name must be at least 2 characters long.</small>
+													<small *ngIf="country.errors.maxlength">First name must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+							<label class="col-sm-6 control-label" for="proviince">Proviince</label>
+							<div class="col-sm-6">
+								<!-- formControlName="proviince"  -->
+								<select class="form-control">
+									<!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+									<option>Ontario</option>
+									<option></option>
+								</select>
+								<!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+													<small *ngIf="roleId.errors.required">Please Select Role.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+							<label class="col-sm-6 control-label" for="city">City</label>
+							<div class="col-sm-6">
+								<!-- formControlName="City"  -->
+								<select class="form-control">
+									<!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+									<option>Toronto</option>
+									<option>Pune</option>
+								</select>
+								<!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+													<small *ngIf="roleId.errors.required">Please Select Role.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="postalCode">Postal Code</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="postalCode" name="postalCode" placeholder="" class="form-control">
+								<!-- <span class="error-msg" *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched || submitted)">
+													<small *ngIf="postalCode.errors.required">First Name is required.</small>
+													<small *ngIf="postalCode.errors.minlength">First name must be at least 2 characters long.</small>
+													<small *ngIf="postalCode.errors.maxlength">First name must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="mainOfficePhoneNo">Main Office Phone No</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="mainOfficePhoneNo" name="mainOfficePhoneNo" placeholder="" value="416-570-0000" class="form-control">
+								<!-- <span class="error-msg" *ngIf="mainOfficePhoneNo.invalid && (mainOfficePhoneNo.dirty || mainOfficePhoneNo.touched || submitted)">
+													<small *ngIf="mainOfficePhoneNo.errors.required">First Name is required.</small>
+													<small *ngIf="mainOfficePhoneNo.errors.minlength">First name must be at least 2 characters long.</small>
+													<small *ngIf="mainOfficePhoneNo.errors.maxlength">First name must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+							<label class="col-sm-6 control-label" for="currency">Currency</label>
+							<div class="col-sm-6">
+								<select class="form-control">
+									<!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+									<option>Canadian Dollars (CAD)</option>
+									<option>Indian Rupee (INR)</option>
+								</select>
+								<!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+													<small *ngIf="roleId.errors.required">Please Select Role.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<!-- [ngClass]="formAction == 'edit' ? 'ptrN' : ''" -->
+							<label class="col-sm-6 control-label" for="businessStructure">Business Structure</label>
+							<div class="col-sm-6">
+								<select class="form-control">
+									<!-- <option *ngFor="let role of roleList" [value]="role.role_id">{{role.role_name}}</option> -->
+									<option>Enterprise</option>
+									<option></option>
+								</select>
+								<!-- <span class="error-msg" *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)">
+													<small *ngIf="roleId.errors.required">Please Select Role.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="selPart">
+							<span>Primary User</span>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="name">Name</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="name" name="name" placeholder="" value="Lorem Ipsum" class="form-control">
+								<!-- <span class="error-msg" *ngIf="name.invalid && (name.dirty || name.touched || submitted)">
+													<small *ngIf="name.errors.required">First Name is required.</small>
+													<small *ngIf="name.errors.minlength">First name must be at least 2 characters long.</small>
+													<small *ngIf="name.errors.maxlength">First name must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="designation">Designation</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="designation" designation="designation" placeholder="" value="Operational Manager" class="form-control">
+								<!-- <span class="error-msg" *ngIf="designation.invalid && (designation.dirty || designation.touched || submitted)">
+													<small *ngIf="designation.errors.required">First Name is required.</small>
+													<small *ngIf="designation.errors.minlength">First designation must be at least 2 characters long.</small>
+													<small *ngIf="designation.errors.maxlength">First designation must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="email">Email</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="email" email="email" placeholder="" value="Lorem@ppm.com" class="form-control">
+								<!-- <span class="error-msg" *ngIf="email.invalid && (email.dirty || email.touched || submitted)">
+													<small *ngIf="email.errors.required">First Name is required.</small>
+													<small *ngIf="email.errors.minlength">First email must be at least 2 characters long.</small>
+													<small *ngIf="email.errors.maxlength">First email must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="phoneNumber">Phone Number</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="phoneNumber" phoneNumber="phoneNumber" placeholder="" value="416-570-0000" class="form-control">
+								<!-- <span class="error-msg" *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched || submitted)">
+													<small *ngIf="phoneNumber.errors.required">First Name is required.</small>
+													<small *ngIf="phoneNumber.errors.minlength">First phoneNumber must be at least 2 characters long.</small>
+													<small *ngIf="phoneNumber.errors.maxlength">First phoneNumber must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="selPart ">
+							<span class="closeBtnWrap ">
+								<img src="assets/icon/close_icon.png">
+							</span>
+							<span>User2</span>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="name">Name</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="name" name="name" placeholder="" class="form-control">
+								<!-- <span class="error-msg" *ngIf="name.invalid && (name.dirty || name.touched || submitted)">
+													<small *ngIf="name.errors.required">First Name is required.</small>
+													<small *ngIf="name.errors.minlength">First name must be at least 2 characters long.</small>
+													<small *ngIf="name.errors.maxlength">First name must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="designation">Designation</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="designation" designation="designation" placeholder="" class="form-control">
+								<!-- <span class="error-msg" *ngIf="designation.invalid && (designation.dirty || designation.touched || submitted)">
+													<small *ngIf="designation.errors.required">First Name is required.</small>
+													<small *ngIf="designation.errors.minlength">First designation must be at least 2 characters long.</small>
+													<small *ngIf="designation.errors.maxlength">First designation must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="email">Email</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="email" email="email" placeholder="" class="form-control">
+								<!-- <span class="error-msg" *ngIf="email.invalid && (email.dirty || email.touched || submitted)">
+													<small *ngIf="email.errors.required">First Name is required.</small>
+													<small *ngIf="email.errors.minlength">First email must be at least 2 characters long.</small>
+													<small *ngIf="email.errors.maxlength">First email must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label class="col-sm-6 control-label" for="phoneNumber">Phone Number</label>
+							<div class="col-sm-6">
+								<!-- formControlName="existingClient" -->
+								<input autocomplete="nope" type="text" id="phoneNumber" phoneNumber="phoneNumber" placeholder="" class="form-control">
+								<!-- <span class="error-msg" *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched || submitted)">
+													<small *ngIf="phoneNumber.errors.required">First Name is required.</small>
+													<small *ngIf="phoneNumber.errors.minlength">First phoneNumber must be at least 2 characters long.</small>
+													<small *ngIf="phoneNumber.errors.maxlength">First phoneNumber must be less than 30 characters.</small>
+												</span> -->
+							</div>
+						</div>
+						
+							<div class="newUserbtnwrap">
+								<span><button  class="btn" type="button"></button> New User</span>
+							</div>
+					
+						<div class="button-row clearfix">
+							<button mat-raised-button id="add-emp" class="trea-btn">Update</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

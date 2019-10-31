@@ -1,0 +1,221 @@
+<div class="printLabelSection">
+  <h1 class="labelTitle">Labels</h1>
+  <p class="page-summary">
+    Print scannable labels for all locations, Assets, and Products in the company.<br />
+    Click "+" next to any label or drag-and-drop to add it to your printing list.
+  </p>
+
+  <div class="trea-welcome" *ngIf="pageData.locList.length ==0 && pageData.productList.length ==0 && pageData.assetsList.length ==0 && onBoarding">
+        <h4>There are no labels yet.</h4>
+        <p class="textJustified">
+            Human-readable and machine-scannable labels will be generated for all Locations, Assets, and Products you add into the system. 
+        </p>
+        <p class="textJustified">
+            Printable labels will be listed here when an authorized user has created a Location, Asset, or Product.
+        </p>
+    </div>
+
+  <div class="row" *ngIf="pageData.locList.length !=0 || pageData.productList.length !=0 || pageData.assetsList.length !=0">
+    <div class="col-sm-6">
+      <div class="listTitle">Labels to Print</div>
+    </div>
+    <div class="col-sm-6">
+      <div class="listTitle">All Labels</div>
+
+      <nav class="tabbed-nav">
+        <ul class="tabs-list">
+          <li class="tabs">
+            <button [ngClass]="pageData.labelType == 'location' ? 'selActiveOption' :''" mat-raised-button class="trea-btn" (click)="pageData.labelType = 'location';pageData.assetsSearch = '';pageData.productSearch = '';">Locations</button>
+          </li>
+          <li class="tabs">
+            <button [ngClass]="pageData.labelType == 'assets' ? 'selActiveOption' :''" mat-raised-button class="trea-btn" (click)="pageData.labelType = 'assets';pageData.locationSearch = '';pageData.productSearch = '';">Assets</button>
+          </li>
+          <li class="tabs">
+            <button [ngClass]="pageData.labelType == 'products' ? 'selActiveOption' :''" mat-raised-button class="trea-btn" (click)="pageData.labelType = 'products';pageData.locationSearch = '';pageData.assetsSearch = '';">Products</button>
+          </li>
+        </ul>
+      </nav>
+  </div>
+
+
+  <div class="row locationsTab">
+    <div class="col-sm-6">
+      <div class="lblToPrint">
+        <div class="searchTxt">
+          <input autocomplete="nope" type="text" class="searchBox" name="search" placeholder="" [(ngModel)]="pageData.labelSearch">
+          <button mat-raised-button class="trea-btn" (click)="cancel()" [ngClass]="pageData.selItemList.length > 0 ? '' : 'disable'">Remove All</button>
+        </div>
+        <div class="lblToPrintList" droppable (onDrop)="onItemDrop($event)">
+          <div class="table-responsive">
+            <table class="table table-striped lblToPrintTbl ">
+              <thead>
+                <tr>
+                  <th>Details</th>
+                  <th><div class="bdr-left">Qty</div></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let indx = index; let loc of pageData.selItemList | searchfilter:pageData.labelSearch:'name'">
+                  <td>
+                    <span class="add-icon" (click)="removeItemFromPrint(pageData.selItemList, pageData.locList, indx, loc.id)">
+                      <i class="fa fa-minus-square" aria-hidden="true"></i>
+                    </span>
+                    <span>{{loc.name}}</span>
+                  </td>
+                  <td class="labelsQty">
+                    <i class="fa fa-minus" aria-hidden="true" (click)="updateNoOfCopy(pageData.selItemList, '-', indx)"></i>
+                    <input autocomplete="nope" type="text" [(ngModel)]="loc.noOfCopy" (ngModelChange)="updateNoOfCopyOnInput(pageData.selItemList, indx)" (keypress)="util.numberCheck($event)"/>
+                    <i class="fa fa-plus" aria-hidden="true" (click)="updateNoOfCopy(pageData.selItemList, '+', indx)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="totalPrintLabel">
+        <span>Total</span>
+        <!-- <span>{{pageData.selItemList.length}}</span> -->
+        <span>{{pageData.printList.length}}</span>
+      </div>
+    </div>
+    <div class="col-sm-6"> 
+
+      <div class="allLabel" *ngIf="pageData.labelType == 'location'">
+        <div class="searchTxt">
+          <input autocomplete="nope" type="text" class="searchBox" name="search" [(ngModel)]="pageData.locationSearch">
+          <button mat-raised-button class="trea-btn" (click)="addItemToPrintAll(pageData.locList, pageData.selItemList)">Select All</button>
+        </div>
+        <div class="lblToPrintList">
+          <div class="table-responsive">
+            <table id="lblToPrintTbl" class="table table-striped lblToPrintTbl ">
+              <tbody>
+                <tr draggable [dragData]="loc" *ngFor="let indx = index; let loc of pageData.locList | searchfilter:pageData.locationSearch:'name'">
+                  <td>
+                    <span class="add-icon" (click)="addItemToPrint(pageData.locList, pageData.selItemList, indx, loc.id)">
+                      <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    </span>
+                    <span>{{loc.location_tag}}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="allLabel" *ngIf="pageData.labelType == 'products'">
+        <div class="searchTxt">
+          <input autocomplete="nope" type="text" class="searchBox" name="search" [(ngModel)]="pageData.productSearch">
+          <button mat-raised-button class="trea-btn" (click)="addItemToPrintAll(pageData.productList, pageData.selItemList)">Select All</button>
+        </div>
+        <div class="lblToPrintList">
+          <div class="table-responsive">
+            <table id="lblToPrintTbl" class="table table-striped lblToPrintTbl ">
+              <thead>
+                <tr>
+                  <th><div>Short Name</div></th>
+                  <th><div class="bdr-left">UPC</div></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr draggable [dragData]="prod" *ngFor="let indx = index; let prod of pageData.productList | searchfilter:pageData.productSearch:'name'">
+                  <td>
+                    <span class="add-icon" (click)="addItemToPrint(pageData.productList, pageData.selItemList, indx, prod.id)">
+                      <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    </span>
+                    <span>{{prod.name}}</span>
+                  </td>
+                  <td>
+                    <span>{{prod.upc}}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="allLabel" *ngIf="pageData.labelType == 'assets'">
+        <div class="searchTxt">
+          <input autocomplete="nope" type="text" class="searchBox" name="search" [(ngModel)]="pageData.assetsSearch">
+          <button mat-raised-button class="trea-btn" (click)="addItemToPrintAll(pageData.assetsList, pageData.selItemList)">Select All</button>
+        </div>
+        <div class="lblToPrintList">
+          <div class="table-responsive">
+            <table id="lblToPrintTbl" class="table table-striped lblToPrintTbl ">
+              <thead>
+                <tr>
+                  <th><div>Short Name</div></th>
+                  <th><div class="bdr-left">Serial No.</div></th>
+                  <th><div class="bdr-left scan-code-header">Scan code</div></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr draggable [dragData]="asset" *ngFor="let indx = index; let asset of pageData.assetsList | searchfilter:pageData.assetsSearch:'name'">
+                  <td>
+                    <span class="add-icon" (click)="addItemToPrint(pageData.assetsList, pageData.selItemList, indx, asset.id)">
+                      <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    </span>
+                    <span>{{asset.name}}</span>
+                  </td>
+                  <td>
+                    <span>{{asset.serial_no}}</span>
+                  </td>
+                  <td>
+                    <span>{{asset.scan_code}}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+
+  <div class="button-row">
+    <button *ngIf="util.getRole() == 2 || permissionsSet.printExportLabels || permissionsSet.viewLabels" [ngClass]="pageData.selItemList.length > 0 ? '' : 'disable'" mat-raised-button class="trea-btn" (click)="printPreview('print-section')">Preview and Print</button>
+    <!-- <button *ngIf="util.getRole() == 2 || permissionsSet.viewLabels" [ngClass]="pageData.selItemList.length > 0 ? '' : 'disable'" mat-raised-button class="trea-btn" (click)="printPreview('print-section')">Preview</button> -->
+    <button *ngIf="util.getRole() == 2 || permissionsSet.printExportLabels" [ngClass]="pageData.selItemList.length > 0 ? '' : 'disable'" mat-raised-button class="trea-btn" (click)="exportpdf()">Export</button>
+    
+  </div>
+  </div>
+
+
+<div class="print-area dn" id="print-section">
+
+  <div *ngFor="let outIndx = index; let label of pageData.printList">
+    <!-- float:left; -->
+    <div style="border:1px dashed;padding: 10px 20px;">
+      <div style="text-align: left;">
+        <ngx-barcode [bc-value]="label.scanCode" [bc-element-type]="'img'" [bc-format]="CODE39" [bc-display-value]="true"></ngx-barcode>
+      </div>
+    </div>
+  </div>
+
+   <!-- <table style="border:1px dashed;border-collapse:collapse;">
+      <tbody>
+         <tr *ngFor="let outIndx = index; let printLoc of pageData.printList">
+            <td style="border:1px dashed;padding: 10px 20px;" *ngFor="let inIndx = index; let label of printLoc.locRow">
+               <div style="text-align: center;">
+                <ngx-barcode [bc-value]="label.scanCode" [bc-element-type]="'img'" [bc-format]="CODE39" [bc-display-value]="true"></ngx-barcode>
+               </div>
+            </td>
+         </tr>
+      </tbody>
+   </table> -->
+</div>

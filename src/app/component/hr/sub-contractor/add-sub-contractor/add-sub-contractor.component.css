@@ -1,0 +1,178 @@
+.red-font{ border-color: #d0021B; }
+/***************Add Sub-Contrator Form Start*************/
+
+.newEmployeeFrmWrap .newEmployeeFormBody{
+  max-width: 600px;
+  margin: 30px auto;
+}
+.newEmployeeFrmWrap .form-horizontal .control-label {
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+}
+.newEmployeeFrmWrap .addFormBody{
+  padding: 50px 10px 25px 10px;
+}
+.newEmployeeFrmWrap .addFormBtnWrap{
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.newEmployeeFrmWrap .addFormBtnWrap .mdBtn{
+  margin: 5px;
+}
+.newEmployeeFrmWrap form .form-group{
+  margin-bottom: 25px;
+}
+.newEmployeeFrmWrap form .form-group input,
+.newEmployeeFrmWrap form .form-group select{
+  border-radius: 0px;
+  height: 25px;
+  padding: 1px 10px;
+}
+.newEmployeeFrmWrap .errMsgCon{ text-align: center; }
+.newEmployeeFrmWrap .errMsgCon small{ 
+  color: #F44336;
+  font-size: smaller;
+}
+.des-heigth{ height: 100px !important; }
+
+/***************Add Sub-Contrator Form End*************/
+
+/*image/document css*/
+.imgInfoSection{ margin-bottom: 20px; }
+.imageSection .dropFileHere{
+text-align: center;
+font-size: 16px;
+border: 2px dashed #D1D1D1;
+/*padding: 30px 0px;*/
+}
+.imageSection .drag-over{ border: 5px dashed #a4a4a4; box-shadow: 0 0 30px #cccccc; }
+.imageSection .dropFileHere .content{ height: 150px; }
+.dropFileHere .text,
+.dropFileHere .selFileLink{ padding: 10px; }
+.dropFileHere .selFileLink>a{ color: #3aa69b;text-decoration: underline; }
+.attributesWrap .errMsgCon{ text-align: center; }
+.attributesWrap .errMsgCon small{ color: #F44336;font-size: smaller; }
+.newEmployeeWrap .previewImg{ border: 1px solid #D1D1D1;min-height: 135px; height: 130px; text-align: -webkit-center;}
+.previewImg img{ height: 100%; }
+.previewTxt .txtHead{ font-weight: 400; margin-bottom: 10px; }
+.previewTxt .txtDesc>textarea{
+border: 1px solid #D1D1D1;
+padding: 5px;
+min-height: 100px;
+resize: none;
+width: 100%;
+text-align: left;
+}
+.newEmployeeWrap .previewdocTxt{
+margin-top: 28px;
+}
+.file-name-txt{ width: 190px;float: left; }
+.previewTxt .form-group{ margin-left: 0px; margin-right: 0px; margin-bottom: 0px !important; }
+.previewTxt .txtHead .close-icon{ color: #CD5023;margin-left: 10px;cursor: pointer; line-height: 24px; }
+.select-file{ 
+position: relative;
+width: 120px;
+margin: 0px auto;
+overflow: hidden;
+cursor: pointer; 
+}
+.select-file .file-in{ 
+position: absolute;
+width: 100%;
+height: 100%;
+color: transparent;
+background-color: transparent;
+opacity: 0;
+cursor: pointer;
+}
+.doc-preview{
+border: 1px solid #D1D1D1;
+min-height: 135px;
+height: 130px;
+line-height: 160px;
+text-align: center;
+color: #3aa69b;
+margin-top:29px;
+}
+.doc-pre{
+min-height: 135px;
+height: 130px;
+line-height: 160px;
+text-align: center;
+color: #3aa69b;
+}
+.doc-preview i, .img-pre-div i{ font-size: 50px; }
+
+.doc-section-wrap{ width: 550px;margin: 30px auto;  }
+.doc-img-view .inner-wrap{ padding: 10px 40px; }
+.newEmployeeWrap .imageSection{
+max-width: 797px;
+margin: 30px auto;
+}
+.newEmployeeWrap .addMoreBtn{
+background-image: url("/assets/icon/icon-16.png");
+display: inline-block;
+padding: 9px;
+vertical-align: middle;
+border: 1px solid transparent;
+}
+.currencySign{
+    position: absolute;
+    top: 5px;
+    left: 20px;
+}
+.currencyInput{
+    padding-left: 20px !important;
+}
+
+.addIcon{
+  margin-left: 5px;
+}
+.addIcon img{
+  max-width: 100%;
+  vertical-align: text-top;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.addIcon span{
+  cursor: pointer;
+}
+
+.weekDaysWrap{
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  width: 100%;
+  max-width: 400px;
+}
+.weekDaysWrap .days{
+  -webkit-flex: 1;  /* Safari 6.1+ */
+  -ms-flex: 1;  /* IE 10 */    
+  flex: 1;
+  margin-left: 1px;
+  text-align: center;
+}
+.weekDaysWrap .days .checkBox{
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+.dateWrapper .date{
+  display: block;
+  width: 90%;
+  float: left;
+}
+.dateWrapper .dateIcon{
+  display: block;
+  width: 10%;
+  float: right;
+  text-align: right;
+  cursor: pointer;
+}
+.dateWrapper .dateIcon img{
+ max-height: 25px;
+}
+
+.pdfExtension {
+    line-height: 25px;
+    float:left;     
+}

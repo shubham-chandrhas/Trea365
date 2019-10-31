@@ -1,0 +1,288 @@
+/* .trea-btn {
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+}
+    .trea-btn:hover {
+    color: #505050;
+    background: #FFCB36;
+} */
+.last {
+  position: absolute;
+  top: -12px;
+  left: -50px;
+}
+.reportOptionTabsBottom .tabs:first-child {
+  position: relative;
+}
+/*@media only screen and (max-width: 768px) {
+  .last{
+    margin: -10px;
+    margin-left: -35px;
+  }   
+}*/
+.txt-red {
+  color: #d0021b;
+}
+.txt-green {
+  color: #00a99d;
+}
+.txt-yellow {
+  color: #ffcb36;
+}
+.bgBlue {
+  background-color: #1e3345;
+}
+.bgGreen {
+  background-color: #00a99d;
+}
+.midText {
+  font-size: 16px;
+  line-height: 30px;
+  font-weight: 600;
+  text-align: center;
+}
+.smallTxt {
+  font-size: 12px;
+  text-align: center;
+}
+.img-circle {
+  border-radius: 50%;
+}
+.panelBody {
+  background-color: #f6f6f6;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+.header {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.header .arrowDown {
+  font-size: 30px;
+  color: #00a99d;
+  margin-right: 15px;
+  vertical-align: sub;
+  cursor: pointer;
+}
+.contentBox {
+  background-color: #ffffff;
+  padding: 10px;
+  margin-bottom: 20px;
+  /* min-height: 224px; */
+  min-height: 240px;
+  text-align: center;
+}
+
+/*@ Shahebaz (Start)*/
+
+@media only screen and (max-width: 1310px) {
+  .contentBox {
+    min-height: 300px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .contentBox {
+    min-height: 350px;
+  }
+
+  .amtTxt {
+    font-size: 20px !important;
+  }
+
+  .campaign .campTxt {
+    font-size: 12px !important;
+  }
+
+  .campaign .number {
+    font-size: 26px !important;
+  }
+}
+/*@ Shahebaz (End)*/
+
+.amtTxt {
+  font-size: 32px;
+  text-align: center;
+  line-height: 50px;
+  font-weight: 600;
+}
+.pieChart img {
+  margin: 0 auto;
+}
+.assetImg > img {
+  max-width: 120px;
+  margin: 10px auto;
+}
+
+.campaignsWrap ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.campaignsWrap ul li {
+  padding: 12px;
+}
+.campaign {
+  width: 100%;
+}
+.campaign .number {
+  font-size: 36px;
+  text-align: center;
+  /* line-height: 36px; */
+  font-weight: 600;
+  color: #00a99d;
+  /*vertical-align: super;*/
+  width: 50px;
+  display: inline-block;
+}
+.campaign .campTxt {
+  font-size: 18px;
+  font-weight: 600;
+  color: #00a99d;
+  vertical-align: super;
+  width: calc(100% - 60px);
+  display: inline-block;
+}
+.profilePic {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto;
+}
+.profInfo .name {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+.profInfo .txtDesc {
+  line-height: 18px;
+  margin-bottom: 15px;
+}
+
+.profitFooter {
+  padding-left: 15px;
+}
+.profitFooter .jobList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.equipmentDetails span {
+  text-decoration: underline;
+}
+.equipmentDetails {
+  margin-top: 30px;
+}
+
+.equipmentTable .table {
+  max-width: 300px;
+  text-align: center;
+  margin: 30px auto;
+}
+.equipmentTable .table thead tr th:nth-child(1) {
+  border-bottom: 1px solid transparent;
+}
+.equipmentTable .table thead tr th {
+  text-align: center;
+  border-bottom: 1px solid #00a499;
+  font-weight: normal;
+}
+.equipmentTable .table tbody tr td {
+  padding: 27px;
+  border: 1px solid #00a499;
+  font-weight: 700;
+  font-size: 22px;
+}
+.equipmentTable .table tbody tr th {
+  vertical-align: middle;
+  font-weight: 700;
+  font-size: 22px;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  text-align: center;
+}
+
+.hrWrap .panelBody .contentBox {
+  min-height: 135px;
+}
+.chartIndicator {
+  margin-bottom: 15px;
+}
+.chartIndicator .indicate {
+  height: 15px;
+  width: 25px;
+  margin-right: 10px;
+  display: inline-block;
+}
+.costDetails .Mar30,
+.cashflowDetails .Mar30,
+.goodDetails .Mar30,
+.growthDetails .Mar30 {
+  margin: 30px auto;
+}
+.costDetails .Mar30,
+.cashflowDetails .Mar30,
+.goodDetails .Mar30,
+.growthDetails .Mar30 {
+  margin: 30px auto;
+}
+.cashflowDetails {
+  width: 80%;
+  margin: auto;
+}
+.ofcostTxt {
+  font-weight: 700;
+  font-size: 27px;
+  color: #00a99d;
+}
+.cashflowTxt,
+.growthTxt {
+  margin: 58px 30px 0 30px;
+}
+.cashflowTxt span,
+.growthTxt span {
+  color: #00a99d;
+  font-weight: 700;
+}
+/* .costWrap, .goodWrap,.growthWrap{
+       text-align: center;
+   } */
+.costWrap,
+.goodWrap,
+.growthWrap {
+  padding: 20px;
+}
+.goodWrap,
+.growthWrap {
+  margin-bottom: 60px;
+}
+.payablePart,
+.receivablePart,
+.currentPart,
+.profitabilityPart,
+.constructionPart,
+.badbadDebtsPart,
+.costPart,
+.cashflowPart,
+.goodPart,
+.growthPart {
+  text-align: center;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 30px;
+  margin-bottom: 25px;
+}
+.payablePart span,
+.receivablePart span,
+.currentPart span,
+.profitabilityPart span,
+.badbadDebtsPart span,
+.costPart span,
+.cashflowPart span,
+.goodPart span,
+.growthPart span {
+  text-decoration: underline;
+}

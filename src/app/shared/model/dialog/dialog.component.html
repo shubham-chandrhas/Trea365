@@ -1,0 +1,256 @@
+<div
+  class="dialog"
+  [ngClass]="dialog.redirectURL.length < 2 ? 'width350' : 'width380'"
+  *ngIf="dialog.action == 'SUCCESS'"
+>
+  <span class="close-icon top40" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>{{ dialog.header }}</div>
+  </div>
+  <div>
+    <div class="dialog-txt">{{ dialog.message }}.</div>
+    <div class="button-row" *ngIf="dialog.redirectURL.length < 2">
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+    <div class="button-row" *ngIf="dialog.redirectURL.length == 2">
+      <button mat-raised-button class="trea-btn" (click)="continueCreating()">
+        Continue Creating
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog" *ngIf="dialog.action == 'CONFIRMATION'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>{{ dialog.header }}</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <div class="dialog-txt">
+      <div>{{ dialog.message }}</div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="remove-btn"
+        mat-raised-button
+        class="trea-btn"
+        (click)="deleteAPICall()"
+      >
+        Delete
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row text-center">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+<div class="dialog" *ngIf="dialog.action == 'CONFIRMATION_EMAIL'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>{{ dialog.header }}</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <div class="dialog-txt">
+      <div>{{ dialog.message }}</div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="remove-btn"
+        mat-raised-button
+        class="trea-btn"
+        (click)="confirmEmail()"
+      >
+        Confirm
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialogEmail()">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row text-center">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog" *ngIf="dialog.action == 'CONFIRMATION_WITH_WARNING'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>{{ dialog.header }}</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <div class="dialog-txt">
+      <div>{{ dialog.message }}</div>
+      <br />
+      <div class="text-left" *ngFor="let wo of woList">
+        <a
+          href="javascript:void(0)"
+          class="email"
+          [routerLink]="['/workflow/wo/csa/work-order-list/', wo.work_order_id]"
+          >#{{ wo.work_order_no }} ({{
+            util.getFormatedDate(wo.start_date)
+          }})</a
+        >
+      </div>
+      <br />
+      <div class="text-left" *ngIf="woList.length == 4">
+        <span class="cursorPtr" (click)="showAll()"
+          >+{{ dialog.data.assignedWO.length - 4 }} more</span
+        >
+      </div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="remove-btn"
+        mat-raised-button
+        class="trea-btn"
+        (click)="deleteAPICall()"
+      >
+        Delete Anyway
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog width450" *ngIf="dialog.action == 'image'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+
+  <div class="previewImg">
+    <img [src]="dialog.url" alt="" class="img-responsive img-center" />
+  </div>
+  <div class="thumbWrap" *ngIf="dialog.images">
+    <div
+      class="thumbImg"
+      *ngFor="let img of dialog.images; let indx = index"
+      [ngClass]="isActive == indx ? 'active' : ''"
+    >
+      <img
+        [src]="img.image_path"
+        alt=""
+        (click)="dialog.url = img.image_path; isActive = indx"
+        class="img-responsive img-center"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="dialog width450" *ngIf="dialog.action == 'invoice'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="doc-img-view" *ngIf="dialog.invoices">
+    <div class="mar-btm-img row">
+      <div
+        class="col-sm-6"
+        *ngFor="let indx = index; let item; of: dialog.invoices"
+      >
+        <div class="inner-wrap">
+          <div class="doc-preview">
+            <a [href]="item.invoice_path" target="_blank">
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="ellipsis img-doc-name-mar">
+            <a [href]="item.invoice_path" target="_blank">
+              <span class="img-doc-name">{{ item.invoice_name }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<div class="dialog" *ngIf="dialog.action == 'AUDIT-CONFIRMATION'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>{{ dialog.header }}</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <div class="dialog-txt">
+      <div>{{ dialog.message }}</div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="remove-btn"
+        mat-raised-button
+        class="trea-btn"
+        (click)="deleteAPICall()"
+      >
+        Confirm
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row text-center">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>

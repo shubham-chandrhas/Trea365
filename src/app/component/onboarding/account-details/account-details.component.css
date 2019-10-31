@@ -1,0 +1,85 @@
+
+.newSupBtn {margin-top: 35px;}
+.account .topLogo img{ width: 230px;margin: 30px auto; }
+
+.trea-welcome {
+  background: #efefef;
+  padding: 20px;
+  margin: 20px;
+}
+.trea-welcome h1 {
+  text-align: center;
+}
+
+.account .compLogo {
+    max-width: 100px;
+    max-height: 100px;
+    min-height: 40px;
+    border: 1px solid #CCC;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.accountDetailsWrap{
+    max-width: 600px;
+    margin: 30px auto;
+}
+.promaryAccountFormBody .control-label{
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.promaryAccountFormBody .Marl15{
+	margin-left: -15px;
+}
+.promaryAccountFormBody .newUserbtnwrap .btn {
+    background-image: url("/assets/icon/icon-16.png");
+    display: inline-block;
+    padding: 9px;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    margin-right: 25px;
+}
+.promaryAccountFormBody .closeBtnWrap img{
+	margin-bottom: 3px;
+    margin-left:-15px;
+}
+.promaryAccountFormBody  .compOrg{
+	margin-right: 15px;
+    margin-top: 20px;
+    max-width: 36%;
+}
+.promaryAccountFormBody  .closeBtn{
+	position: absolute;
+    margin-top: 20px;
+}
+ .logo-upload input[type="file"]{
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.promaryAccountFormBody .lgBtn{
+	width:120px;
+    margin-top: 49px;
+    overflow: hidden;
+    position: relative;
+    float:right;
+}
+.primaryFormBtnWrap .lgBtn{
+    float: initial;
+}
+.accountDetailWrap .newUserbtnwrap{
+	margin-top: 40px;
+}
+.link-clr{ color: #00A499 }

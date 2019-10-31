@@ -1,0 +1,116 @@
+
+
+.servicesForm .table td input{
+  vertical-align:middle;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+ box-shadow: none;
+ // border: 1px solid #D1D1D1;
+  font-size: inherit;
+  overflow: hidden;
+  padding: 1px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  outline: 0;
+  height: 25px;
+}
+.servicesForm .table th{
+  padding: 8px;
+}
+.servicesForm .table td,
+.servicesForm .table th{
+  vertical-align: top;
+  border: 0px;
+}
+.servicesForm .table td{
+  font-weight: normal;
+}
+.servicesForm .tAmtTxt{
+  text-align:right;
+  padding: 30px 8px;
+  font-weight: 700!important;
+}
+.servicesForm .tAmtVal{
+  padding: 30px 8px;
+  font-weight: 700!important;
+}
+.inputService{
+  width: 150px;
+}
+.inputCost,
+.inputQty,
+.inputAmt{
+  width: 90px;
+}
+.inputDetail{
+  outline: 0;
+}
+.addIcon{
+  margin-left: 20px;
+}
+.addIcon>img,
+.closeIcon>img{
+  max-width: 100%;
+  vertical-align: text-top;
+  cursor: pointer;
+}
+.addIcon>span,
+.closeIcon>span{
+  /* cursor: pointer; */
+  padding-left: 10px;
+}
+
+/* Auto Complete Drop down list Css Start */
+
+.autoCompleteList .searchList{
+    padding: 0px;
+  }
+  .autoCompleteList .searchList .search-icn{
+    left: 0px;
+  }
+  .autoCompleteList .searchList .mat-input-element {
+    /* padding-left: 30px; */
+    padding-left: 5px;
+  }
+  .searchList .mat-form-field-infix {
+    border: 1px solid #d1d1d1;
+    padding: 0px !important;
+    width: 160px;
+  }
+  .mat-input-infix{
+    padding: 5px 0px!important;
+  }
+  .selectBoxIcon{
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 25px;
+  }
+  .autoCompleteList .searchList .mat-form-field-wrapper{ padding-bottom: 0px; }
+.vs{visibility: hidden}
+
+/*ON THE FLY ADD PRODUCT ADDING*/
+.OTFClass form .MARB5{ margin-bottom: 5px !important; }
+.OTFClass .addUserFormBody{ padding: 10px; }
+.OTFClass form{ margin: 0px auto; }
+.OTFClass form .prodInfo, .OTFClass form .storageDetailCover h4{ margin-bottom: 0px; }
+.OTFClass form .storageDetailCover{ margin: 15px 0px 20px 0px; }
+.OTFClass form .addFormBtnWrap{ margin: 5px 0px; }
+.OTFClass .errMsgCon{ margin-bottom: 15px; }
+.OTFClass .price{max-width: 100px;}
+/*END ON THE FLY ADD PRODUCT ADDING*/
+
+@media screen and (max-width:767px) {
+.table-responsive {
+    border: none;
+}
+}
+.servicesForm .error-msg {
+  color: #F44336;
+  font-size: smaller;
+  font-weight: normal;
+  line-height: 14px;
+  /* position: absolute; */
+  display: block;
+}

@@ -1,0 +1,88 @@
+.newAuditWrap{ padding: 0px 20px; }
+.search-section{ float: left; margin-bottom: 10px; }
+.search-section .input-group{ border: 1px solid #CCCCCC; }
+.search-section .form-control{ border: none; width: 170px; height: 30px; padding-left: 0px; }
+.search-section .form-control:hover, .search-section .form-control:focus{ outline: 0px; }
+
+  .treaBtn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+  }
+  .treaRadioBtn [type="radio"]:checked + label, .treaRadioBtn [type="radio"]:not(:checked) + label {
+    font-weight: 500;
+}
+.newAuditWrap .auditorList{
+    /* max-width: 200px; */
+}
+.newAuditWrap .editBtn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+.locationSection .treaRadioBtn{
+    float: left;
+    margin-right: 20px;
+}
+.locationSection .locByBarcode{
+    font-weight: 500;
+}
+.btnWrap{
+    margin: 20px auto;
+    text-align: center;
+}
+
+.trea-data-table{
+    margin-bottom: 20px;
+  }
+  .trea-data-table table{ margin-top: 10px; border: 2px solid #CCCCCC; margin-bottom: 0;} 
+  .trea-data-table table>thead{ background-color: #7E7E7E; color: #FFFFFF; }
+  .trea-data-table table>thead>tr>th{ 
+    font-weight: 600; 
+    font-size: 14px; 
+    height: 80px;
+    vertical-align: top;
+    text-align: center;
+  }
+  .trea-data-table table>tbody>tr>td{ font-size: 14px; padding-left: 24px; }
+  .trea-data-table .bdr-left{ border-left: 1px solid #FFFFFF; }
+  .trea-data-table  .table-hdr{ height: 100%; padding-left: 14px; }
+  .trea-data-table input{
+    background-color: #7e7e7e;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-bottom: 2px solid #FFFFFF;
+    border-radius: 0px;
+    box-shadow: none;
+    color: #FFFFFF;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+  .trea-data-table table>tbody>tr:hover{ cursor: pointer;color: #505050; background-color: #FFCB36; }
+  .trea-data-table .sel-row-highlight{ color: #505050; background-color: #FFCB36; }
+
+  
+@media screen and (max-width:420px) {
+    .search-section .form-control{ 
+      width: 140px;
+     }
+    .search-section .client-btn{
+      min-width: 77px;
+     }
+  }
+
+.locationSection .form-group{
+    margin-bottom: 10px;
+}
+/* .locationSection .error-msg{
+   position: relative;
+} */

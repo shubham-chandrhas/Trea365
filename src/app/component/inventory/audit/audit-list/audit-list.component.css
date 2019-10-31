@@ -1,0 +1,271 @@
+.inventory-section {
+  padding: 0px 20px;
+}
+.inventory-section .search-section {
+  float: left;
+  margin-bottom: 10px;
+}
+.inventory-section .add-client {
+  float: right;
+}
+.inventory-section .client-btn,
+.dialog .client-btn {
+  background-color: #00a499;
+  color: #ffffff;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+}
+
+.inventory-section .additional-field {
+  font-weight: 600;
+}
+.search-section .input-group {
+  border: 1px solid #cccccc;
+}
+.search-section .form-control {
+  border: none;
+  width: 170px;
+  height: 30px;
+  padding-left: 0px;
+}
+.inventory-section .filter-search {
+  float: left;
+}
+.inventory-section .filter-label {
+  line-height: 30px;
+  padding: 0px 10px 0px 20px;
+  font-size: 14px;
+}
+.inventory-section .added-filter {
+  line-height: 30px;
+  padding: 0px 10px;
+  margin: 0px 5px;
+  background-color: #f1bc4e;
+  font-size: 14px;
+}
+.inventory-section .added-filter .fa-times {
+  color: #cd5023;
+  cursor: pointer;
+}
+.search-section .form-control:hover,
+.search-section .form-control:focus,
+.inventory-section .client-btn:hover,
+.inventory-section .client-btn:focus {
+  outline: 0px;
+}
+.inventory-section .fa-signal {
+  cursor: pointer;
+}
+
+/* .trea-btn:hover,
+.client-btn:hover {
+    color: #505050!important;
+    background-color: #FFCB36!important;
+} */
+
+.trea-data-table {
+  margin: 0;
+}
+.trea-data-table table {
+}
+.trea-data-table table > thead {
+  background-color: #7e7e7e;
+  color: #ffffff;
+}
+.trea-data-table table > thead > tr > th {
+  font-weight: 600;
+  font-size: 14px;
+  height: 80px;
+  vertical-align: top;
+  text-align: center;
+}
+.trea-data-table table > tbody > tr > td {
+  font-size: 14px;
+  padding-left: 24px;
+}
+.trea-data-table .bdr-left {
+  border-left: 1px solid #ffffff;
+}
+.trea-data-table .table-hdr {
+  height: 100%;
+  padding-left: 14px;
+}
+.trea-data-table input {
+  background-color: #7e7e7e;
+  border-right: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid #ffffff;
+  border-radius: 0px;
+  box-shadow: none;
+  color: #ffffff;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.trea-data-table table > tbody > tr:hover {
+  cursor: pointer;
+  color: #505050;
+  background-color: #ffcb36;
+}
+.trea-data-table .sel-row-highlight {
+  color: #505050;
+  background-color: #ffcb36;
+}
+
+.auditListBtnWrap button {
+  background-color: #00a499;
+  color: #ffffff;
+  border-radius: 0px;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-top: 10px;
+  margin-right: 15px;
+}
+.auditListBtnWrap button:hover {
+  color: #505050 !important;
+  background-color: #ffcb36 !important;
+}
+.selSection {
+  max-width: 1070px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+.selSection .label-col {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 30px;
+}
+.selSection .info-col {
+  font-size: 14px;
+  line-height: 25px;
+}
+.auditorDetails {
+  margin-bottom: 60px;
+}
+.qtyTxtIn {
+  text-align: center;
+}
+.qtyTxtIn > input {
+  width: 60px;
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
+  color: #505050;
+  margin-top: 2px;
+  padding: 3px;
+}
+
+.proQtyTbl {
+  margin-top: 15px;
+}
+.addDataBtnWrap,
+.exportReportBtnWrap {
+  margin: 50px auto;
+  text-align: center;
+}
+.auditListBtnWrap {
+  margin-bottom: 10px;
+}
+.addDataBtnWrap .lgBtn {
+  width: 140px;
+  margin-left: 10px;
+}
+.exportReportBtnWrap .lgBtn {
+  width: 170px;
+  margin-left: 20px;
+}
+@media screen and (max-width: 767px) {
+  .addDataBtnWrap .lgBtn {
+    margin-left: 5px;
+    width: 110px;
+    padding: 5px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .addDataBtnWrap .lgBtn {
+    width: 75px;
+    margin-left: 5px;
+    padding: 5px;
+  }
+  .search-section .form-control {
+    width: 140px;
+  }
+  .search-section .client-btn {
+    min-width: 77px;
+  }
+}
+
+.invoiceDetTbl {
+  margin: 40px auto;
+}
+.invoiceDetTbl .table {
+  margin-bottom: 20px;
+}
+.invoiceDetTbl .table tbody tr td a,
+.trea-data-table .table tbody tr td a {
+  color: #00a499;
+  text-decoration: underline;
+}
+
+.invoiceDetTbl .table > thead > tr > th,
+.invoiceDetTbl .table > tbody > tr > td {
+  vertical-align: middle;
+  /* text-align: center; */
+}
+.invoiceDetTbl .table > tbody > tr > td {
+  border-bottom: 1px solid #7e7e7e; /* @Shahebaz */
+}
+
+.invoiceDetTbl .table > thead > tr > th {
+  border-top: 1px solid #7e7e7e;
+  border-bottom: 1px solid #7e7e7e;
+  min-width: 100px;
+}
+.invoiceDetTbl .table > tfoot > tr > td {
+  border-top: 1px solid;
+  min-width: 100px;
+}
+/* .invoiceDetTbl .table > thead > tr > th:first-child,
+.invoiceDetTbl .table > tbody > tr > td:first-child{
+    width: 350px;
+} */
+
+.invoiceDetTbl table tr td .inputQty {
+  max-width: 100px;
+}
+.sel-row-red {
+  color: red;
+}
+.custom-align {
+  text-align: left; /* @Shahebaz */
+  padding-right: 3rem;
+}
+
+/* CSS for New Onboarding Process @Shubham : 03/06/2019 */
+.inventory-section .trea-welcome
+{
+    margin: auto;
+}
+.trea-welcome {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 700px;
+}
+.trea-welcome h4 {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+}
+.textJustified {
+    text-align: justify;
+    font-size: 14px;
+}
+.note {
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 500;
+}

@@ -1,0 +1,1127 @@
+<div class="locationsWrap">
+  <div class="location-section">
+    <h3 class="pageTitle">Invoices</h3>
+
+    <div class="trea-welcome" *ngIf="invoiceList.length == 0 && onBoarding">
+            <h4>There are no Invoices yet.</h4>
+            <p class="textJustified">
+                Invoices for services rendered to Clients can be created based on Project Estimates. Agreed payment terms are recorded as Receivables. Payment against each invoice can be recorded here.
+            </p>
+            <p class="textJustified">
+                Invoices will be listed here when an authorized user has created one.
+            </p>
+            <p class="textJustified">
+                Project Estimates must be created before an Invoice can be made.
+            </p>
+            <div class="button-row clearfix" *ngIf="util.getRole() == 2 || createInvoicePermission.createInvoice">
+                
+              <button 
+                mat-raised-button
+                class="trea-btn"
+                type="button"
+                [routerLink]="['/account/csa/new-invoice']"
+              >
+               Create an Invoice
+              </button>
+              
+            </div>
+            <div class="clearfix" *ngIf="util.getRole() != 2 && !createInvoicePermission.createInvoice">
+                <p class="note">Please contact an administrator who can add Invoice</p> 
+            </div>          
+        </div>
+
+    <div class="financials-overview" *ngIf="invoiceList.length != 0">
+      <div class="widgetWrap">
+        <div class="col-sm-6">
+          <div class="contentBox">
+            <div class="midText">Total Amount</div>
+            <div class="amtTxt txt-green">
+              {{ totalAmount | currency: util.getCurrency():"symbol-narrow" }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="contentBox">
+            <div class="midText">Total Amount Remaining</div>
+            <div class="amtTxt txt-red">
+              {{
+                remainingAmount | currency: util.getCurrency():"symbol-narrow"
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="add-invoice" *ngIf="invoiceList.length != 0">
+      <button
+        *ngIf="util.getRole() == 2 || createInvoicePermission.createInvoice"
+        mat-raised-button
+        class="client-btn"
+        type="button"
+        [routerLink]="['/account/csa/new-invoice']"
+      >
+        New Invoice
+      </button>
+    </div>
+    <div class="head-row clearfix" *ngIf="invoiceList.length != 0">
+      <div class="search-section">
+        <div class="input-group">
+          <span class="search-icn" id="basic-addon1">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </span>
+          <input
+            autocomplete="nope"
+            [(ngModel)]="searchList"
+            type="text"
+            (ngModelChange)="getSearchTxt(searchList)"
+            class="form-control"
+            placeholder=""
+            aria-label=""
+            aria-describedby="basic-addon1"
+          />
+          <button
+            mat-raised-button
+            class="client-btn"
+            (click)="searchTxt = searchList"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+      <!-- <div class="add-client newPurhaseBtnWrap">
+                <button mat-raised-button class="client-btn" type="button" (click)="newInvoice()">New Invoice
+                </button>
+            </div> -->
+    </div>
+    <div class="clearfix"></div>
+
+    <div>
+      <div class="trea-data-table" *ngIf="invoiceList.length != 0">
+        <!-- twoTblTop -->
+        <table class="table table-striped ">
+          <thead>
+            <tr>
+              <th width="300">
+                <div class="table-hdr">
+                  <div>
+                    <span>Invoice No.</span>
+                    <span
+                      (click)="
+                        sortColumn = 'invoice_no';
+                        sortColumnType = 'A';
+                        sortOrder =
+                          sortColumn === 'invoice_no'
+                            ? sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          sortColumn == 'invoice_no' && sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="invoiceNoSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+
+              <th width="180">
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Date Created</span>
+                    <span
+                      (click)="
+                        sortColumn = 'invoice_date';
+                        sortColumnType = 'A';
+                        sortOrder =
+                          sortColumn === 'invoice_date'
+                            ? sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          sortColumn == 'invoice_date' && sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="invoiceDate"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th width="180">
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Status</span>
+                    <span
+                      (click)="
+                        sortColumn = 'status';
+                        sortColumnType = 'A';
+                        sortOrder =
+                          sortColumn === 'status'
+                            ? sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          sortColumn == 'status' && sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="statusSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th width="250">
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Due Date</span>
+                    <span
+                      (click)="
+                        sortColumn = 'due_date';
+                        sortColumnType = 'A';
+                        sortOrder =
+                          sortColumn === 'due_date'
+                            ? sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          sortColumn == 'due_date' && sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="dateSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th width="250">
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Client</span>
+                    <span
+                      (click)="
+                        sortColumn = 'client_name';
+                        sortColumnType = 'A';
+                        sortOrder =
+                          sortColumn === 'client_name'
+                            ? sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          sortColumn == 'client_name' && sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="clientSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th width="250">
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Total Amount</span>
+                    <span
+                      (click)="
+                        sortColumn = 'total_payment_amount';
+                        sortColumnType = 'N';
+                        sortOrder =
+                          sortColumn === 'total_payment_amount'
+                            ? sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          sortColumn == 'total_payment_amount' &&
+                          sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="amountSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th width="250">
+                <div class="bdr-left table-hdr">
+                  <div>
+                    <span>Amount Remaining</span>
+                    <span
+                      (click)="
+                        sortColumn = 'remaining_amount';
+                        sortColumnType = 'N';
+                        sortOrder =
+                          sortColumn === 'remaining_amount'
+                            ? sortOrder === 'ASC'
+                              ? 'DSC'
+                              : 'ASC'
+                            : 'ASC'
+                      "
+                    >
+                      <i
+                        [ngClass]="
+                          sortColumn == 'remaining_amount' && sortOrder == 'ASC'
+                            ? 'fa-rotate-90'
+                            : 'fa-rotate-270'
+                        "
+                        class="fa fa-signal"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
+                  <div>
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="amountRSearch"
+                    />
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let indx = index;
+                let invoice;
+                of: (invoiceList
+                  | sortBy: sortColumn:sortOrder:sortColumnType
+                  | searchfilter: invoiceNoSearch:'invoice_no'
+                  | searchfilter: invoiceDate:'invoice_date'
+                  | searchfilter: statusSearch:'status'
+                  | searchfilter: clientSearch:'client_name'
+                  | searchfilter: dateSearch:'due_date'
+                  | searchfilter: amountSearch:'total_payment_amount'
+                  | searchfilter: amountRSearch:'remaining_amount'
+                  | searchfilter
+                    : searchTxt
+                    : 'status,due_date,client_name,invoice_no,total_payment_amount,remaining_amount,invoice_date'
+                  | listLengthfilter
+                  | paginate: paginationKey)
+              "
+              (click)="getSelectedInvoice(invoice, indx)"
+              [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''"
+            >
+              <td>
+                {{ invoice.invoice_no }}
+              </td>
+              <td>
+                {{ invoice.invoice_date }}
+              </td>
+              <td>
+                {{ invoice.status }}
+              </td>
+              <td>
+                <span class="dn">{{
+                  indx == 0 ? updateCount(invoice.count) : ""
+                }}</span>
+                {{ invoice.due_date }}
+              </td>
+              <td>
+                {{ invoice.client_name }}
+              </td>
+              <td class="qty-cost">
+                {{
+                  invoice.total_payment_amount
+                    | currency: util.getCurrency():"symbol-narrow"
+                }}
+              </td>
+              <td class="qty-cost">
+                {{
+                  invoice.remaining_amount
+                    | currency: util.getCurrency():"symbol-narrow"
+                }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <table class="twoTblBottom">
+                    <tbody>
+                        <tr>
+                            <td width="400"></td>
+                            <td width="400"></td>
+                            <td width="400"></td>
+                            <td width="400"></td>
+                            <td width="400">$564654654</td>
+                            <td width="400">$564654654</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+      </div>
+      <div class="clearfix"></div>
+
+      <div
+        class="treaPagination"
+        *ngIf="invoiceList.length != 0 && constant.ITEM_COUNT != 0"
+      >
+        <div class="pull-right">
+          <span>
+            {{
+              1 + (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+            }}
+            -
+            {{
+              paginationKey.itemsPerPage <= listCount &&
+              paginationKey.itemsPerPage +
+                (paginationKey.currentPage - 1) * paginationKey.itemsPerPage <=
+                listCount
+                ? paginationKey.itemsPerPage +
+                  (paginationKey.currentPage - 1) * paginationKey.itemsPerPage
+                : listCount
+            }}</span
+          ><span> of {{ listCount }} items</span>
+        </div>
+        <div class="pull-right">
+          <select
+            [(ngModel)]="paginationKey.itemsPerPage"
+            (change)="util.changeItemPerPage()"
+          >
+            <option
+              *ngFor="let pageNo of constant.PAGINATION_ITEMS"
+              [ngValue]="pageNo"
+            >
+              {{ pageNo }}
+            </option>
+          </select>
+          <span> items per page</span>
+        </div>
+        <div class="pull-right">
+          <pagination-controls
+            (pageChange)="util.changePage($event, paginationKey)"
+            directionLinks="true"
+            autoHide="false"
+            previousLabel="Pre"
+            nextLabel="Next"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page"
+          >
+          </pagination-controls>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+  <div id="invoiceMark" class="invoiceReviewSection" *ngIf="selectedInvoice">
+    <div class="pageTitle">
+      Invoice No. {{ selectedInvoice.invoice_no }} ({{
+        selectedInvoice.status_detail.status
+      }})
+    </div>
+
+    <div class="headInfoWrap">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="label-col">Date</div>
+            </div>
+            <div class="col-sm-8">
+              <div class="info-col">
+                {{ util.getFormatedDate(selectedInvoice.invoice_date) }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="label-col">Client</div>
+            </div>
+            <div class="col-sm-8">
+              <div class="info-col">
+                {{
+                  selectedInvoice.client.company_name
+                    ? selectedInvoice.client.company_name
+                    : selectedInvoice.client.first_name +
+                      " " +
+                      selectedInvoice.client.last_name
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="label-col">Quotation No.</div>
+            </div>
+            <div class="col-sm-8">
+              <div class="info-col">
+                <a
+                  href="javascript:void(0)"
+                  class="email"
+                  [routerLink]="[
+                    '/workflow/quote/csa/quotation-list/',
+                    selectedInvoice.project_estimate.project_estimate_id
+                  ]"
+                  >{{
+                    selectedInvoice.project_estimate
+                      ? selectedInvoice.project_estimate.project_estimate_no
+                      : "N/A"
+                  }}</a
+                >
+              </div>
+            </div>
+          </div>
+          <!--<div class="row">
+                        <div class="col-sm-4">
+                            <div class="label-col">Work Order No.</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="info-col"><a href="javascript:void(0)" class="email">{{selectedInvoice.work_order ? selectedInvoice.work_order.work_order_no : 'N/A' }}</a></div>
+                        </div>
+                    </div>-->
+
+          <div
+            class="row"
+            *ngIf="selectedInvoice.project_estimate.work_orders.length > 0"
+          >
+            <div class="col-sm-4">
+              <div class="label-col">Work Order No.</div>
+            </div>
+            <div class="col-sm-8">
+              <div
+                class="info-col"
+                *ngFor="
+                  let workorder of selectedInvoice.project_estimate.work_orders
+                "
+              >
+                <a
+                  href="javascript:void(0)"
+                  class="email"
+                  [routerLink]="[
+                    '/workflow/wo/csa/work-order-list/',
+                    workorder.work_order_id
+                  ]"
+                  >{{ workorder.work_order_no }}</a
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="row"
+            *ngIf="selectedInvoice.project_estimate.work_orders.length == 0"
+          >
+            <div class="col-sm-4">
+              <div class="label-col">Work Order No.</div>
+            </div>
+            <div class="col-sm-8">
+              <div class="info-col">N/A</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="label-col">Billing Address</div>
+            </div>
+            <div class="col-sm-5">
+              <div class="info-col">
+                {{
+                  selectedInvoice.client_billing_details
+                    ? util.concatenateStrings(
+                        selectedInvoice.client_billing_details.address_line_2,
+                        selectedInvoice.client_billing_details.address_line_1
+                      )
+                    : "N/A"
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="invoiceDetTbl">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Services and Materials</th>
+              <th class="text-right">Cost</th>
+              <th class="text-right">Quantity</th>
+              <th class="text-right">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let indx = index;
+                let service;
+                of: selectedInvoice.services
+              "
+            >
+              <td>
+                {{
+                  service.ad_hoc_service
+                    ? service.ad_hoc_service
+                    : service.service_definition.service_definition
+                }}
+              </td>
+              <td>
+                <div class="text-right">
+                  {{
+                    service.cost | currency: util.getCurrency():"symbol-narrow"
+                  }}
+                </div>
+              </td>
+              <td>
+                <div class="text-right">{{ service.quantity }}</div>
+              </td>
+              <td>
+                <div class="text-right">
+                  {{
+                    service.amount
+                      | currency: util.getCurrency():"symbol-narrow"
+                  }}
+                </div>
+              </td>
+            </tr>
+
+            <tr
+              *ngFor="
+                let indx = index;
+                let pro_mat;
+                of: selectedInvoice.product_materials
+              "
+            >
+              <td>
+                {{
+                  pro_mat.manf_part
+                    ? pro_mat.manf_part.short_name
+                    : pro_mat.details
+                }}
+              </td>
+              <td>
+                <div class="text-right">
+                  {{
+                    pro_mat.cost | currency: util.getCurrency():"symbol-narrow"
+                  }}
+                </div>
+              </td>
+              <td>
+                <div class="text-right">{{ pro_mat.quantity }} <span class="">&nbsp;{{pro_mat.manf_part ? pro_mat.manf_part.uom_name.uom_symbol : ''}}</span></div>
+              </td>
+              <td>
+                <div class="text-right">
+                  {{
+                    pro_mat.amount
+                      | currency: util.getCurrency():"symbol-narrow"
+                  }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="payScheduleWrap">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="label-col align">Payment Schedule</div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date Due</th>
+                  <th>Amount Due</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let payment of selectedInvoice.payment_schedules">
+                  <td>{{ util.getFormatedDate(payment.payment_date) }}</td>
+                  <td>
+                    <div class="col-sm-6 qty-cost">
+                      {{
+                        payment.amount_due
+                          | currency: util.getCurrency():"symbol-narrow"
+                      }}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="label-col no-padding">Subtotal</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="label-col no-padding">
+                {{
+                  selectedInvoice.subtotal
+                    | currency: util.getCurrency():"symbol-narrow"
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="label-col">Shipping and Handling</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="label-col">
+                {{
+                  selectedInvoice.shipping_and_handling
+                    | currency: util.getCurrency():"symbol-narrow"
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="label-col">Adjustment</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="label-col">
+                {{
+                  selectedInvoice.adjustment
+                    | currency: util.getCurrency():"symbol-narrow"
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="label-col">
+                <span>Taxes</span> <span>{{ selectedInvoice.taxes }}</span>
+                <span> %</span>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="label-col">
+                {{
+                  selectedInvoice.tax_amount
+                    | currency: util.getCurrency():"symbol-narrow"
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="label-col">Total Payment Amount</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="label-col">
+                {{
+                  selectedInvoice.total_payment_amount
+                    | currency: util.getCurrency():"symbol-narrow"
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="row" style="color: #d0021B;">
+            <div class="col-sm-8">
+              <div class="label-col">Remaining Payment Amount</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="label-col">
+                {{
+                  selectedInvoice.remaining_amount
+                    | currency: util.getCurrency():"symbol-narrow"
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="label-col">Due Date</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="label-col">
+                {{ util.getFormatedDate(selectedInvoice.due_date) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="commentSection">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="label-col align">Notes</div>
+          <div class="info-col">
+            {{ selectedInvoice.notes }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="errMsgCon" *ngIf="isError">
+            <small>{{errMsg}}</small>
+        </div> -->
+
+    <div
+      class="Content"
+      *ngIf="
+        (util.getRole() == 2 || permissionsSet.recordPayment) &&
+        selectedInvoice.received_payments.length > 0
+      "
+    >
+      <div class="pageTitle">Payment Details</div>
+      <form autocomplete="off" role="form">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-sm-4 text-center">Payment Date</th>
+                <th class="text-right" width="">Payment Amount</th>
+                <th class="text-center" width="">Payment Method</th>
+                <th class="text-center" width="">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let r_payment of selectedInvoice.received_payments">
+                <td class="col-sm-4 text-center">
+                  {{ util.getFormatedDate(r_payment.payment_date) }}
+                </td>
+                <td class="text-right">
+                  {{
+                    r_payment.payment_amount
+                      | currency: util.getCurrency():"symbol-narrow"
+                  }}
+                </td>
+                <td class="text-center">
+                  {{
+                    r_payment.payment_method ? r_payment.payment_method : "N/A"
+                  }}
+                </td>
+                <td class="text-center">
+                  {{
+                    r_payment.payment_reference
+                      ? r_payment.payment_reference
+                      : "N/A"
+                  }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="clearfix"></div>
+        </div>
+      </form>
+    </div>
+    <div class="button-row">
+      <!-- <button mat-raised-button class="trea-btn" routerLink="/account/csa/create-invoice">Edit</button> -->
+      <button
+        *ngIf="
+          (util.getRole() == 2 || permissionsSet.sendInvoice) &&
+          selectedInvoice.remaining_amount > 0
+        "
+        mat-raised-button
+        class="trea-btn"
+        (click)="sendInvoice()"
+        id="sendInv"
+      >
+        Send Invoice
+      </button>
+      <button
+        *ngIf="
+          (util.getRole() == 2 || permissionsSet.recordPayment) &&
+          selectedInvoice.remaining_amount > 0
+        "
+        mat-raised-button
+        class="trea-btn"
+        [ngClass]="isRecord ? 'act-option ptrN' : ''"
+        (click)="recordPay()"
+      >
+        Record Payment
+      </button>
+
+      <!-- <button *ngIf="util.getRole() == 2" class="trea-btn" mat-raised-button (click)="downloadPDF(selectedInvoice.pdfLink)">
+          Download
+      </button> -->
+      <button *ngIf="util.getRole() == 2"
+        class="trea-btn"
+        mat-raised-button
+        (click)="preview(selectedInvoice.preview)"
+      >
+        Preview
+      </button>
+      <!-- <button mat-raised-button class="trea-btn">Cancel </button> -->
+    </div>
+    <div
+      class="invoicepayDetTbl"
+      *ngIf="isRecord && (util.getRole() == 2 || permissionsSet.recordPayment)"
+    >
+      <div class="pageTitle">Payment Details</div>
+      <form autocomplete="off" role="form" [formGroup]="recordPayForm">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th width=""></th>
+                <th width="">Payment Date</th>
+                <th width="">Payment Amount</th>
+                <th width="">Payment Method</th>
+                <th width="">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of items.controls; let indxP = index"
+                [formGroup]="item"
+              >
+                <td>
+                  <a href="javascript:void(0)" (click)="removeItem(indxP)"
+                    ><img *ngIf="indxP != 0" src="assets/icon/close_icon.png"
+                  /></a>
+                </td>
+                <td>
+                  <div class="form-group clearfix">
+                    <div class="dateWrapper">
+                      <!-- [min]="minDate"> -->
+                      <input
+                        autocomplete="nope"
+                        type="text"
+                        formControlName="payment_date"
+                        class="date"
+                        [matDatepicker]="picker"
+                        style="pointer-events: none;"
+                        readonly="true"
+                      />
+                      <!-- [min]="minDate" -->
+                      <!-- (selectedChanged)="updatePaymentDate($event,indx)" -->
+                      <mat-datepicker #picker></mat-datepicker>
+                      <span class="dateIcon" (click)="picker.open()"
+                        ><img src="assets/icon/date_picker.png"
+                      /></span>
+                      <div class="clearfix"></div>
+                      <span
+                        class="error-msg"
+                        *ngIf="
+                          item.get('payment_date').invalid &&
+                          (item.get('payment_date').dirty ||
+                            item.get('payment_date').touched ||
+                            submittedPay)
+                        "
+                      >
+                        <small *ngIf="item.get('payment_date').errors.required"
+                          >Payment Date is required.</small
+                        >
+                        <small *ngIf="item.get('payment_date').errors.min"
+                          >Please enter upcoming date.</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group clearfix">
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      formControlName="payment_amount"
+                      (keyup)="util.removeCommas(item.get('payment_amount'))"
+                    />
+                    <div class="clearfix"></div>
+                    <span
+                      class="error-msg"
+                      *ngIf="
+                        item.get('payment_amount').invalid &&
+                        (item.get('payment_amount').dirty ||
+                          item.get('payment_amount').touched ||
+                          submittedPay)
+                      "
+                    >
+                      <small *ngIf="item.get('payment_amount').errors.required"
+                        >Payment Amount is required.</small
+                      >
+                      <small *ngIf="item.get('payment_amount').errors.pattern"
+                        >Invalid Payment Amount.</small
+                      >
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group clearfix">
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      formControlName="payment_method"
+                    />
+                    <div class="clearfix"></div>
+                    <span
+                      class="error-msg"
+                      *ngIf="
+                        item.get('payment_method').invalid &&
+                        (item.get('payment_method').dirty ||
+                          item.get('payment_method').touched ||
+                          submittedPay)
+                      "
+                    >
+                      <small *ngIf="item.get('payment_method').errors.required"
+                        >Payment Method is required.</small
+                      >
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group clearfix">
+                    <input
+                      autocomplete="nope"
+                      type="text"
+                      formControlName="payment_reference"
+                    />
+                    <div class="clearfix"></div>
+                    <span
+                      class="error-msg"
+                      *ngIf="
+                        item.get('payment_reference').invalid &&
+                        (item.get('payment_reference').dirty ||
+                          item.get('payment_reference').touched ||
+                          submittedPay)
+                      "
+                    >
+                      <small
+                        *ngIf="item.get('payment_reference').errors.required"
+                        >Payment Reference is required.</small
+                      >
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="clearfix"></div>
+          <span
+            class="addIcon cursorPtr"
+            (click)="addItem('0')"
+            *ngIf="selectedInvoice.remaining_amount > 0"
+          >
+            <img src="assets/icon/icon-add.png" /><span>Add Payment</span>
+          </span>
+        </div>
+        <div class="errMsgCon" *ngIf="isError">
+          <small>{{ errMsg }}</small>
+        </div>
+        <div class="button-row">
+          <button
+            mat-raised-button
+            class="trea-btn"
+            (click)="saveRecordPay(recordPayForm)"
+            id="savePay"
+            *ngIf="selectedInvoice.remaining_amount > 0"
+          >
+            Save
+          </button>
+          <button mat-raised-button class="trea-btn" (click)="recordPay()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- <div class="payDetBtns clearfix text-right">
+            <button mat-raised-button class="client-btn">Record Payment</button>
+        </div> -->
+  </div>
+</div>

@@ -1,0 +1,40 @@
+
+.prodInfoRevWrap { width: 100%; margin: 30px auto;}
+.prodInfoRevWrap .form-group {margin-bottom: 25px;}
+.prodInfoRevWrap form label {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+    padding-top: 3px;
+}
+.prodInfoRevTbl {margin-bottom: 25px; padding: 0px 8px;}
+.prodInfoRevTbl .table > thead > tr > th, 
+.prodInfoRevTbl .table > tbody > tr > th, 
+.prodInfoRevTbl .table > tfoot > tr > th, 
+.prodInfoRevTbl .table > thead > tr > td, 
+.prodInfoRevTbl .table > tbody > tr > td, 
+.prodInfoRevTbl .table > tfoot > tr > td {
+    border-top:none;
+}
+.prodInfoRevTbl .table > tbody > tr > td {
+    font-weight: 400;
+    overflow-wrap: break-word;
+    max-width: 250px;
+}
+.prodInfoRevBtn {margin-top: 25px;}
+
+/* .prodInfoRevTbl .table tr th:nth-child(1){
+    width: 35%;
+} */
+.errMsgCon{ text-align: center; }
+.errMsgCon small{ 
+    color: #F44336;
+    font-size: smaller;
+}
+.productReviewCover{
+    max-width: 620px;
+    margin: 0 auto;
+}
+/*On the fly product*/
+.OTFClass .prodInfoRevWrap{ margin: 0px auto; }
+.OTFClass .prodInfoRevWrap .form-group{ margin-bottom: 10px; }

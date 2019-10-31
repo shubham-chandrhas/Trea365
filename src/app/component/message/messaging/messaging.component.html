@@ -1,0 +1,193 @@
+<div class="clearfix"></div>
+<div class="massagingSection">
+  <div class="pageTitle">Messaging</div>
+  <div class="main-section clearfix">
+    <div class="col-sm-3 left-sidebar">
+      <div class="search-section" style="width: 100%;">
+        <span class="search-icn" id="basic-addon1">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+        <input
+          autocomplete="nope"
+          type="text"
+          class="form-control"
+          placeholder="Search Member"
+          [(ngModel)]="searchUser"
+        />
+      </div>
+      <div class="left-chat">
+        <p class="bold">Company Members</p>
+        <ul>
+          <li
+            *ngFor="
+              let companyUser of companyUsers
+                | sortBy: 'readStatus':'ASC':'N'
+                | searchfilter: searchUser:'first_name,last_name';
+              let indx = index
+            "
+            class="member_list"
+            (click)="showChat(companyUser, indx, 'companyUser')"
+            [ngClass]="
+              companyUser.selectedUser == companyUser.user_id &&
+              listType == 'companyUser'
+                ? 'sel-user-highlight'
+                : ''
+            "
+          >
+            {{
+              companyUser.first_name +
+                " " +
+                (companyUser.last_name ? companyUser.last_name : "")
+            }}<span
+              *ngIf="
+                companyUser.last_message &&
+                companyUser.last_message.is_seen == 0 &&
+                companyUser.last_message.sender_id != loggedInUser.id
+              "
+              class="unread-msg"
+            ></span>
+          </li>
+        </ul>
+
+        <p class="bold">Recent</p>
+        <ul>
+          <li
+            *ngFor="
+              let item of recentChatsUsers
+                | searchfilter: searchUser:'first_name,last_name';
+              let indx = index
+            "
+            class="member_list"
+            (click)="showChat(item, indx, 'recentChatsUser')"
+            [ngClass]="
+              item.selectedUser == item.user_id && listType == 'recentChatsUser'
+                ? 'sel-user-highlight'
+                : ''
+            "
+          >
+            {{ item.first_name + " " + (item.last_name ? item.last_name : "") }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-9 right-sidebar">
+      <div class="row">
+        <div class="col-md-12 right-header">
+          <div class="chatName bold">
+            <!--@ Shahebaz (Start)-->
+            <!-- <span> {{selectedCompanyUsersName}} </span> -->
+            <!--@ Shahebaz (End)-->
+
+          <!-- @Mohini -->
+          <span *ngIf="receiverName"> {{ receiverName }} </span>
+          <!-- @Mohini -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          id="msg-con"
+          class="col-md-12 right-header-contentChat"
+          style="padding-bottom: 30px;"
+          #msgScrollMe
+        >
+          <ul>
+            <li *ngFor="let chat of userMessages; let indx = index">
+              <div
+                id="msg{{ chat.message_id }}"
+                class="rightside-left-chat"
+                *ngIf="
+                  chat.sender_id == selectedCompanyUsersId &&
+                  chat.receiver_id == this.loggedInUser.id
+                "
+              >
+                <span>
+                  <small *ngIf="today <= createdAt[indx]">
+                    {{ chat.msgDate | date: "hh:mm a" }}, Today
+                  </small>
+                  <small
+                    *ngIf="
+                      today > createdAt[indx] && yesterday <= createdAt[indx]
+                    "
+                    >{{ chat.msgDate | date: "hh:mm a" }}, Yesterday
+                  </small>
+                  <small
+                    *ngIf="
+                      yesterday > createdAt[indx] && week <= createdAt[indx]
+                    "
+                    >{{ chat.msgDate | date: "hh:mm a, EE" }}
+                  </small>
+                  <small *ngIf="week > createdAt[indx]"
+                    >{{ chat.msgDate | date: "hh:mm a ,yyyy/M/d" }}
+                  </small>
+                </span>
+                <!-- <br><br> -->
+                <p  [innerHTML]="chat.message"></p>
+              </div>
+              <div
+                id="msg{{ chat.message_id }}"
+                class="rightside-right-chat"
+                *ngIf="
+                  chat.sender_id == this.loggedInUser.id &&
+                  chat.receiver_id == selectedCompanyUsersId
+                "
+              >
+                <span>
+                  <small *ngIf="today <= createdAt[indx]">
+                    {{ chat.msgDate | date: "h:mm a" }}, Today
+                  </small>
+                  <small
+                    *ngIf="
+                      today > createdAt[indx] && yesterday <= createdAt[indx]
+                    "
+                    >{{ chat.msgDate | date: "hh:mm a" }}, Yesterday
+                  </small>
+                  <small
+                    *ngIf="
+                      yesterday > createdAt[indx] && week <= createdAt[indx]
+                    "
+                    >{{ chat.msgDate | date: "hh:mm a, EE" }}
+                  </small>
+                  <small *ngIf="week > createdAt[indx]">
+                    {{ chat.msgDate | date: "hh:mm a, yyyy/M/d" }}
+                    <!-- {{chat.msgDate}} -->
+                  </small>
+                </span>
+                <br />
+                <!-- <br><br> -->
+                <p [innerHTML]="chat.message"></p>
+              </div>
+            </li>
+            <!-- <li *ngFor= "let chat of userMessages">
+							<div class="rightside-right-chat" *ngIf="chat.sender_id == this.loggedInUser.id">
+								<span> <small>{{chat.created_at | date: "hh:mm a, EE"}}</small></span><br><br>
+								<p>{{chat.message}}</p>
+							</div>
+						</li> -->
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 right-chat-textbox">
+          <form
+            autocomplete="off"
+            [formGroup]="chatFm"
+            (ngSubmit)="onSubmit(chatFm)"
+          >
+            <fieldset>
+              <input
+                autocomplete="nope"
+                type="text"
+                placeholder="Type your message…"
+                formControlName="chatMsg"
+                autofocus
+              />
+              <input autocomplete="nope" type="hidden" />
+            </fieldset>
+          </form>
+          <!-- <input autocomplete="nope" type="text" placeholder="Type a message..."> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

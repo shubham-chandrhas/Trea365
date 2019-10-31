@@ -1,0 +1,11 @@
+
+@mixin transition($property, $interval, $easeType) {
+    // write the css here
+    display: -webkit-flex;
+    display: flex;
+    -webkit-transition: $property $interval $easeType;
+       -moz-transition: $property $interval $easeType;
+        -ms-transition: $property $interval $easeType;
+         -o-transition: $property $interval $easeType;
+            transition: $property $interval $easeType;
+}

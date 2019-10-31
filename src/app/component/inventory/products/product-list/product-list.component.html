@@ -1,0 +1,583 @@
+<div class="inventory-section">
+  <h1 class="pageTitle">Products</h1>
+  <p class="page-summary">Manufactured (branded) consumable inventory items used by the company.</p>
+
+  <div class="trea-welcome" *ngIf="pageData.productList.length == 0 && onBoarding">
+        <h4>There are no Products yet.</h4>
+        <p class="textJustified">
+            Products are consumable inventory items produced by Manufacturers. Products may be purchased and stocked in large quantities at various locations, and are added to inventory based on Item Definitions.
+        </p>
+        <p class="textJustified">
+            Products will be listed here when an authorized user has created one.
+        </p>
+        <div class="button-row clearfix" *ngIf="util.getRole() == 2 || permissionsSet.createProducts">
+           
+          <button 
+            mat-raised-button
+            class="trea-btn"
+            type="button"
+            (click)="addNewProduct()"
+          >
+           Create a Product
+          </button>
+          
+        </div>
+        <div class="clearfix" *ngIf="util.getRole() != 2 && !permissionsSet.createProducts">
+            <p class="note">Please contact an administrator who can add Product</p> 
+        </div>          
+    </div>  
+  <div class="head-row clearfix" *ngIf="pageData.productList.length != 0">
+      <div class="search-section">
+          <div class="input-group">
+              <span class="search-icn" id="basic-addon1">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+              <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.searchList" (ngModelChange)="getSearchTxt(searchList)">
+              <button mat-raised-button class="client-btn" (click)="pageData.searchTxt = pageData.searchList">Search</button>
+          </div>
+      </div>
+
+      <div class="add-client addEmpBtnWrap" *ngIf="util.getRole() == 2 || permissionsSet.createProducts">
+          <div class="dropdown">
+              <button  mat-raised-button class="client-btn dropdown-toggle" data-toggle="dropdown" type="button">New
+                  Product
+              </button> <!-- addNewProduct()-->
+              <ul class="dropdown-menu">
+                  <li><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="showProductListPopup()">With P/O </a></li> <!-- @ Shahebaz (click)-->
+                  <li><a href="javascript:void(0)" mat-raised-button class="client-btn" (click)="addNewProduct()">Without P/O </a></li> <!-- @ Shahebaz (routerLink )-->
+
+              </ul>
+          </div>
+      </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="trea-data-table table-responsive" *ngIf="pageData.productList.length != 0">
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th widtt="300">
+                      <div class="table-hdr">
+                          <div>
+                              <span>Name</span>
+                              <span (click)="pageData.sortColumnType = 'A';pageData.sortColumn = 'short_name';pageData.sortOrder = pageData.sortColumn === 'short_name' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                  <i [ngClass]=" pageData.sortColumn == 'short_name' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                          </div>
+                          <div>
+                              <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.shortNameSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                          </div>
+                      </div>
+                  </th>
+
+                  <th widtt="300">
+                      <div class="bdr-left table-hdr">
+                          <div>
+                              <span>Location</span>
+                              <span (click)="pageData.sortColumnType = 'A';pageData.sortColumn = 'location_tag_name';pageData.sortOrder = pageData.sortColumn === 'location_tag_name' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                  <i [ngClass]=" pageData.sortColumn == 'location_tag_name' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                          </div>
+                          <div>
+                              <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.locationSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                          </div>
+                      </div>
+                  </th>
+                  <th widtt="300">
+                      <div class="bdr-left table-hdr">
+                          <div >
+                              <span>Quantity</span>
+                              <span (click)="pageData.sortColumnType = 'N';pageData.sortColumn = 'quantity';pageData.sortOrder = pageData.sortColumn === 'quantity' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                  <i [ngClass]=" pageData.sortColumn == 'quantity' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                          </div>
+                          <div>
+                              <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.quantitySearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                          </div>
+                      </div>
+                  </th>
+                  <th widtt="300">
+                      <div class="bdr-left table-hdr">
+                          <div>
+                              <span>Scan Code</span>
+                              <span (click)="pageData.sortColumnType = 'A';pageData.sortColumn = 'scan_code';pageData.sortOrder = pageData.sortColumn === 'scan_code' ? pageData.sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                  <i [ngClass]=" pageData.sortColumn == 'scan_code' && pageData.sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                          </div>
+                          <div>
+                              <input autocomplete="nope" type="text" class="form-control" [(ngModel)]="pageData.scanCodeSearch" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                          </div>
+                      </div>
+                  </th>
+
+              </tr>
+          </thead>
+          <tbody>
+              <tr (click)="pageData.selectedIndex = indx;selectProduct(product)" *ngFor="let indx=index; let product of pageData.productList | sortBy:pageData.sortColumn:pageData.sortOrder:pageData.sortColumnType | searchfilter:pageData.shortNameSearch:'short_name' | searchfilter:pageData.locationSearch:'location_tag_name' | searchfilter:pageData.quantitySearch:'quantityWithUOM' | searchfilter:pageData.scanCodeSearch:'scan_code' | searchfilter:pageData.searchTxt:'short_name,location_tag_name,quantityWithUOM,scan_code' | listLengthfilter | paginate: pageData.paginationKey" [ngClass]="pageData.selectedIndex == indx ? 'sel-row-highlight' : ''">
+                  <td>{{product.short_name}}<span class="dn">{{ indx == 0 ? updateCount(product.count) : ''}}</span></td>
+                  <td>{{product.location_tag_name}}</td>
+                  <td ><div class="col-sm-6 qty-cost no-padding">{{product.quantity | number : '1.2-2'}}</div><div class="col-sm-6 no-padding">{{product.uom}}</div></td>
+                  <td>{{product.scan_code}}</td>
+              </tr>
+
+          </tbody>
+      </table>
+  </div>
+
+  <div class="treaPagination" *ngIf="pageData.productList.length != 0 && constant.ITEM_COUNT != 0">
+      <div class="pull-right">
+          <span> {{1+(pageData.paginationKey.currentPage-1)*pageData.paginationKey.itemsPerPage}} - {{(pageData.paginationKey.itemsPerPage <= pageData.listCount) && (pageData.paginationKey.itemsPerPage+(pageData.paginationKey.currentPage-1)*pageData.paginationKey.itemsPerPage <= pageData.listCount) ? pageData.paginationKey.itemsPerPage+(pageData.paginationKey.currentPage-1)*pageData.paginationKey.itemsPerPage : pageData.listCount}}</span><span> of {{pageData.listCount}} items</span>
+      </div>
+      <div class="pull-right">
+          <select [(ngModel)]="pageData.paginationKey.itemsPerPage" (change)="util.changeItemPerPage()">
+              <option *ngFor="let pageNo of constant.PAGINATION_ITEMS" [ngValue]="pageNo"> {{pageNo}} </option>
+          </select>
+          <span> items per page</span>
+      </div>
+      <div class="pull-right">
+          <pagination-controls
+              (pageChange)="util.changePage($event, pageData.paginationKey)"
+              directionLinks="true"
+              autoHide="false"
+              previousLabel="Pre"
+              nextLabel="Next"
+              screenReaderPaginationLabel="Pagination"
+              screenReaderPageLabel="page"
+              screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+      </div>
+      <div class="clearfix"></div>
+  </div>
+
+
+  <!-- Selected Product -->
+  <div id="prodMark" class="selSection" *ngIf="pageData.selectedProduct">
+      <h2 class="selectedTitle">{{pageData.selectedProduct.short_name}}</h2>
+
+      <nav class="tabbed-nav">
+          <ul class="tabs-list">
+              <li class=tabs>
+                  <button [ngClass]="pageData.prodDetails == 'details' ? 'act-option' :''" (click)="showDetails('details')" mat-raised-button class="trea-btn" type="button">Item Details</button>
+              </li>
+              <li class=tabs>
+                  <button [ngClass]="pageData.prodDetails == 'order' ? 'act-option' :''" (click)="showDetails('order')" mat-raised-button class="trea-btn" type="button">Order History</button>
+              </li>
+              <li class=tabs>
+                  <button [ngClass]="pageData.prodDetails == 'documents' ? 'act-option' :''" (click)="showDetails('documents')" mat-raised-button class="trea-btn " type="button">Documents</button>
+              </li>
+          </ul>
+      </nav>
+
+      <div class="itemDetails" *ngIf="pageData.prodDetails == 'details'">
+          <div class="selPart">
+              <div class="add-client addEmpBtnWrap">
+                  <div class="dropdown">
+                      <button *ngIf="util.getRole() == 2 || permissionsSet.editProductsDetails || permissionsSet.deleteProducts || permissionsSet.editProductsLocations || permissionsSet.editProductsDocuments" mat-raised-button class="client-btn dropdown-toggle w160p" type="button" data-toggle="dropdown">Edit
+                      </button>
+                      <ul class="dropdown-menu">
+                          <li *ngIf="util.getRole() == 2 || permissionsSet.editProductsDetails || permissionsSet.editProductsLocations || permissionsSet.editProductsDocuments"><a href="javascript:void(0)" class="client-btn" (click)="changeAction('editLocation')">Edit Information &nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                          <li *ngIf="util.getRole() == 2 ||  permissionsSet.deleteProducts"><a href="javascript:void(0)" class="client-btn" (click)="showDeleteDialog()">Delete</a></li>
+                      </ul>
+
+                      <!-- <div class="selPart">
+                        <button mat-raised-button class="pull-right loc-btn" [ngClass]="pageData.action =='editLocation' ? 'act-option' :''" (click)="changeAction('editLocation')">Edit</button>
+                    </div> -->
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-2">
+                  <img *ngIf="pageData.selectedProduct.manuf_part_image != ''" [src]="pageData.selectedProduct.manuf_part_image" class="img-responsive" style="cursor:pointer;"  (click)="showImage(pageData.selectedProduct.manuf_part_image)">
+              </div>
+              <div class="col-sm-10">
+                  <div class="row">
+                      <div>
+                          <div class="prodInvDesc clearfix">
+                              <!-- <div class="row">
+                                  <div class="col-sm-3">
+                                      <div class="label-col">Supplier</div>
+                                  </div>
+                                  <div class="col-sm-9">
+                                      <div class="info-col">{{pageData.selectedProduct.supplier_name}}</div>
+                                  </div>
+                              </div> -->
+                              <div class="row">
+                                  <div class="col-sm-3">
+                                      <div class="label-col">Manufacturer</div>
+                                  </div>
+                                  <div class="col-sm-9">
+                                      <div class="info-col">
+                                        <a href="javascript:void(0)" [routerLink]="['/admin/csa/manufacturer/', pageData.selectedProduct.manufacturer_id]">
+                                          {{pageData.selectedProduct.manufacturer_name}}</a></div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-3">
+                                      <div class="label-col">Name</div>
+                                  </div>
+                                  <div class="col-sm-9">
+                                      <div class="info-col">
+                                          <a href="javascript:void(0)" [routerLink]="['/admin/csa/manufacturer-part/', pageData.selectedProduct.manf_part_id]">
+
+                                        {{pageData.selectedProduct.short_name}}</a></div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-3">
+                                      <div class="label-col">Description</div>
+                                  </div>
+                                  <div class="col-sm-9">
+                                      <div class="info-col">
+                                       {{pageData.selectedProduct.manufacturer_part_name}}
+                                        </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-3">
+                                      <div class="label-col">Category</div>
+                                  </div>
+                                  <div class="col-sm-9">
+                                      <div class="info-col">
+                                          <a href="javascript:void(0)" [routerLink]="['/admin/csa/item-classes/', pageData.selectedProduct.class_id]">
+                                        {{pageData.selectedProduct.class_name}}</a></div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-3">
+                                      <div class="label-col">UPC</div>
+                                  </div>
+                                  <div class="col-sm-9">
+                                      <div class="info-col">{{pageData.selectedProduct.upc}}</div>
+                                  </div>
+                              </div>
+                              <!-- <div class="row">
+                                  <div class="col-sm-3">
+                                      <div class="label-col">Purchase Price (Per Unit)</div>
+                                  </div>
+                                  <div class="col-sm-9">
+                                      <div class="info-col">{{pageData.selectedProduct.purchase_price | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-3">
+                                      <div class="label-col">Sale Price (Per Unit)</div>
+                                  </div>
+                                  <div class="col-sm-9">
+                                      <div class="info-col">{{pageData.selectedProduct.sales_price | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                                  </div>
+                              </div> -->
+                              <!-- <div class="row">
+                                  <div class="col-sm-3">
+                                      <div class="label-col">Comment</div>
+                                  </div>
+                                  <div class="col-sm-9">
+                                      <div class="info-col" *ngIf="pageData.action !='editDetails'">{{pageData.selectedProduct.comment}}</div>
+                                      <textarea rows="5" placeholder="(optional)" *ngIf="pageData.action =='editDetails'" [(ngModel)]="pageData.selectedProduct.comment"></textarea>
+                                      <span class="error-msg" *ngIf="pageData.selectedProduct.comment.invalid && (pageData.selectedProduct.comment.dirty || pageData.selectedProduct.comment.touched || pageData.submitted)">
+                                          <small *ngIf="pageData.selectedProduct.comment.errors.maxlength">Comment must not greater than {{constant.DEFAULT_COMMENT_MAXLENGTH}} characters.</small>
+                                      </span>
+                                  </div>
+                              </div> -->
+                          </div>
+                          <div class="errMsgCon" *ngIf="pageData.isError && pageData.action =='editDetails'">
+                              <small>{{pageData.errMsg}}</small>
+                          </div>
+                          <div class="button-row" *ngIf="pageData.action =='editDetails'">
+                              <button mat-raised-button class="trea-btn" id="prod-update-btn" (click)="updateProductDetails()">Update</button>
+                              <button mat-raised-button class="trea-btn" (click)="cancelEdit()">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <form autocomplete="off" role="form" [formGroup]="editProductForm">
+
+                    <div class="clearfix"></div>
+
+
+
+                    <!-- This section is for showing location details -->
+                    <div class="row" *ngIf="pageData.action !='editLocation'">
+                        <div class="col-sm-12">
+                            <div class="proQtyTbl table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <!-- <th>Date</th>
+                                        <th>Time</th> -->
+                                        <th>Main Location</th>
+                                        <th>Sub Location</th>
+                                        <th class="text-right">Quantity (Units)</th>
+                                    </tr>
+                                    <tr *ngFor="let location of pageData.selectedProduct.displayLocations; let indx=index">
+                                        <!-- <td >{{util.getFormatedDate(util.unixTimestampToLocalDate(location.created_at_unix).localDate)}}</td>
+                                        <td >{{util.unixTimestampToLocalDate(location.created_at_unix).localDate | date:'hh:mm a'}}</td> -->
+                                        <td>{{location.location_tag_name && location.location_tag_name.location_name ? location.location_tag_name.location_name.location_name : ''}}</td>
+                                        <td>{{location.location_tag_name ? location.location_tag_name.location_tag : ''}}</td>
+                                        <td class="text-right">{{location.updated_quantity | number : '1.2-2'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right bold"><span>Total Quantity</span> {{pageData.selectedProduct.totalQuantity | number : '1.2-2'}} {{pageData.selectedProduct.uom}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- This section is for edit location details -->
+                    <div class="row" *ngIf="pageData.action =='editLocation'">
+                        <div class="col-sm-12">
+                            <div class="proQtyTbl table-responsive">
+                                <table class="table">
+                                    <tr>
+                                       <th></th>
+                                        <!-- <th>Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> -->
+                                        <th>Main Location</th>
+                                        <th>Sub Location</th>
+                                        <!-- <th>Purchase Price (Per Unit)</th>
+                                        <th>Sale Price (Per Unit)</th> -->
+                                        <th>Quantity (Units)</th>
+                                    </tr>
+                                    <tr *ngFor="let location of locations.controls; let indx=index" [formGroup]="location">
+                                        <!-- <td >{{util.getFormatedDate(location.get('created_at').value)}}</td> -->
+                                        <!-- <td >{{location.get('created_at').value | date:'hh:mm a'}}</td> -->
+                                        <td><img (click)="removeLocation(indx, location)" *ngIf="indx != 0" src="assets/icon/close_icon.png"></td>
+
+                                        <td class="form-group">
+                                            <div class="form-group">
+                                                <div class="autoCompleteList">
+                                                    <div class="searchList">
+                                                        <mat-form-field class="product">
+                                                        <input autocomplete="nope" matInput placeholder=""  [formControl]="location.get('location_name')" [matAutocomplete]="locationAutoComp" (keyup)="validateLocation($event, location, indx)">
+                                                        <img class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                                        <mat-autocomplete #locationAutoComp="matAutocomplete">
+                                                        <mat-option *ngFor="let optionIndx=index; let item of location.get('filteredLocation').value | async" [value]="item.location_name" (onSelectionChange)="getLocation(item, $event, indx)">
+                                                        <span>{{ item.location_name }}</span>
+                                                        </mat-option>
+                                                        </mat-autocomplete>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <span class="error-msg" *ngIf="(location.get('location_id').invalid) && (location.get('location_id').dirty || location.get('location_id').touched || pageData.submitted)">
+                                                    <small *ngIf="location.get('location_id').errors.required">Location is required.</small>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td class="form-group">
+                                            <div class="form-group">
+                                                <div class="autoCompleteList">
+                                                    <div class="searchList">
+                                                        <mat-form-field class="product">
+                                                        <input autocomplete="nope" matInput placeholder=""  [formControl]="location.get('location_tag_name')" [matAutocomplete]="locationTagAutoComp" (keyup)="validateLocationTag($event, location, indx)">
+                                                        <img class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                                        <mat-autocomplete #locationTagAutoComp="matAutocomplete">
+                                                        <mat-option *ngFor="let optionIndx=index; let item of location.get('filteredLocationTag').value | async" [value]="item.location_tag" (onSelectionChange)="getLocationTag(item, $event, indx)">
+                                                        <span>{{ item.location_tag }}</span>
+                                                        </mat-option>
+                                                        </mat-autocomplete>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <span class="error-msg" *ngIf="(location.get('location_tag_id').invalid) && (location.get('location_tag_id').dirty || location.get('location_tag_id').touched || pageData.submitted)">
+                                                    <small *ngIf="location.get('location_tag_id').errors.required">Location Tag is required.</small>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <!-- <td>
+                                            <div class="form-group">
+                                                <div>
+                                                    <input autocomplete="nope" type="number" class="PadR0" formControlName="purchase_price" (keypress)="util.moneyCheck($event)" (change)="util.removeCommas(location.get('purchase_price'))">
+                                                </div>
+                                                <span class="error-msg" *ngIf="location.get('purchase_price').invalid && (location.get('purchase_price').dirty || location.get('purchase_price').touched || pageData.submitted)">
+                                                    <small *ngIf="location.get('purchase_price').errors.required">Purchase price is required.</small>
+                                                    <small *ngIf="location.get('purchase_price').errors.pattern">Invalid purchase price.</small>
+                                                </span>
+                                            </div>
+                                        </td> -->
+                                        <!-- <td>
+                                            <div class="form-group">
+                                                <div>
+                                                    <input autocomplete="nope" type="number" class="PadR0" formControlName="sales_price" (keypress)="util.moneyCheck($event)" (change)="util.removeCommas(location.get('sales_price'))">
+                                                </div>
+                                                <span class="error-msg" *ngIf="location.get('sales_price').invalid && (location.get('sales_price').dirty || location.get('sales_price').touched || pageData.submitted)">
+                                                    <small *ngIf="location.get('sales_price').errors.required">Sale price is required.</small>
+                                                    <small *ngIf="location.get('sales_price').errors.pattern">Invalid sale price.</small>
+                                                </span>
+                                            </div>
+                                        </td> -->
+                                        <td>
+                                            <div class="form-group">
+                                                <div>
+                                                    <input autocomplete="nope" type="number" class="PadR0" formControlName="quantity" (keypress)="util.moneyCheck($event)" (change)="util.removeCommas(location.get('quantity'));calculateRemainingQuantity()">
+                                                </div>
+                                                <span class="error-msg" *ngIf="location.get('quantity').invalid && (location.get('quantity').dirty || location.get('quantity').touched || pageData.submitted)">
+                                                    <small *ngIf="location.get('quantity').errors.required">Quantity is required.</small>
+                                                    <small *ngIf="location.get('quantity').errors.pattern">Invalid Quantity.</small>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                      <td></td>
+                                      <td></td>
+                                      <td colspan=2 class="text-right bold" style=""><div>Remaining Quantity : {{pageData.selectedProduct.remainingQuantity < 0 ? 0  : pageData.selectedProduct.remainingQuantity | number : '1.2-2'}}{{pageData.selectedProduct.uom}}</div></td>
+                                  </tr>
+
+                                    <tr>
+                                        <td colspan=4 class="text-right bold" style=""><div>Total Quantity : {{pageData.selectedProduct.totalQuantity < 0 ? 0  : pageData.selectedProduct.totalQuantity | number : '1.2-2'}}{{pageData.selectedProduct.uom}}</div></td>
+                                    </tr>
+
+                                </table>
+                                <div class="addIcon">
+                                    <span (click)="addLocation('0')">
+                                        <img src="assets/icon/icon-add.png"/><span>Add Location</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-12 errMsgCon" *ngIf="pageData.isError && pageData.action =='editLocation'">
+                            <small>{{pageData.errMsg}}</small>
+                        </div>
+                    </div>
+                    <div class="button-row clearfix"  *ngIf="pageData.action =='editLocation'">
+                        <button mat-raised-button (click)="updateLocationDetails(editProductForm)" id="update-loc-btn" class="trea-btn">Update</button>
+                        <button mat-raised-button (click)="cancelEdit()" class="trea-btn">Cancel</button>
+                    </div>
+                </form>
+              </div>
+              </div>
+      </div>
+
+      <div class="itemDetails" *ngIf="pageData.prodDetails == 'order'">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                       <th>Date</th>
+                       <th>Supplier</th>
+                       <th>PO#</th>
+                       <th>Quantity</th>
+                       <th>Purchase Price</th>
+                       <th>Sale Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="pageData.selectedProduct.poDetails">
+
+                    <tr *ngFor="let item of pageData.selectedProduct.poDetails">
+                      <td>{{item.created_at | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{item.supplier_name}}</td>
+                      <td>
+                        <a *ngIf="item.purchase_order_no !== 'N/A'" href="javascript:void(0)" [routerLink]="['/inventory/po/csa/purchase-order-list/', item.purchase_order_id]">
+                        <span>{{item.purchase_order_no}}</span>
+                      </a>
+                      <span *ngIf="item.purchase_order_no === 'N/A'">{{item.purchase_order_no}}</span>
+                      </td>
+                      <td>{{item.product_updated_quantity}}</td>
+                      <td>{{item.purchase_price}}</td>
+                      <td>{{item.sales_price}}</td>
+
+                    </tr>
+                  </ng-container>
+                </tbody>
+            </table>
+        </div>
+      </div>
+
+      <div class="documents" *ngIf="pageData.prodDetails == 'documents'">
+          <div class="selPart">
+              <div class="add-client addEmpBtnWrap">
+                  <div class="dropdown">
+                      <button mat-raised-button class="client-btn dropdown-toggle" type="button" data-toggle="dropdown" (click)="addNewDoc()">Edit
+                      </button>
+                      <!-- <ul class="dropdown-menu">
+                          <li><a href="javascript:void(0)" class="client-btn" (click)="changeAction('editDocuments')">Edit Information &nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                          <li><a href="javascript:void(0)" class="client-btn" (click)="addNewDoc()">New</a></li>
+                      </ul> -->
+                  </div>
+              </div>
+          </div>
+          <div class="row doc-sectionWrap">
+              <div *ngFor="let docRow of pageData.selectedProduct.manuf_part_document">
+                  <div class="col-sm-4" *ngFor="let doc of docRow.inArray">
+                      <div class="documentWrap">
+                          <div class="docImg">
+                              <a [href]="doc.doc_path" target="_blank">
+                                  <img src="assets/icon/document_icon.png">
+                              </a>
+                          </div>
+                          <div class="docTitle bold">
+                              <a [href]="doc.doc_path" target="_blank">{{doc.doc_name}}</a>
+                          </div>
+                          <div class="docText">
+                              {{doc.doc_desc}}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- <div class="col-sm-4" *ngFor="let item of assetInfo.images; let indx = index">
+                  <div class="documentWrap">
+                      <div class="docImg">
+                          <img src="{{item.image_path}}" class="img-responsive" (click)="showImage(item.image_path)">
+                      </div>
+                      <div class="docTitle bold">
+                          {{item.image_name}}
+                      </div>
+                      <div class="docText">
+                          {{item.image_desc ? item.image_desc : ""}}
+                      </div>
+                  </div>
+              </div> -->
+              <div class="col-sm-4" *ngFor="let item of pageData.selectedProduct.attachments; let indx = index">
+                  <div class="documentWrap">
+                      <div class="docImg" *ngIf="item.attachment_type == 1">
+                          <img src="{{item.attachment_path}}" class="img-responsive"  (click)="showImage(item.attachment_path)">
+                      </div>
+                      <div class="docPdf" *ngIf="item.attachment_type == 2">
+                          <a [href]="item.attachment_path" target="_blank">
+                              <i class="fa fa-file-pdf-o" aria-hidden="true" ></i>
+                              <!--<img src="assets/icon/document_icon.png" class="img-responsive">-->
+                          </a>
+                      </div>
+                      <div class="docTitle bold">
+                          <a [href]="item.attachment_path" target="_blank">{{item.attachment_name}}</a>
+                      </div>
+                      <div class="docText">
+                          {{item.comment ? item.comment : ''}}
+                      </div>
+                  </div>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+      </div>
+  </div>
+
+</div>
+<table id="product-tbl" class="dn">
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Quantity</th>
+          <th>Scan Code</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let indx=index; let product of pageData.productList | sortBy:pageData.sortColumn:pageData.sortOrder:'A' | searchfilter:pageData.shortNameSearch:'short_name' | searchfilter:pageData.locationSearch:'location_tag_name' | searchfilter:pageData.quantitySearch:'quantityWithUOM' | searchfilter:pageData.scanCodeSearch:'scan_code' | searchfilter:pageData.searchTxt:'short_name,location_tag_name,quantityWithUOM,scan_code'">
+          <td>{{product.short_name}}</td>
+          <td>{{product.location_tag_name}}</td>
+          <td>{{product.quantityWithUOM}}</td>
+          <td>{{product.scan_code}}</td>
+      </tr>
+  </tbody>
+</table>

@@ -1,0 +1,538 @@
+<div class="" *ngIf="compSection == 'add'">
+  <div class="addCompFormWrap">
+    <!-- <div class="topLogo">
+				<img src="assets/logo/trea-logo.png" class="img-responsive">
+			</div> -->
+    <form
+      autocomplete="off"
+      class="form-horizontal addCompForm"
+      role="form"
+      [formGroup]="compRegFm"
+      (keydown.enter)="keyDownFunction($event, compRegFm)"
+    >
+      <div class="text-center form-hdr">Create Account</div>
+      <div class="addUserFormBody">
+        <div class="compBasicInfo">
+          <div class="form-group">
+            <label class="col-sm-5 control-label" for="organization"
+              >Organization</label
+            >
+            <div class="col-sm-7">
+              <input
+                autocomplete="nope"
+                type="text"
+                id="organization"
+                name="organization"
+                formControlName="organization"
+                class="form-control"
+                (keypress)="
+                  util.noFirstSpace($event, compRegFm.value.organization)
+                "
+              />
+
+              <span
+                class="error-msg"
+                *ngIf="
+                  organization.invalid &&
+                  (organization.dirty || organization.touched || submitted)
+                "
+              >
+                <small *ngIf="organization.errors.required"
+                  >Organization is required.</small
+                >
+                <small *ngIf="organization.errors.minlength"
+                  >Organization must be at least 2 characters long.</small
+                >
+                <small *ngIf="organization.errors.maxlength"
+                  >Organization must be less than 60 characters.</small
+                >
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-5 control-label" for=""></label>
+            <div class="col-sm-7">
+              <div>
+                <div class="pull-left preview" *ngIf="imgPath">
+                  <img matTooltip="Preview" [src]="imgPath" />
+                </div>
+                <div class="lgBtn logo-upload pull-left">
+                  <span>Upload Logo (Optional)</span>
+                  <input
+                    autocomplete="nope"
+                    type="file"
+                    class="file-upload"
+                    id="companyLogo"
+                    name="companyLogo"
+                    (change)="onFileChange($event)"
+                    #fileInput
+                  />
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <span
+                class="error-msg"
+                *ngIf="
+                  companyLogo.invalid &&
+                  (companyLogo.dirty ||
+                    companyLogo.touched ||
+                    companyLogo.submitted)
+                "
+              >
+                <small *ngIf="companyLogo.errors.required"
+                  >Company Logo is required.</small
+                >
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-5 control-label" for="addressLine1"
+              >Address Line 1</label
+            >
+            <div class="col-sm-7">
+              <input
+                autocomplete="nope"
+                type="text"
+                id="addressLine1"
+                name="addressLine1"
+                placeholder=""
+                class="form-control"
+                placeholder=""
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="off"
+                type="text"
+                #search
+                formControlName="addressLine1"
+                (mouseover)="util.disableAutocomplete()"
+              />
+
+              <!-- <input autocomplete="nope" type="text" id="addressLine1" name="addressLine1" formControlName="addressLine1" class="form-control"> -->
+
+              <span
+                class="error-msg"
+                *ngIf="
+                  addressLine1.invalid &&
+                  (addressLine1.dirty || addressLine1.touched || submitted)
+                "
+              >
+                <small *ngIf="addressLine1.errors.required"
+                  >Address Line 1 is required.</small
+                >
+                <!-- <small *ngIf="addressLine1.errors.minlength">User ID must be at least 8 characters long.</small>
+								<small *ngIf="addressLine1.errors.maxlength">User ID must be less than 100 characters.</small> -->
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-5 control-label optional" for="addressLine2"
+              >Address Line 2</label
+            >
+            <div class="col-sm-7">
+              <input
+                autocomplete="nope"
+                type="text"
+                id="addressLine2"
+                name="addressLine2"
+                formControlName="addressLine2"
+                class="form-control optional"
+                placeholder="(Optional)"
+              />
+            </div>
+          </div>
+
+          <!-- var regexp = /^\S*$/; -->
+          <div class="form-group">
+            <label class="col-sm-5 control-label" for="country">Country</label>
+            <div class="col-sm-7">
+              <select
+                id="country"
+                name="country"
+                class="form-control"
+                formControlName="country"
+              >
+                <option value="" selected></option>
+                <option
+                  [value]="country.country_id"
+                  *ngFor="let country of countries"
+                >
+                  {{ country.country_name }}</option
+                >
+              </select>
+              <span
+                class="error-msg"
+                *ngIf="
+                  country.invalid &&
+                  (country.dirty || country.touched || submitted)
+                "
+              >
+                <small *ngIf="country.errors.required"
+                  >Country is required.</small
+                >
+              </span>
+            </div>
+          </div>
+
+          <!-- <div class="form-group">
+						<label class="col-sm-5 control-label" for="provinence">Province/States</label>
+						<div class="col-sm-7">
+							<input autocomplete="nope" type="text" name="provinence" placeholder="" formControlName="provinence" class="form-control">
+							
+							<span class="error-msg" *ngIf="provinence.invalid && (provinence.dirty || provinence.touched || submitted)">
+								<small *ngIf="provinence.errors.required">Province/States is required.</small>
+							</span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label" for="city">City</label>
+						<div class="col-sm-7">
+							<input autocomplete="nope" type="text" name="city" placeholder="" formControlName="city" class="form-control">
+							
+							<span class="error-msg" *ngIf="city.invalid && (city.dirty || city.touched || submitted)">
+								<small *ngIf="city.errors.required">City is required.</small>
+							</span>
+						</div>
+					</div>
+
+					
+					<div class="form-group">
+						<label class="col-sm-5 control-label" for="postalCode">Postal/Zip Code</label>
+						<div class="col-sm-7">
+							<input autocomplete="nope" type="text" id="postalCode" name="postalCode" formControlName="postalCode" class="form-control" (keypress)="util.noFirstSpace($event, compRegFm.value.postalCode)">
+
+							<span class="error-msg" *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched || submitted)">
+								<small *ngIf="postalCode.errors.required">Postal/Zip Code is required.</small>
+								<small *ngIf="postalCode.errors.minlength">Postal/Zip Code must be at least 3 characters long.</small>
+								<small *ngIf="postalCode.errors.maxlength">Postal/Zip Code must be less than 10 characters.</small>
+								<small *ngIf="postalCode.errors.pattern && !postalCode.errors.minlength && !postalCode.errors.maxlength">Enter valid Postal/Zip Code</small>
+							</span>
+						</div>
+					</div> -->
+
+          <div class="form-group clearfix">
+            <label class="col-sm-5 control-label" for="mainPhone"
+              >Main Office Phone No</label
+            >
+            <div class="col-sm-7">
+              <input
+                autocomplete="nope"
+                type="text"
+                [textMask]="{ mask: constant.PHONE_NUMBER_MASK }"
+                name="mainPhone"
+                placeholder=""
+                formControlName="mainPhone"
+                class="form-control"
+              />
+              <span
+                class="error-msg"
+                *ngIf="
+                  mainPhone.invalid &&
+                  (mainPhone.dirty || mainPhone.touched || submitted)
+                "
+              >
+                <small *ngIf="mainPhone.errors.required"
+                  >Main Office Phone No is required.</small
+                >
+                <small *ngIf="mainPhone.errors.pattern"
+                  >Enter valid Main Office Phone No.</small
+                >
+                <!-- <small *ngIf="mainPhone.errors.minlength">Main Office Phone No must be at least 10 Digit long.</small>
+                                <small *ngIf="mainPhone.errors.maxlength">Main Office Phone No must be less than 10 Digit.</small> -->
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-5 control-label" for="price_per_user"
+              >Price Per User</label
+            >
+            <div class="col-sm-7">
+              <input
+                autocomplete="nope"
+                type="text"
+                id="pri"
+                name="price_per_user"
+                formControlName="price_per_user"
+                class="form-control"
+                (keypress)="
+                  util.noFirstSpace($event, compRegFm.value.price_per_user)
+                "
+              />
+              <span
+                class="error-msg"
+                *ngIf="
+                  price_per_user.invalid &&
+                  (price_per_user.dirty || price_per_user.touched || submitted)
+                "
+              >
+                <small *ngIf="price_per_user.errors.required"
+                  >Price per user is required.</small
+                >
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-5 control-label" for="currency"
+              >Currency</label
+            >
+            <div class="col-sm-7">
+              <select
+                id="currency"
+                name="currency"
+                class="form-control ptrN"
+                formControlName="currency"
+              >
+                <option value=""></option>
+                <option
+                  [value]="country.currency"
+                  *ngFor="let country of countries"
+                >
+                  {{ country.currency }}</option
+                >
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group MB30">
+            <label class="col-sm-5 control-label" for="businessStructure"
+              >Business Structure</label
+            >
+            <div class="col-sm-7">
+              <select
+                id="businessStructure"
+                name="businessStructure"
+                class="form-control"
+                formControlName="businessStructure"
+              >
+                <option value="" selected></option>
+                <option [value]="'Enterprise'">Enterprise</option>
+                <option [value]="'Franchise'">Franchise</option>
+              </select>
+              <!-- <input autocomplete="nope" type="text" id="businessStructure" name="businessStructure" formControlName="businessStructure" class="form-control"> -->
+
+              <span
+                class="error-msg"
+                *ngIf="
+                  businessStructure.invalid &&
+                  (businessStructure.dirty ||
+                    businessStructure.touched ||
+                    submitted)
+                "
+              >
+                <small *ngIf="businessStructure.errors.required"
+                  >Business Structure is required.</small
+                >
+              </span>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+        <div class="text-center form-hdr MT30">Primary Contact</div>
+
+        <div class="form-group">
+          <label class="col-sm-5 control-label" for="name">Name</label>
+          <div class="col-sm-7">
+            <input
+              autocomplete="nope"
+              type="text"
+              id="name"
+              name="name"
+              formControlName="name"
+              class="form-control"
+              (keypress)="util.noFirstSpace($event, compRegFm.value.name)"
+            />
+
+            <span
+              class="error-msg"
+              *ngIf="name.invalid && (name.dirty || name.touched || submitted)"
+            >
+              <small *ngIf="name.errors.required">Name is required.</small>
+              <small *ngIf="name.errors.minlength"
+                >Name must be at least 2 characters long.</small
+              >
+              <small *ngIf="name.errors.maxlength"
+                >Name must be less than 30 characters.</small
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-5 control-label" for="userName">Username</label>
+          <div class="col-sm-7">
+            <input
+              autocomplete="nope"
+              type="text"
+              id="userName"
+              name="userName"
+              formControlName="userName"
+              class="form-control"
+              (keypress)="util.noSpace($event)"
+              (mouseleave)="validateUsername($event)"
+            />
+            <span class="error-msg">
+              <small *ngIf="isValidUserName"
+                >Username already exists.</small
+              ></span
+            >
+            <span
+              class="error-msg"
+              *ngIf="
+                userName.invalid &&
+                (userName.dirty || userName.touched || submitted)
+              "
+            >
+              <small *ngIf="userName.errors.required"
+                >Username is required.</small
+              >
+              <small *ngIf="userName.errors.minlength"
+                >Username must be at least 8 characters long.</small
+              >
+              <small *ngIf="userName.errors.maxlength"
+                >Username must be less than 30 characters.</small
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-5 control-label" for="designation"
+            >Designation</label
+          >
+          <div class="col-sm-7">
+            <input
+              autocomplete="nope"
+              type="text"
+              id="designation"
+              name="designation"
+              formControlName="designation"
+              class="form-control"
+              (keypress)="
+                util.noFirstSpace($event, compRegFm.value.designation)
+              "
+            />
+
+            <span
+              class="error-msg"
+              *ngIf="
+                designation.invalid &&
+                (designation.dirty || designation.touched || submitted)
+              "
+            >
+              <small *ngIf="designation.errors.required"
+                >Designation is required.</small
+              >
+              <small *ngIf="designation.errors.minlength"
+                >Designation must be at least 2 characters long.</small
+              >
+              <small *ngIf="designation.errors.maxlength"
+                >Designation must be less than 30 characters.</small
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-5 control-label" for="userEmail">Email</label>
+          <div class="col-sm-7">
+            <input
+              autocomplete="nope"
+              type="text"
+              id="userEmail"
+              name="userEmail"
+              formControlName="userEmail"
+              class="form-control"
+              required
+              (mouseleave)="validateEmail($event)"
+            />
+            <span class="error-msg">
+              <small *ngIf="isValidEmail">Email already exists.</small></span
+            >
+            <span
+              class="error-msg"
+              *ngIf="
+                userEmail.invalid &&
+                (userEmail.dirty || userEmail.touched || submitted)
+              "
+            >
+              <small *ngIf="userEmail.errors.required"
+                >Email address is required.</small
+              >
+              <small *ngIf="userEmail.errors.pattern">Enter valid email.</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-5 control-label" for="phoneNumber"
+            >Phone Number</label
+          >
+          <div class="col-sm-7">
+            <input
+              autocomplete="nope"
+              type="text"
+              [textMask]="{ mask: constant.PHONE_NUMBER_MASK }"
+              id="phoneNumber"
+              name="phoneNumber"
+              formControlName="phoneNumber"
+              class="form-control"
+              (keypress)="util.keyPress($event)"
+            />
+
+            <span
+              class="error-msg"
+              *ngIf="
+                phoneNumber.invalid &&
+                (phoneNumber.dirty || phoneNumber.touched || submitted)
+              "
+            >
+              <small *ngIf="phoneNumber.errors.required"
+                >Phone Number is required.</small
+              >
+              <small *ngIf="phoneNumber.errors.pattern"
+                >Enter valid phone number.</small
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="errMsgCon" *ngIf="isError">
+        <small>{{ errMsg }}</small>
+      </div>
+
+      <div class="button-row clearfix">
+        <button
+          mat-raised-button
+          id="create-btn"
+          (click)="addCompany(compRegFm)"
+          class="trea-btn"
+        >
+          Add
+        </button>
+        <button mat-raised-button class="trea-btn" routerLink="/su/tsa">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="success-wrap" *ngIf="compSection == 'success'">
+  <div class="success-body">
+    <div class="success-msg">Account Successfully Created</div>
+    <div class="msg-txt">A verification email has sent to the user</div>
+    <div class="col-sm-6">
+      <div class="back-home" routerLink="/su/tsa">Back to home page</div>
+    </div>
+    <div class="col-sm-6">
+      <div class="create-new" (click)="addAnotherAdmin()">
+        Create another admin
+      </div>
+    </div>
+  </div>
+</div>

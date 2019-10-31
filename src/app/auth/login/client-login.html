@@ -1,0 +1,52 @@
+<!-- 
+	View:- client-login.html
+	Component:- ClientLoginComponent => login.component.ts
+	Route:- '/client-login'  
+
+	Note:- This component used to login for the client, but currently this scenario is not in the picture so once the product is ready, we can delete this component.
+ -->
+
+
+<div class="login-section">
+	<div class="row fullH noMar">
+		<div class="col-sm-5 noPad">
+			<div class="left">
+				<div class="login-main">
+					<div class="logo">
+						<img src="assets/logo/trea-logo.png">
+					</div>
+					<div class="fb-con">
+						<a href="{{domainIP}}/set_facebook_app.html">
+							<button id="login-with-fb-btn" mat-raised-button class="fb-btn">
+							<span class="fb-icon">
+								<i class="fa fa-facebook" aria-hidden="true"></i>
+							</span>
+							<span>Login with Facebook Account</span>
+							</button>
+						</a>
+					</div>
+					
+					<div class="google-con">
+						<a href="{{domainIP}}/set_google_app.html">
+							<button id="login-with-google-btn" mat-raised-button class="google-btn">
+							<span class="google-icon">
+								<i class="fa fa-google-plus" aria-hidden="true"></i>
+							</span>
+							<span class="google-pluse">Login with Google+ Account</span>
+							</button>
+						</a>
+					</div>
+				</div>
+				<div class="login-bottom-footer">
+					<div class="">Copyright &copy; 2019 Trea365</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="col-sm-7 noPad">
+			<div class="right"></div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>

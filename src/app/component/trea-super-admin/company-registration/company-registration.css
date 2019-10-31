@@ -1,0 +1,109 @@
+.addCompFormWrap form{
+  width: 500px;
+  margin: 42px auto 30px;
+}
+.addCompFormWrap .form-horizontal .control-label {
+  text-align: left;
+}
+.addCompFormWrap .addCompFormBody{
+  padding: 50px 10px;
+}
+.addCompFormWrap .addCompFormBtnWrap{
+  margin-bottom: 50px;
+  text-align: center;
+}
+.addCompFormWrap .form-hdr{ 
+	font-size: 24px;
+	font-weight:700;
+	margin-bottom: 37px;
+}
+.addCompFormWrap .addUserFormBody .label,.addCompFormWrap .addUserFormBody .form-group .control-label{ 
+	font-size: 15px;
+	padding-top: 0px;
+    line-height: 25px;
+}
+.addCompFormWrap .addUserFormBody .form-control{ 
+	height: 25px;
+	border-radius: 0px;
+	/*width: 267px; */
+}
+.addCompFormWrap .addUserFormBody .form-group{ margin-bottom: 25px; }
+.addCompFormWrap .addUserFormBody .counrty-select{ width: 107px; }
+.addCompFormWrap .addUserFormBody .s-select{ width: 200px; }
+.addCompFormWrap .addUserFormBody .states-select{ width: 75px; }
+.addCompFormWrap .addUserFormBody .logo-upload{ 
+	height: 32px;
+	width: 175px;
+	font-size: 14px;
+	padding: 0px;
+	line-height: 32px;
+	text-align: center;
+	position: relative;
+}
+.addCompFormWrap .addCompFormBtnWrap .create{
+	width: 152px;
+	height: 35px;
+	padding: 0px;
+	line-height: 35px;
+	text-align: center;
+	margin-top: 40px;
+}
+.addCompFormWrap .file-upload{
+	height: 32px;
+    width: 175px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: transparent;
+    background: transparent;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.addCompFormWrap .errMsgCon{ text-align: center; }
+.addCompFormWrap .errMsgCon small{ 
+	color: #F44336;
+    font-size: smaller;
+}
+.addCompFormWrap  .preview{
+	max-height: 80px;
+	border: 1px solid #00A99D;
+	max-width: 85px;
+	margin-right: 7px;
+}
+.addCompFormWrap  .preview img{
+	height: auto;
+	max-height: 80px;
+	width: 100%;
+}
+
+.addUserFormBody .compBasicInfo{
+	margin-bottom: 80px;
+}
+.addCompFormWrap .topLogo {
+	width: 230px;
+	margin: 0 auto;
+}
+.success-wrap .back-home{
+	float: right;
+	width: 165px;
+	padding: 10px;
+	color: white;
+	background: 1px #00A99D;
+}
+.success-wrap .create-new{
+	width: 200px;
+    text-align: center;
+	padding: 10px;
+	color: white;
+	background: 1px #00A99D;
+}
+/*.ng-valid[required], .ng-valid.required  {
+  border: 1px solid #42A948;
+}
+
+.ng-invalid:not(form)  {
+  border: 1px solid #a94442;
+}*/
+
+

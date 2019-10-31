@@ -1,0 +1,250 @@
+<div class="supplier-section account">
+    <!-- <div class="topLogo">
+        <img src="assets/logo/trea-logo.png" class="img-responsive">
+    </div> -->
+
+    <h1 class="pageTitle">Account Details</h1>
+
+    <div class="addNewSupFormCov clearfix">
+        <div class="accountDetailWrap">
+            <div class="updateaccountDetails">
+
+                <form autocomplete="off" class="" role="form" [formGroup]="editAccDetailsFrm">
+                    <div class="promaryAccountFormBody">
+                      <div *ngIf="util.getRole() == 2">
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col" for="organization">Company</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="nope" type="text" name="organization" placeholder="" formControlName="organization" class="form-control">
+                                <span class="error-msg" *ngIf="organization.invalid && (organization.dirty || organization.touched || submitted)">
+                                    <small *ngIf="organization.errors.required">Company Name is required.</small>
+                                    <small *ngIf="organization.errors.minlength || organization.errors.maxlength">Company name must be between 2 - 60 characters long.</small>
+                                </span>
+                                <div class="compLogoWrap">
+                                    <div class="img-wrap" *ngIf="imgPath">
+                                        <img [src]='imgPath' class="img-responsive"/>
+                                        <img (click)="removeLogo()" src="assets/icon/close_icon.png" class="close-icon" *ngIf="imgPath"/>
+                                    </div>
+                                    <div class="logo-upload">
+                                        <!-- <span>Upload Logo</span> -->
+                                        <!-- <input autocomplete="nope" type="file" class="file-upload" id="companyLogo" name="companyLogo" (change)="onFileChange($event)" #fileInput> -->
+                                        <input autocomplete="nope" type="file" class="file-upload" id="companyLogo" name="companyLogo" (change)="onFileChange($event)" #fileInput >
+                                        <label for="companyLogo"  class="trea-btn">Upload Logo</label>
+                                    </div>
+                                    <!-- <div class="pull-right preview" *ngIf="imgPath">
+                                    <img matTooltip="Preview" [src]='imgPath' />
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col" for="address">Address Line 1</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="nope" type="text" id="address" name="address" placeholder="" class="form-control" placeholder="" autocorrect="off" autocapitalize="off" spellcheck="off"  #search formControlName="address" (mouseover)="util.disableAutocomplete()">
+                                <!-- <input autocomplete="nope" type="text" name="address" placeholder="" formControlName="address" class="form-control"> -->
+                                <span class="error-msg" *ngIf="address.invalid && (address.dirty || address.touched || submitted)">
+                                    <small *ngIf="address.errors.required">Address is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col optional" for="addressLine2">Address Line 2</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="nope" type="text" id="addressLine2" name="addressLine2" formControlName="addressLine2" class="form-control optional" placeholder="(Optional)">
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col" for="city">City</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="nope" type="text" name="city" placeholder="" formControlName="city" class="form-control">
+
+                                <span class="error-msg" *ngIf="city.invalid && (city.dirty || city.touched || submitted)">
+                                    <small *ngIf="city.errors.required">City is required.</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col" for="provinence">Province</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="nope" type="text" name="provinence" placeholder="" formControlName="provinence" class="form-control">
+
+                                <span class="error-msg" *ngIf="provinence.invalid && (provinence.dirty || provinence.touched || submitted)">
+                                    <small *ngIf="provinence.errors.required">Province is required.</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col txtColor" for="postalCode">Postal/Zip Code</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="nope" type="text" placeholder=""  name="postalCode" formControlName="postalCode" class="form-control" >
+                                <span class="error-msg" *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched || submitted)">
+                                    <small *ngIf="postalCode.errors.required">Postal Code/Zip is required.</small>
+                                    <small *ngIf="postalCode.errors.minlength">Postal Code/Zip must be at least 3 characters long.</small>
+                                    <small *ngIf="postalCode.errors.maxlength">Postal Code/Zip must be less than 10 characters.</small>
+                                    <small *ngIf="postalCode.errors.pattern && !postalCode.errors.minlength && !postalCode.errors.maxlength">Enter valid Postal Code/Zip/Pin</small>
+                                </span>
+                            </div>
+                        </div> -->
+                        <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col" for="country">Country</label>
+                            <div class="col-sm-6">
+                                <!-- <input autocomplete="nope" type="text" name="country" placeholder="" formControlName="country" class="form-control"> -->
+                                <select id="country" name="country" class="form-control" formControlName="country">
+                                    <option value="" selected></option>
+                                    <option [value]="country.country_id" *ngFor="let country of countries"> {{country.country_name}}</option>
+                                </select>
+                                <span class="error-msg" *ngIf="country.invalid && (country.dirty || country.touched || submitted)">
+                                    <small *ngIf="country.errors.required">Country is required.</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col" for="mainPhone">Main Office Phone No.</label>
+                            <div class="col-sm-6">
+                                <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" name="mainPhone" placeholder="" formControlName="mainPhone" class="form-control">
+                                <span class="error-msg" *ngIf="mainPhone.invalid && (mainPhone.dirty || mainPhone.touched || submitted)">
+                                    <small *ngIf="mainPhone.errors.required">Main Office Phone No is required.</small>
+                                    <small *ngIf="mainPhone.errors.pattern">Enter valid Main Office Phone No.</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col" for="currency">Currency</label>
+                            <div class="col-sm-6">
+                                <select id="currency" name="currency" class="form-control ptrN" formControlName="currency">
+                                    <option value=""></option>
+                                    <option [value]="country.currency" *ngFor="let country of countries"> {{country.currency}}</option>
+                                </select>
+                                <span class="error-msg" *ngIf="currency.invalid && (currency.dirty || currency.touched || submitted)">
+                                    <small *ngIf="currency.errors.required">Please select currency.</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-sm-4 label-col" for="busiStructure">Business Structure</label>
+                            <div class="col-sm-6">
+                                <select id="busiStructure" name="busiStructure" class="form-control" formControlName="busiStructure">
+                                    <option [value]="'Enterprise'">Enterprise</option>
+                                    <option [value]="'Franchise'">Franchise</option>
+                                </select>
+                                <!-- <input autocomplete="nope" type="text" placeholder=""  name="busiStructure" formControlName="busiStructure" class="form-control" >
+                                <span class="error-msg" *ngIf="busiStructure.invalid && (busiStructure.dirty || busiStructure.touched || submitted)">
+                                    <small *ngIf="busiStructure.errors.required">Please Add Business Structure.</small>
+                                </span> -->
+                            </div>
+                        </div>
+                      </div>
+                        <div class="clearfix"></div>
+
+                        <h3 class="detailsHeading">Account Users</h3>
+                        <div class="" *ngFor="let user of users.controls; let indx=index" [formGroup]="user" >
+                            <div *ngIf="user.get('isUserDelete').value == '0'">
+                                <h4 class="detailsHeading" *ngIf="indx == 0">
+                                    <span  *ngIf="util.getRole() == 2">Primary User</span>
+                                    <span  *ngIf="util.getRole() == 3">Profile Information</span>
+                                </h4>
+                                <div class="selPart" *ngIf="indx != 0">
+                                    <span class="closeBtnWrap">
+                                        <img (click)="removeUser(indx, user)" src="assets/icon/close_icon.png">
+                                    </span>
+                                    <span>User {{getIndex(indx)}}</span>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="col-sm-4 label-col" for="name">{{util.getRole() == 2 ? 'Name' : 'First Name'}}</label>
+                                    <div class="col-sm-6">
+                                        <input autocomplete="nope" type="text" name="name" placeholder="" formControlName="name" class="form-control">
+                                        <span class="error-msg" *ngIf="user.get('name').invalid && (user.get('name').dirty || user.get('name').touched || submitted)">
+                                            <small *ngIf="user.get('name').errors.required">{{util.getRole() == 2 ? 'Name' : 'First Name'}} is required.</small>
+                                            <small *ngIf="user.get('name').errors.minlength">{{util.getRole() == 2 ? 'Name' : 'First Name'}} must be at least 2 characters long.</small>
+                                            <small *ngIf="user.get('name').errors.maxlength">{{util.getRole() == 2 ? 'Name' : 'First Name'}} must be less than 30 characters.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix" *ngIf="util.getRole() != 2">
+                                  <label class="col-sm-4 label-col" for="last_name">{{'Last Name'}}</label>
+                                  <div class="col-sm-6">
+                                      <input autocomplete="nope" type="text" name="last_name" placeholder="" formControlName="last_name" class="form-control">
+                                      <span class="error-msg" *ngIf="user.get('last_name').invalid && (user.get('last_name').dirty || user.get('last_name').touched || submitted)">
+                                          <small *ngIf="user.get('last_name').errors.required">{{'Last Name'}} is required.</small>
+                                          <small *ngIf="user.get('last_name').errors.minlength">{{'Last Name'}} must be at least 2 characters long.</small>
+                                          <small *ngIf="user.get('last_name').errors.maxlength">{{'Last Name'}} must be less than 30 characters.</small>
+                                      </span>
+                                  </div>
+                              </div>
+
+                                <div class="form-group clearfix">
+                                    <label class="col-sm-4 label-col" for="userName">Username</label>
+                                    <div class="col-sm-6" *ngIf="user.get('userId').value == ''">
+                                        <input autocomplete="nope" type="text" id="userName" name="userName" formControlName="userName" class="form-control" (keypress)="util.noSpace($event)" [ngClass]="user.get('userId').value != '' ? 'ptrN' : ''" (mouseleave)="validateUsername(user)">
+                                        <span class="error-msg"> <small *ngIf="user.get('isValidUserName').value">Username already exists.</small></span>
+                                        <span class="error-msg" *ngIf="user.get('userName').invalid && (user.get('userName').dirty || user.get('userName').touched || submitted)">
+                                            <small *ngIf="user.get('userName').errors.required">Username is required.</small>
+                                            <small *ngIf="user.get('userName').errors.minlength">Username must be at least 8 characters long.</small>
+                                            <small *ngIf="user.get('userName').errors.maxlength">Username must be less than 30 characters.</small>
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-6" *ngIf="user.get('userId').value != ''">{{user.get('userName').value}}</div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <label class="col-sm-4 label-col" for="designation">{{util.getRole() == 2 ? 'Designation' : 'Title'}}</label>
+                                    <div class="col-sm-6">
+                                        <input autocomplete="nope" type="text" name="designation" placeholder="" formControlName="designation" class="form-control">
+                                        <span class="error-msg" *ngIf="user.get('designation').invalid && (user.get('designation').dirty || user.get('designation').touched || submitted)">
+                                            <small *ngIf="user.get('designation').errors.required">{{util.getRole() == 2 ? 'Designation' : 'Title'}} is required.</small>
+                                            <small *ngIf="user.get('designation').errors.minlength">{{util.getRole() == 2 ? 'Designation' : 'Title'}} must be at least 2 characters long.</small>
+                                            <small *ngIf="user.get('designation').errors.maxlength">{{util.getRole() == 2 ? 'Designation' : 'Title'}} must be less than 30 characters.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="col-sm-4 label-col" for="email">Email</label>
+                                    <div class="col-sm-6">
+                                        <input autocomplete="nope" type="text" name="email" placeholder="" formControlName="email" class="form-control" (change)="openDialogConfirm(indx)" (mouseleave)="validateEmail(user)">
+                                        <span class="error-msg"> <small *ngIf="user.get('isValidEmail').value">Email already exists.</small></span>
+                                        <span class="error-msg" *ngIf="user.get('email').invalid && (user.get('email').dirty || user.get('email').touched || submitted)">
+                                            <small *ngIf="user.get('email').errors.required">Email is required.</small>
+                                            <small *ngIf="user.get('email').errors.pattern">Enter valid email.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="col-sm-4 label-col" for="phoneNumber">Phone Number</label>
+                                    <div class="col-sm-6">
+                                        <input autocomplete="nope" type="text" [textMask]="{mask: constant.PHONE_NUMBER_MASK}" name="phoneNumber" placeholder="" formControlName="phoneNumber" class="form-control">
+                                        <span class="error-msg" *ngIf="user.get('phoneNumber').invalid && (user.get('phoneNumber').dirty || user.get('phoneNumber').touched || submitted)">
+                                            <small *ngIf="user.get('phoneNumber').errors.required">Phone Number is required.</small>
+                                            <small *ngIf="user.get('phoneNumber').errors.pattern">Enter valid Phone Number.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        <div class="newUserbtnwrap" *ngIf="userCount < 3 && util.getRole() == 2">
+                            <div class="addIcon">
+                                <span (click)="addUser('0', {})">
+                                    <img src="assets/icon/icon-add.png"/><span>New User</span>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- {{editAccDetailsFrm.value | json}} -->
+                        <div class="errMsgCon" *ngIf="isError">
+                            <small>{{errMsg}}</small>
+                        </div>
+                        <div class="button-row clearfix">
+                            <button mat-raised-button id="edit-acc-btn" class="trea-btn" (click)="updateAccDetails(editAccDetailsFrm)">Update</button>
+                            <button mat-raised-button class="trea-btn" routerLink="/csa-onboarding/account-details">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

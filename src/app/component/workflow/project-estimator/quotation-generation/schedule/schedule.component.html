@@ -1,0 +1,378 @@
+<form autocomplete="off" role="form" [formGroup]="scheduleForm">
+    <div *ngFor="let item of schedule_items.controls; let indxP=index" [formGroup]="item">
+
+        <div *ngIf="item.get('schedule_type').value == 4">
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" (change)="changeSchedule('not_known')" id="scheduleNotKnown" [checked]="scheduleType == 'not_known'">
+                <label for="scheduleNotKnown">Schedule Not Known</label>
+            </div>
+        </div>   
+
+        <div *ngIf="item.get('schedule_type').value == 1">
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" (change)="changeSchedule('once')" id="scheduleOnce" [checked]="scheduleType == 'once'">
+                <!-- <label for="scheduleOnce">Schedule Once</label> -->
+                <label for="scheduleOnce">Schedule Future</label>
+            </div>
+            <div class="scheduleOnceWrap" *ngIf="scheduleType == 'once'">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <div class="label-col">Start Date</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="dateWrapper">
+                            <input autocomplete="nope" type="text" formControlName="start_date" placeholder="" class="date ptrN" [matDatepicker]="picker" [min]="minDate">
+                            <mat-datepicker #picker (selectedChanged)="startDateChange($event,indxP)"></mat-datepicker>
+                            <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span>
+                            <div class="clearfix"></div>
+                            <span class="error-msg" *ngIf="item.get('start_date').invalid && (item.get('start_date').dirty || item.get('start_date').touched || submitted)">
+                                <small *ngIf="item.get('start_date').errors.required">Start Date is required.</small>
+                            </span>
+                        </div> 
+                        
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="label-col">End Date</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="dateWrapper">
+                            <input autocomplete="nope" type="text" formControlName="end_date" placeholder="" class="date ptrN" [matDatepicker]="pickerEnd" [min]="item.get('start_date').value">
+                            <mat-datepicker #pickerEnd (selectedChanged)="clearendtime($event,indxP)"></mat-datepicker>
+                            <span class="dateIcon" (click)="pickerEnd.open()"><img src="assets/icon/date_picker.png"></span>
+                            <div class="clearfix"></div>
+                            <span class="error-msg" *ngIf="item.get('end_date').invalid && (item.get('end_date').dirty || item.get('end_date').touched || submitted)">
+                                <small *ngIf="item.get('end_date').errors.required">End Date is required.</small>
+                            </span>
+                        </div> 
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="form-group timeWrap">
+                    <div class="col-sm-2">
+                        <div class="label-col">Start Time</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="time">
+                            <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" placeholder="__:__" formControlName="start_time" type="text" name="" class="hours" (keyup)="clearendtime($event,indxP)"/>
+                            <select formControlName="start_time_format" class="">
+                                <option [value]="'am'">am</option>
+                                <option [value]="'pm'">pm</option>
+                            </select>
+                        </div>
+                        <span class="error-msg" *ngIf="item.get('start_time').invalid && (item.get('start_time').dirty || item.get('start_time').touched || submittedS)">
+                            <small *ngIf="item.get('start_time').errors.required">Start Time is required.</small>
+                            <small *ngIf="item.get('start_time').errors.pattern">Enter valid Start Time.</small>
+                        </span>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="label-col">End Time</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="time">
+                            <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" placeholder="__:__" formControlName="end_time" type="text" name="" class="hours" (keyup)="compareendtime($event,indxP)"/>
+                            <select formControlName="end_time_format" class="" (change)="compareendtime($event,indxP)">
+                                <option [value]="'am'">am</option>
+                                <option [value]="'pm'">pm</option>
+                            </select>
+                        </div>
+                        <span class="error-msg" *ngIf="!item.get('end_time').errors">
+                            <small *ngIf="timeNowError">End time is not less than start time.</small>
+                        </span>
+                        <span class="error-msg" *ngIf="item.get('end_time').invalid && (item.get('end_time').dirty || item.get('end_time').touched || submittedS)">
+                            <small *ngIf="item.get('end_time').errors.required">End Time is required.</small>
+                            <small *ngIf="item.get('end_time').errors.pattern">Enter valid End Time.</small>
+                        </span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- <div *ngIf="item.get('schedule_type').value == '2'">
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" (change)="changeSchedule('reccuring')" id="scheduleRecurring" [checked]="scheduleType == 'reccuring'">
+                <label for="scheduleRecurring">Schedule Recurring</label>
+            </div>
+            <div class="recurringWrap" *ngIf="scheduleType == 'reccuring'">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="label-col">Repeat</div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group selectRepeat pull-left">
+                                    <div class="autoCompleteList">
+                                        <div class="searchList">
+                                            <mat-form-field class="product">
+                                                <input autocomplete="nope" matInput placeholder=""  formControlName="schedule_repeat_name" [matAutocomplete]="EmpAutoComp" (keyup)="validateRepeat($event)" id="repeat_id">
+                                                <i *ngIf="item.get('schedule_repeat_name').value!=''" (click)="util.clearAutoComplete('repeat_id', [item.get('schedule_repeat_name'), item.get('schedule_repeat')]);" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                                <img *ngIf="item.get('schedule_repeat_name').value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                                <mat-autocomplete #EmpAutoComp="matAutocomplete">
+                                                    <mat-option *ngFor="let indx=index; let item of filteredScheduleRepeat | async" [value]="item.status" (onSelectionChange)="getSelectedRepeat(item,$event)">
+                                                    <span>{{ item.status }}</span>
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                                <div class="info-col onTxt pull-right">on</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 PadL0">
+                        <div class="weekDaysWrap" formGroupName="schedule_days">
+                            <div class="days Mar0">
+                                <div class="label-col">Sun</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="Sun">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Mon</div>
+                                <div class="checkBox" >
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="Mon">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Tue</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="Tue">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Wed</div>
+                                <div class="checkBox" >
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="Wed">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Thu</div>
+                                <div class="checkBox" >
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="Thu">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Fri</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="Fri">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="days">
+                                <div class="label-col">Sat</div>
+                                <div class="checkBox">
+                                    <label>
+                                        <input autocomplete="nope" type="checkbox" formControlName="Sat">
+                                        <span class="iconChk"><i class="fa fa-check"></i> </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                        <div class="col-sm-2">
+                            <div class="label-col">Start Date</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="dateWrapper">
+                                <input autocomplete="nope" type="text" formControlName="start_date" placeholder="" class="date ptrN" [matDatepicker]="picker" [min]="minDate">
+                                <mat-datepicker #picker (selectedChanged)="startDateChange($event,indxP)"></mat-datepicker>
+                                <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png"></span>
+                                <div class="clearfix"></div>
+                                <span class="error-msg" *ngIf="item.get('start_date').invalid && (item.get('start_date').dirty || item.get('start_date').touched || submitted)">
+                                    <small *ngIf="item.get('start_date').errors.required">Start Date is required.</small>
+                                </span>
+                            </div> 
+                            
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="label-col">End Date</div>
+                        </div>
+                        <div class="col-sm-4 Pad0">
+                            <div class="dateWrapper">
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="endDate" type="radio" id="endDate2"  (change)="changeOccrence('endDate')" [checked]="!is_after">
+                                    <label for="endDate2"></label>
+                                </div>
+                                <input autocomplete="nope" type="text" formControlName="end_date" placeholder="" class="date ptrN" [matDatepicker]="pickerEnd" [min]="item.get('start_date').value">
+                                <mat-datepicker #pickerEnd (selectedChanged)="clearendtime($event,indxP)"></mat-datepicker>
+                                <span class="dateIcon" (click)="pickerEnd.open()" [ngClass]="{'ptrN' : is_after}"><img src="assets/icon/date_picker.png"></span>
+                                <div class="clearfix"></div>
+                                <span style="margin-left: 32px;" class="error-msg" *ngIf="item.get('end_date').invalid && (item.get('end_date').dirty || item.get('end_date').touched || submitted)">
+                                    <small *ngIf="item.get('end_date').errors.required">End Date is required.</small>
+                                </span>
+                            </div>
+                            <div class="afterOccurWrap">
+                                <div class="treaRadioBtn">
+                                    <input autocomplete="nope" name="endDate" type="radio" id="after"  (change)="changeOccrence('after')" [checked]="is_after">
+                                    <label for="after">After</label>
+                                </div>
+                                <div class="occurence">
+                                    <input autocomplete="nope" type="text" name="" formControlName="end_after_occurences" [ngClass]="{'ptrN' : !is_after}"/>
+                                    <span>Occurences</span>
+                                    <span class="error-msg" *ngIf="item.get('end_after_occurences').invalid && (item.get('end_after_occurences').dirty || item.get('end_after_occurences').touched || submitted)">
+                                        <small *ngIf="item.get('end_after_occurences').errors.required">Occurences is required.</small>
+                                        <small *ngIf="item.get('end_after_occurences').errors.min">Enter occurence more than 0.</small>
+                                        <small *ngIf="item.get('end_after_occurences').errors.max">Enter occurence below 52.</small>
+                                    </span>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                <div class="form-group timeWrap">
+                    <div class="col-sm-2">
+                        <div class="label-col">Start Time</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="time">
+                            <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" placeholder="__:__" formControlName="start_time" type="text" name="" class="hours" (keyup)="clearendtime($event,indxP)"/>
+                            <select formControlName="start_time_format" class="">
+                                <option [value]="'am'">am</option>
+                                <option [value]="'pm'">pm</option>
+                            </select>
+                        </div>
+                        <span class="error-msg" *ngIf="item.get('start_time').invalid && (item.get('start_time').dirty || item.get('start_time').touched || submittedS)">
+                            <small *ngIf="item.get('start_time').errors.required">Start Time is required.</small>
+                            <small *ngIf="item.get('start_time').errors.pattern">Enter valid Start Time.</small>
+                        </span>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="label-col">End Time</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="time">
+                            <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" placeholder="__:__" formControlName="end_time" type="text" name="" class="hours" (keyup)="compareendtime($event, indxP)"/>
+                            <select formControlName="end_time_format" class="" (change)="compareendtime($event,indxP)">
+                                <option [value]="'am'">am</option>
+                                <option [value]="'pm'">pm</option>
+                            </select>
+                        </div>
+                        <span class="error-msg" *ngIf="!item.get('end_time').errors">
+                            <small *ngIf="timeNowError">End time is not less than start time.</small>
+                        </span>
+                        <span class="error-msg" *ngIf="item.get('end_time').invalid && (item.get('end_time').dirty || item.get('end_time').touched || submittedS)">
+                            <small *ngIf="item.get('end_time').errors.required">End Time is required.</small>
+                            <small *ngIf="item.get('end_time').errors.pattern">Enter valid End Time.</small>
+                        </span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div> -->
+        
+        <div *ngIf="item.get('schedule_type').value == 3">
+            <div class="treaRadioBtn">
+                <input autocomplete="nope" name="radio-group" type="radio" (change)="changeSchedule('now')" id="scheduleNow" [checked]="scheduleType == 'now'">
+                <label for="scheduleNow">Schedule Now</label>
+            </div>
+
+            <div class="row mapWraper" *ngIf="scheduleType == 'now' && showMap">
+                <div class="col-sm-12">
+                    <div class="mapWrap">
+                        <!-- <img class="img-responsive" src="assets/img/mapimg.png"> -->
+                        <agm-map [latitude]="PEService.locationDetails.latitude" [longitude]="PEService.locationDetails.longitude" [zoom]="PEService.locationDetails.zoom" [mapTypeId]="mapTypeId">
+                            <agm-marker [latitude]="PEService.locationDetails.latitude" [longitude]="PEService.locationDetails.longitude"></agm-marker>
+                        </agm-map>
+                        <div class="quotNav">
+                            <div class="tabs Mar0">
+                                <button [ngClass]="mapTypeId == 'terrain' ? 'act-option' :''" (click)="setMapType('terrain')" mat-raised-button class="trea-btn">Terrain</button>
+                            </div>
+                            <div class="tabs">
+                                <button [ngClass]="mapTypeId == 'satellite' ? 'act-option' :''" (click)="setMapType('satellite')" mat-raised-button class="trea-btn">Satellite</button>
+                            </div>
+                            <div class="tabs">
+                                <button [ngClass]="mapTypeId == 'roadmap' ? 'act-option' :''" (click)="setMapType('roadmap')" mat-raised-button class="trea-btn">Road Map</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scheduleNow" *ngIf="scheduleType == 'now'">
+                <div class="dateTimeWrap">
+                    <div class="form-group dateWrap">
+                        <div class="col-sm-2">
+                            <div class="label-col">Start Date</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="info-col">{{util.getFormatedDate(item.get('start_date').value)}}</div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="label-col">End Date</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="info-col">{{util.getFormatedDate(item.get('end_date').value)}}</div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="form-group timeWrap">
+                        <div class="col-sm-2">
+                            <div class="label-col">Start Time</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="time">
+                                <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" placeholder="__:__" formControlName="start_time" type="text" name="" class="hours" (keyup)="clearendtime($event,indxP)"/>
+                                <select formControlName="start_time_format" class="" (change)="clearendtime($event,indxP)">
+                                    <option [value]="'am'">am</option>
+                                    <option [value]="'pm'">pm</option>
+                                </select>
+                            </div>
+                            <span class="error-msg" *ngIf="item.get('start_time').invalid && (item.get('start_time').dirty || item.get('start_time').touched || submittedS)">
+                                <small *ngIf="item.get('start_time').errors.required">Start Time is required.</small>
+                                <small *ngIf="item.get('start_time').errors.pattern">Enter valid Start Time.</small>
+                            </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="label-col">End Time</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="time">
+                                <input autocomplete="nope" [textMask]="{mask: constant.TIME_MASK}" placeholder="__:__" formControlName="end_time" type="text" name="" class="hours" (keyup)="compareendtime($event,indxP)"/>
+                                <select formControlName="end_time_format" class="" (change)= "compareendtime($event,indxP)">
+                                    <option [value]="'am'">am</option>
+                                    <option [value]="'pm'">pm</option>
+                                </select>
+                            </div>
+                            <span class="error-msg" *ngIf="!item.get('end_time').errors">
+                                <small *ngIf="timeNowError">End time is not less than start time.</small>
+                            </span>
+                            <span class="error-msg" *ngIf="item.get('end_time').invalid && (item.get('end_time').dirty || item.get('end_time').touched || submittedS)">
+                                <small *ngIf="item.get('end_time').errors.required">End Time is required.</small>
+                                <small *ngIf="item.get('end_time').errors.pattern">Enter valid End Time.</small>
+                            </span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- <div class="siteInspBtn">
+        <button mat-raised-button class="trea-btn" (click)="reviewSchedule()">ABC</button>
+    </div> -->
+</form>

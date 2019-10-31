@@ -1,0 +1,284 @@
+<div class="dialog" *ngIf="action == 'addFields'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="dialog-hdr">
+    <div>New Fields</div>
+  </div>
+  <form autocomplete="off" [formGroup]="addFieldFm">
+    <div class="feildsTable table-responsive scrolable">
+      <table class="table">
+        <tr>
+          <td></td>
+          <td>Label</td>
+          <td>Data Type</td>
+          <td>Optional</td>
+        </tr>
+        <tr
+          *ngFor="let field of fields.controls; let indx = index"
+          [formGroup]="field"
+        >
+          <td>
+            <span
+              class="cursorPtr"
+              (click)="removeField(indx, field.get('label').value)"
+              ><img src="assets/icon/close_icon.png"
+            /></span>
+          </td>
+          <td>
+            <div *ngIf="!field.get('isEditable').value">
+              {{ field.get("label").value }}
+            </div>
+
+            <div class="form-group" *ngIf="field.get('isEditable').value">
+              <input
+                autocomplete="nope"
+                type="text"
+                class="form-control"
+                formControlName="label"
+              />
+              <span
+                class="error-msg input-err-msg left35"
+                *ngIf="
+                  field.get('label').invalid &&
+                  (field.get('label').dirty ||
+                    field.get('label').touched ||
+                    submitted)
+                "
+              >
+                <small *ngIf="field.get('label').errors.required"
+                  >Label is required.</small
+                >
+              </span>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="!field.get('isEditable').value">
+              {{ field.get("dataType").value }}
+            </div>
+
+            <div class="form-group" *ngIf="field.get('isEditable').value">
+              <select class="form-control" formControlName="dataType">
+                <option value="" selected></option>
+                <option [value]="'Text'">Text</option>
+                <option [value]="'Number'">Number</option>
+                <option [value]="'Date'">Date</option>
+                <option [value]="'Decimal'">Decimal</option>
+              </select>
+              <span
+                class="error-msg"
+                *ngIf="
+                  field.get('dataType').invalid &&
+                  (field.get('dataType').dirty ||
+                    field.get('dataType').touched ||
+                    submitted)
+                "
+              >
+                <small *ngIf="field.get('dataType').errors.required"
+                  >Data Type is required.</small
+                >
+              </span>
+            </div>
+          </td>
+          <td>
+            <div class="form-group">
+              <select
+                class="form-control w100"
+                formControlName="optionalStatus"
+              >
+                <option [value]="'False'">Mandatory</option>
+                <option [value]="'True'">Optional</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="addFields">
+        <span class="cursorPtr" (click)="addNewField()">
+          <img src="assets/icon/icon-add.png" />
+          <span>New Fields</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+    <div class="button-row">
+      <button
+        mat-raised-button
+        class="trea-btn"
+        id="update-field-btn"
+        (click)="updateAdditionalFields(addFieldFm)"
+      >
+        Update
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="dialog" *ngIf="action == 'remove'">
+  <span class="close-icon top35" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <!-- <div class="dialog-hdr">
+        <div>Remove Employee</div>
+    </div> -->
+  <div *ngIf="!isSuccess">
+    <div class="dialog-txt">
+      <div>Remove Field: {{ dataObj.field }}?</div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="remove-field-btn"
+        mat-raised-button
+        class="trea-btn"
+        (click)="removeFieldAPICall(dataObj.index)"
+      >
+        Delete
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <div class="dialog-txt" *ngIf="isSuccess">{{ successMsg }}</div>
+</div>
+
+<div class="dialog businessTypeCreated" *ngIf="action == 'createdSuccess'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="info-col successText">
+    {{ successMsg }}
+  </div>
+  <div class="button-row">
+    <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+      Done
+    </button>
+  </div>
+</div>
+
+<div class="dialog businessTypeCreated" *ngIf="action == 'businessTypeCreated'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="info-col successText">
+    New Business Type Successfully created.
+  </div>
+  <div class="button-row">
+    <button mat-raised-button class="trea-btn">Continue Creating</button>
+    <button
+      mat-raised-button
+      class="trea-btn"
+      (click)="closeDialog()"
+      routerLink="/csa-onboarding/business-nature/0"
+    >
+      Done
+    </button>
+  </div>
+</div>
+
+<div class="dialog" *ngIf="action == 'csvUpload'">
+  <span class="close-icon" (click)="closeDialog()">
+    <img src="assets/icon/close_icon.png" />
+  </span>
+  <div class="clearfix"></div>
+  <div class="dialog-hdr dialog-txt">
+    <div>CSV Upload</div>
+  </div>
+  <div class="action-btn form-group" *ngIf="!uploadResult">
+    <div class="pull-left" *ngIf="dataObj.apiEndPoint != 'nocsv'">
+      <div class="pull-left fileUpload client-btn" *ngIf="isUploadBtn">
+        <span class="client-btn" id="csv-up-btn" (click)="addFromCSV()"
+          >CSV Upload</span
+        >
+        <input
+          autocomplete="nope"
+          type="file"
+          id="btnUpload"
+          name="import_file"
+          value="Upload"
+          (change)="fileChange($event)"
+          class="upload client-btn"
+        />
+      </div>
+      <div class="pull-left">
+        <i
+          popover="Upload the csv file filled with valid data."
+          popoverPlacement="right"
+          [popoverOnHover]="true"
+          [popoverCloseOnMouseOutside]="true"
+          class="fa fa-question-circle"
+          aria-hidden="true"
+          required
+        ></i>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="pull-right" *ngIf="dataObj.apiEndPoint != 'nocsv'">
+      <!-- <a mat-raised-button class="client-btn" href="{{file.downloadBaseURL+'bulk_emp_upload.csv'}}">Download Template</a> -->
+      <a
+        mat-raised-button
+        class="client-btn"
+        href="{{ dataObj.csvTemplateUrl }}"
+        target="_blank"
+        >Download Template</a
+      >
+    </div>
+
+<!-- @Shahebaz (Start)-->
+    <div class="">
+      <a class="" href="{{ dataObj.csvTemplateUrl1 }}" target="_blank"
+        >Get Invalid Data</a
+      >
+    </div>
+    <!-- @Shahebaz (End)-->
+
+    <div *ngIf="dataObj.apiEndPoint == 'nocsv'">NO CSV Upload</div>
+
+    <div class="clearfix"></div>
+  </div>
+
+  <!-- <div class="upload-result" *ngIf="pageData.businessCsvData.length > 0">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Business Type</th>
+                    <th>Service Type</th>
+                    <th>Service Name</th>
+                    <th>Service Cost</th>
+                    <th>Status</th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let indx=index ; let business_data of pageData.businessCsvData">
+                    <td>{{business_data.business_type}}</td>
+                    <td>{{business_data.service_type}}</td>
+                    <td>{{business_data.service_name}}</td>
+                    <td>{{business_data.service_cost}}</td>
+                    <td class="{{business_data.is_valid == 1 ? 'succ' : 'fail'}}">
+                      <span class="{{business_data.is_valid == 1 ? 'succ' : 'fail'}}">{{business_data.is_valid == 1 ? 'Success' : 'Fail'}}</span>
+                      <i *ngIf="business_data.is_valid == 0" popover="{{business_data.error_msg}}" popoverPlacement="left" [popoverOnHover]="true" [popoverCloseOnMouseOutside]="true" class="fa fa-question-circle" aria-hidden="true" required></i>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div> -->
+
+  <div class="errMsgCon" *ngIf="isError">
+    <small>{{ errMsg }}</small>
+  </div>
+</div>

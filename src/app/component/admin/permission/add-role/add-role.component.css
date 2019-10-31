@@ -1,0 +1,46 @@
+.treaActionBtn{ background-color: #00A499;color: #FFFFFF;border-radius: 0px;height: 30px;line-height: 30px;text-decoration: none; }
+
+.newroleDetails .checkBox{
+	text-align:center;
+	margin-bottom: 15px;
+}
+.newroleWrap{
+	max-width: 684px;
+    margin: 30px auto;
+}
+ .nextcancelBtnWrap{
+	margin: 40px 50px 0px 50px;
+}
+ .nextcancelBtnWrap .treaActionBtn{
+	width:158px;
+}
+ .nextcancelBtnWrap .pull-left{
+	left:15%;
+}
+ .nextcancelBtnWrap .pull-left{
+	right:15%;
+}
+.newroleDetails .width95{
+	width:95%;
+}
+.subheaderWrap .label-col{
+	margin-bottom: 15px;
+}
+.errMsgCon{ text-align: center; margin-bottom: 20px; }
+.errMsgCon small{ 
+  	color: #F44336;
+    font-size: smaller;
+}
+.addroleWrap .newroleDetails .form-group{
+	margin-bottom: 25px;
+}
+.dashboardDetails>hr:first-child{
+	margin: 0 0 10px 0;
+}
+.addroleWrap .info-col{
+	font-weight: 500;
+}
+.disableAccessType{ margin-bottom: 25px;text-align: center; }
+.accessCheck{ text-align: center;margin-bottom: 17px; }
+.accessCheck i{ color: #77d4ce; }
+.actionName{ font-size: 12px;font-weight: 400;padding-left: 15px; }

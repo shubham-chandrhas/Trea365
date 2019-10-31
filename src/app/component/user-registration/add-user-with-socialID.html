@@ -1,0 +1,40 @@
+
+
+
+<div class="login-box reset-credentials" *ngIf="userSection == 'add'">
+    <div id="loginBox" class="login-box-body">
+        <p class="login-box-hdr">Registration With Social ID</p>
+
+        <p class="reset-hint">Please enter user social id</p>
+        <div class="errMsgCon mb10" *ngIf="isError">
+            <div class="loginErrMsg"><i class="material-icons">&#xE000;</i></div>
+            <small>{{errMsg}}</small>
+        </div>    
+        <form autocomplete="off" #sendRegistrationLinkFm="ngForm" (ngSubmit)="sendRegistrationLink(sendRegistrationLinkFm)" (keydown)="keyDownFunction($event, sendRegistrationLinkFm)">
+            <div class="username">
+            	<i class="material-icons">email</i>
+                <input autocomplete="nope" type="text" id="userEmail" name="userEmail" class="form-control textboxInsty " placeholder="Social id" [(ngModel)]="userEmailId" #userEmail="ngModel" required>
+
+                <div *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched)" class="errMsgCon">
+                    <div><i class="material-icons">&#xE000;</i></div>
+                    <small *ngIf="userEmail.errors.required">Email is required.</small>
+                    <small *ngIf="userEmail.errors.minlength">Name must be at least 4 characters long.</small>
+                </div>
+            </div>
+            
+            <div class="button-row">
+              <button mat-raised-button type="button" id="cancelFm" class="trea-btn" routerLink="/csa">Cancel</button>
+              <button mat-raised-button type="submit" id="resetFm" class="trea-btn">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="userSection == 'success'" class="login-box">
+    <div id="loginBox" class="login-box-body">
+        <div class="errMsg txtC">
+            <b>"{{regUserName}}" </b> user registered successfully .
+        </div>    
+        
+    </div>
+</div>

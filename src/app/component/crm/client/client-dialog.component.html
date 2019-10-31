@@ -1,0 +1,103 @@
+<div class="dialog width450" *ngIf="action == 'addReferalType'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr MB30">
+    <!-- <div>&nbsp;</div> -->
+    <div>New Referral Type</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <form autocomplete="off" role="form" [formGroup]="ReferalTypeFrm">
+      <div class="form-group clearfix">
+        <div class="referalType MB30">
+          <input
+            autocomplete="nope"
+            class="form-control"
+            formControlName="referral_type"
+            placeholder=""
+            type="text"
+          />
+          <span
+            class="error-msg"
+            *ngIf="
+              referral_type.invalid &&
+              (referral_type.dirty || referral_type.touched || submitted)
+            "
+          >
+            <small *ngIf="referral_type.errors.required"
+              >Referral type is required.</small
+            >
+            <small *ngIf="referral_type.errors.minlength"
+              >Referral type must be at least 2 characters long.</small
+            >
+            <small *ngIf="referral_type.errors.maxlength"
+              >Referral type must be less than 30 characters.</small
+            >
+          </span>
+        </div>
+      </div>
+
+      <div class="errMsgCon MB20" *ngIf="isError">
+        <small>{{ errMsg }}</small>
+      </div>
+      <div class="button-row">
+        <button
+          id="addRefType"
+          mat-raised-button
+          class="trea-btn"
+          (click)="addReferalType(ReferalTypeFrm)"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog" *ngIf="action == 'deleteRecord'">
+  <span class="close-icon" (click)="closeDialog()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </span>
+  <div class="dialog-hdr">
+    <div>Delete Confirmation ?</div>
+  </div>
+  <div *ngIf="!isSuccess">
+    <div class="dialog-txt">
+      <div>Are you sure you want to delete ?</div>
+    </div>
+
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+
+    <div class="button-row">
+      <button
+        id="removeClient"
+        mat-raised-button
+        class="trea-btn"
+        (click)="removeClient()"
+      >
+        Delete
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isSuccess">
+    <div class="dialog-txt">{{ successMsg }}.</div>
+    <div class="button-row">
+      <button id="" mat-raised-button class="trea-btn" (click)="closeDialog()">
+        Done
+      </button>
+    </div>
+  </div>
+</div>

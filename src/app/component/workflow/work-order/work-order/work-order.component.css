@@ -1,0 +1,434 @@
+
+
+/* NEW WORK ORDER INTERNAL START */
+.workOrderInternalForm .form-group {margin-bottom: 25px;}
+.workOrderInBtn {text-align: center;margin-top: 25px;}
+/* NEW WORK ORDER INTERNAL END */
+
+
+.font16{
+    font-size: 16px;
+}
+.viewImgLink{
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.viewImgLink>a{
+    text-decoration: underline;
+    color: #00a99d;
+}
+.checkBox label{
+    font-weight: normal;
+    color: #505050;
+}
+.serviceTblWrap{
+    margin: 20px auto;
+}
+.serviceTblWrap .tblTitle{
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.serviceTblWrap .table > thead > tr > th,
+.serviceTblWrap .table > tbody > tr > td{
+    border-bottom: 1px solid #d1d1d1; 
+    min-width: 150px;
+}
+.serviceTblWrap .table > thead > tr > th{
+    border-top: 1px solid #d1d1d1; 
+}
+.serviceTblWrap .table > tbody > tr > td input{
+    width: 50px;
+    height: 25px;
+    outline: 0;
+}
+.control-label{
+    font-weight: 500;
+}
+.control-label + div b{
+    font-weight: 500;
+}
+
+/* schedule css */
+.treaRadioBtn{
+    margin: 0 0 15px 0;
+}
+.scheduleNew .mapWeap{
+    margin: 40px auto;
+}
+.generateQuoteWrap .mapWeap{
+    margin: 70px auto;
+}
+.generateQuoteWrap .marTop10{ margin-top: 10px; }
+/* .trea-btn{
+    background-color: #00A499;
+    color: #FFFFFF;
+    border-radius: 0px;
+    height: 30px;
+    line-height: 30px;
+    min-width: 80px;
+    padding: 0 8px;
+    width: 100%;
+}
+.trea-btn:focus{
+    outline: none;
+}
+.trea-btn:hover,
+.client-btn:hover {
+    color: #505050!important;
+    background-color: #FFCB36!important;
+} */
+.act-option{ color: #505050;background-color: #FFCB36; }
+.quotNav{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 650px;
+}
+.quotNav .tabs{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin-left: 1px;
+}
+.quotNav .tabs{
+    margin-left: 15px;
+}
+
+.quotActionBtnWrap{
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+.servicesWrap{
+    margin: 20px auto;
+    border: 1px solid #d1d1d1;
+    padding: 10px;
+    min-height: 150px;
+}
+.servicesWrap .table td input{
+    vertical-align:middle;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+   box-shadow: none;
+   border: 1px solid #D1D1D1;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 1px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    outline: 0;
+    height: 25px;
+}
+.servicesWrap .table th{
+    padding: 8px;
+}
+.servicesWrap .table td,
+.servicesWrap .table th{
+    vertical-align: top;
+    border: 0px;
+}
+.inputService{
+    width: 150px;
+}
+.inputCost,
+.inputQty,
+.inputAmt{
+    width: 90px;
+}
+.inputDetail{
+    outline: 0;
+}
+.addIcon{
+    margin-left: 20px;
+}
+.addIcon>img{
+    max-width: 100%;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+.addIcon>span,
+.closeIcon>span{
+    /* cursor: pointer; */
+    padding-left: 10px;
+}
+.siteInspBtn .trea-btn{
+    width: auto;
+}
+
+.scheduleWrap{
+    margin: 20px auto;
+    padding: 20px 0px;
+    border: 1px solid #d1d1d1;
+    min-height: 150px;
+}
+
+.scheduleWrap>.treaRadioBtn{
+    margin-bottom: 20px;
+    margin-left: 15px;
+ }
+.scheduleWrap .mapContainer>img{
+    max-height: 200px;
+    width: 100%;
+}
+
+.dateWrap{
+    margin-top: 20px;
+}
+.timeWrap .hours,
+.timeWrap select{
+    vertical-align:middle;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    box-shadow: none;
+    border: 1px solid #D1D1D1;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 1px 7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 25px;
+    width: 70px;
+    outline: 0;
+}
+
+.recurringWrap,
+.scheduleOnceWrap{
+    margin-bottom: 40px;
+}
+.recurringWrap .selectRepeat select{
+    width: 110px;
+}
+
+.weekDaysWrap{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+}
+.weekDaysWrap .days{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin-left: 1px;
+    text-align: center;
+}
+.weekDaysWrap .days .checkBox{
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+/* .dateWrapper{
+    margin-bottom: 20px;
+} */
+.dateWrapper .date{
+    display: inline-block;
+    width: 110px;
+    outline: 0;
+}
+.dateWrapper .dateIcon{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    vertical-align: top;
+    margin-left: 5px;
+}
+.dateWrapper .treaRadioBtn{
+    display: inline-block;
+    
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:before, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:before{
+    top: -12px;
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:after, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:after{
+    top: -9px;
+}
+.afterOccurWrap{
+    margin-top: 20px;
+}
+.afterOccurWrap .treaRadioBtn{
+    display: inline-block;
+}
+.afterOccurWrap .occurence{
+    display: inline-block;
+}
+.afterOccurWrap .treaRadioBtn label{
+    font-weight: normal;
+    color: #505050;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.afterOccurWrap .occurence input{
+   width: 40px;
+   padding: 1px 6px;
+}
+
+.payScheduleWrap,
+.imagesWrap{
+    padding: 20px 0px;
+    margin: 20px auto;
+    border: 1px solid #d1d1d1;
+    min-height: 150px;
+}
+.payScheduleWrap .taxes{
+    width: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.payScheduleWrap .form-group input{
+    max-width: 200px;
+}
+.imagesWrap{
+    padding: 15px;
+}
+.imagesWrap .dropFileHere{
+    text-align: center;
+    font-size: 16px;
+    border: 2px dashed #D1D1D1;
+    margin: 15px 0px;
+}
+.imagesWrap .drag-over{ border: 5px dashed #a4a4a4; box-shadow: 0 0 30px #cccccc; }
+.imagesWrap .dropFileHere .content{
+    height: 150px;
+    display: block;
+    padding: 15px;
+    color: #505050; 
+}
+.dropFileHere .text,
+.dropFileHere .selFileLink{ padding: 10px; }
+.dropFileHere .selFileLink>a{ color: #3aa69b;text-decoration: underline; }
+.select-file .file-in {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    background-color: transparent;
+    opacity: 0;
+    cursor: pointer;
+}
+.imagesWrap .previewImg {
+    position: relative;
+    border: 1px solid #D1D1D1;
+    min-height: 130px;
+    height: 130px;
+    margin-bottom: 20px;
+}
+.imagesWrap .previewImg img{
+    height: 100%;
+    margin: 0 auto;
+}
+.previewImg .closeImg{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+.searchList{ padding: 0px; }
+.clientSearch .mat-form-field .mat-form-field-infix{ padding-bottom: 0px !important; }
+.searchList .clientSearch .mat-input-element{ padding-bottom: 0px !important; }
+.mat-form-field-infix{ padding: 0px !important; } 
+.searchList .search-icn{ top: 3px; }
+.mapWeap agm-map { height: 650px; }
+.mapWeap .quotNav{ max-width: 300px;margin-top: 15px;float: right; }
+
+.form-control[disabled], .form-control[readonly]{
+    background: #fff;
+}
+.timeWrap .hours, .timeWrap select{
+    display: inline-block;
+}
+.WOSetupSection{
+    max-width: 900px;
+    margin: 0 auto;
+}
+.woinfo{
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+}
+.pageTitle,
+.infoWrap,
+.scheduleWrap,
+.workOrderDetails{
+    margin-bottom: 40px;
+}
+
+.dateWrapper .date{
+    display: inline-block;
+    width: 110px;
+    outline: 0;
+}
+.dateWrapper .dateIcon{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    vertical-align: top;
+    margin-left: 5px;
+}
+.dateWrapper .treaRadioBtn{
+    display: inline-block;
+    
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:before, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:before{
+    top: -12px;
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:after, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:after{
+    top: -9px;
+}
+.dateWrap{
+    margin-top: 20px;
+}
+.timeWrap .hours,
+.timeWrap select{
+    vertical-align:middle;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+   box-shadow: none;
+   border: 1px solid #D1D1D1;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 1px 7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 25px;
+    width: 70px;
+    outline: 0;
+}
+
+.act-option{ color: #505050;background-color: #FFCB36; }
+.quotNav{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 650px;
+}
+.quotNav .tabs{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin-left: 1px;
+    margin-left: 15px;
+}
+.quotNav .tabs button{
+   width: 100%;
+}
+
+.actionBtnWrap .cancel{
+    margin-left: 30px;
+}
+
+.servicesWrap{
+    margin: 20px auto;
+    border: 1px solid #d1d1d1;
+    padding: 20px;
+    min-height: 150px;
+}
+.signatureChkBox{
+    margin-bottom: 50px;
+}
+.signatureChkBox .checkBox label {
+    color: #505050;
+}

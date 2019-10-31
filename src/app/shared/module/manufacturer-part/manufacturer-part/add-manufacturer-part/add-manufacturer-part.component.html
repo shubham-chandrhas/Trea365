@@ -1,0 +1,178 @@
+<div [ngClass]="currentPath == 'add-manufacturer-part' ? '' : 'ofClass'">
+
+	<div class="addMFGPartFrmWrap">
+		<form autocomplete="off" class="form-horizontal addMfgForm" role="form" [formGroup]="addMFGForm">
+			<div class="pageTitle">New Item Definition</div>
+			<div class="addFormBody">
+
+
+                <div class="form-group">
+                    <label class="col-sm-5 control-label" for="class">Item Category</label>
+                    <div class="col-sm-7">
+                        <div class="autoCompleteList">
+                            <div class="searchList">
+                                <mat-form-field class="product">
+                                    <input autocomplete="nope" id="class" matInput placeholder=""  [formControl]="class_name" [matAutocomplete]="itemClassAutoComp" (keyup)="validateClass($event)">
+                                    <i *ngIf="class_name.value!=''" (click)="util.clearAutoComplete('class', [class_name, class,manufacturer, manufacturerId]);clearClass();" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <img *ngIf="class_name.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                    <mat-autocomplete #itemClassAutoComp="matAutocomplete">
+                                        <mat-option *ngFor="let indx=index; let item of filteredClass | async | sortBy:'item_class_name':'ASC':'A'" [value]="item.item_class_name" (onSelectionChange)="getSelectedClass(item,$event)">
+                                        <span>{{ item.item_class_name }}</span>
+                                        </mat-option>
+                                        <mat-option (click)="showAddItemCategoryPopup()">
+                                            <img aria-hidden src="assets/icon/icon-add.png" />
+                                            <span>New Item Category</span>
+                                            </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <span class="error-msg" *ngIf="class.invalid && (class.dirty || class.touched || pageData.submitted)">
+                            <small *ngIf="class.errors.required">Please select Item Category from the list.</small>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="pageData.classType == 'Asset' || pageData.classType == 'Product'">
+                    <label class="col-sm-5 control-label" for="manufacturerId">Manufacturer</label>
+                    <div class="col-sm-7">
+                        <div class="autoCompleteList">
+                            <div class="searchList">
+                                <mat-form-field class="product">
+                                    <input autocomplete="nope" id="manufacturerId" matInput placeholder=""  [formControl]="manufacturer" [matAutocomplete]="manufacturerAutoComp" (keyup)="validateManf($event)">
+                                    <i *ngIf="manufacturer.value!=''" (click)="util.clearAutoComplete('manufacturerId', [manufacturer, manufacturerId])" class="clearAutoComplete fa fa-times-circle" aria-hidden="true"></i>
+                                    <img *ngIf="manufacturer.value==''" class="selectBoxIcon" aria-hidden src="assets/icon/select.png" />
+                                    <!-- <img *ngIf="manufacturer.value!=''" (click)="clearAutoComplete('manufacturer','manufacturerId')" class="clearAutoComplete" src="assets/icon/close_icon.png" /> -->
+                                    <mat-autocomplete #manufacturerAutoComp="matAutocomplete">
+                                        <mat-option *ngFor="let indx=index; let item of filteredManufacturer | async | searchfilter:'1':type | sortBy:'manf_name':'ASC':'A'" [value]="item.manf_name" (onSelectionChange)="getMfg(item,$event)">
+                                        <span>{{ item.manf_name }}</span>
+                                        </mat-option>
+
+                                        <mat-option (click)="showAddManufacturerPopup()">
+                                        <img aria-hidden src="assets/icon/icon-add.png" />
+                                        <span>New Manufacturer</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <span class="error-msg" *ngIf="manufacturerId.invalid && (manufacturerId.dirty || manufacturerId.touched || pageData.submitted)">
+                            <small *ngIf="manufacturerId.errors.required">Please select Manufacturer from the list.</small>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="pageData.classType == 'Asset' || pageData.classType == 'Product'">
+                    <label class="col-sm-5 control-label optional" for="manufacturerPartNo">Item Definition No.</label>
+                    <div class="col-sm-7">
+                        <input autocomplete="nope" type="text" id="manufacturerPartNo" name="manufacturerPartNo" placeholder="" formControlName="manufacturerPartNo" class="form-control optional" >
+                        <span class="error-msg" *ngIf="manufacturerPartNo.invalid && (manufacturerPartNo.dirty || manufacturerPartNo.touched || pageData.submitted)">
+                            <small *ngIf="manufacturerPartNo.errors.required">Item Definition No. is required.</small>
+                            <small *ngIf="manufacturerPartNo.errors.pattern">Space not allowed in Item Definition No.</small>
+                            <small *ngIf="manufacturerPartNo.errors.maxlength">Item Definition No. must be less than or equal to 30 characters.</small>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="pageData.classType == 'Asset' || pageData.classType == 'Product'">
+                    <label class="col-sm-5 control-label optional" for="manfUPC">UPC</label>
+                    <div class="col-sm-7">
+                            <!-- [ngClass]="pageData.upcAvailability == '1' ? 'red-font' : ''" -->
+                        <input autocomplete="nope" type="text" id="" name="manfUPC" placeholder="" formControlName="manfUPC" class="form-control optional"  (change)="validateUPC($event)">
+                        <span class="error-msg" *ngIf="pageData.isError"><small *ngIf="pageData.upcAvailability == '1'">UPC is already exist.</small></span>
+                        <span class="error-msg" *ngIf="manfUPC.invalid && (manfUPC.dirty || manfUPC.touched || pageData.submitted)">
+                            <!-- <small *ngIf="manfUPC.errors.required">UPC is required.</small> -->
+                            <small *ngIf="manfUPC.errors.max ">UPC must be Less Than 30 digit.</small>
+                            <small *ngIf="manfUPC.errors.pattern && !manfUPC.errors.max">UPC must be alphanumeric and contains (+/$.-%) characters.(i.e. CODE39 STD.)</small>
+                            <!-- <small *ngIf="manfUPC.errors.pattern">UPC only accepts digits.</small> -->
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 control-label" for="shortName">Name</label>
+                    <div class="col-sm-7">
+                        <input autocomplete="nope" type="text" id="" name="shortName" placeholder="" formControlName="shortName" class="form-control">
+                        <span class="error-msg" *ngIf="shortName.invalid && (shortName.dirty || shortName.touched || pageData.submitted)">
+                            <small *ngIf="shortName.errors.required">Name is required.</small>
+                            <small *ngIf="shortName.errors.maxlength"> Name must be less than or equal to 50 characters.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 control-label optional" for="fullName">Description</label>
+                    <div class="col-sm-7">
+                        <textarea name="fullName" placeholder="" formControlName="fullName" class="form-control des-heigth optional"></textarea>
+                        <span class="error-msg" *ngIf="fullName.invalid && (fullName.dirty || pageData.submitted)">
+                            <!-- <small *ngIf="fullName.errors.required"> Description is required.</small> -->
+                            <small *ngIf="fullName.errors.maxlength">Description must not greater than {{constant.DEFAULT_TEXT_MAXLENGTH}} characters.</small>
+                        </span>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group" *ngIf="pageData.classType == 'Asset' || pageData.classType == 'Product'">
+                    <label class="col-sm-5 control-label optional" for="replaces">Replaces</label>
+                    <div class="col-sm-7">
+                        <div class="trea-multi-select">
+                            <ss-multiselect-dropdown [options]="replacesList" [settings]="mulSelSettings"  [texts]="selectText" formControlName="replaces" ></ss-multiselect-dropdown>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="pageData.classType == 'Asset' || pageData.classType == 'Product'">
+                    <label class="col-sm-5 control-label optional" for="equivalent">Equivalent</label>
+                    <div class="col-sm-7">
+                        <div class="trea-multi-select">
+                            <ss-multiselect-dropdown [options]="equivalentList" [settings]="mulSelSettings"  [texts]="selectText" formControlName="equivalent" ></ss-multiselect-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="pageData.classType == 'Product' || pageData.classType == 'Material'">
+                    <label class="col-sm-5 control-label" for="minimumStock">Minimum Stock</label>
+                    <div class="col-sm-7">
+                        <input autocomplete="nope" type="number" id="minimumStock" name="minimumStock" placeholder="" formControlName="minimumStock" class="form-control" (mouseover)="util.disableAutocomplete()">
+                        <span class="error-msg" *ngIf="minimumStock.invalid && (minimumStock.dirty || minimumStock.touched || pageData.submitted)">
+                            <small *ngIf="minimumStock.errors.required">Minimum Stock is required.</small>
+                            <small *ngIf="minimumStock.errors.mim">Minimum Stock must be greater than 0.</small>
+                            <small *ngIf="minimumStock.errors.max">Minimum Stock must be less than 9 digit.</small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="pageData.classType == 'Product' || pageData.classType == 'Material'">
+                    <label class="col-sm-5 control-label" for="UOM">UOM</label>
+                    <div class="col-sm-7">
+                        <select formControlName="UOM" class="form-control">
+                            <option value=""></option>
+                            <option *ngFor="let item of pageData.uomList" [value]="item.uom_id">{{item.uom_name}}</option>
+                        </select>
+                        <span class="error-msg" *ngIf="UOM.invalid && (UOM.dirty || UOM.touched || pageData.submitted)">
+                            <small *ngIf="UOM.errors.required">UOM is required.</small>
+                        </span>
+                    </div>
+                </div>
+                <!-- <div class="form-group" *ngIf="pageData.classType == 'Product' || pageData.classType == 'Material'">
+                    <label class="col-sm-5 control-label optional" for="salesMarkup">Sales Markup (%)</label>
+                    <div class="col-sm-7 optional">
+                        <input autocomplete="nope" type="number" id="salesMarkup" name="salesMarkup" placeholder="" formControlName="salesMarkup" class="form-control">
+                        <span class="error-msg" *ngIf="salesMarkup.invalid && (salesMarkup.dirty || salesMarkup.touched || pageData.submitted)">
+                            <small *ngIf="(salesMarkup.errors.min || salesMarkup.errors.max) && !salesMarkup.errors.pattern">Invalid Sales Markup.</small>
+                            <small *ngIf="salesMarkup.errors.pattern">Invalid Sales Markup. (e.g 54, 78.25).</small>
+                        </span>
+                    </div>
+                </div> -->
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="errMsgCon" *ngIf="pageData.isError">
+                <small>{{pageData.errMsg}}</small>
+            </div>
+
+            <div class="button-row clearfix">
+              <button mat-raised-button class="trea-btn" (click)="addManufacturer(addMFGForm)">Next</button>
+              <button mat-raised-button class="trea-btn" (click)="cancelAddManufacturerPart()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

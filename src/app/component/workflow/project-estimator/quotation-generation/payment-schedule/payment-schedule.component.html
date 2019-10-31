@@ -1,0 +1,247 @@
+<div class="payScheduleWrap">
+    <form autocomplete="off" role="form" [formGroup]="payScheduleForm">
+      <div class="row">
+        <div class="col-sm-8">
+            <h4 class="detailsHeading">Costs</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Cost of Services</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="info-col text-right">{{payScheduleForm.get('cost_of_service').value | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Cost of Materials</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="info-col text-right">{{payScheduleForm.get('cost_of_material').value | currency: util.getCurrency() :'symbol-narrow'}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Subtotal</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="info-col text-right"><strong>{{pageVariables.subTotal | currency: util.getCurrency() :'symbol-narrow'}}</strong> </div>
+                        <!-- <div class="label-col"><span>{{payScheduleForm.get('sub_total').value | currency: util.getCurrency() :'symbol-narrow'}}</span> </div> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Shipping & Handling</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">
+                          <div class="form-group">
+                            <input autocomplete="nope" type="text" formControlName="shipping_handling" (keyup)="calculateSubTotal()">
+                            <span class="error-msg" *ngIf="(shipping_handling.invalid) && (shipping_handling.dirty || shipping_handling.touched || submitted)">
+                                <!-- <small *ngIf="shipping_handling.errors.required">Shipping and Handling is Required.</small> -->
+                                <small *ngIf="shipping_handling.errors.pattern">Invalid Amount (e.g 54, 78.25).</small>
+                            </span>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col text-right">Adjustment (+/-)</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-col">
+                          <div class="form-group">
+                            <input autocomplete="nope" type="text" formControlName="adjustment" (keyup)="calculateSubTotal()">
+                            <span class="error-msg" *ngIf="(adjustment.invalid) && (adjustment.dirty || adjustment.touched || submitted)">
+                                <!-- <small *ngIf="adjustment.errors.required">Adjustment is Required.</small> -->
+                                <small *ngIf="adjustment.errors.pattern">Invalid Amount (e.g 54, 78.25).</small>
+                            </span>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 PadR0">
+                        <div class="label-col form-group">Taxes
+                            <input autocomplete="nope" type="text" name="" class="taxes" formControlName="taxes" (keyup)="calculateTaxes()" />
+                            <span>%</span>
+                            <span class="error-msg" *ngIf="(taxes.invalid) && (taxes.dirty || taxes.touched || submitted)">
+                                <!-- <small *ngIf="taxes.errors.required">Taxes is Required.</small> -->
+                                <small *ngIf="taxes.errors.min || taxes.errors.max || taxes.errors.pattern">Invalid Taxes.</small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="info-col text-right">
+                                {{pageVariables.taxes | currency: util.getCurrency() :'symbol-narrow'}}
+                            <!-- <span>{{payScheduleForm.get('tax_amount').value | currency: util.getCurrency() :'symbol-narrow'}}</span> -->
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="label-col">Total Cost</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="info-col text-right">
+                            <strong>{{pageVariables.totalCost | currency: util.getCurrency() :'symbol-narrow'}}</strong>
+                            <!-- <span>{{payScheduleForm.get('total_cost').value | currency: util.getCurrency() :'symbol-narrow'}}</span>  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          <div class="row MT20">
+            <div class="col-sm-8">
+              <h4 class="detailsHeading">Payment Schedule</h4>
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="radio-group" type="radio" (change)="changeSchedule('due')" id="scheduleOnce" [checked]="scheduleType == 'due'">
+                        <label for="scheduleOnce">Payment Due : Net {{pageVariables.paymentTerm}} days</label>
+                    </div>
+
+                    <div class="treaRadioBtn">
+                        <input autocomplete="nope" name="radio-group" type="radio" (change)="changeSchedule('custom')" id="scheduleNow" [checked]="scheduleType == 'custom'">
+                        <label for="scheduleNow">Set a custom payment schedule</label>
+                    </div>
+                    
+              <div class="table-responsive" *ngIf="scheduleType == 'custom'">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th><!-- Leave empty for alignment --></th>
+                              <th>Payment Date</th>
+                              <th>Amount Due</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let payment of date_items.controls; let indx=index;" [formGroup]="payment">
+                          <td>
+                            <!-- *ngIf="indx != 0" -->
+                            <span class="closeIcon"> <img (click)="removePaySchedule(indx, payment)" src="assets/icon/close_icon.png" /></span>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <div class="dateWrapper">
+                                  <input autocomplete="nope" type="text" placeholder="" formControlName="payment_date" class="date" [matDatepicker]="picker" style="pointer-events: none;">
+                                  <!-- [min]="minDate" -->
+                                  <mat-datepicker #picker ></mat-datepicker>
+                                  <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png" class="img-responsive"></span>
+                                  <span class="error-msg" *ngIf="(payment.get('payment_date').invalid) && (payment.get('payment_date').dirty || payment.get('payment_date').touched || submitted)">
+                                      <small *ngIf="payment.get('payment_date').errors.required">Date is Required.</small>
+                                      <small *ngIf="payment.get('payment_date').errors.min">Please enter upcoming date.</small>
+                                  </span>  
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <input autocomplete="nope" type="text" formControlName="amount_due"  (keyup)="calculatePaymentAmount()">
+                              <span class="error-msg" *ngIf="(payment.get('amount_due').invalid) && (payment.get('amount_due').dirty || payment.get('amount_due').touched || submitted)">
+                                  <small *ngIf="payment.get('amount_due').errors.required">Amount Due is Required.</small>
+                                  <small *ngIf="payment.get('amount_due').errors.pattern">Invalid Amount Due.</small>
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td><!-- Leave empty for alignment --></td>
+                          <td colspan=2>
+                              <div class="morePayDates">
+                                  <span class="addIcon MB30 cursorPtr" (click)="addpayment('0')">
+                                      <img src="assets/icon/icon-add.png">
+                                      <span>Add Payment Date</span>
+                                  </span>
+                              </div>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td><!-- Leave empty for alignment --></td>
+                            <td>
+                              <div class="label-col big-total text-right">Total Payment Amount</div>
+                              <div class="label-col remaining text-right">Remaining Amount</div>
+                            </td>
+                            <td>
+                              <div class="info-col big-total text-right ">
+                                <strong>{{pageVariables.totalPaymentAmount | currency: util.getCurrency() :'symbol-narrow'}}</strong>
+                              </div>
+                              <div class="info-col text-right">
+                                <span class="remaining">{{pageVariables.remainingPaymentAmount | currency: util.getCurrency() :'symbol-narrow'}}</span>
+                              </div>
+                            </td>
+                        </tr>
+                      </tfoot>
+                  </table>
+
+                  <div class="errMsgCon text-center" *ngIf="totalPayErr"> 
+                        <small>{{errMsg}}</small>
+                    </div>
+
+              </div>
+            </div>
+          </div>
+        <!-- <div class="form-group" *ngFor="let payment of date_items.controls; let indx=index;" [formGroup]="payment">
+            <div class="col-sm-2">
+                <div class="info-col">
+                    <span class="closeIcon" *ngIf="indx != 0"> <img (click)="removePaySchedule(indx, payment)" src="assets/icon/close_icon.png" /></span>Date
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="dateWrapper">
+                    <input autocomplete="nope" type="text" placeholder="" formControlName="payment_date" class="date" [matDatepicker]="picker" [min]="minDate" style="pointer-events: none;">
+                    <mat-datepicker #picker ></mat-datepicker>
+                    <span class="dateIcon" (click)="picker.open()"><img src="assets/icon/date_picker.png" class="img-responsive"></span>
+                    <span class="error-msg" *ngIf="(payment.get('payment_date').invalid) && (payment.get('payment_date').dirty || payment.get('payment_date').touched || submitted)">
+                        <small *ngIf="payment.get('payment_date').errors.required">Date is Required.</small>
+                        <small *ngIf="payment.get('payment_date').errors.min">Please enter upcoming date.</small>
+                    </span>  
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-col text-right">Amount Due</div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-col">
+                    <input autocomplete="nope" type="text" formControlName="amount_due"  (keyup)="calculatePaymentAmount()">
+                    <span class="error-msg" *ngIf="(payment.get('amount_due').invalid) && (payment.get('amount_due').dirty || payment.get('amount_due').touched || submitted)">
+                        <small *ngIf="payment.get('amount_due').errors.required">Amount Due is Required.</small>
+                        <small *ngIf="payment.get('amount_due').errors.pattern">Invalid Amount Due.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="morePayDates">
+                <span class="addIcon MB30 cursorPtr" (click)="addpayment('0')">
+                    <img src="assets/icon/icon-add.png">
+                    <span>Add Payment Date</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <div class="totalPayAmt col-sm-offset-5">
+                <div class="label-col text-center MB20">
+                    <span>Remaining Amount </span>
+                    <span>{{pageVariables.remainingPaymentAmount | currency: util.getCurrency() :'symbol-narrow'}}</span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="totalPayAmt col-sm-offset-5">
+                <div class="label-col text-center MB20">
+                    <span>Total Payment Amount </span>
+                    <span>{{pageVariables.totalPaymentAmount | currency: util.getCurrency() :'symbol-narrow'}}</span>
+                    <div class="clearfix"></div>
+                    <div class="errMsgCon" *ngIf="totalPayErr" style="text-align: left"> 
+                        <small>{{errMsg}}</small>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </form>
+    <!-- <button (click)="reviewPaySchedule(payScheduleForm)" class="mdBtn" style="width:70px; padding: 0px;">Test</button> -->
+</div>

@@ -1,0 +1,115 @@
+
+
+.externalWorkOrderWrap{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+// .trea-btn{
+//     background-color: #00A499;
+//     color: #FFFFFF;
+//     border-radius: 0px;
+//     height: 30px;
+//     line-height: 30px;
+//     min-width: 80px;
+//     padding: 0 8px;
+// }
+// .trea-btn:focus{
+//     outline: none;
+// }
+// .trea-btn:hover{
+//     color: #505050!important;
+//     background-color: #FFCB36!important;
+// }
+.pageTitle,
+.infoWrap,
+.scheduleWrap,
+.workOrderDetails{
+    margin-bottom: 40px;
+}
+
+.dateWrapper .date{
+    display: inline-block;
+    width: 110px;
+    outline: 0;
+}
+.dateWrapper .dateIcon{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    vertical-align: top;
+    margin-left: 5px;
+}
+.dateWrapper .treaRadioBtn{
+    display: inline-block;
+    
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:before, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:before{
+    top: -12px;
+}
+.dateWrapper .treaRadioBtn [type="radio"]:checked + label:after, 
+.dateWrapper .treaRadioBtn [type="radio"]:not(:checked) + label:after{
+    top: -9px;
+}
+.dateWrap{
+    margin-top: 20px;
+}
+.timeWrap .hours,
+.timeWrap select{
+    vertical-align:middle;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+   box-shadow: none;
+   border: 1px solid #D1D1D1;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 1px 7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 25px;
+    width: 70px;
+    outline: 0;
+}
+.recurringWrap,
+.scheduleOnceWrap{
+    margin-bottom: 40px;
+}
+.scheduleWrap .treaRadioBtn{
+	margin: 0 0 15px 0;
+}
+
+.act-option{ color: #505050;background-color: #FFCB36; }
+.quotNav{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    max-width: 650px;
+}
+.quotNav .tabs{
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+    margin-left: 1px;
+    margin-left: 15px;
+}
+.quotNav .tabs button{
+   width: 100%;
+}
+
+.actionBtnWrap .cancel{
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.servicesWrap{
+    // margin: 20px auto;
+    // border: 1px solid #d1d1d1;
+    padding: 10px 0;
+    min-height: 150px;
+}
+.signatureChkBox{
+    margin-bottom: 50px;
+}
+.signatureChkBox .checkBox label {
+    color: #505050;
+}

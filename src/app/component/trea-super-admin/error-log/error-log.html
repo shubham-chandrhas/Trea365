@@ -1,0 +1,445 @@
+<div class="locationsWrap">
+    <div class="location-section">
+       <h3 class="pageTitle">Error Logs</h3>
+       <div class="head-row clearfix">
+          <div class="search-section">
+             <div class="input-group">
+                <span class="search-icn" id="basic-addon1">
+                   <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+                <input autocomplete="nope" [(ngModel)]="searchList" type="text" (ngModelChange)="getSearchTxt(searchList)" class="form-control"  placeholder="" aria-label="" aria-describedby="basic-addon1" >
+                <button mat-raised-button class="client-btn" (click)="searchTxt = searchList">Search</button> 
+             </div>
+          </div>
+          <div class="add-client newPurhaseBtnWrap">
+             <!-- <button mat-raised-button class="client-btn" type="button" (click)="newLocation()">New Location
+             </button> -->
+          </div>
+       </div>
+       <div class="clearfix"></div>
+       <div>
+           
+          <div class="trea-data-table table-responsive" id="top">
+             <table class="table table-striped">
+                <thead>
+                   <tr>
+                        <th>
+                            <div class="table-hdr">
+                                <div>
+                                    <span>Status</span>
+                                    <span (click)="sortColumn = 'status';sortOrder = sortColumn === 'status' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                        <i [ngClass]=" sortColumn == 'status' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="statusSearch">
+                                </div>
+                            </div>
+                        </th>
+                      <th>
+                         <div class="bdr-left table-hdr">
+                            <div>
+                               <span>Created Date</span>
+                               <span (click)="sortColumn = 'created_at';sortOrder = sortColumn === 'created_at' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                  <i [ngClass]=" sortColumn == 'created_at' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                               </span>
+                            </div>
+                            <div>
+                               <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="createdSearch">
+                            </div>
+                         </div>
+                      </th>
+                      <th>
+                         <div class="bdr-left table-hdr">
+                            <div>
+                               <span>Company Name</span>
+                               <span (click)="sortColumn = 'organization';sortOrder = sortColumn === 'organization' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                  <i [ngClass]=" sortColumn == 'organization' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                               </span>
+                            </div>
+                            <div>
+                               <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="nameSearch">
+                            </div>
+                         </div>
+                      </th>
+                      <th>
+                         <div class="bdr-left table-hdr">
+                            <div>
+                               <span>Error Type</span>
+                               <span (click)="sortColumn = 'error_type';sortOrder = sortColumn === 'error_type' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                  <i [ngClass]=" sortColumn == 'error_type' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                               </span>
+                            </div>
+                            <div>
+                               <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="typeSearch">
+                            </div>
+                         </div>
+                      </th>
+                      <th>
+                          <div class="bdr-left table-hdr">
+                             <div>
+                                <span>Request URL</span>
+                                <span (click)="sortColumn = 'url';sortOrder = sortColumn === 'url' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                   <i [ngClass]=" sortColumn == 'url' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                             </div>
+                             <div>
+                                <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="urlSearch">
+                             </div>
+                          </div>
+                      </th>
+                      <th>
+                          <div class="bdr-left table-hdr">
+                             <div>
+                                <span>Response Send</span>
+                                <span (click)="sortColumn = 'response_sent';sortOrder = sortColumn === 'response_sent' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                   <i [ngClass]=" sortColumn == 'response_sent' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                                </span>
+                             </div>
+                             <div>
+                                <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="responseSearch">
+                             </div>
+                          </div>
+                      </th>
+                      <th>
+                         <div class="bdr-left table-hdr">
+                            <div>
+                               <span>Priority</span>
+                               <span (click)="sortColumn = 'priority';sortOrder = sortColumn === 'priority' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                  <i [ngClass]=" sortColumn == 'priority' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                               </span>
+                            </div>
+                            <div>
+                               <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="prioritySearch">
+                            </div>
+                         </div>
+                      </th>
+                      <th>
+                        <div class="bdr-left table-hdr">
+                           <div>
+                              <span>Assigned To</span>
+                              <span (click)="sortColumn = 'assign_to';sortOrder = sortColumn === 'assign_to' ? sortOrder === 'ASC' ? 'DSC' : 'ASC' : 'ASC'">
+                                 <i [ngClass]=" sortColumn == 'assign_to' && sortOrder == 'ASC' ? 'fa-rotate-90' : 'fa-rotate-270' " class="fa fa-signal" aria-hidden="true"></i>
+                              </span>
+                           </div>
+                           <div>
+                              <input autocomplete="nope" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" [(ngModel)]="assignToSearch">
+                           </div>
+                        </div>
+                     </th>
+                      
+                   </tr>
+                </thead>
+                <tbody>
+                   <tr *ngFor="let indx=index ;let error of ErrorList | sortBy:sortColumn:sortOrder:'A' | searchfilter:nameSearch:'organization' | searchfilter:typeSearch:'error_type' |searchfilter:urlSearch:'url' |searchfilter:responseSearch:'response_sent' | searchfilter:prioritySearch:'priority' | searchfilter:assignToSearch:'assign_to' | searchfilter:statusSearch:'status' | searchfilter:createdSearch:'created_at' | searchfilter:searchTxt:'organization,error_type,url,response_sent,priority' |  listLengthfilter | paginate: paginationKey"  (click)="getSelectedLog(error, indx)" [ngClass]="selectedIndex == indx ? 'sel-row-highlight' : ''">
+                    <td>
+                        {{error.status ? error.status : 'New'}}
+                    </td> 
+                    <td>
+                            {{ util.unixTimestampToLocalDate(error.created_at_unix).localDate | date: 'dd/MM/yyyy hh:mm:ss a' }}    
+                         <!-- {{error.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}} -->
+                      </td>
+                      <td>
+                         {{error.organization ? error.organization : 'N/A'}}
+                      </td>
+                      <td>
+                         <span class="dn">{{ indx == 0 ? updateCount(error.count) : ''}}</span>
+                         {{error.error_type}}
+                      </td>
+                      <td>
+                        
+                        <p style="overflow-wrap: break-word;width: 200px">{{error.url }}</p>
+                        <!-- <p style="overflow-wrap: break-word;width: 200px">{{error.url | slice : apiPos(error.url):error.url.length}}</p> -->
+                        
+                          
+                      </td>
+                      <td placement="top" ngbTooltip="Tooltip on top">
+                         
+                        <p style="overflow-wrap: break-word;width: 200px">{{error.response_sent.length > 50 ? error.response_sent.slice(0, 50)+'...' : error.response_sent }}</p>
+                       </td>
+                      <td>
+                        <span [ngClass]="error.priority == 'High' ? 'important' : error.priority == 'Medium' ? 'warning' : 'information' ">{{error.priority}}</span>
+                      </td>
+                      <td>
+                        {{error.assign_to ? error.assign_to : 'N/A'}}
+                      </td>
+                     
+                      
+                   </tr>
+                </tbody>
+             </table>
+             
+            </div>
+            <div class="treaPagination" *ngIf="ErrorList.length != 0 && constant.ITEM_COUNT != 0">
+               <div class="pull-right">
+                  <span> {{1+(paginationKey.currentPage-1)*paginationKey.itemsPerPage}} - {{(paginationKey.itemsPerPage <= listCount) && (paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage <= listCount) ? paginationKey.itemsPerPage+(paginationKey.currentPage-1)*paginationKey.itemsPerPage : listCount}}</span><span> of {{listCount}} items</span>
+               </div>
+               <div class="pull-right">
+                  <select [(ngModel)]="paginationKey.itemsPerPage" (change)="util.changeItemPerPage()">
+                     <option *ngFor="let pageNo of paginationItems" [ngValue]="pageNo"> {{pageNo}} </option>
+                  </select>
+                  <span> items per page</span>
+               </div>
+               <div class="pull-right">
+                  <pagination-controls
+                     (pageChange)="changePage($event)"
+                     directionLinks="true"
+                     autoHide="false"
+                     previousLabel="Pre"
+                     nextLabel="Next"
+                     screenReaderPaginationLabel="Pagination"
+                     screenReaderPageLabel="page"
+                     screenReaderCurrentLabel="You're on page">
+                  </pagination-controls>
+               </div>
+               <div class="clearfix"></div>
+            </div>
+          <div class="clearfix"></div>
+          <div id="maintenanceMark" class="warehouseannexfixedWrap" *ngIf="selectedLog">
+             <div class="selPart">
+                <span>{{selectedLog.organization}} ({{selectedLog.error_type}})</span>
+                <!-- <span class="buttonsWrap">
+                   <span class="dropdown newDrop clientBtn">
+                      <button mat-raised-button class="cBtn  dropdown-toggle" type="button" data-toggle="dropdown">Print Labels
+                      </button>
+                      <ul class="dropdown-menu">
+                         <li><a href="javascript:void(0)" (click)="printAll()" class="cBtn">Print All</a></li>
+                         <li><a href="javascript:void(0)" (click)="showPrintDialog()" class="cBtn">Print...</a></li>
+                      </ul>
+                   </span>
+                   <button mat-raised-button (click)="showDeleteDialog()" class="cBtn clientBtn ML15I" type="button" data-toggle="dropdown">Delete</button>
+                </span> -->
+             </div>
+             <div class="addUserFormBody">
+                <div class="warehouseannexfixedDetails">
+                   <div class="row">
+                      <div class="col-sm-12">
+                         <div class="row">
+                            <div class="col-sm-12 mar20">
+                               <div class="label-col">Error Log</div>
+                            </div>
+                         </div>
+
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">Created Date</div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">{{ util.unixTimestampToLocalDate(selectedLog.created_at_unix).localDate | date: 'dd/MM/yyyy hh:mm:ss a' }}</div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">Company Name</div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">{{selectedLog.organization}}</div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">User Name</div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">{{selectedLog.username}}</div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">Error Type</div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">{{selectedLog.error_type}}</div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">Priority</div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col"><span [ngClass]="selectedLog.priority == 'High' ? 'important' : selectedLog.priority == 'Medium' ? 'warning' : 'information' ">{{selectedLog.priority}}</span></div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">Request Method</div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">{{selectedLog.request_method}}</div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">
+                                <div class="label-col">Response Sent</div>
+                               </div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">
+                                <div class="info-col">{{selectedLog.response_sent}}</div>
+                               </div>
+                            </div>
+                            
+                         </div>
+
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">
+                                <div class="label-col">Request URL</div>
+                               </div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">
+                                <div class="info-col">{{selectedLog.url}}</div>
+                               </div>
+                            </div>
+                            
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">
+                                <div class="label-col">Request Data</div>
+                               </div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">
+                                <div class="info-col">{{selectedLog.requested_data}}</div>
+                               </div>
+                            </div>
+                            
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">
+                                <div class="label-col">Browser Information</div>
+                               </div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">
+                                <div class="info-col">{{selectedLog.browser_info}}</div>
+                               </div>
+                            </div>
+                            
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">
+                                <div class="label-col">IP Address</div>
+                               </div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">
+                                <div class="info-col">{{selectedLog.user_ip}}</div>
+                               </div>
+                            </div>
+                            
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">
+                                <div class="label-col">SQL Query</div>
+                               </div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">
+                                <div class="info-col">{{selectedLog.sql_query}}</div>
+                               </div>
+                            </div>
+                            
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">
+                                <div class="label-col">Remarks</div>
+                               </div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">
+                                <div class="info-col">{{selectedLog.remarks}}</div>
+                               </div>
+                            </div>
+                            
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">
+                                <div class="label-col">Assigned To</div>
+                               </div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">
+                                <div class="info-col">{{selectedLog.assign_to}}</div>
+                               </div>
+                            </div>
+                            
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-3">
+                               <div class="label-col">
+                                <div class="label-col">Status</div>
+                               </div>
+                            </div>
+                            <div class="col-sm-9">
+                               <div class="info-col">
+                                <div class="info-col">{{selectedLog.status}}</div>
+                               </div>
+                            </div>
+                            
+                         </div>
+                      </div>
+                   </div>
+                 
+                   
+                   <!-- <div class="locWrap">
+                      <div class="label-col">Location Tag Sample</div>
+                      
+                      <div class="info-col">{{selectedLoc.tagSample}}</div>
+                   </div -->
+                </div>
+                <div class="clearfix"></div>
+
+             </div>
+             <div class="selPart">
+                <span>Assign Ticket</span>
+            </div>
+             <div class="assignTicket addUserFormBody">
+                    <form class="form-horizontal updLogFm" role="form" [formGroup]="updLogFm">
+                        <div class="newEmployeeFormBody">
+                        <div class="form-group row">
+                            <label class="col-sm-3 label-col" for="assign_to">Assign To</label>
+                            <div class="col-sm-5">
+                                <input autocomplete="nope" type="text" name="assign_to" [(ngModel)]="selectedLog.assign_to" placeholder="Assign To" class="form-control" formControlName="assign_to">   
+                                <span class="error-msg" *ngIf="assign_to.invalid && (assign_to.dirty || assign_to.touched || submitted)">
+                                    <small *ngIf="assign_to.errors.required">Assign To is required.</small>
+                                </span>                           
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 label-col" for="status">Status</label>
+                            <div class="col-sm-5">
+                                <select ng-model="status" name="status" class="form-control" [(ngModel)]="selectedLog.status" formControlName="status">
+                                    <option value="New">New</option>
+                                    <option value="Assigned">Assigned</option>
+                                    <option value="In Process">In Process</option>
+                                    <option value="Completed">Completed</option>
+                                </select> 
+                                <span class="error-msg" *ngIf="status.invalid && (status.dirty || status.touched || submitted)">
+                                    <small *ngIf="status.errors.required">Status is required.</small>
+                                </span>                              
+                            </div>
+                        </div>
+                        </div>
+                        <div class="button-row clearfix">                            
+                            <button mat-raised-button id="assign-btn" class="trea-btn" (click)="updateLog(updLogFm,selectedLog.error_id)" >Submit</button>
+                        </div>  
+                    </form>
+                </div>
+          </div>
+          
+       </div>
+
+       
+        
+    </div>
+ </div>
+ 

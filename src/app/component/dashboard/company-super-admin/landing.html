@@ -1,0 +1,377 @@
+<div class="" *ngIf="util.userAlertData.isShow">
+  <div class="alertWrap">
+    <div class="alert alert-dismissible" [ngClass]="util.userAlertData.class">
+      <a
+        href="#"
+        class="close"
+        data-dismiss="alert"
+        aria-label="close"
+        title="close"
+        (click)="util.removeWarningFlage()"
+        >×</a
+      >
+      <i class="fa" [ngClass]="util.userAlertData.iconClass"></i>
+      {{ util.userAlertData.msg }}
+    </div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+<div class="wrapper">
+  <div id="processing-spinner" class="data-loading dn">
+    <div class="loading-spinner">
+      <mat-spinner [diameter]="60" [color]="'primary'"></mat-spinner>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header class="main-header">
+    <!-- TREA365 Logo -->
+    <!-- <a href="javascript:void(0)" class="logo">
+            <div class="logo-mini">
+                <div class="mini-text" *ngIf="companyInfo">
+                    {{companyInfo.organization | slice:0:2}}
+                </div>
+            </div>
+            <div class="logo-lg">
+                <div class="compLogoInCon" *ngIf="companyInfo && util.getCompanyLogo()">
+                    <img [src]="util.getCompanyLogo()"  class="img-responsive compLogoImg"/>
+                </div>
+                <div class="compNameHdr ellipsis" *ngIf="companyInfo && util.getCompanyLogo()  == ''">
+                    {{companyInfo.organization }}
+                </div>
+            </div>   
+        </a>  -->
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account Menu -->
+          <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- The user image in the navbar-->
+              <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span
+                class="hidden-xs"
+                *ngIf="companyInfo && companyInfo.organization"
+              >
+                {{ util.getLoggedInUserName() }}
+                <!-- {{companyInfo.organization}} -->
+              </span>
+              <div class="user-name">[{{ util.getRoleName() }}]</div>
+            </a>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li class="setting-icon dropdown">
+            <a
+              href="javascript:void(0)"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              ><i class="fa fa-cog"></i
+            ></a>
+            <ul class="dropdown-menu">
+              <!-- <li *ngIf="util.getRoleName() == 'Admin'"><a (click)="goToOnboarding()" href="javascript:void(0)" mat-raised-button class="treaBtn">Account Settings</a></li> -->
+              <li>
+                <a
+                  (click)="goToOnboarding()"
+                  href="javascript:void(0)"
+                  mat-raised-button
+                  class="treaBtn"
+                  >Account Settings</a
+                >
+              </li>
+              <li>
+                <a
+                  (click)="logout()"
+                  href="javascript:void(0)"
+                  mat-raised-button
+                  class="treaBtn"
+                  >Sign Out</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar" id="leftside-navigation">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel">
+        <div class="compLogoInCon" *ngIf="companyInfo && util.getCompanyLogo()">
+          <img
+            [src]="util.getCompanyLogo()"
+            class="img-responsive compLogoImg"
+          />
+        </div>
+        <div
+          class="compNameHdr"
+          *ngIf="companyInfo && util.getCompanyLogo() == ''"
+        >
+          {{ companyInfo.organization }}
+        </div>
+      </div>
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li
+          [ngClass]="[
+            menu.subMenu.length > 0 ? 'treeview' : '',
+            selL1Menu == menu.menuId ? 'active menu-open' : ''
+          ]"
+          *ngFor="let indx = index; let menu; of: menuList"
+        >
+          <a href="javascript:void(0);" *ngIf="menu.subMenu.length > 0">
+            <img src="{{ menu.menuIcon }}" alt="" />
+            <span>{{ menu.menuName }}</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-down pull-right"></i>
+            </span>
+          </a>
+          <a
+            href="javascript:void(0);"
+            routerLink="{{ menu.link }}"
+            *ngIf="menu.subMenu.length == 0"
+          >
+            <img src="{{ menu.menuIcon }}" alt="" />
+            <span>{{ menu.menuName }}</span>
+            <span
+              class="msg-count"
+              [ngClass]="
+                util.getUnreadConversation().length == 1
+                  ? 'padOneM'
+                  : 'padMoreM'
+              "
+              *ngIf="
+                menu.menuId == 8 && util.getUnreadConversation().length > 0
+              "
+              >{{ util.getUnreadConversation().length }}</span
+            >
+          </a>
+          <ul class="treeview-menu">
+            <li
+              [ngClass]="selL2Menu == subMenu.subMenuId ? 'subMenuActive' : ''"
+              *ngFor="let subIndx = index; let subMenu; of: menu.subMenu"
+            >
+              <a href="javascript:void(0);" routerLink="{{ subMenu.link }}">{{
+                subMenu.subMenuName
+              }}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="toggleMenu" id="toggleMenu" (click)="toggleArrow()">
+        <img
+          src="assets/icon/{{ arrowIcon ? 'left_arrow' : 'right_arrow' }}.png"
+          alt=""
+        />
+      </div>
+      <nav class="navbar navbar-static-bottom" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"
+          ><!-- <span class="sr-only">Toggle navigation</span> --></a
+        >
+      </nav>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content container-fluid">
+      <!--------------------------
+            | Your Page Content Here |
+            ------------------------ -->
+      <router-outlet></router-outlet>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <div class="copyrightTxt">Copyright &copy; 2019 Trea365</div>
+  </footer>
+
+  <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+  <div class="control-sidebar-bg dn"></div>
+  <aside>
+    <div id="live-chat" class="live-chat-class" *ngIf="chatBox.length == 0">
+      <header class="clearfix">
+        <a href="javascript:void(0)" class="chat-close" (click)="resetChat()"
+          >X</a
+        >
+        <span class="chat-message-counter" *ngIf="unreadMsgs != 0">{{
+          unreadMsgs
+        }}</span>
+      </header>
+
+      <div class="chat">
+        <div
+          class="searchList"
+          *ngIf="searchStatus == false && messageList.length == 0"
+        >
+          <mat-form-field class="">
+            <input
+              autocomplete="nope"
+              matInput
+              placeholder=""
+              [matAutocomplete]="auto"
+              [formControl]="nameCtrl"
+            />
+            <span class="search-icn" id="basic-addon1">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </span>
+            <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+              <mat-option
+                style="height: 30px;line-height: 30px;font-size: 12px;font-family: 'Montserrat-Regular';color: #505050;"
+                *ngFor="let data of (filteredNames | async)"
+                [value]="data.name"
+                (onSelectionChange)="getSelectedUser(data)"
+              >
+                <span>{{ data.name }}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div #scrollMe class="chat-history">
+          <div id="chatHistory"></div>
+          <ul>
+            <li *ngFor="let indx = index; let msg; of: messageList">
+              <div class="rightside-left-chat" *ngIf="msg.from == 'other'">
+                <span
+                  ><small>{{ msg.date | date: "h:mm a, EE" }}</small></span
+                >
+                <p>{{ msg.messageTxt }}</p>
+              </div>
+              <div class="rightside-right-chat" *ngIf="msg.from == 'self'">
+                <span
+                  ><small>{{ msg.date | date: "h:mm a, EE" }}</small></span
+                >
+                <p>{{ msg.messageTxt }}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- <p class="chat-feedback">Your partner is typing…</p> -->
+        <form
+          autocomplete="off"
+          [formGroup]="chatFm"
+          (ngSubmit)="onSubmit(chatFm)"
+        >
+          <fieldset *ngIf="searchStatus == true || messageList.length > 0">
+            <input
+              autocomplete="nope"
+              type="text"
+              placeholder="Type your message…"
+              formControlName="chatMsg"
+              autofocus
+            />
+            <input autocomplete="nope" type="hidden" />
+          </fieldset>
+        </form>
+      </div>
+      <!-- end chat -->
+    </div>
+
+    <div *ngIf="chatBox.length > 0">
+      <div
+        id="live-chat"
+        class="live-chat{{ indx }}"
+        *ngFor="let currentUser of chatBox; let indx = index"
+      >
+        <header class="clearfix">
+          <a href="javascript:void(0)" class="chat-close" (click)="resetChat()"
+            >X</a
+          >
+          <h4 *ngIf="currentUser">{{ currentUser.receiverName }}</h4>
+          <span class="chat-message-counter" *ngIf="unreadMsgs != 0">{{
+            unreadMsgs
+          }}</span>
+        </header>
+
+        <div class="chat">
+          <div #scrollMe class="chat-history">
+            <div id="chatHistory"></div>
+            <ul>
+              <li
+                *ngFor="let indx = index; let msg; of: currentUser.recieverMsgs"
+              >
+                <div class="rightside-left-chat" *ngIf="msg.from == 'other'">
+                  <span
+                    ><small>{{ msg.date | date: "h:mm a, EE" }}</small></span
+                  >
+                  <p>{{ msg.messageTxt }}</p>
+                </div>
+
+                <div class="rightside-right-chat" *ngIf="msg.from == 'self'">
+                  <span>
+                    <small>{{ msg.date | date: "h:mm a, EE" }}</small></span
+                  >
+                  <p>{{ msg.messageTxt }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- <p class="chat-feedback">Your partner is typing…</p> -->
+          <form
+            autocomplete="off"
+            [formGroup]="chatFm"
+            (ngSubmit)="onSubmit(chatFm, currentUser.receiverId)"
+          >
+            <fieldset *ngIf="searchStatus == true || chatBox.length > 0">
+              <input
+                autocomplete="nope"
+                type="text"
+                placeholder="Type your message…"
+                formControlName="chatMsg"
+                autofocus
+              />
+              <input
+                autocomplete="nope"
+                type="hidden"
+                formControlName="chatBoxId"
+                [ngModel]="currentUser.receiverId"
+              />
+            </fieldset>
+          </form>
+        </div>
+        <!-- end chat -->
+      </div>
+      <!-- end live-chat -->
+    </div>
+    <div
+      id="floating-button"
+      (click)="openChatBox()"
+      data-toggle="tooltip"
+      data-placement="left"
+      data-original-title="Create"
+    >
+      <p class="plus"><img src="assets/icon/message_icon.png" /></p>
+    </div>
+  </aside>
+  <audio
+    class="dn"
+    id="player"
+    style="margin-left: 200px;"
+    src="assets/audio/message_alert.mp3"
+    controls
+  ></audio>
+  <!-- <audio controls>
+      <source src="assets/audio/message_alert.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>  -->
+</div>

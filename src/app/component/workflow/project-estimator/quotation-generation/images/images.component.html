@@ -1,0 +1,42 @@
+<div class="imagesWrap imageSection">
+    <div class="row">
+        <div class="col-sm-3" *ngFor="let indx=index; let item of uploadDocData.imgArr;">
+            <div class="previewImg">
+                <div class="closeImg">
+                    <img src="assets/icon/close_icon.png"  (click)="removeImage(indx)"/>
+                </div>
+                <img [src]="item.attachment_path" class="img-responsive disabledrag" />
+            </div>
+        </div>
+        <!-- <div class="col-sm-3">
+            <div class="previewImg">
+                <div class="closeImg">
+                    <img src="assets/icon/close_icon.png" />
+                </div>
+                <img src="assets/img/mfgPart2.jpeg" class="img-responsive" />
+            </div>
+        </div> -->
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="errMsgCon mar-top" *ngIf="uploadDocData.isError">
+        <small>{{uploadDocData.errMsg}}</small>
+    </div>
+    <!-- *ngIf="uploadDocData.newFileUpload || uploadDocData.imgArr.length == 0 || isDeleteCount==uploadDocData.imgArr.length" -->
+    <div [ngClass]="uploadDocData.dragOver ? 'drag-over' : ''" class="dropFileHere">
+        <file-drop customstyle="dropFileHere" headertext="" (onFileDrop)="dropped($event, 'img')" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+            <p class="text">Drop file here (jpg, png)</p>
+            <p class="text">or</p>
+            <input autocomplete="nope" type="file" class="file-in" name="img" multiple (change)="onFileChange($event)"/>
+            <div class="selFileLink select-file selectWrap">
+                <input autocomplete="nope" type="file" class="file-in" name="img" multiple (change)="onFileChange($event)"/>
+                <a href="javascript:void(0)">Select files</a>
+            </div>
+        </file-drop>
+    </div>
+    <!-- <div class="addAttrBtn" *ngIf="!uploadDocData.newFileUpload">
+        <span class="add-icon" (click)="changeUploadFileFlage()">
+        <i class="fa fa-plus-square" aria-hidden="true"></i>
+        </span>
+    </div> -->
+</div>

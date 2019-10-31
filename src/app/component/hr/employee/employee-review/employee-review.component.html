@@ -1,0 +1,217 @@
+<div class="empReviewWrap">
+  <h3 class="pageTitle" *ngIf="action == 'add'"> New Employee Information Review</h3>
+  <h3 class="pageTitle" *ngIf="action == 'edit'"> Employee Information Review</h3>
+  <div class="clearfix"></div>
+  <div class="empReviewDeatails">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Service Type</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col" *ngFor="let service of empObj.selUserServices">{{service}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">First Name</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.first_name}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Last Name</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.last_name ? empObj.last_name : ''}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Userame</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.username}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Employee ID</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.employee_id}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Title</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.title}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Email</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col email">{{empObj.email_id}}</div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="label-col">Address</div>
+        </div>
+        <div class="col-sm-6">
+            <div class="info-col">{{util.concatenateStrings(empObj.address2,empObj.address1)}}</div>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-sm-6">
+            <div class="label-col">Address 1</div>
+        </div>
+        <div class="col-sm-6">
+            <div class="info-col">{{empObj.address1}}</div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-sm-6">
+                <div class="label-col">Address 2</div>
+            </div>
+            <div class="col-sm-6">
+                <div class="info-col">{{empObj.address2}}</div>
+            </div>
+        </div> -->
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Work Phone</div>
+      </div>
+      <div class="col-sm-6">
+        <!-- {{util.getCountryCode()}} -->
+        <div class="info-col"> {{util.maskPhoneNumber(empObj.work_phone)}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Personal Phone</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col"><span *ngIf="empObj.mobile_no">{{util.maskPhoneNumber(empObj.mobile_no)}}</span></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Permission</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.selPermission}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Wage Frequency</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.wage_frequency}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Wage Amount</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.wage_amount | currency: util.getCurrency() :'symbol-narrow'}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Days Off</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col" *ngIf="empObj.days_off.length>0">
+          <span *ngIf="empObj.days_off[0].sunday">Sun,</span>
+          <span *ngIf="empObj.days_off[0].monday">Mon,</span>
+          <span *ngIf="empObj.days_off[0].tuesday">Tue,</span>
+          <span *ngIf="empObj.days_off[0].wednesday">Wed,</span>
+          <span *ngIf="empObj.days_off[0].thursday">Thu,</span>
+          <span *ngIf="empObj.days_off[0].friday">Fri,</span>
+          <span *ngIf="empObj.days_off[0].saturday">Sat</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Emergency Contact</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.emergency_contact}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Emergency Number</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col"><span *ngIf="empObj.emergency_number">{{util.maskPhoneNumber(empObj.emergency_number)}}</span></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="label-col">Relationship</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{empObj.relationship}}</div>
+      </div>
+    </div>
+
+    <div class="row" *ngFor="let field of empObj.additional_fields">
+      <div class="col-sm-6">
+        <div class="label-col">{{field.label}}</div>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-col">{{field.data}}</div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="imageSection">
+    <h3 class="optional">Images/Documents</h3>
+    <div class="imgInfoSection">
+      <div class="row MB30" *ngFor="let item of empObj.imgDocArr">
+        <div *ngIf="item.isDelete == 0">
+          <div class="col-sm-3 PadR0">
+            <div class="previewImg" *ngIf="item.extension == 'jpeg' ||item.extension == 'jpg' || item.extension == 'png'">
+              <img [src]="item.imgPath" class="img-responsive" />
+            </div>
+            <div class="doc-preview" *ngIf="item.extension == 'pdf'">
+                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="col-sm-9 ">
+            <div class="previewTxt">
+              <div class="txtHead clearfix">
+                <div class="pull-left">
+                  <div class="file-name-txt ellipsis">
+                    <span>{{item.fileName}}.{{item.extension}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="txtDesc">
+                <div class="info-col">{{item.description}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="errMsgCon" *ngIf="isError">
+    <small>{{errMsg}}</small>
+  </div>
+  <div class="button-row clearfix">
+    <button mat-raised-button class="trea-btn" (click)="editEmp()">Edit</button>
+    <button mat-raised-button id="add-emp-btn" (click)="addEmp()" class="trea-btn">Submit</button>
+    <button mat-raised-button class="trea-btn" (click)="cancel()">Cancel</button>
+  </div>
+</div>

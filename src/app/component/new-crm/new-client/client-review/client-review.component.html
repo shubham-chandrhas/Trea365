@@ -1,0 +1,244 @@
+<!-- Page URL :- http://localhost:4200/csa/client-review/ZWRpdA%3D%3D -->
+
+<div class="clientReviewCover">
+  <div class="pageTitle">New Client Information Review</div>
+  <div class="row">
+      <div class="col-sm-6 Pad0">
+        <div class="row" >
+          <div class="col-sm-5 Pad0">
+            <div class="label-col">Name</div>
+          </div>
+          <div class="col-sm-7">
+            <div class="info-col">{{clientObj.client_name ? clientObj.client_name : ''}}</div>
+          </div>
+        </div>
+        <div class="row" >
+          <div class="col-sm-5 Pad0">
+            <div class="label-col">Client Type</div>
+          </div>
+          <div class="col-sm-7">
+            <div class="info-col">{{clientObj.client_type ? clientObj.client_type : ''}}</div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="clientObj.client_type == 'Company'">
+            <div class="col-sm-5 Pad0">
+              <div class="label-col">Legal Name</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{clientObj.legal_name ? clientObj.legal_name : ''}}</div>
+            </div>
+          </div>
+        <div class="row" >
+          <div class="col-sm-5 Pad0">
+            <div class="label-col">Payment Term</div>
+          </div>
+          <div class="col-sm-7">
+            <div class="info-col">{{clientObj.payment_term ? clientObj.payment_term : ''}}</div>
+          </div>
+        </div>
+        <div class="row" >
+          <div class="col-sm-5 Pad0">
+            <div class="label-col">Referral Type</div>
+          </div>
+          <div class="col-sm-7">
+            <div class="info-col">{{clientObj.referral_type ? clientObj.referral_type : ''}}</div>
+          </div>
+        </div>
+        <div class="row" >
+          <div class="col-sm-5 Pad0">
+            <div class="label-col">Comments</div>
+          </div>
+          <div class="col-sm-7">
+            <div class="info-col">{{clientObj.comments ? clientObj.comments : ''}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 Pad0">
+        <!-- Extra Fields -->
+        <div class="row" >
+          <!-- Extra Fields -->
+          <div
+            class="col-sm-12 Pad0"
+          >
+
+            <div class="auditorDetails clearfix">
+              <div class="row" *ngFor="let extra of clientObj.additional_fields">
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">{{extra.label ? extra.label : ''}}</div>
+                </div>
+                <div class="col-sm-5">
+                  <div class="info-col">{{extra.data ? extra.data : ''}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="detailsHeading">Addresses</h3>
+    <div class="row form-group" *ngIf="clientObj.main_address">
+      <h4 class="detailsSubHeading">Main Address</h4>
+      <div *ngFor="let main of clientObj.main_address">
+        <div class="col-sm-6 Pad0">
+
+          <div class="row" >
+            <div class="col-sm-5 Pad0">
+              <div class="label-col">Address</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{main ? util.concatenateStrings(main.address_line_2,main.address_line_1) : ''}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 Pad0">
+          <div class="row" >
+            <div class="col-sm-5 Pad0">
+              <div class="label-col">Contact</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{main.name ? main.name : ''}}</div>
+            </div>
+          </div>
+          <div class="row" >
+            <div class="col-sm-5 Pad0">
+              <div class="label-col">Contact Type</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{main.contact_type ? main.contact_type : ''}}</div>
+            </div>
+          </div>
+          <div class="row" >
+            <div class="col-sm-5 Pad0">
+              <div class="label-col">Phone</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{main.phone_no ? main.phone_no : ''}}</div>
+            </div>
+          </div>
+          <div class="row" >
+            <div class="col-sm-5 Pad0">
+              <div class="label-col">Email</div>
+            </div>
+            <div class="col-sm-7">
+              <div class="info-col">{{main.email_id ? main.email_id : ''}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row form-group" *ngIf="clientObj.billing_address">
+        <h4 class="detailsSubHeading">Billing Address</h4>
+        <div *ngFor="let billing of clientObj.billing_address">
+            <div class="col-sm-6 Pad0">
+
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Address</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{billing ? util.concatenateStrings(billing.address_line_2,billing.address_line_1) : ''}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 Pad0">
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Contact</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{billing.name ? billing.name : ''}}</div>
+                </div>
+              </div>
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Contact Type</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{billing.contact_type ? billing.contact_type : ''}}</div>
+                </div>
+              </div>
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Phone</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{billing.phone_no ? billing.phone_no : ''}}</div>
+                </div>
+              </div>
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Email</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{billing.email_id ? billing.email_id : ''}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="clearfix"></div>
+      </div>
+    <div class="clearfix"></div>
+    <div class="row form-group" *ngIf="clientObj.work_address">
+        <h4 class="detailsSubHeading">Work Address</h4>
+        <div *ngFor="let work of clientObj.work_address">
+            <div class="col-sm-6 Pad0">
+
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Address</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{work ? util.concatenateStrings(work.address_line_2,work.address_line_1) : ''}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 Pad0">
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Contact</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{work.name ? work.name : ''}}</div>
+                </div>
+              </div>
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Contact Type</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{work.contact_type ? work.contact_type : ''}}</div>
+                </div>
+              </div>
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Phone</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{work.phone_no ? work.phone_no : ''}}</div>
+                </div>
+              </div>
+              <div class="row" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Email</div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="info-col">{{work.email_id ? work.email_id : ''}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="clearfix"></div>
+
+    </div>
+  <div class="errMsgCon" *ngIf="isError">
+    <small>{{ errMsg }}</small>
+  </div>
+  <div class="button-row clearfix">
+    <button mat-raised-button id="addCleint" class="trea-btn" (click)="addCleint()">Submit</button>
+    <button mat-raised-button class="trea-btn" (click)="goToEditDetails()">Edit</button>
+    <button mat-raised-button class="trea-btn" (click)="cancelReviewClient()">Cancel</button>
+  </div>
+</div>

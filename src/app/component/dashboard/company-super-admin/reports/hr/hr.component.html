@@ -1,0 +1,250 @@
+<div class="hrWrap">
+    <div class="hrDetails">
+        <div class="hrPart">
+            <span>Monthly Worker Breakdown</span>
+        </div>
+        <div class="hrTable table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Business unit
+                        </th>
+                        <th>
+                            Construction
+                        </th>
+                        <th>
+                            Maintenance
+                        </th>
+                        <th>
+                            Servicing
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Average Salary
+                        </td>
+                        <td>
+                            $2300
+                        </td>
+                        <td>
+                            $2200
+                        </td>
+                        <td>
+                            $2500
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Average Turnover Rate
+                        </td>
+                        <td>
+                            1.1%
+                        </td>
+                        <td>
+                            1.5%
+                        </td>
+                        <td>
+                            0.8%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Average Absenteeism Rate
+                        </td>
+                        <td>
+                            1.1%
+                        </td>
+                        <td>
+                            1.2%
+                        </td>
+                        <td>
+                            2.8%
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+        <div class="workersPart">
+            <span>Total Number Of Workers</span>
+        </div>
+        <div class="workerspieChart">
+            <div class="col-sm-4">
+                <!-- <span class="subTxt">Number of Employees</span> -->
+                <span class="subTxt">&nbsp;</span>
+            </div>
+            <div class="col-sm-4 Wid32">
+                <div class="treaRadioBtn pull-right">
+                    <input autocomplete="nope" id="employee" name="radio-workgroup" type="radio" checked>
+                    <label for="employee">Employee</label>
+                </div>
+            </div>
+            <div class="col-sm-4 Wid34"> 
+                <div class="treaRadioBtn pull-right">
+                    <input autocomplete="nope" id="subContractor" name="radio-workgroup" type="radio">
+                    <label for="subContractor">Subcontractors</label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="imgBox">
+            <!-- <img class="img-responsive" src="assets/img/totalworkers.png"> -->
+            <div class="barChart w100">
+                <div class="chartWrap">
+                    <canvas id="tnowChart" width="100" height="100"></canvas>
+                    <div class="titleAxis titleY">Number of Employees</div>
+                    <div class="titleAxis titleX">Month (2017)</div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="servicetypeWrap col-sm-12">
+            <div class="totalrdbtnWrap">
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" id="total" name="radio-servicegroup" type="radio" checked>
+                    <label for="total">Total</label>
+                </div>
+            </div>
+            <div class="constrdbtnWrap">
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" id="construction" name="radio-servicegroup" type="radio">
+                    <label for="construction">Construction</label>
+                </div>
+            </div>
+            <div class="mainrdbtnWrap"> 
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" id="maintenance" name="radio-servicegroup" type="radio">
+                    <label for="maintenance">Maintenance</label>
+                </div>
+            </div>
+            <div class="servicerdbtnWrap"> 
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" id="servicing" name="radio-servicegroup" type="radio">
+                    <label for="servicing">Servicing</label>
+                </div>
+            </div>
+        <div class="clearfix"></div>
+        </div>
+    </div> 
+    <div class="row borBottom"></div>  
+    <div class="salaryDetails">
+        <div class="totalsalaryPart">
+                <span>Total Salary</span>
+        </div>
+        <div class="salarypiChart">
+            <div class="col-sm-4">
+                
+            </div>
+            <div class="col-sm-4 Wid32">
+                <div class="treaRadioBtn pull-right">
+                    <input autocomplete="nope" id="employee1" name="radio-esalgroup" type="radio" checked>
+                    <label for="employee1">Employee</label>
+                </div>
+            </div>
+            <div class="col-sm-4 Wid34"> 
+                <div class="treaRadioBtn pull-right">
+                    <input autocomplete="nope" id="subContractor2" name="radio-esalgroup" type="radio">
+                    <label for="subContractor2">Subcontractors</label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="imgBox">
+            <!-- <img class="img-responsive" src="assets/img/salary.png"> -->
+            <div class="barChart w100">
+                <div class="chartWrap">
+                    <canvas id="tsChart" width="100" height="100"></canvas>
+                    <div class="titleAxis titleY">Number of Employees</div>
+                    <div class="titleAxis titleX">Month (2017)</div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="servicetypeWrap col-sm-12">
+            <div class="totalrdbtnWrap">
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" id="total1" name="radio-salgroup" type="radio" checked>
+                    <label for="total1">Total</label>
+                </div>
+            </div>
+            <div class="constrdbtnWrap">
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" id="construction1" name="radio-salgroup" type="radio">
+                    <label for="construction1">Construction</label>
+                </div>
+            </div>
+            <div class="mainrdbtnWrap"> 
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" id="maintenance1" name="radio-salgroup" type="radio">
+                    <label for="maintenance1">Maintenance</label>
+                </div>
+            </div>
+            <div class="servicerdbtnWrap"> 
+                <div class="treaRadioBtn">
+                    <input autocomplete="nope" id="servicing1" name="radio-salgroup" type="radio">
+                    <label for="servicing1">Servicing</label>
+                </div>
+            </div>
+        <div class="clearfix"></div>
+        </div>
+        <div class="row borBottom"></div>
+    </div>
+    <div class="hireDetails">
+        <div class="hirePart">
+            <span>Hired Vs Left</span>
+        </div>
+        <div class="imgBox">
+            <!-- <img class="img-responsive" src="assets/img/emprecord.png"> -->
+            <div class="chartLabels">
+                <div class="chartLabel">
+                    <span style="background: #bfe9e7"></span>
+                    Workers Hired
+                </div>
+                <div class="chartLabel">
+                    <span style="background: #e6808d"></span>
+                    Workers Left
+                </div>
+            </div>
+            <div class="barChart w100">
+                <div class="chartWrap">
+                    <canvas id="hvlChart" width="100" height="100"></canvas>
+                    <!-- <div class="titleAxis titleY">Number of Employees</div> -->
+                    <div class="titleAxis titleX">Month (2017)</div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row borBottom"></div>
+    </div> 
+    <div class="contractDetails">
+        <div class="contractPart">
+            <span>Employment Contract Type</span>
+        </div>
+        <div class="imgBox">
+            <!-- <img class="img-responsive" src="assets/img/contract.png"> -->
+            <div class="chartLabels">
+                <div class="chartLabel">
+                    <span style="background: #00a99e"></span>
+                    Subcontractors
+                </div>
+                <div class="chartLabel">
+                    <span style="background: #1e3346"></span>
+                    Employees
+                </div>
+            </div>
+            <div class="pieChart">
+                <div class="chartWrap">
+                    <canvas id="ectChart" width="100" height="100"></canvas>
+                    <div class="chartStat2 chartStat2-1" >{{chartData.ectData.data[0]}}%</div>
+                    <div class="chartStat2 chartStat2-2" >{{chartData.ectData.data[1]}}%</div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div> 
+    <div class="clearfix"></div>
+</div>
+

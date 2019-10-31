@@ -1,0 +1,151 @@
+<div class="addroleWrap">
+	<div class="role-section">
+		<h3 *ngIf="!isEdit" class="pageTitle">New Role</h3>
+		<div class="clearfix"></div>
+		<div class="newroleWrap">
+			<div class="addUserFormBody">
+				<div class="newroleDetails">
+					<form autocomplete="off" #roleForm="ngForm">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="row" >
+									<div class="col-xs-4">
+										<div class="label-col">Role Name</div>
+									</div>
+									<div class="col-xs-8">
+										<div class="form-group">
+											<input autocomplete="nope" [(ngModel)]="roleObj.roleName" type="text" id="roleName" name="roleName" value="Manager" placeholder="" class="form-control width95" required minlength="2" maxlength="120" #roleName="ngModel">
+											<span class="error-msg" *ngIf="roleName.invalid && (roleName.dirty || roleName.touched || submitted)">
+												<small *ngIf="roleName.errors.required">Role Name is required.</small>
+												<small *ngIf="roleName.errors.minlength">Role Name must be at least 2 characters long.</small>
+												<small *ngIf="roleName.errors.maxlength">Role Name must be less than 120 characters.</small>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-4">
+										<div class="label-col">Description</div>
+									</div>
+									<div class="col-xs-8">
+										<div class="form-group">
+											<textarea [(ngModel)]="roleObj.roleDesc" class="form-control width95" name="roleDesc" id="roleDesc" cols="30" rows="8" minlength="2" maxlength="1000" #roleDesc="ngModel"></textarea>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="subheaderWrap">
+											<div class="row">
+												<div class="col-xs-8">
+												</div>
+												<div class="col-xs-4">
+													<div class="label-col text-center">Access</div>
+												</div>
+											</div>
+										</div>
+										<div class="dashboardDetails" *ngFor="let indOne = index; let menu of menuList">
+											<hr>
+											<!-- This is a special condition for dispatch -->
+											<div class="row" *ngIf="menu.menu_slug == 'dispatch'">
+												<div class="col-xs-8">
+													<div class="label-col"><div class="text-left">{{menu.menu}}</div></div>
+												</div>
+												<div class="col-xs-4">
+													<div class="checkBox">
+														<label>
+															<input autocomplete="nope" [(ngModel)]="menu.actionAccess" [ngModelOptions]="{standalone: true}" type="checkbox" (change)="checkDispatchStatus(menu)">
+															<span class="iconChk"><i class="fa fa-check"></i> </span>
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="row" *ngIf="menu.menu_slug != 'dispatch'">
+												<div class="col-xs-8">
+													<div class="label-col"><div class="text-left">{{menu.menu}}</div></div>
+												</div>
+												<div class="col-xs-4">
+													<div *ngIf="menu.isDisable" class="disableAccessType">
+														{{menu.accessType}}
+													</div>
+													<div class="form-group" *ngIf="!menu.isDisable">
+														<select [(ngModel)]="menu.accessType" [ngModelOptions]="{standalone: true}" class="form-control" (change)="change2ndLavel(menu, indOne, menu.accessType)">
+															<option value="View Access">View Access</option>
+															<option value="Full Access">Full Access</option>
+															<option value="Partial Access">Partial Access</option>
+															<option value="No Access">No Access</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div *ngFor="let indTwo = index; let subMenu of menu.second_level">
+												<div class="row">
+													<div class="col-xs-8">
+														<div class="info-col">{{subMenu.menu}}</div>
+													</div>
+													<div class="col-xs-4">
+														<div *ngIf="subMenu.isDisable"  class="disableAccessType">
+															{{subMenu.accessType}}
+														</div>
+														<div class="form-group" *ngIf="!subMenu.isDisable">
+															<select [(ngModel)]="subMenu.accessType" [ngModelOptions]="{standalone: true}" class="form-control" (change)="change3ndLavel(subMenu, indTwo, subMenu.accessType)">
+																<option value="View Access">View Access</option>
+																<option value="Full Access">Full Access</option>
+																<option value="Partial Access">Partial Access</option>
+																<option value="No Access">No Access</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="row" *ngFor="let indThree = index; let actionMenu of subMenu.third_level">
+													<div class="col-xs-8">
+														<div class="info-col actionName">{{actionMenu.menu}}</div>
+													</div>
+													<div class="col-xs-4">
+														<div class="checkBox" *ngIf="!actionMenu.isDisable">
+															<label>
+																<input autocomplete="nope" [(ngModel)]="actionMenu.actionAccess" [ngModelOptions]="{standalone: true}" type="checkbox" (change)="checkStatus(actionMenu)">
+																<span class="iconChk"><i class="fa fa-check"></i> </span>
+															</label>
+														</div>
+														<div *ngIf="actionMenu.isDisable" class="accessCheck" style="">
+															<i class="fa fa-check" aria-hidden="true"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- <hr/>
+										<div class="row">
+											<div class="col-xs-8">
+												<div class="label-col">Mobile APP Access</div>
+											</div>
+											<div class="col-xs-4">
+												<div class="checkBox">
+													<label>
+														<input autocomplete="nope" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="mobileAppAccess.actionAccess">
+														<span class="iconChk"><i class="fa fa-check"></i> </span>
+													</label>
+												</div>
+											</div>
+										</div> -->
+									</div>
+								</div>
+							</div>
+              <div class="clearfix"></div>
+
+              <div class="errMsgCon" *ngIf="isError">
+                <small>{{errMsg}}</small>
+              </div>
+
+							<div class="button-row clearfix">
+								<button mat-raised-button *ngIf="!isEdit" class="trea-btn" type="submit" (click)="reviewRole(roleForm)">Next</button>
+								<button mat-raised-button id="updateRole" *ngIf="isEdit" class="trea-btn" type="button" (click)="updateRole()">Update</button>
+								<button mat-raised-button class="trea-btn" type="button" (click)="cancelRole()">Cancel</button>
+							</div>
+						</div>
+					</form>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

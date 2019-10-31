@@ -1,0 +1,77 @@
+
+// .trea-btn{
+//     background-color: #00A499;
+//     color: #FFFFFF;
+//     border-radius: 0px;
+//     height: 30px;
+//     line-height: 30px;
+//     min-width: 80px;
+//     padding: 0 8px;
+// }
+// .trea-btn:focus{
+//     outline: none;
+// }
+// .trea-btn:hover{
+//     color: #505050!important;
+//     background-color: #FFCB36!important;
+// }
+.newWorkOrderDetails{
+    margin-bottom: 25px;
+}
+.ML20{margin-left: 20px;}
+.workOrderReviewWrap {margin-top: 10px;}
+.workOrderReviewWrap .titletxt {font-weight: 700; font-size: 18px; margin:40px 0px 25px 0px;}
+.workServiceTbl, .workMaterialTbl {border-bottom: 1px solid #444;}
+.workOrderReviewWrap table tr th {
+    border-top: 1px solid #444;
+    border-bottom: 1px solid #444;
+ }
+ .workMaterialTbl table tr th, .workMaterialTbl table tr td {
+    border-top: 1px solid #444;
+ }
+ .servTimeTbl {margin-top: 35px;}
+ .workRevBtnCov {
+     margin-top: 60px;
+     text-align: center;
+}
+
+ .workOrderReviewWrap .subTitle{
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    text-align: center;
+}
+.workOrderReviewWrap .servicesDetails .table  tr td:nth-child(1) {
+    max-width: 120px;
+}
+  
+.workOrderReviewWrap .servicesDetails .table  tr td:nth-child(5) {
+    max-width: 342px;
+}
+
+.workOrderReviewWrap .servicesDetails .table > thead > tr > th, .workOrderReviewWrap .materialsDetails .table > thead > tr > th {
+    border-top: 1px solid #7E7E7E;
+    border-bottom: 1px solid #7E7E7E;
+}
+.workOrderReviewWrap .servicesDetails .table>tfoot{
+    border-bottom: 1px solid #7E7E7E;
+    border-top: 1px solid #7E7E7E;
+}
+.workOrderReviewWrap .servicesDetails .tfooter, .materialsDetails .tfooter{
+    border-bottom: 1px solid #7E7E7E;
+    text-align: center;
+    border-top: 1px solid #7E7E7E;
+    padding: 20px;
+    font-weight: 700;
+    font-size: 16px;
+
+}
+.workOrderReviewWrap .servicesDetails .table  tr td, 
+.workOrderReviewWrap .materialsDetails .table  tr td, 
+.workOrderReviewWrap .scheduleDetails .table  tr td, 
+.workOrderReviewWrap .paymentsDetails .table  tr td{
+    color:#7E7E7E;
+    overflow-wrap: break-word;
+}

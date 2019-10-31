@@ -1,0 +1,39 @@
+.exitClientFormBody, .newClientFormBody{
+    max-width: 684px;
+    margin: 30px auto;
+}
+
+.projectEstimationWrap .treaRadioBtn{
+	padding-top: 8px;
+}
+.projectEstimationWrap .treaRadioBtn [type="radio"]:checked + label, .treaRadioBtn [type="radio"]:not(:checked) + label {
+    padding-left: 40px;
+}
+.exitClientFormBody .control-label , .newClientFormBody .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    left: 40px;
+    text-align: left;
+}
+.clientFormBtnWrap{
+    max-width: 536px;
+    margin: 30px auto;
+}
+.projectEstimationWrap h3{
+	text-align: center;
+    font-weight: 700;
+    margin-bottom: 80px;
+}
+
+.projectEstimationWrap .mapWeap{
+	margin: 60px auto;
+}
+.projectEstimationWrap label{
+	font-weight: 100;
+}
+.newClientFormBody .txtColor, .exitClientFormBody .txtColor{
+	color: #D1D1D1;
+}
+.mapWeap agm-map {
+  height: 300px;
+}

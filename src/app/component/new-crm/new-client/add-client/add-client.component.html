@@ -1,0 +1,740 @@
+<!-- Page URL :- http://localhost:4200/csa/add-client/MA%3D%3D -->
+<h3 *ngIf="!crm.isEditFromList">New Client</h3>
+<div class="newClientWrapper clearfix">
+  <form autocomplete="off" [formGroup]="addClientFm">
+      <div class="row">
+          <div class="col-sm-6 Pad0">
+            <div class="row form-group" >
+              <div class="col-sm-5 Pad0">
+                <div class="label-col">Name</div>
+              </div>
+              <div class="col-sm-4">
+                  <input
+                  autocomplete="nope"
+                  class="form-control"
+                  formControlName="client_name"
+                  placeholder=""
+                  type="text"
+                />
+                <span
+                  class="error-msg"
+                  *ngIf="
+                    client_name.invalid &&
+                    (client_name.dirty || client_name.touched || submitted)
+                  "
+                >
+                  <small *ngIf="client_name.errors.required"
+                    >Name is required.</small
+                  >
+                  <small *ngIf="client_name.errors.minlength"
+                    >Name must be at least 2 characters long.</small
+                  >
+                  <small *ngIf="client_name.errors.maxlength"
+                    >Name must be less than 100 characters.</small
+                  >
+                </span>
+              </div>
+            </div>
+            <div class="row form-group" >
+              <div class="col-sm-5 Pad0">
+                <div class="label-col">Client Type</div>
+              </div>
+              <div class="col-sm-4">
+                    <select class="form-control" formControlName="client_type">
+                      <option value="" selected></option>
+                      <option value="Company">Company</option>
+                      <option value="Individual">Individual</option>
+                    </select>
+                    <span
+                      class="error-msg"
+                      *ngIf="
+                        client_type.invalid &&
+                        (client_type.dirty || client_type.touched || submitted)
+                      "
+                    >
+                      <small *ngIf="client_type.errors.required"
+                        >Client Type is required.</small
+                      >
+                    </span>
+              </div>
+            </div>
+
+            <div class="row form-group" *ngIf="addClientFm.get('client_type').value == 'Company'">
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col optional">Legal Name</div>
+                </div>
+                <div class="col-sm-4">
+                    <input
+                    autocomplete="nope"
+                    class="form-control"
+                    formControlName="legal_name"
+                    placeholder="(Optional)"
+                    type="text"
+                  />
+                </div>
+              </div>
+            <div class="row form-group" >
+              <div class="col-sm-5 Pad0">
+                <div class="label-col optional">Payment Term</div>
+              </div>
+              <div class="col-sm-4">
+                  <input
+                  autocomplete="nope"
+                  class="form-control"
+                  formControlName="payment_term"
+                  placeholder="(optional)"
+                  type="text"
+                />
+              </div>
+              <div>
+                  days
+              </div>
+            </div>
+            <div class="row form-group" >
+              <div class="col-sm-5 Pad0">
+                <div class="label-col optional">Referral Type</div>
+              </div>
+              <div class="col-sm-4">
+                  <div class="autoCompleteList">
+                    <div class="searchList">
+                      <mat-form-field class="product">
+                        <input
+                          autocomplete="nope"
+                          id="ref_type_id"
+                          matInput
+                          placeholder=""
+                          [formControl]="referral_type"
+                          [matAutocomplete]="referralTyp"
+                          (keyup)="validateClient($event)"
+                        />
+                        <i
+                          *ngIf="referral_type.value != ''"
+                          (click)="
+                            util.clearAutoComplete('ref_type_id', [
+                              referral_type,
+                              ref_type_id
+                            ])
+                          "
+                          class="clearAutoComplete fa fa-times-circle"
+                          aria-hidden="true"
+                        ></i>
+                        <img
+                          *ngIf="referral_type.value == ''"
+                          class="selectBoxIcon"
+                          aria-hidden
+                          src="assets/icon/select.png"
+                        />
+                        <mat-autocomplete #referralTyp="matAutocomplete">
+                          <mat-option
+                            *ngFor="
+                              let indx = index;
+                              let item;
+                              of: filteredReferralTypeList | async
+                            "
+                            [value]="item.referral_type"
+                            (onSelectionChange)="getSelectedReferal(item, $event)"
+                          >
+                            <span>{{ item.referral_type }}</span>
+                          </mat-option>
+                          <mat-option (click)="addReferalType()">
+                            <img aria-hidden src="assets/icon/icon-add.png" />
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="row form-group" >
+              <div class="col-sm-5 Pad0">
+                <div class="label-col optional">Comments</div>
+              </div>
+              <div class="col-sm-6">
+                  <textarea
+                  class="form-control "
+                  placeholder="(Optional)"
+                  rows="5"
+                  name="comments"
+                  formControlName="comments"
+                  class="form-control "
+                ></textarea>
+                <span
+                  class="error-msg"
+                  *ngIf="
+                    comments.invalid &&
+                    (comments.dirty || comments.touched || submitted)
+                  "
+                >
+                  <!-- <small *ngIf="comments.errors.required">Comment is required.</small> -->
+                  <small *ngIf="comments.errors.maxlength"
+                    >Comment must not greater than
+                    {{ constant.DEFAULT_COMMENT_MAXLENGTH }} characters.
+                  </small>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 Pad0">
+            <!-- Extra Fields -->
+            <div class="row" >
+              <!-- Extra Fields -->
+              <div
+                class="col-sm-12 Pad0"
+              >
+
+                <div class="auditorDetails clearfix">
+                  <div class="row form-group" *ngFor="let field of additional_fields.controls; let indx = index"
+                  [formGroup]="field">
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col" [ngClass]="
+                      field.get('optionalStatus').value == 'False' ? '' : 'optional'
+                    "
+                    for="relationship"
+                    >{{ field.get("label").value }}</div>
+                    </div>
+                    <div class="col-sm-4" *ngIf="field.get('dataType').value != 'Date'">
+                        <input
+                        autocomplete="nope"
+                        type="text"
+                        name=""
+                        placeholder="{{
+                          field.get('optionalStatus').value == 'False' ? '' : '(optional)'
+                        }}"
+                        class="form-control"
+                        [ngClass]="
+                          field.get('optionalStatus').value == 'False' ? '' : 'optional'
+                        "
+                        formControlName="data"
+                      />
+                      <span
+                        class="error-msg"
+                        *ngIf="
+                          field.get('data').invalid &&
+                          (field.get('data').dirty ||
+                            field.get('data').touched ||
+                            submitted)
+                        "
+                      >
+                        <small *ngIf="field.get('data').errors.required"
+                          >{{ field.get("label").value }} is required.</small
+                        >
+                        <small *ngIf="field.get('data').errors.pattern"
+                          >Enter valid {{ field.get("label").value }}(e.g.
+                          <span *ngIf="field.get('dataType').value == 'Number'"
+                            >101, 280 etc.</span
+                          ><span *ngIf="field.get('dataType').value == 'Decimal'"
+                            >2.5, 45.5 etc.</span
+                          ><span *ngIf="field.get('dataType').value == 'Date'"
+                            >YYYY-MM-DD, 2018-02-04 etc.</span
+                          >).</small
+                        >
+                      </span>
+                    </div>
+                    <div class="col-sm-4" *ngIf="field.get('dataType').value == 'Date'">
+                        <div class="dateWrapper">
+                            <!-- [min]="minDate"> -->
+                            <input
+                              autocomplete="nope"
+                              type="text"
+                              formControlName="data"
+                              class="date"
+                              [matDatepicker]="picker"
+                              style="pointer-events: none;"
+                              readonly="true"
+                            />
+                            <mat-datepicker #picker></mat-datepicker>
+                            <span class="dateIcon" (click)="picker.open()"
+                              ><img src="assets/icon/date_picker.png"
+                            /></span>
+                            <div class="clearfix"></div>
+                            <span
+                              class="error-msg"
+                              *ngIf="
+                                field.get('data').invalid &&
+                                (field.get('data').dirty ||
+                                  field.get('data').touched ||
+                                  submitted)
+                              "
+                            >
+                              <small *ngIf="field.get('data').errors.required"
+                                >Date is required.</small
+                              >
+                              <small *ngIf="field.get('data').errors.min"
+                                >Please enter upcoming date.</small
+                              >
+                            </span>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h3 class="detailsHeading">Addresses</h3>
+        <div class="row form-group" >
+          <h4 class="detailsSubHeading">Main Address</h4>
+          <div *ngFor="let addrMain of main_address.controls; let indx = index"
+          [formGroup]="addrMain">
+            <div class="col-sm-6 Pad0" >
+              <div class="row form-group" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Address</div>
+                </div>
+                <div class="col-sm-4">
+                    <input autocomplete="nope" type="text" id="address_line_1" name="address_line_1" placeholder="" class="form-control" autocorrect="off" autocapitalize="off" spellcheck="off" #search  [formControl]="addrMain.get('address_line_1')"  (mouseover)="util.disableAutocomplete()" >
+                    <span
+                        class="error-msg"
+                        *ngIf="
+                          addrMain.get('address_line_1').invalid &&
+                          (addrMain.get('address_line_1').dirty ||
+                            addrMain.get('address_line_1').touched ||
+                            submitted)
+                        "
+                      >
+                        <small *ngIf="addrMain.get('address_line_1').errors.required">Address line 1 is required.</small>
+                      </span>
+                </div>
+              </div>
+              <div class="row form-group" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">&nbsp;</div>
+                </div>
+                <div class="col-sm-4">
+                    <input autocomplete="nope" class="form-control" placeholder="(Optional)" [formControl]="addrMain.get('address_line_2')" type="text" >
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 Pad0">
+              <div class="row form-group" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col">Contact</div>
+                </div>
+                <div class="col-sm-4">
+                    <input
+                    autocomplete="nope"
+                    class="form-control"
+                    [formControl]="addrMain.get('name')"
+                    type="text"
+                  />
+                  <span
+                    class="error-msg"
+                    *ngIf="
+                      addrMain.get('name').invalid &&
+                      (addrMain.get('name').dirty ||
+                        addrMain.get('name').touched ||
+                        submitted)
+                    "
+                  >
+                    <small *ngIf="addrMain.get('name').errors.required">Name is required.</small>
+                  </span>
+                </div>
+              </div>
+              <div class="row form-group" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col optional">Contact Type</div>
+                </div>
+                <div class="col-sm-4">
+                    <input
+                    autocomplete="nope"
+                    class="form-control"
+                    placeholder="(Optional)"
+                    [formControl]="addrMain.get('contact_type')"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div class="row form-group" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col optional">Phone</div>
+                </div>
+                <div class="col-sm-4">
+                    <input
+                    autocomplete="nope"
+                    type="text"
+                    [textMask]="{ mask: constant.PHONE_NUMBER_MASK }"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="(Optional)"
+                    [formControl]="addrMain.get('phone_no')"
+                    class="form-control "
+                    (keypress)="util.keyPress($event)"
+                  />
+                  <span
+                    class="error-msg"
+                    *ngIf="
+                      addrMain.get('phone_no').invalid &&
+                      (addrMain.get('phone_no').dirty ||
+                        addrMain.get('phone_no').touched ||
+                        submitted)
+                    "
+                  >
+                    <small *ngIf="addrMain.get('phone_no').errors.pattern"
+                      >Enter Valid Phone Number.</small
+                    >
+                  </span>
+                </div>
+              </div>
+              <div class="row form-group" >
+                <div class="col-sm-5 Pad0">
+                  <div class="label-col optional">Email</div>
+                </div>
+                <div class="col-sm-4">
+                    <input
+                    autocomplete="nope"
+                    type="text"
+                    [formControl]="addrMain.get('email_id')"
+                    class="form-control"
+                    placeholder="(Optional)"
+                  />
+                  <span
+                    class="error-msg"
+                    *ngIf="
+                      addrMain.get('email_id').invalid &&
+                      (addrMain.get('email_id').dirty ||
+                        addrMain.get('email_id').touched ||
+                        submitted)
+                    "
+                  >
+                    <small *ngIf="addrMain.get('email_id').errors.pattern"
+                      >Enter valid email.</small
+                    >
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row form-group" >
+            <h4 class="detailsSubHeading">Billing Address</h4>
+            <div class="checkBox form-group">
+                <label>
+                    <input formControlName="billingLocationSameAsMain" type="checkbox" (change)="checkBillingAsMain(billingLocationSameAsMain)">
+                    <span class="iconChk"><i class="fa fa-check"></i> </span>
+                    Same as Main Address
+                </label>
+            </div>
+            <div *ngFor="let addrBilling of billing_address.controls; let indx = index"
+          [formGroup]="addrBilling">
+              <div class="col-sm-6 Pad0" >
+                <div class="row form-group" >
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Address</div>
+                  </div>
+                  <div class="col-sm-4">
+                      <input autocomplete="nope" type="text" id="address_line_1" name="address_line_1" placeholder="" class="form-control" autocorrect="off" autocapitalize="off" spellcheck="off" #searchBilling [formControl]="addrBilling.get('address_line_1')" (mouseover)="util.disableAutocomplete()" >
+                      <span
+                        class="error-msg"
+                        *ngIf="
+                          addrBilling.get('address_line_1').invalid &&
+                          (addrBilling.get('address_line_1').dirty ||
+                            addrBilling.get('address_line_1').touched ||
+                            submitted)
+                        "
+                      >
+                        <small *ngIf="addrBilling.get('address_line_1').errors.required">Address line 1 is required.</small>
+                      </span>
+                  </div>
+                </div>
+                <div class="row form-group" >
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">&nbsp;</div>
+                  </div>
+                  <div class="col-sm-4">
+                      <input autocomplete="nope" class="form-control" placeholder="(Optional)" [formControl]="addrBilling.get('address_line_2')" type="text" >
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 Pad0">
+                <div class="row form-group" >
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col">Contact</div>
+                  </div>
+                  <div class="col-sm-4">
+                      <input
+                      autocomplete="nope"
+                      class="form-control"
+                      [formControl]="addrBilling.get('name')"
+                      type="text"
+                    />
+                    <span
+                      class="error-msg"
+                      *ngIf="
+                        addrBilling.get('name').invalid &&
+                        (addrBilling.get('name').dirty ||
+                          addrBilling.get('name').touched ||
+                          submitted)
+                      "
+                    >
+                      <small *ngIf="addrBilling.get('name').errors.required">Name is required.</small>
+                    </span>
+                  </div>
+                </div>
+                <div class="row form-group" >
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col optional">Contact Type</div>
+                  </div>
+                  <div class="col-sm-4">
+                      <input
+                      autocomplete="nope"
+                      class="form-control"
+                      placeholder="(Optional)"
+                      [formControl]="addrBilling.get('contact_type')"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div class="row form-group" >
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col optional">Phone</div>
+                  </div>
+                  <div class="col-sm-4">
+                      <input
+                      autocomplete="nope"
+                      type="text"
+                      [textMask]="{ mask: constant.PHONE_NUMBER_MASK }"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      placeholder="(Optional)"
+                      [formControl]="addrBilling.get('phone_no')"
+                      class="form-control "
+                      (keypress)="util.keyPress($event)"
+                    />
+                    <span
+                      class="error-msg"
+                      *ngIf="
+                        addrBilling.get('phone_no').invalid &&
+                        (addrBilling.get('phone_no').dirty ||
+                          addrBilling.get('phone_no').touched ||
+                          submitted)
+                      "
+                    >
+                      <small *ngIf="addrBilling.get('phone_no').errors.pattern"
+                        >Enter Valid Phone Number.</small
+                      >
+                    </span>
+                  </div>
+                </div>
+                <div class="row form-group" >
+                  <div class="col-sm-5 Pad0">
+                    <div class="label-col optional">Email</div>
+                  </div>
+                  <div class="col-sm-4">
+                      <input
+                      autocomplete="nope"
+                      type="text"
+                      [formControl]="addrBilling.get('email_id')"
+                      class="form-control"
+                      placeholder="(Optional)"
+                    />
+                    <span
+                      class="error-msg"
+                      *ngIf="
+                        addrBilling.get('email_id').invalid &&
+                        (addrBilling.get('email_id').dirty ||
+                          addrBilling.get('email_id').touched ||
+                          submitted)
+                      "
+                    >
+                      <small *ngIf="addrBilling.get('email_id').errors.pattern"
+                        >Enter valid email.</small
+                      >
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        <div class="clearfix"></div>
+        <div class="row form-group">
+            <h4 class="detailsSubHeading">Work Address</h4>
+            <div class="checkBox form-group">
+                <label>
+                    <input formControlName="workLocationSameAsMain" type="checkbox" (change)="checkWorkAsMain(workLocationSameAsMain)">
+                    <span class="iconChk"><i class="fa fa-check"></i> </span>
+                    Same as Main Address
+                </label>
+            </div>
+            <div *ngFor="let addrWork of work_address.controls; let indx = index"
+          [formGroup]="addrWork">
+                <div class="col-sm-6 Pad0" *ngIf="addrWork.get('is_deleted').value != 1">
+                  <div class="row form-group" >
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col"><a
+                        href="javascript:void(0)"
+                        class="ML15"
+                        (click)="removeAddress(indx)"  *ngIf="indx != 0"
+                        ><img class="" src="assets/icon/close_icon.png"
+                      /></a>Address</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input autocomplete="nope" type="text" [attr.id]="'address_line_'+indx" name="address_line_1" placeholder="" class="form-control" autocorrect="off" autocapitalize="off" spellcheck="off" #searchWork  [formControl]="addrWork.get('address_line_1')"  (mouseover)="util.disableAutocomplete()" >
+                        <span
+                        class="error-msg"
+                        *ngIf="
+                          addrWork.get('address_line_1').invalid &&
+                          (addrWork.get('address_line_1').dirty ||
+                            addrWork.get('address_line_1').touched ||
+                            submitted)
+                        "
+                      >
+                        <small *ngIf="addrWork.get('address_line_1').errors.required">Address line 1 is required.</small>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row form-group" >
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col">&nbsp;</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input autocomplete="nope" class="form-control" placeholder="(Optional)" [formControl]="addrWork.get('address_line_2')" type="text" >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 Pad0" *ngIf="addrWork.get('is_deleted').value != 1">
+                  <div class="row form-group" >
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col">Contact</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input
+                        autocomplete="nope"
+                        class="form-control"
+                        [formControl]="addrWork.get('name')"
+                        type="text"
+                      />
+                      <span
+                        class="error-msg"
+                        *ngIf="
+                          addrWork.get('name').invalid &&
+                          (addrWork.get('name').dirty ||
+                            addrWork.get('name').touched ||
+                            submitted)
+                        "
+                      >
+                        <small *ngIf="addrWork.get('name').errors.required">Name is required.</small>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row form-group" >
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col optional">Contact Type</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input
+                        autocomplete="nope"
+                        class="form-control"
+                        placeholder="(Optional)"
+                        [formControl]="addrWork.get('contact_type')"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="row form-group" >
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col optional">Phone</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input
+                        autocomplete="nope"
+                        type="text"
+                        [textMask]="{ mask: constant.PHONE_NUMBER_MASK }"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        placeholder="(Optional)"
+                        [formControl]="addrWork.get('phone_no')"
+                        class="form-control "
+                        (keypress)="util.keyPress($event)"
+                      />
+                      <span
+                        class="error-msg"
+                        *ngIf="
+                          addrWork.get('phone_no').invalid &&
+                          (addrWork.get('phone_no').dirty ||
+                            addrWork.get('phone_no').touched ||
+                            submitted)
+                        "
+                      >
+                        <small *ngIf="addrWork.get('phone_no').errors.pattern"
+                          >Enter Valid Phone Number.</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row form-group" >
+                    <div class="col-sm-5 Pad0">
+                      <div class="label-col optional">Email</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input
+                        autocomplete="nope"
+                        type="text"
+                        [formControl]="addrWork.get('email_id')"
+                        class="form-control"
+                        placeholder="(Optional)"
+                      />
+                      <span
+                        class="error-msg"
+                        *ngIf="
+                          addrWork.get('email_id').invalid &&
+                          (addrWork.get('email_id').dirty ||
+                            addrWork.get('email_id').touched ||
+                            submitted)
+                        "
+                      >
+                        <small *ngIf="addrWork.get('email_id').errors.pattern"
+                          >Enter valid email.</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group clearfix">
+              <div class="col-sm-12">
+                <div class="addIcon Mar0 pull-left">
+                  <img
+                    src="assets/icon/icon-add.png"
+                    (click)="addWorkAddress(work_address.controls.length, 0)"
+                  /><span
+                    class="labelBtn optional cursorPtr"
+                    (click)="addWorkAddress(work_address.controls.length, 0)"
+                    >Add Address</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+    <div class="errMsgCon" *ngIf="isError">
+      <small>{{ errMsg }}</small>
+    </div>
+    <div class="button-row clearfix">
+      <button
+        mat-raised-button
+        class="trea-btn"
+        (click)="goToReview(addClientFm)"
+        *ngIf="!crm.isEditFromList"
+      >
+        Next
+      </button>
+      <button
+        mat-raised-button
+        id="updateClient"
+        class="trea-btn"
+        (click)="updateClient(addClientFm)"
+        *ngIf="crm.isEditFromList"
+      >
+        Update
+      </button>
+      <button mat-raised-button class="trea-btn" (click)="cancelAddClient()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
