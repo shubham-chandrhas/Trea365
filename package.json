@@ -34,7 +34,7 @@
     "angular2-text-mask": "^8.0.4",
     "blueimp-canvas-to-blob": "^3.14.0",
     "bootstrap": "^3.3.7",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "compression": "^1.7.4",
     "core-js": "^2.4.1",
     "date-fns": "^1.30.1",
