@@ -54,7 +54,7 @@
     "ngx-file-drop": "^2.0.4",
     "ngx-pagination": "^3.0.3",
     "ngx-popover": "0.0.16",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "rxjs": "^5.5.2",
     "underscore": "^1.8.3",
     "zone.js": "^0.8.14"
